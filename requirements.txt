@@ -11,3 +11,4 @@ pyflakes==1.5.0
 sqlparse==0.2.4
 urllib3==1.22
 vine==1.1.4
+Pillow==5.4.1
