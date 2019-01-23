@@ -17,11 +17,14 @@ from django.conf import settings
 from django.conf.urls import url, include
 from django.conf.urls.static import static
 from django.contrib import admin
+from os import listdir
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('applications.alumniprofile.urls')),
 ]
+for app in listdir('applications'):
+    urlpatterns.append(url(r'^'+app+'/', include('applications.' + app + '.urls')))
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
