@@ -14,6 +14,7 @@ And additional requirements are in **requirements.txt**
   * Install virtualenv `$ sudo apt install python-virtualenv`  
   * Create a virtual environment `$ virtualenv env -p python3.6`  
   * Activate the env: `$ source env/bin/activate`
+  * Install mysql-client : `sudo apt-get install libmysqlclient-dev`
   * Install the requirements: `$ pip install -r requirements.txt`
   * Change directory to AluminiConnect `$ cd AluminiConnect`
   * Make migrations `$ python manage.py makemigrations`
