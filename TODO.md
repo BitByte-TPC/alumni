@@ -1,7 +1,7 @@
 # TODO
 
 **24-jan-19**
-- [x] Home Page
+- [x] Home Page 
 - [ ] Login/sign up page (style remain)
 
 **25-jan-19**
