@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+</head>
+
+<body>
+    <form method="POST">
+        {% csrf_token %}
+        <p>
+            <label>Username</label>
+            <input type="text" name="username" required>
+        </p>
+        <p>
+            <label>Email</label>
+            <input type="text" name="email" required>
+        </p>
+        <p>
+            <label>Password</label>
+            <input type="password" name="password" required>
+        </p>
+        <button type="submit" value="signup" name="submit">SignUp</button>
+    </form>
+
+    <form method="POST">
+        {% csrf_token %}
+        <p>
+            <label>Username</label>
+            <input type="text" name="username" required>
+        </p>
+        <p>
+            <label>Password</label>
+            <input type="password" name="password" required>
+        </p>
+        <button type="submit" value="login" name="submit">Login</button>
+    </form>
+
+    
+</body>
+
+</html>

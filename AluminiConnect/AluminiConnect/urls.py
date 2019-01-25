@@ -17,16 +17,20 @@ from django.conf import settings
 from django.conf.urls import url, include
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
 from os import listdir
 from .  import views
 
-urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^', views.index),
-]
+urlpatterns = []
 
 for app in listdir('applications'):
     urlpatterns.append(url(r'^'+app+'/', include('applications.' + app + '.urls')))
+
+urlpatterns += [
+    url(r'^admin/', admin.site.urls),    
+    url(r'^login/', views.auth),
+    url(r'^', views.index),
+]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
