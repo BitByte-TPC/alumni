@@ -18,7 +18,7 @@
  hr {
    max-width: 50px;
    border-width: 3px;
-   border-color: #f05f40
+   border-color: #324b7e
  }
  
  hr.light {
@@ -26,13 +26,13 @@
  }
  
  a {
-   color: #f05f40;
+   color: #3b75ec;
    -webkit-transition: all .2s;
    transition: all .2s
  }
  
  a:hover {
-   color: #f05f40
+   color: #324b7e
  }
  
  h1,
@@ -45,7 +45,7 @@
  }
  
  .bg-primary {
-   background-color: #f05f40!important
+   background-color: #324b7e!important
  }
  
  .bg-dark {
@@ -102,13 +102,13 @@
  #mainNav .navbar-brand {
    font-weight: 700;
    text-transform: uppercase;
-   color: #f05f40;
+   color: #324b7e;
    font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif
  }
  
  #mainNav .navbar-brand:focus,
  #mainNav .navbar-brand:hover {
-   color: #f05f40
+   color: #324b7e
  }
  
  #mainNav .navbar-nav>li.nav-item>a.nav-link,
@@ -121,12 +121,12 @@
  
  #mainNav .navbar-nav>li.nav-item>a.nav-link:focus:hover,
  #mainNav .navbar-nav>li.nav-item>a.nav-link:hover {
-   color: #f05f40
+   color: #324b7e
  }
  
  #mainNav .navbar-nav>li.nav-item>a.nav-link.active,
  #mainNav .navbar-nav>li.nav-item>a.nav-link:focus.active {
-   color: #f05f40!important;
+   color: #324b7e!important;
    background-color: transparent
  }
  
@@ -163,11 +163,11 @@
      background-color: #fff
    }
    #mainNav.navbar-shrink .navbar-brand {
-     color: #f05f40
+     color: #324b7e
    }
    #mainNav.navbar-shrink .navbar-brand:focus,
    #mainNav.navbar-shrink .navbar-brand:hover {
-     color: #f05f40
+     color: #324b7e
    }
    #mainNav.navbar-shrink .navbar-nav>li.nav-item>a.nav-link,
    #mainNav.navbar-shrink .navbar-nav>li.nav-item>a.nav-link:focus {
@@ -175,7 +175,7 @@
    }
    #mainNav.navbar-shrink .navbar-nav>li.nav-item>a.nav-link:focus:hover,
    #mainNav.navbar-shrink .navbar-nav>li.nav-item>a.nav-link:hover {
-     color: #f05f40
+     color: #324b7e
    }
  }
  
@@ -183,6 +183,7 @@
     position:absolute;
     z-index:-1;
     background-image: url(/static/AluminiConnect/img/header.jpg);
+    background-size: 100% 100%;
  }
 
  header.masthead {
@@ -298,7 +299,7 @@
  }
  
  .text-primary {
-   color: #f05f40!important
+   color: #324b7e!important
  }
  
  .btn {
@@ -314,15 +315,15 @@
  }
  
  .btn-primary {
-   background-color: #f05f40;
-   border-color: #f05f40
+   background-color: #324b7e;
+   border-color: #324b7e
  }
  
  .btn-primary:active,
  .btn-primary:focus,
  .btn-primary:hover {
    color: #fff;
-   background-color: #ee4b28!important
+   background-color: #324b7e!important
  }
  
  .btn-primary:active,
@@ -350,7 +351,7 @@
     background-size: cover;
   }
   .border-primary {
-    border-color: #f05f40 !important;
+    border-color: #324b7e !important;
 }
 .font-open-sans{
     font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;

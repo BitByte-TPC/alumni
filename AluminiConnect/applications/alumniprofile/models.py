@@ -42,7 +42,7 @@ class ExtraInfo(models.Model):
     current_city = models.CharField(null = True, max_length = 20)
     current_organisation = models.CharField(null = True, max_length = 20)
     current_university = models.CharField(null = True, max_length = 20)
-    current_position = models.CharField(null = True)
+    current_position = models.CharField(null = True, max_length = 128)
     website = models.URLField(null = True)
     linkedin = models.URLField(null=True)
     profile_picture = models.ImageField(null = True, blank = True, upload_to = 'alumniprofile/profile_pictures')
