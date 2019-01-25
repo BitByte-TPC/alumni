@@ -7,7 +7,7 @@
 **25-jan-19**
 - [x] use online hosted fontawesome and js librares, remove local 
 - [x] change theme color to blue from institue site and fix css
-- [ ] add popup window for Login/signup page in homepage
+- [x] add & style ~~popup window~~ new page for Login/signup page
 - [ ] change layout of homepage
 
 **Extra**
