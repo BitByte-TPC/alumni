@@ -1,42 +1,224 @@
+
+{% load static %}
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
-<head>
-    <title></title>
-</head>
+  <head>
 
-<body>
-    <form method="POST">
-        {% csrf_token %}
-        <p>
-            <label>Username</label>
-            <input type="text" name="username" required>
-        </p>
-        <p>
-            <label>Email</label>
-            <input type="text" name="email" required>
-        </p>
-        <p>
-            <label>Password</label>
-            <input type="password" name="password" required>
-        </p>
-        <button type="submit" value="signup" name="submit">SignUp</button>
-    </form>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-    <form method="POST">
-        {% csrf_token %}
-        <p>
-            <label>Username</label>
-            <input type="text" name="username" required>
-        </p>
-        <p>
-            <label>Password</label>
-            <input type="password" name="password" required>
-        </p>
-        <button type="submit" value="login" name="submit">Login</button>
-    </form>
+    <title>Signin/Signup - Alumni Connect - IIITDM Jabalpur</title>
 
+    <!-- Bootstrap core CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <!-- Custom fonts for this template -->
     
-</body>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
+    <!-- Plugin CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-creative/5.0.2/css/creative.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{% static "AluminiConnect/css/creative.css" %}" rel="stylesheet">
+
+  </head>
+
+  <body id="page-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">Alumni Connect</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#featured">Featured Alumni</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#gallery">Gallery</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-dark btn-xl js-scroll-trigger text-white" style="padding: .5rem 1rem;" href="./login/">Sign In</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class=" p-0 m-0 masthead-bg w-100 h-100 parallax" style="background-position-y: -25rem"></div>
+
+    <header class="masthead text-center text-white d-flex" style="height:0px;min-height:300px">
+      <div class="container my-auto" style="margin-bottom:50px !important;">
+        <div class="row">
+          <div class="col-lg-4 mx-auto align-middle">
+            <h2 class="text-uppercase">
+              <img src= {% static "AluminiConnect/img/logo/alumb1.png" %} style="width: 4em; height: auto;">
+            </h2>
+          </div>
+          <div class="col-lg-8 mx-auto align-middle">
+            <h1 class="text-uppercase mt-4">
+              <strong>ALUMNI ASSOCIATION</strong>
+            </h1>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section id="services" class="bg-primary p-1">
+    </section>
+
+    <section class="bg-white" id="about">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 mx-auto mx-auto">
+            <div class="row text-center">
+                <div class="col-lg-12 text-primary">
+                    <h2>SIGN IN</h2>
+                    <hr class="mb-4">
+                </div>
+            </div>
+            <div class="row text-left m-4 p-4">
+                <div class="col-lg-12">
+                    <form method="POST" class="font-open-sans">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="signin-uname">Username</label>
+                            <input id="signin-uname" type="text" name="username" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="button-addon2" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signin-password">Password</label>
+                            <input id="signin-password" type="password" name="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="button-addon2" required>
+                        </div>
+                        <button class="btn btn-primary" type="submit" value="login" name="submit">Sign In</button>
+                    </form>
+                </div>
+            </div>
+          </div>
+          <div class="col-lg-6 mx-auto text-left mx-auto">
+            <div class="row text-center">
+                <div class="col-lg-12 text-primary">
+                    <h2>SIGN UP</h2>
+                    <hr>
+                </div>
+            </div>
+            <div class="row text-left m-4 p-4">
+                <div class="col-lg-12">
+                    <form method="POST" class="font-open-sans">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="signup-username">Username</label>
+                            <input id="signup-username" type="text" name="username" class="form-control" placeholder="Enter Username" aria-label="Enter Username" aria-describedby="button-addon2" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signup-email">Email</label>
+                            <input id="signup-email" type="text" name="email" class="form-control" placeholder="Enter E-Mail ID" aria-label="Enter E-Mail ID" aria-describedby="button-addon2" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signup-password">Password</label>
+                            <input id="signup-password" type="password" name="password" class="form-control" placeholder="Enter Password" aria-label="Enter Password" aria-describedby="button-addon2" required>
+                        </div>
+                        <button class="btn btn-primary" type="submit" value="signup" name="submit">Sign Up</button>
+                    </form>
+                </div>      
+            </div>      
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="text-white bg-dark">
+      <div class="container">
+        <div class="row font-open-sans">
+
+          <div class="col-lg-3 text-white text-left">
+            <h6 class="title text-uppercase border-bottom p-3" style="padding-left:0px !important">About</h6>
+            <br>
+            <ul class="list-unstyled">
+              <li><a href="http://www.iiitdmj.ac.in/">Home</a></li>
+              <li><a href="http://faculty.iiitdmj.ac.in/" target="_blank">Faculty</a></li>
+              <li><a href="http://pbi.iiitdmj.ac.in/">PBI</a></li>
+              <li><a href="http://www.iiitdmj.ac.in/rti.php">RTI</a></li>
+              <li><a href="../site.iiitdmj.ac.in/download/IIIT%20Act%2030_of_2014.pdf">IIIT Act</a></li>
+              <li><a href="http://www.iiitdmj.ac.in/maps_direction.php">Maps &amp; Directions</a></li>
+              <li><a href="../site.iiitdmj.ac.in/download/taxi%20services.pdf">Taxi Services</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-3 text-white text-left">
+            <h6 class="title text-uppercase border-bottom p-3" style="padding-left:0px !important">Important Links</h6>
+            <br>
+            <ul class="list-unstyled">
+              <li><a href="http://www.iiitdmj.ac.in/academics/calendar.php#acad_cal">Academic Calendar</a></li>
+              <li><a href="http://ict.iiitdmj.ac.in/index.html">Electronics and ICT Academy</a></li>
+              <li><a href="http://efee.iiitdmj.ac.in/efee/">On Line Fee Payment</a></li>
+              <li><a href="http://www.iiitdmj.ac.in/hindi.php">Hindi Notice Board</a></li>
+              <li><a href="http://www.iiitdmj.ac.in/annual_report.php">Annual Report</a></li>
+              <li><a href="http://www.iiitdmj.ac.in/annual_account.php">Annual Account</a></li>
+              <li><a href="http://community.worldlibrary.in/?Affiliatikey=NDL-ZY1239" target="_blank">World e-book library</a></li>
+              <li><a href="http://cec.nic.in/Pages/Home.aspx" target="_blank">Consortium for Educational Communication(CEC)</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-3 text-white text-left">
+            <h6 class="title text-uppercase border-bottom p-3" style="padding-left:0px !important">Others</h6>
+            <br>
+            <ul class="list-unstyled">
+              <li><a href="http://site.iiitdmj.ac.in/STSCCell/">SC/ST and Minority Cell</a></li>
+              <li><a href="http://site.iiitdmj.ac.in/womencell/index.html">Women Cell</a></li>
+              <li><a href="http://revista.iiitdmj.ac.in/">Revista</a></li>
+              <li><a href="http://www.iiitdmj.ac.in/contact.php">Contacts</a></li>
+              <li><a href="http://site.iiitdmj.ac.in/tenders.html">Tenders</a></li>
+              <li><a href="http://site.iiitdmj.ac.in/home.html">Jobs</a></li>
+              <li><a href="http://rajbhasha.iiitdmj.ac.in/" target="_blank">Sansthan Rajbhasha Vibhag</a></li>
+              <li><a href="../web.iiitdmj.ac.in/download/notifications/List%20of%20Institute%20closed%20holidays%20for%20the%20calender%20year%202017.pdf">Closed Holiday 2017 </a></li>
+              <li><a href="../web.iiitdmj.ac.in/download/notifications/List%20of%20Institute%20restricted%20holidays%20for%20the%20calender%20year%202017.pdf">Restricted Holiday 2017 </a></li>
+             </ul>
+          </div>
+          <div class="col-lg-3 text-white text-left">
+            <h6 class="title text-uppercase border-bottom p-3" style="padding-left:0px !important">Contact Us</h6>
+            <br>
+            <ul class="list-unstyled">
+              <li><a href="#">Indian Institute of Information Technology Design & Manufacturing Jabalpur</a></li>
+              <li><a href="#">Dumna Airport Road, Dumna - 482005</a></li>
+            </ul>
+            <ul class="list-unstyled">
+                <li><a href="../www.iiitdmj.ac.in/downloads/IIITDMJ%20Telephone%20Directory.pdf" target="_blank">Phone Directory</a></li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+		
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/scrollReveal.js/4.0.5/scrollreveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-creative/5.0.2/js/creative.min.js"></script>
+
+  </body>
 
 </html>
