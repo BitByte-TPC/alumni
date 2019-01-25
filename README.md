@@ -21,6 +21,7 @@ And additional requirements are in **requirements.txt**
   * To Make migrations for a particular app `$ python manage.py makemigrations <App name>`
   * Migrate the changes to the database `$ python manage.py migrate`
   * Run the server `$ python manage.py runserver`
+  * Create admin `$ python manage.py createsuperuser`
 
 ## Contributing  
   * Create a new branch with a related name of the motive i.e. bug/refactor/feature  
