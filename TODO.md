@@ -13,3 +13,4 @@
 **Extra**
 - [ ] add email confirmation 
 - [ ] move secret key from setting.py
+- [ ] add attendees, gallery in events

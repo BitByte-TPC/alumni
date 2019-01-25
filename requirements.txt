@@ -3,6 +3,7 @@ mysqlclient==1.3.12
 oauthlib==2.0.4
 html5lib==1.0b10
 django-allauth==0.32.0
+django-cleanup==3.0.1
 django-debug-toolbar==1.8
 django-semanticui-forms==1.6.5
 beautifulsoup4==4.6.0
