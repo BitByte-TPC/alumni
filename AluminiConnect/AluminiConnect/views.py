@@ -42,3 +42,5 @@ def auth(request):
     return render(request, 'AluminiConnect/signup.html')
     
             
+def login_view(request):
+    return render(request, "awards/home.html")

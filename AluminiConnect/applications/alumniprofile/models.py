@@ -29,7 +29,7 @@ class Constants:
 class ExtraInfo(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE)
     roll_no = models.IntegerField(primary_key = True)
-    disciplline = models.CharField(max_length = 50, choices = Constants.DISC_CHOICES)
+    discipline = models.CharField(max_length = 50, choices = Constants.DISC_CHOICES)
     branch = models.CharField(choices = Constants.BRANCH, max_length = 20)
     sex = models.CharField(max_length = 2, choices = Constants.SEX_CHOICES, default = 'M')
     date_of_birth = models.DateField(default = datetime.date(1970,1,1))
