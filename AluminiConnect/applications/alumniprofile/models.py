@@ -26,9 +26,13 @@ class Constants:
         ('NA', 'Not Applicable')
     )
 
+class Year(models.Model):
+    pass
+
 class ExtraInfo(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE)
     roll_no = models.IntegerField(primary_key = True)
+    batch = models.ForeignKey(Year)
     discipline = models.CharField(max_length = 50, choices = Constants.DISC_CHOICES)
     branch = models.CharField(choices = Constants.BRANCH, max_length = 20)
     sex = models.CharField(max_length = 2, choices = Constants.SEX_CHOICES, default = 'M')
@@ -38,4 +42,8 @@ class ExtraInfo(models.Model):
     current_city = models.CharField(null = True, max_length = 20)
     current_organisation = models.CharField(null = True, max_length = 20)
     current_university = models.CharField(null = True, max_length = 20)
+    current_position = models.CharField(null = True)
+    website = models.URLField(null = True)
+    linkedin = models.URLField(null=True)
     profile_picture = models.ImageField(null = True, blank = True, upload_to = 'alumniprofile/profile_pictures')
+    last_visit = models.DateTimeField(null = True)
