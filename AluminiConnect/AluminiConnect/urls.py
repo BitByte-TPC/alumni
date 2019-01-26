@@ -28,7 +28,7 @@ for app in listdir('applications'):
 
 urlpatterns += [
     url(r'^admin/', admin.site.urls),    
-    url(r'^login/', views.auth),
+    url(r'^login/', auth_views.login),
     url(r'^', views.index),
 ]
 
