@@ -8,14 +8,23 @@
 - [x] use online hosted fontawesome and js librares, remove local 
 - [x] change theme color to blue from institue site and fix css
 - [x] add & style ~~popup window~~ new page for Login/signup page
-- [ ] change layout of homepage
+- [x] change layout of homepage
 
 **January 27, 2019**
-- [ ] Change layout, similar to IITGN
-- [ ] Add Home, Profile, Event Pages
-- [ ] Test Authentication and linking backend
+- [x] Change layout, similar to IITGN
+- [x] Add Home, Profile, Event Pages
+- [ ] Test Authentication and linking backend (logout not working)
 - [ ] Blog
 
+**After Quiz**
+- [ ] navbar "alumni connect" link to home
+- [ ] __seperate navbar__ from pages
+- [ ] page of all events - event page
+- [ ] page of all alumni years like "class of 2021"...
+- [ ] newsletter page
+
+**Super Serious Issues**
+- [ ] logout not working
 
 **Extra**
 - [ ] add email confirmation 
