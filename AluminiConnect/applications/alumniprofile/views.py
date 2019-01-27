@@ -4,7 +4,6 @@ from .models import Profile
 # Create your views here.
 
 def index(request, username):
-<<<<<<< HEAD
     users = Profile.objects.get(user__username = username)
     return render(request, "alumniprofile/profile.html", {"users" : users})
     
