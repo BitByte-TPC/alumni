@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+</head>
+<body>
+    
+
+    {% if user.is_authenticated %}
+    <p>You're logged in!</p>
+    {% else %}
+    <p>Please login to connect!</p>
+    {% endif %}
+    {% for batch,count in data %}
+    <p>Batch {{ batch }} || Count {{ count }}</p>
+    {% endfor %}
+
+</body>
+</html>
