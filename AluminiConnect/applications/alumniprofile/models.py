@@ -27,20 +27,14 @@ class Constants:
         ('NA', 'Not Applicable')
     )
 
-class Year(models.Model):
-    year = models.IntegerField(null = True)
-
-    def __str__(self):
-        return str(self.year)
-
 def upload_photo(instance, filename):
     name, extension = os.path.splitext(filename)
     return 'Profile_Pictures/' + str(instance.user.username) + strftime("_%Y_%m_%d-%H_%M_%S") + extension
 
-class ExtraInfo(models.Model):
+class Profile(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE)
     roll_no = models.IntegerField(primary_key = True)
-    batch = models.ForeignKey(Year)
+    batch = models.IntegerField(null = True)
     programme = models.CharField(max_length = 50, choices = Constants.DISC_CHOICES)
     branch = models.CharField(choices = Constants.BRANCH, max_length = 20)
     sex = models.CharField(max_length = 2, choices = Constants.SEX_CHOICES, default = 'M')
