@@ -42,7 +42,3 @@ def auth(request):
     
     return render(request, 'AluminiConnect/signup.html')
     
-
-def user_profile(request, username):
-    #users = models.Profile.objects.get(user=username)
-    return render(request, 'alumniprofile/profile.html', {'username' : username})
