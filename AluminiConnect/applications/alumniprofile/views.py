@@ -3,4 +3,5 @@ from django.http import HttpResponseRedirect
 # Create your views here.
 
 def index(request, username):
-        return render(request, '/alumniprofile/profile.html/', {'username' : username})    
+        print(username)
+        return render(request, 'alumniprofile/profile.html', {'username' : username})    
