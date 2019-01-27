@@ -30,7 +30,11 @@ urlpatterns += [
     url(r'^admin/', admin.site.urls),    
     url(r'^login/', views.auth),
     url(r'^logout/$', auth_views.logout),
+<<<<<<< HEAD
     url(r'^profile/', include('applications.alumniprofile.urls')),
+=======
+    url(r'profile/', include('applications.alumniprofile.urls')),
+>>>>>>> 9405bf14dda453968793948f7cacebfc466f1580
     url(r'^', views.index),
 ]
 
