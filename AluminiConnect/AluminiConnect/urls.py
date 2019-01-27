@@ -35,7 +35,6 @@ urlpatterns += [
     url(r'^members/', include('applications.members.urls')),
 =======
     url(r'^event/', include('applications.events_news.urls')),
->>>>>>> 13d6c5c07de04ad55fa7eed61f262045e4469818
     url(r'^', views.index),
 ]
 
