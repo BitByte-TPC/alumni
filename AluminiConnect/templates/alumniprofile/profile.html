@@ -1,27 +1,6 @@
 {% load static %}
 
 <!DOCTYPE html>
-<<<<<<< HEAD
-<html>
-<head>
-    <title>Home</title>
-</head>
-<body>
-    <p>{{ users.user.username }}'s Profile</p>
-    <p>Hello {{ users.user.first_name }}. You're logged in!</p>
-    <p>Hello {{ users.user.last_name }}. You're logged in!</p>
-    <p>Hello {{ users.batch }}. You're logged in!</p>
-    <p>Hello {{ users.sex }}. You're logged in!</p>
-    <p>Hello {{ users.programme }}. You're logged in!</p>
-    <p>Hello {{ users.branch }}. You're logged in!</p>
-    <p>Hello {{ users.date_of_birth }}. You're logged in!</p>
-    <p>Hello {{ users.linkedin }}. You're logged in!</p>
-    {% if user.is_authenticated %}
-    <p>You're logged in!</p>
-    {% else %}
-    <p>Please login to connect!</p>
-    {% endif %}
-=======
 <html lang="en">
 
   <head>
@@ -31,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>{{ username }} | Alumni Connect - IIITDMJ</title>
+    <title>{{ name }} | Alumni Connect - IIITDMJ</title>
 
     <!-- Bootstrap core CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
@@ -83,7 +62,7 @@
                 </li>
                 {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="./profile/{{user.username}}/">Hi, {{ user.username }}!</a>
+                    <a class="nav-link" href="./profile/{{user.username}}/">Hi, {{ user.sname }}!</a>
                 </li>
                 <li class="nav-item">
                     <a class="btn btn-dark btn-xl js-scroll-trigger text-white" style="padding: .5rem 1rem;" href="./logout/">Log Out</a>
@@ -116,7 +95,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-12 text-center">
-                                    <h3>{{username}}</h3>
+                                    <h3>{{name}}</h3>
                                 </div>
                             </div>
                             <div class="row">
@@ -260,6 +239,5 @@
         <!-- Custom scripts for this template -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-creative/5.0.2/js/creative.min.js"></script>
     
->>>>>>> 13d6c5c07de04ad55fa7eed61f262045e4469818
 </body>
 </html>
