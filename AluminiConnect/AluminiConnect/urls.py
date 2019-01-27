@@ -30,7 +30,8 @@ urlpatterns += [
     url(r'^admin/', admin.site.urls),    
     url(r'^login/', views.auth),
     url(r'^logout/$', auth_views.logout),
-    url(r'profile/', include('applications.alumniprofile.urls')),
+    url(r'^profile/', include('applications.alumniprofile.urls')),
+    url(r'^event/', include('applications.events_news.urls')),
     url(r'^', views.index),
 ]
 
