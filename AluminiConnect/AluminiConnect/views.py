@@ -8,7 +8,8 @@ from .forms import UserRegistrationForm
 # Create your views here.
 
 def index(request):
-    return render(request, "AluminiConnect/index.html")
+    first_name = request.user.get_short_name()
+    return render(request, "AluminiConnect/index.html", {'name':first_name})
 
 def auth(request):
 
