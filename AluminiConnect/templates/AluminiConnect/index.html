@@ -54,9 +54,18 @@
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
             </li>
+            {% if not user.is_authenticated %}
             <li class="nav-item">
               <a class="btn btn-dark btn-xl js-scroll-trigger text-white" style="padding: .5rem 1rem;" href="./login/">Sign In</a>
             </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="./profile/{{user.username}}/">Hi, {{ user.username }}!</a>
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-dark btn-xl js-scroll-trigger text-white" style="padding: .5rem 1rem;" href="./logout/">Log Out</a>
+            </li>
+            {% endif %}
           </ul>
         </div>
       </div>

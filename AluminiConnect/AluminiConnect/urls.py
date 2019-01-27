@@ -23,12 +23,14 @@ from .  import views
 
 urlpatterns = []
 
-for app in listdir('applications'):
-    urlpatterns.append(url(r'^'+app+'/', include('applications.' + app + '.urls')))
+#for app in listdir('applications'):
+#    urlpatterns.append(url(r'^'+app+'/', include('applications.' + app + '.urls')))
 
 urlpatterns += [
     url(r'^admin/', admin.site.urls),    
-    url(r'^login/', auth_views.login),
+    url(r'^login/', views.auth),
+    url(r'^logout/$', auth_views.logout),
+    url(r'^profile/(?P<username>[\w.@+-]+)/$', views.user_profile),
     url(r'^', views.index),
 ]
 

@@ -3,6 +3,7 @@ from django import forms
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
+from applications.alumniprofile import models
 from .forms import UserRegistrationForm
 # Create your views here.
 
@@ -41,6 +42,7 @@ def auth(request):
     
     return render(request, 'AluminiConnect/signup.html')
     
-            
-def login_view(request):
-    return render(request, "awards/home.html")
+
+def user_profile(request, username):
+    #users = models.Profile.objects.get(user=username)
+    return render(request, 'alumniprofile/profile.html', {'username' : username})
