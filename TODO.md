@@ -13,18 +13,24 @@
 **January 27, 2019**
 - [x] Change layout, similar to IITGN
 - [x] Add Home, Profile, Event Pages
-- [ ] Test Authentication and linking backend (logout not working)
+- [x] Test Authentication and linking backend (logout not working)
 - [ ] Blog
 
+**January 28, 2019**
+- [ ] Add ModelForms to directly update user details
+- [ ] Add decorators for login check etc
+- [ ] add college logo in navbar, also make a 2 row navbar similar to IITGN
+
 **After Quiz**
-- [ ] navbar "alumni connect" link to home
-- [ ] __seperate navbar__ from pages
-- [ ] page of all events - event page
+- [x] navbar "alumni connect" link to home
+- [x] __seperate navbar__ from pages
+- [ ] page of all events and news - event page
 - [ ] page of all alumni years like "class of 2021"...
 - [ ] newsletter page
+- [ ] Add some js for automatically updating latest events,news,gallery cards in homepage
 
 **Super Serious Issues**
-- [ ] logout not working
+- [x] logout not working
 
 **Extra**
 - [ ] add email confirmation 
