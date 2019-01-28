@@ -5,5 +5,5 @@ from . import views
 app_name = 'profile'
 
 urlpatterns = [
-    url(r'(?P<username>[\w.@+-]+)/$', views.index, name='index'),
+    url(r'(?P<username>[\w.@+-]+)/$', views.index, name='profile'),
 ]
