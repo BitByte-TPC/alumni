@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from .models import Profile
+from .editProfile import editProfile
 from datetime import datetime
 from collections import defaultdict 
 #
@@ -22,4 +23,22 @@ def index_year(request, year):
     alumni = Profile.objects.filter(batch = year)
     return render(request, "alumniprofile/index_year.html", {'alumni':alumni})
 
+def edit(request):
+    
+    if request.method == "POST":
+        print('processing data')
+        form = editProfile(request.POST)
+        if form.is_valid():
+            profile = form.save(commit=False)
+            Profile.user = request.user
+            profile.save()
 
+    else:
+        if (not request.user.is_authenticated()):
+            return render(request, "/")
+
+        user = request.user
+        form = editProfile()
+        return render(request, "alumniprofile/edit.html", {'form': form, 'user' : user })
+
+    
