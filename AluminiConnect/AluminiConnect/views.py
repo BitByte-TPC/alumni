@@ -4,12 +4,14 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from .forms import UserRegistrationForm
+from applications.events_news.models import Event
 # Create your views here.
 
 def index(request):
     sname = None
     if( request.user.is_authenticated()):
         sname = request.user.get_short_name()
+    
     return render(request, "AluminiConnect/index.html", {'name':sname})
 
 def auth(request):
