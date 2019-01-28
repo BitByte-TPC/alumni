@@ -28,6 +28,7 @@
 - [ ] page of all alumni years like "class of 2021"...
 - [ ] newsletter page
 - [ ] Add some js for automatically updating latest events,news,gallery cards in homepage
+- [ ] Seperate title of page from "globals", title should be diff. for each page
 
 **Super Serious Issues**
 - [x] logout not working
