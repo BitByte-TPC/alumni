@@ -1,0 +1,48 @@
+{% load static %}
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top navbar-shrink" id="mainNav">
+        <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="{% url 'home' %}">Alumni Connect</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="{% url 'home' %}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="{% url 'members:index' %}">Directory</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="{% url 'events_news:events' %}">Events</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="">Campus Feeds</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="">Publications</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="">Opportunities</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="#gallery">Gallery</a>
+            </li>
+            {% if not user.is_authenticated %}
+            <li class="nav-item">
+                <a class="btn btn-dark btn-xl js-scroll-trigger text-white" style="padding: .5rem 1rem;" href="{% url 'login' %}">Sign In</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'profile:profile' username=user.username %}">Hi, {{ user.username }}!</a>
+            </li>
+            <li class="nav-item">
+                <a class="btn btn-dark btn-xl js-scroll-trigger text-white" style="padding: .5rem 1rem;" href="{% url 'logout' %}">Log Out</a>
+            </li>
+            {% endif %}
+            </ul>
+        </div>
+        </div>
+    </nav>

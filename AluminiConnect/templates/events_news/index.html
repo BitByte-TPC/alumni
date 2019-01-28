@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+</head>
+<body>
+    {% for item in events %} 
+    <ul>
+    <li>{{ item.event_id }}</li>
+    <li>{{ item.title }}</li>
+    <li>{{ item.start_date }}</li>
+    <li>{{ item.end_date }}</li>
+    <li>{{ item.location }}</li>
+    <li>{{ item.description }}</li>
+    </ul>
+    {% endfor %}
+    {% if user.is_authenticated %}
+    <p>You're logged in!</p>
+    {% else %}
+    <p>Please login to connect!</p>
+    {% endif %}
+</body>
+</html>

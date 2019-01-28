@@ -1,16 +1,73 @@
-event_id <br>
-{{ event_id }}<br><br>
- title <br>
- {{ title }} <br><br>
-start_date<br>
-{{ start_date }} <br><br>
-end_date<br>
-{{end_date}}<br><br>
-picture<br>
-{{picture}}<br><br>
-location<br>
-{{location}}<br><br>
-address<br>
-{{address}}<br><br>
-description<br>
-{{description}}<br><br>
+{% extends 'globals/base.html' %}
+{% load static %}
+
+{% block body %}
+    {% include 'globals/navbar.html' %}
+    <div class=" p-0 m-0 masthead-bg w-100 parallax shadow-sm" style="min-height:250px !important;height:270px !important;background-position-y: -400px"></div>
+    <div style="height:150px;min-height: 150px;">
+
+    </div>
+    <section class="bg-transparent" id="events" style="padding-top:3rem">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 text-left p-2 mx-auto">
+
+                    <!--   PIC CARD  -->
+                    <div class="card m-2 shadow-sm">
+                        <div class="card-body p-1">
+                            <img src="{% static "AluminiConnect/img/coll.jpg" %}" 
+                                alt="DP" class="img-fluid h-100 w-100"
+                                style=""
+                            />
+                        </div>
+                    </div>
+
+                    <!--  START END DATE  -->
+                    <div class="card m-2 shadow-sm">
+                        <div class="card-body">
+                            <p class="m-2 font-weight-normal mb-3">
+                              <h5>Start date</h5>
+                                <i class="fas fa-calendar "></i>
+                                &nbsp;<b>{{ start_date }}</b>
+                            </p>
+                            <p class="m-2 font-weight-normal mb-3">
+                                <h5>End date</h5>
+                                <i class="fas fa-calendar "></i>
+                                &nbsp;<b>{{ end_date }}</b>
+                            </p>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-lg-7 text-left p-2 mx-auto">
+
+                    <!--   TITLE  -->
+                    <div class="card m-2 shadow-sm">
+                        <div class="card-body p-4">    
+                            <h2 class="mb-3">{{ title }}</h2>
+                            <p class="font-weight-light m-0">
+                              <i class="fas fa-map-marker-alt  "></i>
+                              {{ address }}, {{ location }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <!--   DETAILS  -->
+                    <div class="card m-2 shadow-sm">
+                        <div class="card-header">
+                            <i class="fas fa-th-list pr-2"></i>
+                            Description
+                        </div>
+                        <div class="card-body p-4">    
+                            <p>{{description}}</p>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </section>  
+{% include 'globals/footer.html' %}
+{% endblock %}

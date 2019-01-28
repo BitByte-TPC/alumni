@@ -28,12 +28,12 @@ urlpatterns = []
 
 urlpatterns += [
     url(r'^admin/', admin.site.urls),    
-    url(r'^login/', views.auth),
-    url(r'^logout/$', auth_views.logout),
+    url(r'^login/', views.auth, name='login'),
+    url(r'^logout/$', auth_views.logout, name='logout'),
     url(r'^profile/', include('applications.alumniprofile.urls')),
     url(r'^members/', include('applications.members.urls')),
-    url(r'^event/', include('applications.events_news.urls')),
-    url(r'^', views.index),
+    url(r'^events/', include('applications.events_news.urls')),
+    url(r'^', views.index, name='home'),
 ]
 
 if settings.DEBUG:
