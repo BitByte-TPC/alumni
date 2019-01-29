@@ -77,6 +77,30 @@
           </div>
         </div>
         <div class="row">
+          {% for item in events %}
+          <div class="col-lg-4 p-2">
+            <div class="card w-100 shadow-sm" style="max-width: 24rem; max-height: 40rem;">
+              {% if item.picture %}
+              <img src="{{ item.picture.url }}" class="card-img-top" alt="" height="300px" width="300px">
+              {% else %}
+              <img src="{% static "AluminiConnect/img/event.png" %}" class="card-img-top" alt="" height="300px" width="300px">
+              {% endif %}
+              <div class="card-body">
+                <h5 class="card-title font-weight-bold">{{item.title}}</h5>
+                
+                <p class="m-2 font-italic  font-open-sans mb-3">
+                  <i class="fas fa-calendar-alt font-weight-lighter "></i>
+                  {{item.start_date|date:"d M, o"}}
+                  <br>
+                  <i class="fas fa-map-marker-alt"></i>
+                  {{item.location}}
+                </p>
+                <a href="{% url 'events_news:event' id=item.event_id %}" class="btn btn-primary">VIEW</a>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+          <!-- 
           <div class="col-lg-4 p-2">
             <div class="card w-100 shadow-sm" style="max-width: 24rem;">
               <img src="{% static "AluminiConnect/img/coll.jpg" %}" class="card-img-top" alt="">
@@ -91,34 +115,7 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-4 p-2">
-            <div class="card w-100 shadow-sm" style="max-width: 24rem;">
-              <img src="{% static "AluminiConnect/img/coll.jpg" %}" class="card-img-top" alt="">
-              <div class="card-body">
-                <h5 class="card-title font-weight-bold">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <p class="m-2 font-weight-light font-italic text-muted font-open-sans mb-3">
-                  <i class="fas fa-calendar-alt font-weight-lighter "></i>
-                  December 20, 2018 
-                </p>
-                <a href="#" class="btn btn-primary">VIEW</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 p-2">
-            <div class="card w-100 shadow-sm" style="max-width: 24rem;">
-              <img src="{% static "AluminiConnect/img/coll.jpg" %}" class="card-img-top" alt="">
-              <div class="card-body">
-                <h5 class="card-title font-weight-bold">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <p class="m-2 font-weight-light font-italic text-muted font-open-sans mb-3">
-                  <i class="fas fa-calendar-alt font-weight-lighter "></i>
-                  December 20, 2018 
-                </p>
-                <a href="#" class="btn btn-primary">VIEW</a>
-              </div>
-            </div>
-          </div>
+          -->
         </div>
       </div>
     </section>  

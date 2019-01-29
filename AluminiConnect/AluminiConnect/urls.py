@@ -35,6 +35,7 @@ urlpatterns += [
     url(r'^profile/', include('applications.alumniprofile.urls')),
     url(r'^members/', include('applications.members.urls')),
     url(r'^events/', include('applications.events_news.urls')),
+    url(r'^news/', include('applications.news.urls')),
     url(r'^', views.index, name='home'),
 ]
 

@@ -11,8 +11,9 @@ def index(request):
     sname = None
     if( request.user.is_authenticated()):
         sname = request.user.get_short_name()
-    
-    return render(request, "AluminiConnect/index.html", {'name':sname})
+    events_list = Event.objects.filter().order_by('start_date')[:3]
+    #Add Check here
+    return render(request, "AluminiConnect/index.html", {'name':sname, 'events':events_list})
 
 def auth(request):
 

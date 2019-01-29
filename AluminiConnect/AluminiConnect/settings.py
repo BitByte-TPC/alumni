@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'applications.events_news',
     'applications.job_posting',
     'applications.members',
+    'applications.news',
 ]
 
 MIDDLEWARE = [

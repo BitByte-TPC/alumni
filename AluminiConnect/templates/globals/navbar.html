@@ -19,7 +19,7 @@
                 <a class="nav-link js-scroll-trigger" href="{% url 'events_news:events' %}">Events</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="">Campus Feeds</a>
+                <a class="nav-link js-scroll-trigger" href="{% url 'news:index' %}">Campus&nbsp;Feeds</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link js-scroll-trigger" href="">Publications</a>
@@ -32,14 +32,14 @@
             </li>
             {% if not user.is_authenticated %}
             <li class="nav-item">
-                <a class="btn btn-dark btn-xl js-scroll-trigger text-white" style="padding: .5rem 1rem;" href="{% url 'login' %}">Sign In</a>
+                <a class="btn btn-dark btn-xl js-scroll-trigger text-white" style="padding: .5rem 1rem;" href="{% url 'login' %}">Sign&nbsp;In</a>
             </li>
             {% else %}
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'profile:profile' username=user.username %}">Hi, {{ user.username }}!</a>
+                <a class="nav-link" href="{% url 'profile:profile' username=user.username %}">Hi,&nbsp;{{ user.username }}!</a>
             </li>
             <li class="nav-item">
-                <a class="btn btn-dark btn-xl js-scroll-trigger text-white" style="padding: .5rem 1rem;" href="{% url 'logout' %}">Log Out</a>
+                <a class="btn btn-dark btn-xl js-scroll-trigger text-white" style="padding: .5rem 1rem;" href="{% url 'logout' %}">Log&nbsp;Out</a>
             </li>
             {% endif %}
             </ul>

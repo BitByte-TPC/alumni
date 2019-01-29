@@ -1,0 +1,53 @@
+{% extends 'globals/base.html' %}
+{% load static %}
+
+{% block title %}
+    News
+{% endblock %}
+
+{% block body %}
+    {% include 'globals/navbar.html' %}
+    <div class=" p-0 m-0 masthead-bg w-100 parallax shadow-sm" style="min-height:250px !important;height:270px !important;background-position-y: -400px"></div>
+    <div style="height:150px;min-height: 150px;">
+
+    </div>
+    
+    <div class="container text-left p-2 mx-auto", style="width: 70rem;">
+            <div class="card shadow-sm m-4">
+                <div class="row no-gutters p-3">
+                    <div class="col-auto mx-auto p-1">
+                        {% if picture %}
+                        <img src="{{ picture.url }}" alt="" height= 200px width= 200px>
+                        {% else %}
+                        <img src="{% static "AluminiConnect/img/news.jpg" %}" alt="" height= 200px width= 200px>
+                        {% endif %}
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="card-block px-2">
+                                <h2 class="card-title">{{title}}</h2>
+                                <!-- <p class="m-2 font-weight-normal mb-3"> -->
+                                <p class="m-2 font-weight-normal mb-3">
+                        
+                                    <i class="fas fa-table"></i>
+                                        {{ date|date:"d F, o" }}
+                                        <br>
+                                        <i class="fas fa-user"></i>&nbsp;
+                                        {{ by}}
+                                        </p>  
+                                        <p>{{description}}</p>
+                                
+                            <br>
+                            </div>
+                            <div class="w-100"></div>
+                                
+                    </div>
+                </div>
+                <!-- Footer 
+                    <div class="card-footer w-100 text-muted">
+                        Footer stating cats are CUTE little animals
+                    </div>
+                -->
+            </div>
+        </div>
+    {% include 'globals/footer.html' %}
+{% endblock %}
