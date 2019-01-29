@@ -26,6 +26,8 @@ urlpatterns = []
 #for app in listdir('applications'):
 #    urlpatterns.append(url(r'^'+app+'/', include('applications.' + app + '.urls')))
 
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 urlpatterns += [
     url(r'^admin/', admin.site.urls),    
     url(r'^login/', views.auth, name='login'),
@@ -37,7 +39,7 @@ urlpatterns += [
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    
 
     import debug_toolbar
     urlpatterns = [

@@ -29,7 +29,7 @@ class Constants:
 
 def upload_photo(instance, filename):
     name, extension = os.path.splitext(filename)
-    return 'Profile_Pictures/' + str(instance.user.username) + strftime("_%Y_%m_%d-%H_%M_%S") + extension
+    return 'Profile_Pictures/' + str(instance.user.first_name) +"_" + str(instance.user.last_name)+ ".jpg"
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE)

@@ -24,20 +24,27 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-12 text-center">
-                                    <img src="{% static "AluminiConnect/img/TulikaRuthNelson.jpg" %}" 
+                                    {% if profile_picture %}
+                                    <img src="{{ profile_picture.url }}" 
                                         alt="DP" class="img-fluid rounded-circle m-2"
                                         style="height:200px;width:200px; max-width:200px;max-height:200px;"
                                     />
+                                    {% else %}
+                                    <img src="{% static "AluminiConnect/img/user.png" %}" 
+                                        alt="DP" class="img-fluid rounded-circle m-2"
+                                        style="height:200px;width:200px; max-width:200px;max-height:200px;"
+                                    />
+                                    {% endif %}
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-12 text-center">
+                                <div class="col-lg-12 text-center font-open-sans">
                                     <h3>{{name}}</h3>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-12 text-center font-open-sans">
-                                    {{roll_no}}
+                                    {{email}}
                                 </div>
                             </div>
                         </div>
@@ -45,53 +52,82 @@
 
                     <!--   CONTACT INFO  -->
                     <div class="card m-2 shadow-sm">
-                        <div class="card-header">
+                        <div class="card-header font-open-sans">
                             Contact Information
                         </div>
                         <div class="card-body">
-                            <p class="m-2 font-weight-normal  text-muted mb-3">
-                                <i class="fas fa-envelope font-weight-normal "></i>
+                            <p class="m-2 font-weight-normal font-open-sans text-muted mb-3">
+                                <i class="fas fa-map-marker-alt"></i>
                                 &nbsp;{{ address }}
                             </p>
-                            <p class="m-2 font-weight-normal  text-muted mb-3">
-                                <i class="fas fa-phone font-weight-normal "></i>
+                            <p class="m-2 font-weight-normal font-open-sans text-muted mb-3">
+                                <i class="fas fa-phone "></i>
                                 &nbsp;{{ phone_no }}
                             </p>
-                            <p class="m-2 font-weight-normal  text-muted mb-3">
-                                <i class="fas fa-linkedin font-weight-normal "></i>
-                                &nbsp;{{ linkedin }}
+                            <p class="m-2 font-weight-normal font-open-sans text-muted mb-3">
+                                <i class="fab fa-linkedin"></i>
+                                &nbsp;<a href="{{ linkedin }}">LinkedIn</a>
                             </p>
                         </div>
-                        <div class="card-footer">
-                            <small class="text-muted">Last Visit on {{ last_visit }}</small>
-                        </div>
+                        
+                    </div>
+
+                    <!-- Basic Info -->
+                    <div class="card m-2 shadow-sm">
+                            <div class="card-header font-open-sans">
+                                Expertise
+                            </div>
+                            <div class="card-body">
+                                <p class="m-2 font-weight-normal font-open-sans text-muted mb-3">
+                                    <i class="fas fa-bolt"></i>
+                                    &nbsp;Skills : 
+                            </div>
+                            <div class="card-footer">
+                                    <small class="font-open-sans">Last Visit on {{ last_visit }}</small>
+                                </div>
                     </div>
 
 
                 </div>
-                <div class="col-lg-7 text-left p-2 mx-auto">
+                <div class="col-lg-8 text-left p-2 mx-auto">
 
                     <!--   EDUCATION  -->
                     <div class="card m-2 shadow-sm">
-                        <div class="card-header">
+                        <div class="card-header font-open-sans">
                             Education
                         </div>
                         <div class="card-body p-4">    
-                            <h3 class="">{{ current_organisation }}</h3>
-                            <p>{{ current_university }}</p>
-                            <p>{{ current_postion }}</p>
-                            <p class="font-weight-light">{{ programme }} {{ batch }} - {{ branch }}</p>
+                            <h3 class="font-open-sans">{{ current_university }}</h3>
+                            <small class="font-open-sans">{{ programme }}, {{ branch }}</small>
+                            <br><small class="font-open-sans">{{ batch }} - {{ batch }}</small>
+                        </div>
+                    </div>
+
+                    <!--   Work Ex  -->
+                    <div class="card m-2 shadow-sm">
+                        <div class="card-header font-open-sans">
+                            Work Experience
+                        </div>
+                        <div class="card-body p-4">    
+                            <h3 class="font-open-sans">
+                                {% if current_organisation %}
+                                {{ current_organisation }}
+                                {% else %}
+                                None
+                                {% endif %}
+                            </h3>
+                            <small class="font-open-sans">{{current_position}}</small>
                         </div>
                     </div>
 
                     <!--   BLOGS  -->
                     <div class="card m-2 shadow-sm">
-                        <div class="card-header">
+                        <div class="card-header font-open-sans">
                             Blogs
                         </div>
-                        <div class="card-body p-4">    
-                            <h3 class="">Blog title</h3>
-                            <p>sdfsdfsdfsdfsdf sdfsdfsdf</p>
+                        <div class="card-body font-open-sans p-4">    
+                            <h3 class="">Sample Blog</h3>
+                            <p>Some Content</p>
                         </div>
                     </div>
 

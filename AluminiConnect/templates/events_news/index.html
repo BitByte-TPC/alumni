@@ -1,23 +1,54 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Home</title>
-</head>
-<body>
-    {% for item in events %} 
-    <ul>
-    <li>{{ item.event_id }}</li>
-    <li>{{ item.title }}</li>
-    <li>{{ item.start_date }}</li>
-    <li>{{ item.end_date }}</li>
-    <li>{{ item.location }}</li>
-    <li>{{ item.description }}</li>
-    </ul>
-    {% endfor %}
-    {% if user.is_authenticated %}
-    <p>You're logged in!</p>
-    {% else %}
-    <p>Please login to connect!</p>
-    {% endif %}
-</body>
-</html>
+{% extends 'globals/base.html' %}
+{% load static %}
+
+{% block title %}
+    Events
+{% endblock %}
+
+{% block body %}
+    {% include 'globals/navbar.html' %}
+    <div class=" p-0 m-0 masthead-bg w-100 parallax shadow-sm" style="min-height:250px !important;height:270px !important;background-position-y: -400px"></div>
+    <div style="height:150px;min-height: 150px;">
+
+    </div>
+    
+    <div class="container text-left p-2 mx-auto", style="width: 70rem;">
+        {% for item in events %}
+            <div class="card shadow-sm m-4">
+                <div class="row no-gutters p-3">
+                    <div class="col-auto mx-auto p-1">
+                        {% if item.picture %}
+                        <img src="{{ item.picture.url }}" alt="" height= 200px width= 200px>
+                        {% else %}
+                        <img src="{% static "AluminiConnect/img/event.png" %}" alt="" height= 200px width= 200px>
+                        {% endif %}
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="card-block px-2">
+                                <h2 class="card-title">{{item.title}}</h2>
+                                <!-- <p class="m-2 font-weight-normal mb-3"> -->
+                                <p class="m-2 font-weight-normal mb-3">
+                        
+                                    <i class="fas fa-table"></i>
+                                        {{ item.start_date|date:"d F, o" }}
+                                        <br>
+                                        <i class="fas fa-map-marker-alt"></i>&nbsp;
+                                        {{ item.location}}
+                                        </p>  
+                                <a href="{% url 'events_news:event' id=item.event_id %}" class="btn btn-primary">View</a>
+                            <br>
+                            </div>
+                            <div class="w-100"></div>
+                                
+                    </div>
+                </div>
+                <!-- Footer 
+                    <div class="card-footer w-100 text-muted">
+                        Footer stating cats are CUTE little animals
+                    </div>
+                -->
+            </div>
+            {% endfor %}
+        </div>
+    {% include 'globals/footer.html' %}
+{% endblock %}
