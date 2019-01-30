@@ -17,26 +17,33 @@
 - [ ] Blog
 
 **January 28, 2019**
-- [ ] Add ModelForms to directly update user details
+- [ ] ***Add ModelForms to directly update user details || URGENT ||***
 - [ ] Add decorators for login check etc
-- [ ] add college logo in navbar, also make a 2 row navbar similar to IITGN
+- [ ] add college logo in navbar, ~~also make a 2 row navbar similar to IITGN~~
+
+**January 30, 2019 (alongwith earlier pending work)**
+- [ ] Complete Directory page with filters etc.
+- [ ] add carousel to home page
+- [ ] add dropdown in navbar's "Publication" tab
+- [ ] add "edit" buttons to the cards of profile page for updating info
 
 **After Quiz**
 - [x] navbar "alumni connect" link to home
 - [x] __seperate navbar__ from pages
-- [ ] page of all events and news - event page
-- [ ] page of all alumni years like "class of 2021"...
-- [ ] newsletter page
-- [ ] Add some js for automatically updating latest events,news,gallery cards in homepage
-- [ ] Seperate title of page from "globals", title should be diff. for each page
+- [x] page of all events and news - event page
+- [x] Add some js for automatically updating latest events,news,gallery cards in homepage
+- [x] Seperate title of page from "globals", title should be diff. for each page
 
 **Super Serious Issues**
 - [x] logout not working
 
-**Extra**
+**Priorities**
 - [ ] add email confirmation 
 - [ ] move secret key from setting.py
 - [ ] add attendees, gallery in events
+- [ ] newsletter page
+- [ ] automatically update photos in event's "Gallery" Card & add js for popup viewing
+- [ ] admin multiple photo upload support
 
 **Expected Features**
 - [ ] Alumni Profile
