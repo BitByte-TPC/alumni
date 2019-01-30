@@ -1,3 +1,47 @@
+{% extends 'globals/base.html' %}
+{% load static %}
+
+{% block title %} 
+    {{ user.username }}
+{% endblock %}
+
+{% block body %}
+  <!-- <body id="page-top" class="font-open-sans" style="background-color: #eaedf5"> -->
+    {% include 'globals/navbar.html' %}
+
+    <div class=" p-0 m-0 masthead-bg w-100 parallax shadow-sm" style="min-height:250px !important;height:270px !important;background-position-y: -400px">
+        
+    </div>
+    
+    <div style="height:170px;min-height: 150px;">
+    </div>
+
+    <section class="bg-transparent" id="events" style="padding-top:3rem">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-left p-2 mx-auto">
+                    {% for batch,count in data %}
+                        <div class="card w-100 shadow-sm p-2 m-2">
+                            <div class="card-body font-open-sans">
+                                <div class="row">
+                                    <div class="col-lg-6 text-left">
+                                        <h5 class="card-title font-weight-normal m-0">Batch of {{ batch }}</h5>
+                                    </div>
+                                    <div class="col-lg-6 text-right">
+                                        <h6 class="card-title font-weight-normal m-0">{{ count }} Members</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section> 
+    {% include 'globals/footer.html' %} 
+{% endblock %}
+</html>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,9 +55,7 @@
     {% else %}
     <p>Please login to connect!</p>
     {% endif %}
-    {% for batch,count in data %}
-    <p>Batch {{ batch }} || Count {{ count }}</p>
-    {% endfor %}
+    
 
 </body>
 </html>
