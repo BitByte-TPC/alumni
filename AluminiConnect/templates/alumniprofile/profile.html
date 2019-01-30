@@ -56,15 +56,15 @@
                             Contact Information
                         </div>
                         <div class="card-body">
-                            <p class="m-2 font-weight-normal font-open-sans text-muted mb-3">
+                            <p class="m-2 font-weight-normal font-open-sans mb-3">
                                 <i class="fas fa-map-marker-alt"></i>
                                 &nbsp;{{ address }}
                             </p>
-                            <p class="m-2 font-weight-normal font-open-sans text-muted mb-3">
+                            <p class="m-2 font-weight-normal font-open-sans  mb-3">
                                 <i class="fas fa-phone "></i>
                                 &nbsp;{{ phone_no }}
                             </p>
-                            <p class="m-2 font-weight-normal font-open-sans text-muted mb-3">
+                            <p class="m-2 font-weight-normal font-open-sans mb-3">
                                 <i class="fab fa-linkedin"></i>
                                 &nbsp;<a href="{{ linkedin }}">LinkedIn</a>
                             </p>
@@ -72,18 +72,40 @@
                         
                     </div>
 
-                    <!-- Basic Info -->
+                    <!-- Expertise -->
                     <div class="card m-2 shadow-sm">
                             <div class="card-header font-open-sans">
                                 Expertise
                             </div>
                             <div class="card-body">
-                                <p class="m-2 font-weight-normal font-open-sans text-muted mb-3">
+                                <p class="m-2 font-weight-normal font-open-sans mb-3">
                                     <i class="fas fa-bolt"></i>
                                     &nbsp;Skills : 
+                                </p>
+                            </div>
+                    </div>
+
+                    <!-- Basic Info -->
+                    <div class="card m-2 shadow-sm">
+                            <div class="card-header font-open-sans">
+                                Basic Info
+                            </div>
+                            <div class="card-body">
+                                <p class="m-2 font-weight-normal font-open-sans mb-3">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    &nbsp;{{ current_city }}
+                                </p>
+                                <p class="m-2 font-weight-normal font-open-sans mb-3">
+                                        <i class="fas fa-birthday-cake"></i>
+                                        &nbsp;{{ date_of_birth|date:"d F, o" }}
+                                    </p>
+                                <p class="m-2 font-weight-normal font-open-sans mb-3">
+                                        <i class="fas fa-venus-mars"></i>
+                                        &nbsp;{{ sex }}
+                                    </p>
                             </div>
                             <div class="card-footer">
-                                    <small class="font-open-sans">Last Visit on {{ last_visit }}</small>
+                                    <small class="font-open-sans">Last Visit on {{ user.last_login }}</small>
                                 </div>
                     </div>
 
@@ -119,6 +141,23 @@
                             <small class="font-open-sans">{{current_position}}</small>
                         </div>
                     </div>
+
+                    <!--   Publications  -->
+                    <div class="card m-2 shadow-sm">
+                            <div class="card-header font-open-sans">
+                                Publications
+                            </div>
+                            <div class="card-body p-4">    
+                                <h3 class="font-open-sans">
+                                    {% if current_organisation %}
+                                    {{ current_organisation }}
+                                    {% else %}
+                                    None
+                                    {% endif %}
+                                </h3>
+                                <small class="font-open-sans">{{current_position}}</small>
+                            </div>
+                        </div>
 
                     <!--   BLOGS  -->
                     <div class="card m-2 shadow-sm">

@@ -36,7 +36,7 @@
             </li>
             {% else %}
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'profile:profile' username=user.username %}">Hi,&nbsp;{{ user.username }}!</a>
+                <a class="nav-link" href="{% url 'profile:profile' username=user.username %}">Profile</a>
             </li>
             <li class="nav-item">
                 <a class="btn btn-dark btn-xl js-scroll-trigger text-white" style="padding: .5rem 1rem;" href="{% url 'logout' %}">Log&nbsp;Out</a>

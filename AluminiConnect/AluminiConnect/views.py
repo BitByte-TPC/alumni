@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from .forms import UserRegistrationForm
 from applications.events_news.models import Event
+import datetime
 # Create your views here.
 
 def index(request):
@@ -43,6 +44,8 @@ def auth(request):
 
         user = authenticate(username=username, password=password, request=request)
         login(request,user)
+        user.last_visit = datetime.datetime.now()
+        print(user.last_visit)
         return HttpResponseRedirect('/')
     
     return render(request, 'AluminiConnect/signup.html')
