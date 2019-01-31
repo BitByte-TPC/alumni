@@ -19,7 +19,7 @@
 **January 28, 2019**
 - [ ] ***Add ModelForms to directly update user details || URGENT ||***
 - [ ] Add decorators for login check etc
-- [ ] add college logo in navbar, ~~also make a 2 row navbar similar to IITGN~~
+- [x] add college logo in navbar, ~~also make a 2 row navbar similar to IITGN~~
 
 **January 30, 2019 (alongwith earlier pending work)**
 - [ ] Complete Directory page with filters etc.
@@ -46,8 +46,8 @@
 - [ ] admin multiple photo upload support
 
 **Expected Features**
-- [ ] Alumni Profile
-- [ ] Events (Institute, Meetups)
+- [x] Alumni Profile
+- [x] Events (Institute, Meetups)
 - [ ] Alumni Filter
 - [ ] Achievements, News, etc. 
 - [ ] Job Postings
