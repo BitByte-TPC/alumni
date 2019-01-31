@@ -1,3 +1,11 @@
+{% load static %}
+<style>
+  .black-layer{
+    background-color: rgba(0,0,0,0.5);
+    background-position: center center;
+    background-size: cover;
+  }
+</style>
 
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
       <ol class="carousel-indicators">
@@ -6,27 +14,63 @@
         <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
       </ol>
       <div class="carousel-inner" role="listbox">
-        <!-- Slide One - Set the background image for this slide in the line below -->
-        <div class="carousel-item active" style="background-image: url('https://source.unsplash.com/LAaSoL0LrYs/1920x1080')">
-          <div class="carousel-caption d-none d-md-block">
-            <h2 class="display-4">First Slide</h2>
-            <p class="lead">This is a description for the first slide.</p>
+        
+
+
+
+
+        <div class="carousel-item active" style="background-image: url({% static "AluminiConnect/img/header.jpg" %})">
+          <!--   WRITTEN CONTENT STARTS HERE    -->
+          <div class="h-100 w-100 black-layer"></div>
+          <div class="carousel-caption d-none d-md-block" style="bottom:100px">
+            <div class="row">
+              <div class="col-lg-10 mx-auto">
+                <h1 class="text-uppercase">
+                  <img src= {% static "AluminiConnect/img/logo/alumb1.png" %} style="width: 4em; height: auto;">
+                </h1>
+                <hr>
+              </div>
+              <div class="col-lg-8 mx-auto">
+                <h1 class="text-uppercase">
+                  <strong>ALUMNI ASSOCIATION</strong>
+                </h1>
+              </div>
+            </div>
           </div>
+          <!--    WRITTEN CONTENTS ENDS HERE   -->
         </div>
-        <!-- Slide Two - Set the background image for this slide in the line below -->
-        <div class="carousel-item" style="background-image: url('https://source.unsplash.com/bF2vsubyHcQ/1920x1080')">
+
+
+
+
+
+        <div class="carousel-item" style="background-image: url({% static "AluminiConnect/img/header1.jpg" %})">
           <div class="carousel-caption d-none d-md-block">
+
+            <!--   WRITTEN CONTENT STARTS HERE    -->
             <h2 class="display-4">Second Slide</h2>
             <p class="lead">This is a description for the second slide.</p>
+            <!--    WRITTEN CONTENTS ENDS HERE   -->
+
           </div>
         </div>
-        <!-- Slide Three - Set the background image for this slide in the line below -->
-        <div class="carousel-item" style="background-image: url('https://source.unsplash.com/szFUQoyvrxM/1920x1080')">
+
+
+
+        <div class="carousel-item" style="background-image: url({% static "AluminiConnect/img/header2.jpg" %})">
           <div class="carousel-caption d-none d-md-block">
+
+            <!--   WRITTEN CONTENT STARTS HERE    -->
             <h2 class="display-4">Third Slide</h2>
             <p class="lead">This is a description for the third slide.</p>
+            <p class="lead">This is a description for the second slide.</p>
+            <!--    WRITTEN CONTENTS ENDS HERE   -->
+
           </div>
         </div>
+
+
+
       </div>
       <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
