@@ -23,9 +23,10 @@
 
 **January 30, 2019 (alongwith earlier pending work)**
 - [ ] Complete Directory page with filters etc.
-- [ ] add carousel to home page
+- [x] add carousel to home page
 - [x] add dropdown in navbar's "Publication" tab
 - [ ] add "edit" buttons to the cards of profile page for updating info
+- [ ] **add content to carousel**
 
 **After Quiz**
 - [x] navbar "alumni connect" link to home
