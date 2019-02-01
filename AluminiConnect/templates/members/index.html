@@ -21,18 +21,20 @@
             <div class="row">
                 <div class="col-lg-12 text-left p-2 mx-auto">
                     {% for batch,count in data %}
+                        <a href="#" class="text-primary year-card">
                         <div class="card w-100 shadow-sm p-2 m-2">
                             <div class="card-body font-open-sans">
-                                <a class="row" >
+                                <div class="row" >
                                     <div class="col-lg-6 text-left">
                                         <h5 class="card-title font-weight-normal m-0">Batch of {{ batch }}</h5>
                                     </div>
                                     <div class="col-lg-6 text-right">
                                         <h6 class="card-title font-weight-normal m-0">{{ count }} Members</h6>
                                     </div>
-                                </a>
+                                </div>
                             </div>
                         </div>
+                        </a>
                     {% endfor %}
                 </div>
             </div>

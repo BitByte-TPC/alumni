@@ -366,3 +366,14 @@
   -o-background-size: cover;
   background-size: cover;
 }
+
+
+.year-card  {
+  text-decoration: none !important;
+  /*transition : all 0.5s;*/
+}
+
+.year-card :hover {
+  color: black !important;
+  /*text-shadow: 0 0 0 .2rem rgba(0,0,0, .5);*/
+}
