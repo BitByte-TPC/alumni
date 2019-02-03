@@ -42,11 +42,16 @@ def auth(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
 
-        user = authenticate(username=username, password=password, request=request)
-        login(request,user)
-        user.last_visit = datetime.datetime.now()
-        print(user.last_visit)
-        return HttpResponseRedirect('/')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request,user)
+            user.last_visit = datetime.datetime.now()
+            return HttpResponseRedirect('/')
+        else:
+            return HttpResponseRedirect('/login/')
+        
     
     return render(request, 'AluminiConnect/signup.html')
     
+def register(request):
+    return render(request, 'AluminiConnect/registration.html')

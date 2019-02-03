@@ -30,12 +30,13 @@ urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += [
     url(r'^admin/', admin.site.urls),    
-    url(r'^login/', views.auth, name='login'),
+    url(r'^login/', auth_views.LoginView.as_view(template_name='AluminiConnect/signup.html'), name='login'),
     url(r'^logout/$', auth_views.logout, name='logout'),
     url(r'^profile/', include('applications.alumniprofile.urls')),
     url(r'^members/', include('applications.members.urls')),
     url(r'^events/', include('applications.events_news.urls')),
     url(r'^news/', include('applications.news.urls')),
+    url(r'^register/', views.register, name='register'),
     url(r'^', views.index, name='home'),
 ]
 

@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block body %}
+{% include 'globals/navbar.html' %}
     <div class=" p-0 m-0 masthead-bg w-100 h-100 parallax" style="background-position-y: -25rem"></div>
 
     <header class="masthead text-center text-white d-flex" style="height:0px;min-height:300px">
@@ -30,6 +31,10 @@
 
     <section class="bg-white" id="about">
       <div class="container">
+            {% if form.errors %}
+            <p>Your username and password didn't match. Please try again.</p>
+            {% endif %}
+            
         <div class="row">
           <div class="col-lg-6 mx-auto mx-auto">
             <div class="row text-center">
@@ -40,7 +45,7 @@
             </div>
             <div class="row text-left m-4 p-4">
                 <div class="col-lg-12">
-                    <form method="POST" class="font-open-sans">
+                    <form method="POST" class="font-open-sans" novalidate>
                         {% csrf_token %}
                         <div class="form-group">
                             <label for="signin-uname">Username</label>

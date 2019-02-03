@@ -2,6 +2,9 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 import datetime, os
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 from time import strftime
 
 class Constants:
@@ -12,7 +15,7 @@ class Constants:
         ('O', 'Other')
     )
 
-    DISC_CHOICES = (
+    PROG_CHOICES = (
         ('B.Tech', 'B.Tech'),
         ('B.Des', 'B.Des'),
         ('M.Des', 'M.Des'),
@@ -24,22 +27,26 @@ class Constants:
         ('CSE', 'Computer Science and Engineering'),
         ('ECE', 'Electronics and Communication Engineering'),
         ('ME', 'Mechanical Engineering'),
+        ('NS', 'Natural Sciences'),
         ('NA', 'Not Applicable')
     )
 
 def upload_photo(instance, filename):
     name, extension = os.path.splitext(filename)
-    return 'Profile_Pictures/' + str(instance.user.first_name) +"_" + str(instance.user.last_name)+ ".jpg"
+    return 'Profile_Pictures/' + str(instance.roll_no) + ".jpg"
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE)
     roll_no = models.IntegerField(primary_key = True)
     batch = models.IntegerField(null = True)
-    programme = models.CharField(max_length = 50, choices = Constants.DISC_CHOICES)
-    branch = models.CharField(choices = Constants.BRANCH, max_length = 20)
+    first_name = models.CharField(max_length = 500, default="", null = False)
+    last_name = models.CharField(max_length = 500, default="")
+    programme = models.CharField(max_length = 50, choices = Constants.PROG_CHOICES, null = False)
+    branch = models.CharField(choices = Constants.BRANCH, max_length = 20, null = False)
     sex = models.CharField(max_length = 2, choices = Constants.SEX_CHOICES, default = 'M')
     date_of_birth = models.DateField(default = datetime.date(1970,1,1))
-    address = models.TextField(max_length = 1000, default = "")
+    current_address = models.TextField(max_length = 1000, default = "")
+    permanent_address = models.TextField(max_length = 1000, default = "")
     phone_no = models.BigIntegerField(null = True, default = 9999999999)
     current_city = models.CharField(null = True, max_length = 20)
     current_organisation = models.CharField(null = True, max_length = 20)
@@ -48,7 +55,16 @@ class Profile(models.Model):
     linkedin = models.URLField(null=True)
     website = models.URLField(null = True, blank=True)
     profile_picture = models.ImageField(null = True, blank = True, upload_to = upload_photo)
-    last_visit = models.DateTimeField(default = datetime.datetime.now())
+    is_registered = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.user.username
+        return self.user.first_name + " " + self.user.last_name
+    
+# @receiver(post_save, sender=User)
+# def create_user_profile(sender, instance, created, **kwargs):
+#     if created:
+#         Profile.objects.create(user=instance)
+
+# @receiver(post_save, sender=User)
+# def save_user_profile(sender, instance, **kwargs):
+#     instance.profile.save()
