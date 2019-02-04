@@ -16,6 +16,9 @@ def index(request):
     #Add Check here
     return render(request, "AluminiConnect/index.html", {'name':sname, 'events':events_list})
 
+def alumniBody(request):
+    return render(request, "AluminiConnect/alumnibody.html")
+
 def auth(request):
 
     print(request.POST.get('submit'))
