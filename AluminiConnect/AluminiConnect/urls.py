@@ -36,7 +36,9 @@ urlpatterns += [
     url(r'^members/', include('applications.members.urls')),
     url(r'^events/', include('applications.events_news.urls')),
     url(r'^news/', include('applications.news.urls')),
+    url(r'^newslater/', include('applications.publications.urls')),
     url(r'^register/', views.register, name='register'),
+    url(r'^geolocation/', include('applications.geolocation.urls')),
     url(r'^', views.index, name='home'),
 ]
 
