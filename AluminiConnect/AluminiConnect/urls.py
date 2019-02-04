@@ -40,6 +40,7 @@ urlpatterns += [
     url(r'^register/', views.register, name='register'),
     url(r'^geolocation/', include('applications.geolocation.urls')),
     url(r'^alumnibody/', views.alumniBody),
+    url(r'^gallery/', views.gallery),
     url(r'^', views.index, name='home'),
 ]
 

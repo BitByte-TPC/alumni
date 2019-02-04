@@ -12,6 +12,7 @@ def batch(request, year):
     query = {}
     for row in programmes:
         result = Profile.objects.filter(batch = year,programme = row).values_list('branch').annotate(count = Count('branch'))
+        row = row.replace('.','')
         query[row] = {}
         for branch, count in result:
             query[row][branch] = count
@@ -20,3 +21,7 @@ def batch(request, year):
 
     return render(request, "members/year.html", {'data' : query })
 
+def branch(request, year, branch):
+    alumni = Profile.objects.filter(batch = year, branch = branch)
+    print(alumni)
+    return render(request, "members/branch.html", {'a':alumni})
