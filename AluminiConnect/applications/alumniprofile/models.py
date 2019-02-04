@@ -31,14 +31,22 @@ class Constants:
         ('NA', 'Not Applicable')
     )
 
+
+class Batch(models.Model):
+    batch = models.IntegerField(primary_key= True)
+
+    def __str__(self):
+        return str(self.batch)
+
 def upload_photo(instance, filename):
     name, extension = os.path.splitext(filename)
     return 'Profile_Pictures/' + str(instance.roll_no) + ".jpg"
 
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE)
     roll_no = models.IntegerField(primary_key = True)
-    batch = models.IntegerField(null = True)
+    batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
     first_name = models.CharField(max_length = 500, default="", null = False)
     last_name = models.CharField(max_length = 500, default="")
     programme = models.CharField(max_length = 50, choices = Constants.PROG_CHOICES, null = False)
@@ -58,7 +66,7 @@ class Profile(models.Model):
     is_registered = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.user.first_name + " " + self.user.last_name
+        return self.first_name + " " + self.last_name
     
 # @receiver(post_save, sender=User)
 # def create_user_profile(sender, instance, created, **kwargs):

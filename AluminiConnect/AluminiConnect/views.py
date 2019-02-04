@@ -3,8 +3,9 @@ from django import forms
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
-from .forms import UserRegistrationForm
+from .forms import UserRegistrationForm, RegisterForm1, ProfileEdit
 from applications.events_news.models import Event
+from applications.alumniprofile.models import Profile, Constants
 import datetime
 # Create your views here.
 
@@ -53,5 +54,35 @@ def auth(request):
     
     return render(request, 'AluminiConnect/signup.html')
     
-def register(request):
-    return render(request, 'AluminiConnect/registration.html')
+def register1(request):
+    check=False
+    l = None
+    if request.method == 'POST':
+        form = RegisterForm1(request.POST)
+        print (request.POST)
+        if form.is_valid():
+            batch = form.cleaned_data.get('batch')
+            branch = form.cleaned_data.get('branch')
+            programme = form.cleaned_data.get('programme')
+            l = Profile.objects.filter(batch = batch, programme = programme, branch = branch, is_registered = False )
+            print ('Testing output\n')
+            print (l)
+            check = True
+            
+    else:
+        form = RegisterForm1()
+    return render(request, 'AluminiConnect/registration.html', {'form': form, 'check': check, 'l': l})
+
+def profileedit(request, id):
+    l = Profile.objects.get(roll_no = id)
+    print('asdad\n')
+    print(l)
+    if request.method == 'POST':
+        form = ProfileEdit(request.POST, instance = l)
+        print (request.POST)
+        if form.is_valid():
+            l =form.save(commit=False)
+            l.save()
+    else:
+        form = ProfileEdit(instance = l)
+    return render(request, 'AluminiConnect/profileedit.html', {'form' :form, 'l': l})

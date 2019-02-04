@@ -32,11 +32,12 @@ urlpatterns += [
     url(r'^admin/', admin.site.urls),    
     url(r'^login/', auth_views.LoginView.as_view(template_name='AluminiConnect/signup.html'), name='login'),
     url(r'^logout/$', auth_views.logout, name='logout'),
+    url(r'^register/', views.register1, name='register1'),
+    url(r'^profileedit/(?P<id>[0-9]+)/$', views.profileedit, name='profileedit'),
     url(r'^profile/', include('applications.alumniprofile.urls')),
     url(r'^members/', include('applications.members.urls')),
     url(r'^events/', include('applications.events_news.urls')),
     url(r'^news/', include('applications.news.urls')),
-    url(r'^register/', views.register, name='register'),
     url(r'^', views.index, name='home'),
 ]
 

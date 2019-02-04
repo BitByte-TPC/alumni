@@ -1,0 +1,82 @@
+{% extends 'globals/base.html' %}
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block title %} 
+  Register
+{% endblock %}
+
+{% block body %}
+{% include 'globals/navbar.html' %}
+<div class=" p-0 m-0 masthead-bg w-100 h-100 parallax" style="background-position-y: -25rem"></div>
+
+    <header class="masthead text-center text-white d-flex" style="height:0px;min-height:300px">
+      <div class="container my-auto" style="margin-bottom:50px !important;">
+        <div class="row">
+          <div class="col-lg-2 mx-auto align-middle">
+            <h2 class="text-uppercase">
+              <a href="{% url 'home' %}"><img src= {% static "AluminiConnect/img/logo/alumb1.png" %} style="width: 4em; height: auto;"></a>
+            </h2>
+          </div>
+          <div class="col-lg-8 mx-auto align-middle">
+            <h1 class="text-uppercase mt-4">
+              <strong>ALUMNI ASSOCIATION</strong>
+            </h1>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section id="services" class="bg-primary p-1">
+    </section>
+
+    <section class="bg-white" id="about">
+      <div class="container">            
+        <div class="row">
+          <div class="col-lg-12 mx-auto text-left mx-auto">
+            <div class="row text-center">
+                <div class="col-lg-12 text-primary">
+                    <h2>Register</h2>
+                    <hr>
+                </div>
+            </div>
+            <div class="container text-center p-2 mx-auto", style="width: 50rem;">
+                <div class="row text-left m-4 p-4 col-lg-12">
+                    <form method="POST" role="form">
+                        {% csrf_token %}
+                        {% crispy form %}
+                    </form>
+                </div>
+                {% if check %}
+                  <div class="row text-left m-4 p-4 col-lg-12 center">
+                      <table class="table table-hover table-bordered">
+                        {% if not l %}
+                          <thead>
+                        <tr><th class="text-center">No Record Found</th></tr>
+                        </thead>
+                        {% else %}
+                        <thead>
+                        <tr><th>Roll No</th><th>Name</th><th>Gender</th><th>Date of Birth</th></tr>
+                        </thead>
+                        <tbody>
+                        {% for item in l %}
+                          <tr>
+                            <td><a href={% url 'profileedit' id=item.roll_no %}> {{ item.roll_no }} </a> </td>
+                            <td>{{ item.first_name}} {{item.last_name}}</td>
+                            <td> {{item.sex}}</td><td>{{item.date_of_birth}}</td>
+                          </tr>
+                        {% endfor %}
+                        {% endif %}
+                        </tbody>
+                      </table>
+                    </div>
+                {% endif %}
+
+            </div>    
+          </div>
+        </div>
+      </div>
+    </section>
+    {% include 'globals/footer.html' %}
+{% endblock %}
