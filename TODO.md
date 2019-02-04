@@ -33,6 +33,9 @@
 - [ ] Alumni Body Page, Publications Page **Shivansh**
 - [ ] add "edit" buttons to the cards of profile page for updating info **Meru**
 
+- [ ] link publications page to navbar
+- [ ] link local PDFs to publications page
+
 **After Quiz**
 - [x] navbar "alumni connect" link to home
 - [x] __seperate navbar__ from pages
