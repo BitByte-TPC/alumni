@@ -38,6 +38,10 @@ urlpatterns += [
     url(r'^members/', include('applications.members.urls')),
     url(r'^events/', include('applications.events_news.urls')),
     url(r'^news/', include('applications.news.urls')),
+    url(r'^newsletter/', include('applications.publications.urls')),
+    url(r'^geolocation/', include('applications.geolocation.urls')),
+    url(r'^alumnibody/', views.alumniBody),
+    url(r'^gallery/', views.gallery),
     url(r'^', views.index, name='home'),
 ]
 
