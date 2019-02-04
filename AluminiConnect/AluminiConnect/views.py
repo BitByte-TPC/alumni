@@ -19,6 +19,9 @@ def index(request):
 def alumniBody(request):
     return render(request, "AluminiConnect/alumnibody.html")
 
+def gallery(request):
+    return render(request, "AluminiConnect/gallery.html")
+
 def auth(request):
 
     print(request.POST.get('submit'))
