@@ -22,11 +22,16 @@
 - [x] add college logo in navbar, ~~also make a 2 row navbar similar to IITGN~~
 
 **January 30, 2019 (alongwith earlier pending work)**
-- [ ] Complete Directory page with filters etc.
 - [x] add carousel to home page
 - [x] add dropdown in navbar's "Publication" tab
-- [ ] add "edit" buttons to the cards of profile page for updating info
 - [ ] **add content to carousel**
+
+**February 4, 2019**
+- [ ] Gallery Page **Shivansh**
+- [ ] Complete Directory page with filters etc. **Meru**
+- [ ] Geolocation **Meru**
+- [ ] Alumni Body Page, Publications Page **Shivansh**
+- [ ] add "edit" buttons to the cards of profile page for updating info **Meru**
 
 **After Quiz**
 - [x] navbar "alumni connect" link to home
@@ -43,7 +48,7 @@
 - [ ] move secret key from setting.py
 - [ ] add attendees, gallery in events
 - [ ] newsletter page
-- [ ] automatically update photos in event's "Gallery" Card & add js for popup viewing
+- [x] automatically update photos in event's "Gallery" Card & add js for popup viewing
 - [ ] admin multiple photo upload support
 
 **Expected Features**
