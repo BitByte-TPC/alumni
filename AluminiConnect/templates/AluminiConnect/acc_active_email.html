@@ -1,0 +1,7 @@
+{% autoescape off %}
+Hi {{ l.first_name }} {{ l.last_name }},
+Please click on the link to confirm your registration,
+http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+
+Your current default Passwords is you Roll No. It is recommended to change it after activating your account
+{% endautoescape %}

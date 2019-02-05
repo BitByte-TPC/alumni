@@ -18,6 +18,8 @@ from django.conf.urls import url, include
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
+from django.views.generic import TemplateView
+
 from os import listdir
 from .  import views
 
@@ -33,6 +35,9 @@ urlpatterns += [
     url(r'^login/', auth_views.LoginView.as_view(template_name='AluminiConnect/signup.html'), name='login'),
     url(r'^logout/$', auth_views.logout, name='logout'),
     url(r'^register/', views.register1, name='register1'),
+    url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', views.activate, name='activate'),
+    url(r'^confirm/$', TemplateView.as_view(template_name='AluminiConnect/confirm_email.html'), name = 'confirm'),
+    url(r'^success/$', TemplateView.as_view(template_name='AluminiConnect/account_success.html'), name = 'success'),
     url(r'^profileedit/(?P<id>[0-9]+)/$', views.profileedit, name='profileedit'),
     url(r'^profile/', include('applications.alumniprofile.urls')),
     url(r'^members/', include('applications.members.urls')),

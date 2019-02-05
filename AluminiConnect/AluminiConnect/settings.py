@@ -150,9 +150,6 @@ if DEBUG:
     INTERNAL_IPS = ('127.0.0.1',)
     DEBUG_TOOLBAR_CONFIG = {
         'INTERCEPT_REDIRECTS': False,
-<<<<<<< HEAD
-    }
-=======
     }
 
 EMAIL_USE_TLS = True
@@ -160,4 +157,3 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'email id'
 EMAIL_HOST_PASSWORD = 'password'
 EMAIL_PORT = 587
->>>>>>> changes
