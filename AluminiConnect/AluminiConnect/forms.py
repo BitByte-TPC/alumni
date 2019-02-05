@@ -71,8 +71,9 @@ class ProfileEdit(forms.ModelForm):
                 css_class='form-row'
             ),
             Row(
-                Column('roll_no', css_class='form-group col-md-6 mb-0'),
-                Column('date_of_birth', css_class='form-group col-md-6 mb-0'),
+                Column('roll_no', css_class='form-group col-md-4 mb-0'),
+                Column('date_of_birth', css_class='form-group col-md-4 mb-0'),
+                Column('email', css_class='form-group col-md-4 mb-0'),
                 css_class='form-row'
             ),
             Row(
@@ -109,11 +110,12 @@ class ProfileEdit(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ['first_name','last_name','sex','roll_no','date_of_birth','branch','programme','batch','current_address','permanent_address','phone_no','current_city','current_position','current_organisation','linkedin','website','profile_picture']
+        fields = ['first_name','last_name','sex','email','roll_no','date_of_birth','branch','programme','batch','current_address','permanent_address','phone_no','current_city','current_position','current_organisation','linkedin','website','profile_picture']
         widgets = {
             'first_name': forms.TextInput(attrs={ 'readonly':'readonly'}),
             'last_name': forms.TextInput(attrs={ 'readonly':'readonly'}),
             'sex': forms.TextInput(attrs={ 'readonly':'readonly'}),
+            'email': forms.TextInput(attrs={ 'readonly':'readonly'}),
             'roll_no': forms.TextInput(attrs={ 'readonly':'readonly'}),
             'date_of_birth': forms.TextInput(attrs={ 'readonly':'readonly'}),
             'branch': forms.TextInput(attrs={ 'readonly':'readonly'}),

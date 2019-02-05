@@ -13,6 +13,6 @@ for row in range(1, sheet.nrows):
     u1 = User(username=str(int(vals[0])), email=str(sheet.cell(row, 3).value))
     u1.set_password(str(int(vals[0])))
     u1.save()
-    p1 = Profile(user=u1, roll_no=int(vals[0]), first_name=vals[1], last_name=vals[2], sex=vals[4], programme=vals[6], branch=vals[7], batch=Batch(int(vals[8])) , date_of_birth=datetime.datetime(*xlrd.xldate_as_tuple(a1, wb.datemode)))
+    p1 = Profile(user=u1, email=str(sheet.cell(row, 3).value), roll_no=int(vals[0]), first_name=vals[1], last_name=vals[2], sex=vals[4], programme=vals[6], branch=vals[7], batch=Batch(int(vals[8])) , date_of_birth=datetime.datetime(*xlrd.xldate_as_tuple(a1, wb.datemode)))
     
     p1.save()
