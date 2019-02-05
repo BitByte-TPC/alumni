@@ -27,13 +27,13 @@
 - [ ] **add content to carousel**
 
 **February 4, 2019**
-- [ ] Gallery Page **Shivansh**
+- [x] Gallery Page **Shivansh**
 - [ ] Complete Directory page with filters etc. **Meru**
-- [ ] Geolocation **Meru**
-- [ ] Alumni Body Page, Publications Page **Shivansh**
+- [x] Geolocation **Meru**
+- [x] Alumni Body Page, Publications Page **Shivansh**
 - [ ] add "edit" buttons to the cards of profile page for updating info **Meru**
 
-- [ ] link publications page to navbar
+- [x] link publications page to navbar
 - [ ] link local PDFs to publications page
 
 **After Quiz**
@@ -50,7 +50,7 @@
 - [ ] add email confirmation 
 - [ ] move secret key from setting.py
 - [ ] add attendees, gallery in events
-- [ ] newsletter page
+- [x] newsletter page
 - [x] automatically update photos in event's "Gallery" Card & add js for popup viewing
 - [ ] admin multiple photo upload support
 
@@ -61,7 +61,7 @@
 - [ ] Achievements, News, etc. 
 - [ ] Job Postings
 - [ ] Blog
-- [ ] Alumni GeoLocation
+- [x] Alumni GeoLocation
 - [ ] Awards
 - [ ] Alumni Needs
 - [ ] Gallery
