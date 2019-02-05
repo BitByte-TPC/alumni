@@ -2,7 +2,7 @@ import datetime, xlrd
 from applications.alumniprofile.models import Profile, Batch
 from django.contrib.auth.models import User
 
-loc = "acc.xlsx"
+loc = "/home/arpan/django-started/Alumni-Project/alumni/AluminiConnect/scripts/acc.xlsx"
 wb = xlrd.open_workbook(loc)
 sheet = wb.sheet_by_index(0)
 
