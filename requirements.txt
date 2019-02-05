@@ -5,9 +5,11 @@ chardet==3.0.4
 defusedxml==0.5.0
 Django==1.11.18
 django-allauth==0.32.0
+django-ckeditor==5.6.1
 django-cleanup==3.0.1
 django-crispy-forms==1.7.2
 django-debug-toolbar==1.8
+django-js-asset==1.1.0
 django-semanticui-forms==1.6.5
 django-widget-tweaks==1.4.3
 html5lib==1.0b10
