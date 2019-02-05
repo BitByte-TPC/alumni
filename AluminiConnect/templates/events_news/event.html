@@ -1,6 +1,23 @@
 {% extends 'globals/base.html' %}
 {% load static %}
 
+{% block css %}
+<style>
+.map-container{
+  overflow:hidden;
+  padding-bottom:56.25%;
+  position:relative;
+  height:0;
+  }
+  .map-container iframe{
+  left:0;
+  top:0;
+  height:100%;
+  width:100%;
+  position:absolute;
+  }
+</style>
+{% endblock %}
 {% block body %}
     {% include 'globals/navbar.html' %}
     <div class=" p-0 m-0 masthead-bg w-100 parallax shadow-sm" style="min-height:250px !important;height:270px !important;background-position-y: -400px"></div>
@@ -54,7 +71,16 @@
                                 Address
                             </div>
                             <div class="card-body p-4">    
-                                <p>{{address}}</p>
+                                <p>{{address|safe}}</p>
+                                <br>
+                                <!--Google map-->
+                                
+                                <div id="map-container-google-9" class="z-depth-1-half map-container" style="height: 300px">
+                                    <iframe src="https://maps.google.com/maps?q={{address}}&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0"
+                                      style="border:0" allowfullscreen></iframe>
+                                  </div>
+  
+                                  <!--Google Maps-->
                             </div>
                         </div>
 
@@ -66,14 +92,20 @@
                     <div class="card m-2 shadow-sm">
                             
                         <div class="card-body p-4">    
-                            <h1 class="mb-3">{{ title }}</h1>
+                            <h1 class="mb-3">{{ title|safe }}</h1>
                             <p class="font-weight-light m-0">
                              
                               <i class="fas fa-table"></i>
                                {{ start_date|date:"d N, o" }}
                                &nbsp;
+                               <i class="fas fa-map-marker-alt"></i>&nbsp;
+                                        {{ location}}
+                                        &nbsp;
                                <i class="fas fa-user"></i>&nbsp;
-                               Admin
+                               {{ by }}
+                               <br><br>
+                               <button type="button" class="btn btn-success btn-sm btn-block">RSVP</button>
+                               
                             </p>
                         </div>
                     </div>
@@ -87,7 +119,7 @@
                             Description
                         </div>
                         <div class="card-body p-4">    
-                            <p>{{description}}</p>
+                            <p>{{description|safe}}</p>
                         </div>
                     </div>
 

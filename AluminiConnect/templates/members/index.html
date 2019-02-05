@@ -26,10 +26,10 @@
                             <div class="card-body font-open-sans">
                                 <div class="row" >
                                     <div class="col-lg-6 text-left">
-                                        <h5 class="card-title font-weight-normal m-0">Batch of {{ batch }}</h5>
+                                        <h5 class="card-title font-weight-normal m-0"><a href="{% url 'members:batch' batch %}" >Batch of {{ batch }}</a></h5>
                                     </div>
                                     <div class="col-lg-6 text-right">
-                                        <h6 class="card-title font-weight-normal m-0">{{ count }} Members</h6>
+                                        <h6 class="card-title font-weight-normal m-0">{{ count }} Member{{ count|pluralize }}</h6>
                                     </div>
                                 </div>
                             </div>

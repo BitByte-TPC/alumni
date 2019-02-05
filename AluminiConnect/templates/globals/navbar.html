@@ -55,7 +55,11 @@
             </li>
             {% else %}
             <li class="nav-item">
+                {% if user.is_superuser %}
+                <a class="nav-link" href="/admin/">Admin</a>
+                {% else %}
                 <a class="nav-link" href="{% url 'profile:profile' username=user.username %}">Profile</a>
+                {% endif %}
             </li>
             <li class="nav-item">
                 <a class="btn btn-dark btn-xl js-scroll-trigger text-white" style="padding: .5rem 1rem;" href="{% url 'logout' %}">Log&nbsp;Out</a>

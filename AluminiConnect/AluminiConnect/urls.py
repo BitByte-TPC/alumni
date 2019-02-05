@@ -42,6 +42,7 @@ urlpatterns += [
     url(r'^geolocation/', include('applications.geolocation.urls')),
     url(r'^alumnibody/', views.alumniBody),
     url(r'^gallery/', views.gallery),
+    url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^', views.index, name='home'),
 ]
 
@@ -53,4 +54,6 @@ if settings.DEBUG:
         url(r'^__debug__/', include(debug_toolbar.urls)),
     ] + urlpatterns
     
-    
+admin.site.site_header = "IIITDMJ Alumni Association"
+admin.site.site_title = "Alumni Association"
+admin.site.index_title = "Alumni Association Admin"
