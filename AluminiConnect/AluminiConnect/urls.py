@@ -48,6 +48,7 @@ urlpatterns += [
     url(r'^alumnibody/', views.alumniBody),
     url(r'^gallery/', views.gallery),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+    url(r'^awards/', include('applications.awards.urls')),
     url(r'^', views.index, name='home'),
 ]
 

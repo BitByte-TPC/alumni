@@ -2,6 +2,7 @@ from django.db import models
 import datetime, os
 from django.utils import timezone
 from ckeditor_uploader.fields import RichTextUploadingField
+from ckeditor.fields import RichTextField
 
 
 def upload_event_photo(instance, filename):
@@ -10,7 +11,7 @@ def upload_event_photo(instance, filename):
 
 class Event(models.Model):
     event_id = models.AutoField(primary_key = True)
-    title = models.TextField(max_length=255, null=False)
+    title = RichTextField()
     start_date = models.DateTimeField(default = datetime.datetime.now() + datetime.timedelta(hours=24))
     end_date = models.DateTimeField(default = datetime.datetime.now() + datetime.timedelta(hours=48))
     by = models.CharField(max_length = 255, null=True)
@@ -24,3 +25,8 @@ class Event(models.Model):
 
     def is_completed(self):
         return (timezone.now() > self.end_date)
+    
+    @property
+    def title_stripped(self):
+       from django.utils.html import strip_tags
+       return strip_tags(self.title)

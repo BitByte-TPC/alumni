@@ -24,6 +24,17 @@
             <li class="nav-item">
                 <a class="nav-link js-scroll-trigger" href="{% url 'news:index' %}">Campus&nbsp;Feeds</a>
             </li>
+            <li class="nav-item dropdown">
+                <a href="{% url 'awards:index' %}"  class="dropdown-toggle nav-link " data-toggle="dropdown">Awards&nbsp;<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'awards:award' id=1 %}" class="dropdown-item">Young Achiever Award 2019</a></li>
+                    <!--
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li class="divider"></li>
+                    -->
+                </ul>
+            </li>
             <li class="nav-item">
                 <a class="nav-link js-scroll-trigger" href="{% url 'publications:index' %}">Publications</a>
                 <!--<div class="btn-group">
@@ -40,9 +51,11 @@
                     </div>
                 </div>-->
             </li>
+            <!--
             <li class="nav-item">
                 <a class="nav-link js-scroll-trigger" href="">Opportunities</a>
             </li>
+            -->
             <li class="nav-item">
                 <a class="nav-link js-scroll-trigger" href="#gallery">Gallery</a>
             </li>

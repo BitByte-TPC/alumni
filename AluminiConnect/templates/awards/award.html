@@ -1,0 +1,41 @@
+{% extends 'globals/base.html' %}
+{% load static %}
+
+{% block title %}
+    {{ award.title_stripped }}
+{% endblock %}
+
+{% block body %}
+    {% include 'globals/navbar.html' %}
+    <div class=" p-0 m-0 masthead-bg w-100 parallax shadow-sm" style="min-height:250px !important;height:270px !important;background-position-y: -400px"></div>
+    <div style="height:150px;min-height: 150px;">
+
+    </div>
+    
+    <div class="container text-left p-2 mx-auto", style="width: 70rem;">
+            <div class="card shadow m-4 bg-light">
+                <div class="row no-gutters p-3">
+                    <div class="col">
+                        <div class="card-block px-2">
+                                <h1 class="card-title">{{ award.title|safe }}</h1>
+                                <!-- <p class="m-2 font-weight-normal mb-3"> -->
+                                <p class="m-2 font-weight-normal mb-3">
+                        
+                                    <i class="fas fa-table"></i>
+                                        {{ award.published_date|date:"d F, o" }}
+                                        &nbsp;
+                                        <i class="fas fa-user"></i>&nbsp;
+                                        {{ award.by }}
+                                        </p>  
+                                        <p>{{award.description|safe}}</p>
+                                
+                            <br>
+                            </div>
+                            <div class="w-100"></div>
+                                
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% include 'globals/footer.html' %}
+{% endblock %}

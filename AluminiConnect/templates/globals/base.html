@@ -34,6 +34,8 @@
 
     <!-- Custom CSS -->
     <link href="{% static "AluminiConnect/css/creative.css" %}" rel="stylesheet">
+    <link href="{% static "AluminiCOnnect/css/animate.min.css" %}" rel="stylesheet">
+    <link href="{% static "AluminiConnect/css/bootstrap-dropdownhover.min.css" %}" rel="stylesheet">
     {% block css %}
     {% endblock %}
 
@@ -64,7 +66,25 @@
 
 <!-- Custom scripts for this template -->
 <script src="{% static "AluminiConnect/js/creative.min.js" %}"></script>
+<script src="{% static "AluminiConnect/js/bootstrap-dropdownhover.min.js" %}"></script>
 
+<!-- Dropdown Hover -->
+<script>
+$(function(){
+  $(".dropdown").hover(            
+          function() {
+              $('.dropdown-menu', this).stop( true, true ).fadeIn("fast");
+              $(this).toggleClass('open');
+              $('b', this).toggleClass("caret caret-up");                
+          },
+          function() {
+              $('.dropdown-menu', this).stop( true, true ).fadeOut("fast");
+              $(this).toggleClass('open');
+              $('b', this).toggleClass("caret caret-up");                
+          });
+  });
+</script>
+  
 {% block javascript %}
 {% endblock %}
 
