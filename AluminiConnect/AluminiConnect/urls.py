@@ -32,7 +32,7 @@ urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += [
     url(r'^admin/', admin.site.urls),    
-    url(r'^login/', auth_views.LoginView.as_view(template_name='AluminiConnect/signup.html'), name='login'),
+    url(r'^login/', auth_views.LoginView.as_view(template_name='AluminiConnect/login.html'), name='login'),
     url(r'^logout/$', auth_views.logout, name='logout'),
     url(r'^register/', views.register1, name='register1'),
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', views.activate, name='activate'),
@@ -46,7 +46,7 @@ urlpatterns += [
     url(r'^newsletter/', include('applications.publications.urls')),
     url(r'^geolocation/', include('applications.geolocation.urls')),
     url(r'^alumnibody/', views.alumniBody),
-    url(r'^gallery/', views.gallery),
+    url(r'^gallery/', views.gallery, name = 'gallery'),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^awards/', include('applications.awards.urls')),
     url(r'^', views.index, name='home'),
