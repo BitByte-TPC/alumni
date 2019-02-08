@@ -15,49 +15,24 @@
     
     <div style="height:170px;min-height: 150px;">
     </div>
-
-    <section class="bg-transparent" id="events" style="padding-top:3rem">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-left p-2 mx-auto">
-                    {% for batch,count in data %}
-                        <a href="#" class="text-primary year-card">
-                        <div class="card w-100 shadow-sm p-2 m-2">
-                            <div class="card-body font-open-sans">
-                                <div class="row" >
-                                    <div class="col-lg-6 text-left">
-                                        <h5 class="card-title font-weight-normal m-0"><a href="{% url 'members:batch' batch %}" >Batch of {{ batch }}</a></h5>
-                                    </div>
-                                    <div class="col-lg-6 text-right">
-                                        <h6 class="card-title font-weight-normal m-0">{{ count }} Member{{ count|pluralize }}</h6>
-                                    </div>
-                                </div>
-                            </div>
+    
+    <section class="bg-transparent" style="padding-top:3rem">
+        <div class="container text-left p-2 mx-auto bg-light">     
+           <div class="row p-4">     
+            {% for batch,count in data %}
+                <div class="col-lg-3 p-2">
+                    <div class="card w-100 shadow-lg text-center" style="max-width: 15rem; max-height: 40rem;">
+                        <div class="card-body">
+                            <h5 class="card-title font-weight-bold"><a href="{% url 'members:batch' batch %}" class="btn btn-outline-primary" >Batch of {{ batch }}</a></h5>
+                            
+                            <p class="m-2 font-italic  font-open-sans">{{ count }} Member{{ count|pluralize }}</p>
                         </div>
-                        </a>
-                    {% endfor %}
+                    </div>
                 </div>
+            {% endfor %}
             </div>
         </div>
-    </section> 
+    </section>
+
     {% include 'globals/footer.html' %} 
 {% endblock %}
-</html>
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Home</title>
-</head>
-<body>
-    
-
-    {% if user.is_authenticated %}
-    <p>You're logged in!</p>
-    {% else %}
-    <p>Please login to connect!</p>
-    {% endif %}
-    
-
-</body>
-</html>

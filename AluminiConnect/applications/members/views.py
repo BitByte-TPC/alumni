@@ -5,24 +5,27 @@ from applications.alumniprofile.models import Profile
 
 def index(request):
     counts = Profile.objects.values('batch').order_by('-batch').annotate(count = Count('batch'))
+    print(counts)
     return render(request, "members/index.html", {'data' : counts.values_list('batch', 'count')})
 
 def batch(request, year):
-    cse = Profile.objects.filter(batch = year, branch="CSE")# .values_list('programme', flat=True).distinct()
-    ece = Profile.objects.filter(batch = year, branch = "ECE")
-    me = Profile.objects.filter(batch = year, branch = "ME")
-    # #query = {}
-    # for row in programmes:
-    #     result = Profile.objects.filter(batch = year,programme = row).values_list('branch').annotate(count = Count('branch'))
-    #     row = row.replace('.','')
-    #     query[row] = {}
-    #     for branch, count in result:
-    #         query[row][branch] = count
-    
-    # print(query) #prints {'B.Des': {'CSE': 1}, 'B.Tech': {'CSE': 1, 'ME': 1}} 
+    # users = Profile.objects.values('programme').annotate(count = Count('branch'))
     # print(users)
-    print(cse)
-    return render(request, "members/year.html", {'cse' : cse, 'ece':ece, 'me':me })
+    programmes = Profile.objects.values_list('programme', flat=True).distinct()
+    query = {}
+    print(programmes)
+    for row in programmes:
+        print(type(row))
+        result = Profile.objects.filter(batch = year,programme = row).annotate(count = Count('branch')).values_list()
+        #row = row.replace('.','')
+        print(result)
+        query[row] = {}
+        for branch, count in result:
+            query[row][branch] = count
+    
+    print(query) #prints {'B.Des': {'CSE': 1}, 'B.Tech': {'CSE': 1, 'ME': 1}} 
+    
+    return render(request, "members/year.html", {'data' : query})
 
 def branch(request, year, branch):
     alumni = Profile.objects.filter(batch = year, branch = branch)
