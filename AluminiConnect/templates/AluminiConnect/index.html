@@ -76,10 +76,10 @@
       <div class="container">
         <div class="row w-100">
           <div class="col-lg-6 text-left">
-            <h2 class="font-open-sans">EVENTS</h2>
+            <h2 class="font-open-sans">Events</h2>
           </div>
           <div class="col-lg-6 text-right">
-            <a class="btn btn-dark btn-xl js-scroll-trigger" href="{% url 'events_news:events' %}">VIEW ALL</a>
+            <a class="btn btn-outline-primary btn-sm js-scroll-trigger" href="{% url 'events_news:events' %}">VIEW ALL</a>
           </div>
         </div>
         <div class="row">
@@ -92,11 +92,11 @@
               <img src="{% static "AluminiConnect/img/event.png" %}" class="card-img-top" alt="" height="300px" width="300px">
               {% endif %}
               <div class="card-body">
-                <h5 class="card-title font-weight-bold">{{item.title}}</h5>
+                <h5 class="card-title font-weight-bold">{{item.title_stripped}}</h5>
                 
                 <p class="m-2 font-italic  font-open-sans mb-3">
                   <i class="fas fa-calendar-alt font-weight-lighter "></i>
-                  {{item.start_date|date:"d M, o"}}
+                  {{item.start_date|date:"l, d M, o"}}
                   <br>
                   <i class="fas fa-map-marker-alt"></i>
                   {{item.location}}
@@ -140,10 +140,10 @@
       <div class="container">
         <div class="row w-100">
           <div class="col-lg-6 text-left">
-            <h2 class="font-open-sans">CAMPUS FEED</h2>
+            <h2 class="font-open-sans">Campus Feed</h2>
           </div>
           <div class="col-lg-6 text-right">
-            <a class="btn btn-dark btn-xl js-scroll-trigger"  href="{% url 'news:index' %}">VIEW ALL</a>
+            <a class="btn btn-outline-primary btn-sm js-scroll-trigger"  href="{% url 'news:index' %}">VIEW ALL</a>
           </div>
         </div>
         <div class="row">
