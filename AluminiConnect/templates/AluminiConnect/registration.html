@@ -62,13 +62,14 @@
                         {% for item in l %}
                           <tr>
                             <td><a href={% url 'profileedit' id=item.roll_no %}> {{ item.roll_no }} </a> </td>
-                            <td>{{ item.first_name}} {{item.last_name}}</td>
+                            <td>{{ item.name}}</td>
                             <td> {{item.sex}}</td><td>{{item.date_of_birth}}</td>
                           </tr>
                         {% endfor %}
                         {% endif %}
                         </tbody>
                       </table>
+                      <p class="">Unable to find yourself. <a href={% url 'new_register' %}> Register Here </a></p>
                     </div>
                 {% endif %}
 

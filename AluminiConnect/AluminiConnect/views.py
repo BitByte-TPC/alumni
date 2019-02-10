@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
 from django import forms
-from django.contrib.auth import authenticate, login
+from django.contrib import messages
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import authenticate, login, update_session_auth_hash
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
@@ -9,7 +12,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 
-from .forms import UserRegistrationForm, RegisterForm1, ProfileEdit
+from .forms import UserRegistrationForm, RegisterForm, ProfileEdit, NewRegister
 from .token import account_activation_token
 from applications.events_news.models import Event
 from applications.alumniprofile.models import Profile, Constants
@@ -29,51 +32,12 @@ def alumniBody(request):
 
 def gallery(request):
     return render(request, "AluminiConnect/gallery.html")
-
-def auth(request):
-
-    print(request.POST.get('submit'))
-
-    if request.POST.get('submit') == 'signup':
-        form = UserRegistrationForm(request.POST)
-        
-        if form.is_valid():
-            userObj = form.cleaned_data
-            username = userObj['username']
-            email = userObj['email']
-            pswd = userObj['password']
-
-            if not (User.objects.filter(username = username).exists() or User.objects.filter(email=email).exists()):
-                User.objects.create_user(username,email,pswd)
-                user = authenticate(username = username, password = pswd)
-                login(request,user)
-                return HttpResponseRedirect('/')
-            else:
-                raise forms.ValidationError('Looks like a username with that email or password already exists')
-
-    if request.POST.get('submit') == 'login':
-        print('User login')
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
-        l = Profile.objects.get(user = user)
-        print(l)
-        if l.is_registered:
-            if user is not None:
-                login(request,user)
-                user.last_visit = datetime.datetime.now()
-                return HttpResponseRedirect('/')
-            else:
-                return HttpResponseRedirect('/login/')
-        
     
-    return render(request, 'AluminiConnect/signup.html')
-    
-def register1(request):
+def register(request):
     check=False
     l = None
     if request.method == 'POST':
-        form = RegisterForm1(request.POST)
+        form = RegisterForm(request.POST)
         print (request.POST)
         if form.is_valid():
             batch = form.cleaned_data.get('batch')
@@ -85,8 +49,41 @@ def register1(request):
             check = True
             
     else:
-        form = RegisterForm1()
+        form = RegisterForm()
     return render(request, 'AluminiConnect/registration.html', {'form': form, 'check': check, 'l': l})
+
+def new_register(request):
+    if request.method == 'POST':
+        form = NewRegister(request.POST)
+        print (request.POST)
+        if form.is_valid():
+            profile = form.save(commit=False)
+            user = User.objects.create_user(
+                username=str(form.cleaned_data.get('roll_no')),
+                email=str(form.cleaned_data.get('email')),
+                password=str(form.cleaned_data.get('roll_no'))
+                )
+            profile.user = user
+            profile.save()
+            if not profile.is_registered:
+                current_site = get_current_site(request)
+                mail_subject = 'Activate your Alumni Account'
+                message = render_to_string('AluminiConnect/acc_active_email.html', {
+                    'user' : profile.roll_no,
+                    'domain' : current_site.domain,
+                    'uid' : urlsafe_base64_encode(force_bytes(profile.roll_no )).decode(),
+                    'token' : account_activation_token.make_token(profile.user),
+                })
+                print ('printing email\n')
+                print (profile.user.email)
+                to_email = profile.user.email
+                email = EmailMessage( mail_subject, message, to=[to_email] )
+                email.send()
+                #return HttpResponse('Please confirm your email address to complete registeration process..')
+                return HttpResponseRedirect('/confirm/')
+    else:
+        form = NewRegister()
+    return render(request, 'AluminiConnect/profileedit.html', {'form' :form})
 
 def profileedit(request, id):
     l = Profile.objects.get(roll_no = id)
@@ -95,9 +92,11 @@ def profileedit(request, id):
     if request.method == 'POST':
         form = ProfileEdit(request.POST, instance = l)
         print (request.POST)
+        print (form.is_valid(), form.errors, type(form.errors))
         if form.is_valid():
+            print(l)
             l =form.save(commit=False)
-            l.save()
+            print(l.save())
             if not l.is_registered:
                 current_site = get_current_site(request)
                 mail_subject = 'Activate your Alumni Account'
@@ -107,7 +106,7 @@ def profileedit(request, id):
                     'uid' : urlsafe_base64_encode(force_bytes(l.roll_no )).decode(),
                     'token' : account_activation_token.make_token(l.user),
                 })
-                print ('printinemail\n')
+                print ('printing email\n')
                 print (l.user.email)
                 to_email = l.user.email
                 email = EmailMessage( mail_subject, message, to=[to_email] )
@@ -115,6 +114,7 @@ def profileedit(request, id):
                 #return HttpResponse('Please confirm your email address to complete registeration process..')
                 return HttpResponseRedirect('/confirm/')
     else:
+        print("here")
         form = ProfileEdit(instance = l)
     return render(request, 'AluminiConnect/profileedit.html', {'form' :form, 'l': l})
 
@@ -135,3 +135,18 @@ def activate(request, uidb64, token):
     else:
         return HttpResponse('Activation link is invalid!')
     return redirect('/')
+
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('home')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'AluminiConnect/change_password.html', {'form': form })
