@@ -1,1 +1,62 @@
-{{a}}
+{% extends 'globals/base.html' %}
+{% load static %}
+
+{% block title %} 
+     Members of IIITDMJ Alumni Association
+{% endblock %}
+
+{% block body %}
+  <!-- <body id="page-top" class="font-open-sans" style="background-color: #eaedf5"> -->
+    {% include 'globals/navbar.html' %}
+
+    <div class=" p-0 m-0 masthead-bg w-100 parallax shadow-sm" style="min-height:250px !important;height:270px !important;background-position-y: -400px">
+        
+    </div>
+    
+    <div style="height:170px;min-height: 150px;">
+    </div>
+    
+    <section class="bg-transparent" style="padding-top:3rem">
+        <div class="container text-left p-2 mx-auto bg-light">     
+            
+            
+            <div class="row w-100">
+                <div class="col text-left">
+                    <h2 class="font-open-sans"><span class="badge badge-primary">Batch of {{batch}}, {{branch}} Branch </span></h2>
+                </div>
+            </div>
+            
+            <div class="row p-4">     
+                {% for item in data %}
+                <div class="col-lg-2 p-2">      
+                    <div class="card w-100 shadow-lg hover-zoomin" style="max-width: 24rem; max-height: 40rem;">
+                            <span class="border border-primary">
+                            <a href="{% url 'profile:profile' username=item.roll_no %}">
+                        {% if item.profile_picture %}
+                        <img src="{{ item.profile_picture.url }}" class="card-img-top my-auto" alt="" height="200px" width="200px">
+                        {% else %}
+                        <img src="{% static "AluminiConnect/img/user.png" %}" class="card-img-top my-auto" alt="" height="200px" width="200px">
+                        {% endif %}
+                        </a>
+                        <div class="card-body">
+                            <p class="card-title font-open-sans font-weight-bold"><a href="{% url 'profile:profile' username=item.roll_no %}"> {{item.first_name}} {{item.last_name}}</a></p>
+                            
+                            <p class="m-2 font-italic  font-open-sans">
+                            <i class="fas fa-map-marker-alt"></i>
+                            {{item.current_city}}
+                            </p>
+                            
+                        </div>
+                        
+                            
+                    </div>
+                    </span>
+                    
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </section>
+    {% include 'globals/footer.html' %} 
+{% endblock %}

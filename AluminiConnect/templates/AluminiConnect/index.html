@@ -84,8 +84,9 @@
         </div>
         <div class="row">
           {% for item in events %}
-          <div class="col-lg-4 p-2">
-            <div class="card w-100 shadow-sm" style="max-width: 24rem; max-height: 40rem;">
+          <div class="col-lg-4 p-2 ">
+            <div class="card w-100 shadow-sm " style="max-width: 24rem; max-height: 40rem;">
+                <span class="border border-primary">
               {% if item.picture %}
               <img src="{{ item.picture.url }}" class="card-img-top" alt="" height="300px" width="300px">
               {% else %}
@@ -103,7 +104,9 @@
                 </p>
                 <a href="{% url 'events_news:event' id=item.event_id %}" class="btn btn-primary">VIEW</a>
               </div>
+              
             </div>
+          </span>
           </div>
           {% endfor %}
           <!-- 

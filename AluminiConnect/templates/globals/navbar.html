@@ -15,8 +15,19 @@
             <li class="nav-item">
                 <a class="nav-link js-scroll-trigger" href="{% url 'home' %}">Home</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="{% url 'members:index' %}">Directory</a>
+            <li class="nav-item dropdown">
+                <a href="{% url 'members:index' %}"  class="dropdown-toggle nav-link " data-toggle="dropdown">Directory&nbsp;<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'members:index' %}" class="dropdown-item">Yearbook</a></li>
+                    <li><a href="{% url 'geolocation:index' %}" class="dropdown-item">Geolocation</a></li>
+            
+                    <!--
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li class="divider"></li>
+                    -->
+                </ul>
+                
             </li>
             <li class="nav-item">
                 <a class="nav-link js-scroll-trigger" href="{% url 'events_news:events' %}">Events</a>

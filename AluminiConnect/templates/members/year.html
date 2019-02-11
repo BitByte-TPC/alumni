@@ -15,20 +15,29 @@
     
     <div style="height:170px;min-height: 150px;">
     </div>
-    <!--
+    
     <section class="bg-transparent" style="padding-top:3rem">
         <div class="container text-left p-2 mx-auto bg-light">     
-           <div class="row p-4">     
             
-                <div class="col-lg-3 p-2">
-                    <div class="card w-100 shadow-lg text-center" style="max-width: 15rem; max-height: 40rem;">
-                        <div class="card-body">
-                            
-                        </div>
-                    </div>
+            {% for key1, value1 in data.items %}
+            <div class="row w-100">
+                <div class="col text-left">
+                    <h2 class="font-open-sans"><span class="badge badge-primary">{{ key1 }}</span></h2>
                 </div>
-            
             </div>
+            
+            <div class="row p-4">     
+                {% for key2, value2 in value1.items %}
+                <div class="col-lg-3 p-2">
+                    
+                        <a href="{% url 'members:batch' year=year %}{{key1}}/{{key2}}/" class="btn btn-outline-primary btn-block "> {{ key2}} <br>{{ value2 }} Member{{ value2|pluralize }} </a>
+                        
+                    
+                </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+
         </div>
     </section>
 -->
