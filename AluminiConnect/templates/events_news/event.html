@@ -32,8 +32,8 @@
                     <!--   PIC CARD  -->
                     <div class="card m-2 shadow-sm">
                         <div class="card-body p-1">
-                            {% if picture %}
-                            <img src="{{ picture.url }}" 
+                            {% if event.picture %}
+                            <img src="{{ event.picture.url }}" 
                                 alt="DP" class="img-fluid h-100 w-100"
                                 style=""
                             />
@@ -55,14 +55,29 @@
                         <div class="card-body">
                             <p class="m-2 font-weight-normal mb-3">
                             
-                              <small>Starts at <b>{{start_date|date:"h:i A"}} IST</b> on <b>{{start_date|date:"d M, o"}}</b></small>
+                              <small>Starts at <b>{{event.start_date|date:"h:i A"}} IST</b> on <b>{{event.start_date|date:"d M, o"}}</b></small>
                               <br>
-                              <small>Ends at <b>{{end_date|date:"h:i A"}} IST</b> on <b>{{end_date|date:"d M, o"}}</b></small>
+                              <small>Ends at <b>{{event.end_date|date:"h:i A"}} IST</b> on <b>{{event.end_date|date:"d M, o"}}</b></small>
                                 
                             
                             </p>
                         </div>
                     </div>
+
+                    <!--  Attendees -->
+                    <div class="card m-2 shadow-sm">
+                        <div class="card-header">
+                                <i class="fas fa-users pr-2"></i>
+                                Attendees
+                            </div>
+                    <div class="card-body">
+                        <p class="m-2 font-weight-normal mb-3">
+                        Count {{count}}
+                            
+                  
+                        </p>
+                    </div>
+                </div>
 
                     <!--   ADDRESS  -->
                     <div class="card m-2 shadow-sm">
@@ -71,7 +86,7 @@
                                 Address
                             </div>
                             <div class="card-body p-4">    
-                                <p>{{address|safe}}</p>
+                                <p>{{event.address|safe}}</p>
                                 <br>
                                 <!--Google map-->
                                 
@@ -92,20 +107,26 @@
                     <div class="card m-2 shadow-sm">
                             
                         <div class="card-body p-4">    
-                            <h1 class="mb-3">{{ title|safe }}</h1>
+                            <h1 class="mb-3">{{ event.title|safe }}</h1>
                             <p class="font-weight-light m-0">
                              
                               <i class="fas fa-table"></i>
-                               {{ start_date|date:"d N, o" }}
+                               {{ event.start_date|date:"d N, o" }}
                                &nbsp;
                                <i class="fas fa-map-marker-alt"></i>&nbsp;
-                                        {{ location}}
+                                        {{ event.location}}
                                         &nbsp;
                                <i class="fas fa-user"></i>&nbsp;
-                               {{ by }}
+                               {{ event.by }}
                                <br><br>
-                               <button type="button" class="btn btn-success btn-sm btn-block">RSVP</button>
-                               
+                               {% if not check %}
+                               <form method="POST" >
+                                 {% csrf_token %}
+                               <button type="submit" name="submit" value="rsvp" class="btn btn-success btn-sm btn-block">RSVP</button>
+                              </form>
+                              {% else %}
+                              <button type="button"  class="btn btn-success btn-sm btn-block" disabled>Registered</button>
+                              {% endif %}
                             </p>
                         </div>
                     </div>
@@ -119,7 +140,7 @@
                             Description
                         </div>
                         <div class="card-body p-4">    
-                            <p>{{description|safe}}</p>
+                            <p>{{event.description|safe}}</p>
                         </div>
                     </div>
 

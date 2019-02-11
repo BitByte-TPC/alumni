@@ -3,6 +3,7 @@ import datetime, os
 from django.utils import timezone
 from ckeditor_uploader.fields import RichTextUploadingField
 from ckeditor.fields import RichTextField
+from django.contrib.auth.models import User
 
 
 def upload_event_photo(instance, filename):
@@ -21,7 +22,7 @@ class Event(models.Model):
     description = RichTextUploadingField()
 
     def __str__(self):
-        return self.title
+        return self.title_stripped
 
     def is_completed(self):
         return (timezone.now() > self.end_date)
@@ -30,3 +31,10 @@ class Event(models.Model):
     def title_stripped(self):
        from django.utils.html import strip_tags
        return strip_tags(self.title)
+
+class Attendees(models.Model):
+    event_id = models.ForeignKey(Event, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = (("event_id", "user_id"),)

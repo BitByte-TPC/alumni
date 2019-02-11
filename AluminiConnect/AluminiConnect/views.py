@@ -83,7 +83,7 @@ def new_register(request):
                 return HttpResponseRedirect('/confirm/')
     else:
         form = NewRegister()
-    return render(request, 'AluminiConnect/profileedit.html', {'form' :form})
+    return render(request, 'AluminiConnect/profileedit.html', {'form' :form, 'edit' : False})
 
 def profileedit(request, id):
     l = Profile.objects.get(roll_no = id)
@@ -116,7 +116,7 @@ def profileedit(request, id):
     else:
         print("here")
         form = ProfileEdit(instance = l)
-    return render(request, 'AluminiConnect/profileedit.html', {'form' :form, 'l': l})
+    return render(request, 'AluminiConnect/profileedit.html', {'form' :form, 'l': l, 'edit' : False})
 
 def activate(request, uidb64, token):
     print('inside activate')

@@ -50,23 +50,25 @@ class RegisterForm(forms.ModelForm):
 class ProfileEdit(forms.ModelForm):
     current_address = forms.CharField(
         widget=forms.Textarea(
-            attrs={'rows': 5, 'placeholder': 'Enter Address'}
+            attrs={'rows': 3, 'placeholder': 'Enter Address'}
         ),
         max_length=4000,
     )
     permanent_address = forms.CharField(
         widget=forms.Textarea(
-            attrs={'rows': 5, 'placeholder': 'Enter Permanent Address',}
+            attrs={'rows': 3, 'placeholder': 'Enter Permanent Address',}
         ),
         max_length=4000,
     )
     linkedin = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Linkedin URL'}))
-    website = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Website'}))
+    website = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Website'}),required = False)
     facebook = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Facebook URL'}))
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['fathers_name'].label = "Father/Husband's Name"
+        self.fields['mobile1'].label = "Mobile No."
+        self.fields['mobile2'].label = "Alternate Mobile No."
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Row(
@@ -78,7 +80,7 @@ class ProfileEdit(forms.ModelForm):
             Row(
                 Column('roll_no', css_class='form-group col-md-4 mb-0'),
                 Column('date_of_birth', css_class='form-group col-md-4 mb-0'),
-                Column('email', css_class='form-group col-md-4 mb-0'),
+                Column('year_of_admission', css_class='form-group col-md-4 mb-0'),
                 css_class='form-row'
             ),
             Row(
@@ -88,24 +90,30 @@ class ProfileEdit(forms.ModelForm):
                 css_class='form-row'
             ),
             Row(
-                Column('current_address', css_class='form-group col-md-6 mb-0'),
-                Column('permanent_address', css_class='form-group col-md-6 mb-0'),
+                Column('mobile1', css_class='form-group col-md-4 mb-0'),
+                Column('mobile2', css_class='form-group col-md-4 mb-0'),
+                Column('phone_no', css_class='form-group col-md-4 mb-0'),
                 css_class='form-row'
             ),
+
             Row(
-                Column('city', css_class='form-group col-md-6 mb-0'),
-                Column('state', css_class='form-group col-md-6 mb-0'),
-                css_class='form-row'
-            ),
-            Row(
-                Column('country', css_class='form-group col-md-6 mb-0'),
-                Column('phone_no', css_class='form-group col-md-6 mb-0'),
-                css_class='form-row'
-            ),
-            Row(
-                Column('alternate_phone_no', css_class='form-group col-md-6 mb-0'),
+                Column('email', css_class='form-group col-md-6 mb-0'),
                 Column('alternate_email', css_class='form-group col-md-6 mb-0'),
                 css_class='form-row'
+            ),
+            Row(
+                Column('current_address', css_class='form-group col mb-0'),
+                
+                css_class='form-row'
+            ),
+            Row(
+                Column('city', css_class='form-group col-md-4 mb-0'),
+                Column('state', css_class='form-group col-md-4 mb-0'),
+                Column('country', css_class='form-group col-md-4 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('permanent_address', css_class='form-group col-md mb-0'),
             ),
             InlineRadios('working_status'),
             Row(
@@ -135,8 +143,14 @@ class ProfileEdit(forms.ModelForm):
         model = Profile
 
         fields = [
+            'city',
+            'country',
+            'state',
+            'year_of_admission',
             'alternate_email',
-            'alternate_phone_no',
+            'phone_no',
+            'mobile1',
+            'mobile2',
             'facebook',
             'name',
             'fathers_name',
@@ -151,9 +165,6 @@ class ProfileEdit(forms.ModelForm):
             'current_address',
             'permanent_address',
             'phone_no',
-            'city',
-            'country',
-            'state',
             'current_position',
             'current_organisation',
             'past_experience',
@@ -184,23 +195,25 @@ class NewRegister(forms.ModelForm):
     )
     current_address = forms.CharField(
         widget=forms.Textarea(
-            attrs={'rows': 5, 'placeholder': 'Enter Address'}
+            attrs={'rows': 3, 'placeholder': 'Enter Address'}
         ),
         max_length=4000,
     )
     permanent_address = forms.CharField(
         widget=forms.Textarea(
-            attrs={'rows': 5, 'placeholder': 'Enter Permanent Address',}
+            attrs={'rows': 3, 'placeholder': 'Enter Permanent Address',}
         ),
         max_length=4000,
     )
     linkedin = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Linkedin URL'}))
-    website = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Website'}))
+    website = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Website'}), required = False)
     facebook = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Facebook URL'}))
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['fathers_name'].label = "Father/Husband's Name"
+        self.fields['mobile1'].label = "Mobile No."
+        self.fields['mobile2'].label = "Alternate Mobile No."
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Row(
@@ -212,7 +225,7 @@ class NewRegister(forms.ModelForm):
             Row(
                 Column('roll_no', css_class='form-group col-md-4 mb-0'),
                 Column('date_of_birth', css_class='form-group col-md-4 mb-0'),
-                Column('email', css_class='form-group col-md-4 mb-0'),
+                Column('year_of_admission', css_class='form-group col-md-4 mb-0'),
                 css_class='form-row'
             ),
             Row(
@@ -222,23 +235,32 @@ class NewRegister(forms.ModelForm):
                 css_class='form-row'
             ),
             Row(
-                Column('current_address', css_class='form-group col-md-6 mb-0'),
-                Column('permanent_address', css_class='form-group col-md-6 mb-0'),
+                Column('mobile1', css_class='form-group col-md-4 mb-0'),
+                Column('mobile2', css_class='form-group col-md-4 mb-0'),
+                Column('phone_no', css_class='form-group col-md-4 mb-0'),
                 css_class='form-row'
             ),
+
             Row(
-                Column('city', css_class='form-group col-md-6 mb-0'),
-                Column('state', css_class='form-group col-md-6 mb-0'),
-                css_class='form-row'
-            ),
-            Row(
-                Column('country', css_class='form-group col-md-6 mb-0'),
-                Column('phone_no', css_class='form-group col-md-6 mb-0'),
-                css_class='form-row'
-            ),
-            Row(
-                Column('alternate_phone_no', css_class='form-group col-md-6 mb-0'),
+                Column('email', css_class='form-group col-md-6 mb-0'),
                 Column('alternate_email', css_class='form-group col-md-6 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('current_address', css_class='form-group col-md mb-0'),
+                
+                css_class='form-row'
+            ),
+            Row(
+                Column('country', css_class='form-group col-md-4 mb-0'),
+                Column('state', css_class='form-group col-md-4 mb-0'),
+                Column('city', css_class='form-group col-md-4 mb-0'),
+                
+                
+                css_class='form-row'
+            ),
+            Row(
+                Column('permanent_address', css_class='form-group col-md mb-0'),
                 css_class='form-row'
             ),
             InlineRadios('working_status'),
@@ -273,8 +295,11 @@ class NewRegister(forms.ModelForm):
             'city',
             'country',
             'state',
+            'year_of_admission',
             'alternate_email',
-            'alternate_phone_no',
+            'phone_no',
+            'mobile1',
+            'mobile2',
             'facebook',
             'name',
             'fathers_name',

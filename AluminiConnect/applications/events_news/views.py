@@ -1,5 +1,8 @@
 from django.shortcuts import render
-from .models import Event
+from django.http import HttpResponseRedirect
+from .models import Event, Attendees
+from django.db.models import Count
+from django.contrib.auth.models import User
 # Create your views here.
 def events(request):
     events_list = Event.objects.filter()
@@ -7,4 +10,19 @@ def events(request):
 
 def event(request, id):
     e = Event.objects.get(event_id = id)
-    return render(request, "events_news/event.html", vars(e))
+    attending = Attendees.objects.filter(event_id = e)
+    check = False
+    if request.user.is_authenticated:
+        if Attendees.objects.get(user_id = User.objects.get(username=request.user.username), event_id = e):
+            check = True
+    
+    if request.POST.get("submit") == "rsvp":
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect("/login/?next="+request.path)
+
+        attendee = Attendees()
+        attendee.user_id = User.objects.get(username = request.user.username)
+        attendee.event_id = Event.objects.get(event_id = id)
+        attendee.save()
+
+    return render(request, "events_news/event.html", {"event" : e, "check":check, "count":attending.count()})
