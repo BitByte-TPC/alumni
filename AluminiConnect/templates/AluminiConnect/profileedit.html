@@ -10,12 +10,11 @@
 {% block javascript %}
 <script type="text/javascript">
 
-document.getElementById('div_id_current_position').style.display='block';
-document.getElementById('div_id_current_organisation').style.display='block';
-document.getElementById('div_id_past_experience').style.display='block';
+document.getElementById('div_id_current_position').style.display='none';
+document.getElementById('div_id_current_organisation').style.display='none';
+document.getElementById('div_id_past_experience').style.display='none';
 document.getElementById('div_id_current_course').style.display='none';
 document.getElementById('div_id_current_university').style.display='none';
-document.getElementById('id_id_working_status_0_1').checked='true';
 $('#id_id_working_status_0_1').click(function() {
     document.getElementById('div_id_current_position').style.display='block';
     document.getElementById('div_id_current_organisation').style.display='block';

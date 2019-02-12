@@ -15,7 +15,7 @@ class News(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     by = models.TextField(max_length = 500)
     picture = models.ImageField(null = True, blank = True, upload_to = upload_news_photo)
-    description = RichTextUploadingField()
+    description = RichTextUploadingField(null=True)
 
     def __str__(self):
         return self.title_stripped

@@ -14,27 +14,23 @@
 - [x] Change layout, similar to IITGN
 - [x] Add Home, Profile, Event Pages
 - [x] Test Authentication and linking backend (logout not working)
-- [ ] Blog
 
 **January 28, 2019**
-- [ ] ***Add ModelForms to directly update user details || URGENT ||***
-- [ ] Add decorators for login check etc
+- [x] ***Add ModelForms to directly update user details || URGENT ||***
 - [x] add college logo in navbar, ~~also make a 2 row navbar similar to IITGN~~
 
 **January 30, 2019 (alongwith earlier pending work)**
 - [x] add carousel to home page
 - [x] add dropdown in navbar's "Publication" tab
-- [ ] **add content to carousel**
+- [x] **add content to carousel**
 
 **February 4, 2019**
 - [x] Gallery Page **Shivansh**
-- [ ] Complete Directory page with filters etc. **Meru**
+- [x] Complete Directory page with filters etc. **Meru**
 - [x] Geolocation **Meru**
 - [x] Alumni Body Page, Publications Page **Shivansh**
-- [ ] add "edit" buttons to the cards of profile page for updating info **Meru**
-
 - [x] link publications page to navbar
-- [ ] link local PDFs to publications page
+- [x] link local PDFs to publications page
 
 **After Quiz**
 - [x] navbar "alumni connect" link to home
@@ -47,21 +43,27 @@
 - [x] logout not working
 
 **Priorities**
-- [ ] add email confirmation 
-- [ ] move secret key from setting.py
-- [ ] add attendees, gallery in events
+- [x] add email confirmation 
+- [x] add attendees, gallery in events
 - [x] newsletter page
 - [x] automatically update photos in event's "Gallery" Card & add js for popup viewing
-- [ ] admin multiple photo upload support
+- [ ] move secret key from setting.py
+- [ ] Gallery Model
+- [ ] Blog
+- [ ] add "edit" buttons to the cards of profile page for updating info
+- [ ] Add decorators for login check etc
+- [ ] Add Attendees profile pic mini thumbnails to Events Page
+- [ ] add birthday wishes script
+- [ ] Migrate to MySQL
 
 **Expected Features**
 - [x] Alumni Profile
 - [x] Events (Institute, Meetups)
-- [ ] Alumni Filter
-- [ ] Achievements, News, etc. 
+- [x] Alumni Filter
+- [x] Achievements, News, etc. 
+- [x] Alumni GeoLocation
+- [x] Awards
 - [ ] Job Postings
 - [ ] Blog
-- [x] Alumni GeoLocation
-- [ ] Awards
 - [ ] Alumni Needs
 - [ ] Gallery
