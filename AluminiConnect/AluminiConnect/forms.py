@@ -69,6 +69,7 @@ class ProfileEdit(forms.ModelForm):
         self.fields['fathers_name'].label = "Father/Husband's Name"
         self.fields['mobile1'].label = "Mobile No."
         self.fields['mobile2'].label = "Alternate Mobile No."
+        self.fields['batch'].label = 'Year of Passing'
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Row(
@@ -214,6 +215,7 @@ class NewRegister(forms.ModelForm):
         self.fields['fathers_name'].label = "Father/Husband's Name"
         self.fields['mobile1'].label = "Mobile No."
         self.fields['mobile2'].label = "Alternate Mobile No."
+        self.fields['batch'].label = 'Year of Passing'
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Row(

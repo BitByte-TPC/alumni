@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %} 
-    Student Alumni Body
+    Student Alumni Cell
 {% endblock %}
 
 {% block css %}
@@ -145,7 +145,7 @@ section .section-title {
         <div class="row">
           <div class="col-lg-8 mx-auto align-middle">
             <h1 class="text-uppercase mt-4 font-open-sans">
-              <strong>Student Alumni Body</strong>
+              <strong>Student Alumni Cell</strong>
             </h1>
           </div>
         </div>
@@ -210,13 +210,28 @@ section .section-title {
             <h1 class="section-title h1 text-center">Patrons</h1><br>
             <div class="row">
                 <!-- Team member -->
-                <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="frontside">
+                            <div class="card shadow-lg">
+                                <div class="card-body text-center">
+                                    <p><img class=" img-fluid" src="{% static "AluminiConnect/img/people/SGD.jpg" %}" alt="card image"></p>
+                                    <h4 class="card-title">Prof. S. G. Deshmukh</h4>
+                                    <p class="card-text">Officiating Director</p>
+                                    <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
+                                </div>
+                            </div>
+                        </div>   
+                    </div>
+                    
+                    <!-- ./Team member -->
+                <!-- Team member -->
+                <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="frontside">
                         <div class="card shadow-lg">
                             <div class="card-body text-center">
                                 <p><img class=" img-fluid" src="{% static "AluminiConnect/img/people/PKJainSir.JPG" %}" alt="card image"></p>
                                 <h4 class="card-title">Dr. Prashant Kumar Jain</h4>
-                                <p class="card-text">This is basic card with image on top, title, description and button.</p>
+                                <p class="card-text">Dean Students<br>Placement Chairman</p>
                                 <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
                             </div>
                         </div>
@@ -225,13 +240,13 @@ section .section-title {
                 
                 <!-- ./Team member -->
                 <!-- Team member -->
-                <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="frontside">
                         <div class="card shadow-lg">
                             <div class="card-body text-center">
                                 <p><img class=" img-fluid" src="{% static "AluminiConnect/img/people/TulikaRuthNelson.jpg" %}" alt="card image"></p>
                                 <h4 class="card-title">Ms. Tulika Ruth Nelson</h4>
-                                <p class="card-text">Office In-Charge Alumni Affairs</p>
+                                <p class="card-text">Placement Officer<br>Office In-Charge Alumni Affairs</p>
                                 <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
                             </div>
                         </div>
@@ -240,13 +255,13 @@ section .section-title {
                 
                 <!-- ./Team member -->
                 <!-- Team member -->
-                <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="frontside">
                         <div class="card shadow-lg">
                             <div class="card-body text-center">
                                 <p><img class=" img-fluid" src="{% static "AluminiConnect/img/user.png" %}" alt="card image"></p>
                                 <h4 class="card-title">Mr. Anil Kumar</h4>
-                                <p class="card-text">Office of Alumni Affairs</p>
+                                <p class="card-text">Junior Superintendent<br>Office of Alumni Affairs</p>
                                 <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
                             </div>
                         </div>
@@ -263,8 +278,15 @@ section .section-title {
                             <div class="card-body text-center">
                                 <p><img class=" img-fluid" src="{% static "AluminiConnect/img/people/ArpanTarkas.jpeg" %}" alt="card image"></p>
                                 <h4 class="card-title">Arpan Tarkas</h4>
-                                <p class="card-text">This is basic card with image on top, title, description and button.</p>
-                                <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
+                                <p class="card-text"><i class="fas fa-user-graduate"></i> B.Tech (ME)<br><i class="far fa-calendar-plus"></i> Batch of 2020</p>
+                                <p class="card-text text-center">
+                                    <h4>
+                                        <a href="https://www.facebook.com/arpan.tarkas" target="_blank"><i class="fab fa-facebook-square"></i></a> 
+                                        <a href="https://www.linkedin.com/in/arpantarkas/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                                        <a href="mailto:2016049@iiitdmj.ac.in" target="_top"><i class="fas fa-envelope"></i></a>
+                                        <a href="https://arpantarkas.github.io/" target="_blank"><i class="fas fa-link"></i></a>
+                                    </h4>
+                                </p>
                             </div>
                         </div>
                     </div>   
@@ -278,7 +300,15 @@ section .section-title {
                             <div class="card-body text-center">
                                 <p><img class=" img-fluid" src="{% static "AluminiConnect/img/user.png" %}" alt="card image"></p>
                                 <h4 class="card-title">Mudit Joshi</h4>
-                                <p class="card-text">This is basic card with image on top, title, description and button.</p>
+                                <p class="card-text"><i class="fas fa-user-graduate"></i> B.Tech (CSE)<br><i class="far fa-calendar-plus"></i> Batch of 2020</p>
+                                <p class="card-text text-center">
+                                    <h4>
+                                        <a href="https://www.facebook.com/muditjoshi98" target="_blank"><i class="fab fa-facebook-square"></i></a> 
+                                        <a href="https://www.linkedin.com/in/muditjoshi98/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                                        <a href="mailto:2016162@iiitdmj.ac.in" target="_top"><i class="fas fa-envelope"></i></a>
+                                        <a href="#" target="_blank"><i class="fas fa-link"></i></a>
+                                </h4>
+                                </p>
                                 <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
                             </div>
                         </div>
@@ -293,7 +323,7 @@ section .section-title {
                             <div class="card-body text-center">
                                 <p><img class=" img-fluid" src="{% static "AluminiConnect/img/user.png" %}" alt="card image"></p>
                                 <h4 class="card-title">Meru Patel</h4>
-                                <p class="card-text">This is basic card with image on top, title, description and button.</p>
+                                <p class="card-text"><i class="fas fa-user-graduate"></i> B.Tech (CSE)<br><i class="far fa-calendar-plus"></i> Batch of 2021</p>
                                 <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
                             </div>
                         </div>
@@ -308,7 +338,7 @@ section .section-title {
                             <div class="card-body text-center">
                                 <p><img class=" img-fluid" src="{% static "AluminiConnect/img/user.png" %}" alt="card image"></p>
                                 <h4 class="card-title">Shivansh Dhiman</h4>
-                                <p class="card-text">This is basic card with image on top, title, description and button.</p>
+                                <p class="card-text"><i class="fas fa-user-graduate"></i> B.Tech (CSE)<br><i class="far fa-calendar-plus"></i> Batch of 2021</p>
                                 <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
                             </div>
                         </div>

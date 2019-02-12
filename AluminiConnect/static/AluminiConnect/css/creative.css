@@ -30,6 +30,13 @@
    -webkit-transition: all .2s;
    transition: all .2s
  }
+
+ a .fa, 
+ a .far, 
+ a .fab,
+ a .fas {
+   color : #000;
+ }
  
  a:hover {
    color: #324b7e
