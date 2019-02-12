@@ -24,3 +24,6 @@ def branch(request, programme, year, branch):
     alumni = Profile.objects.filter(programme = programme, batch = year, branch = branch)
     print(alumni)
     return render(request, "members/branch.html", {'data':alumni, 'batch':year, 'branch':branch})
+
+def sacbody(request):
+    return render(request, "members/sacbody.html")
