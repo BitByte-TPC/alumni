@@ -67,7 +67,7 @@ class Profile(models.Model):
     mobile1 = models.BigIntegerField(null = True)
     mobile2 = models.BigIntegerField(null = True)
     phone_no = models.BigIntegerField(null = True, blank=True)
-    working_status = models.CharField(max_length=20 ,choices=Constants.WORKING_STATUS, default = '1', null = False)
+    working_status = models.CharField(max_length=50 ,choices=Constants.WORKING_STATUS, default = '1', null = False)
     current_position = models.CharField(max_length = 128, null=True, blank = True)
     current_organisation = models.CharField(max_length = 128, null=True, blank = True)
     past_experience = models.IntegerField(null = True, blank = True)
