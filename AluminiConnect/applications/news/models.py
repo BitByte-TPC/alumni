@@ -1,6 +1,8 @@
 from django.db import models
 import datetime, os
 from time import strftime
+from ckeditor_uploader.fields import RichTextUploadingField
+from ckeditor.fields import RichTextField
 
 
 def upload_news_photo(instance, filename):
@@ -9,11 +11,16 @@ def upload_news_photo(instance, filename):
 
 class News(models.Model):
     news_id = models.AutoField(primary_key = True)
-    title = models.TextField(max_length = 500)
-    date = models.DateTimeField(default = datetime.datetime.now())
+    title = RichTextField()
+    date = models.DateTimeField(auto_now_add=True)
     by = models.TextField(max_length = 500)
     picture = models.ImageField(null = True, blank = True, upload_to = upload_news_photo)
-    description = models.TextField(default = "", null = True)
+    description = RichTextUploadingField()
 
     def __str__(self):
-        return self.title
+        return self.title_stripped
+
+    @property
+    def title_stripped(self):
+       from django.utils.html import strip_tags
+       return strip_tags(self.title)

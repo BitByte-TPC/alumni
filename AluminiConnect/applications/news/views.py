@@ -5,7 +5,7 @@ from .models import News
 
 def index(request):
 
-    news_list = News.objects.filter()
+    news_list = News.objects.filter().order_by('-date')
     return render(request, "news/index.html", {'news' : news_list})
 
 def news(request, id):

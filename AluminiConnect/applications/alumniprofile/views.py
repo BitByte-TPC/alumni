@@ -11,6 +11,7 @@ def profile(request, username):
     user.name = user.user.get_full_name()
     user.sname = user.user.get_short_name()
     user.email = user.user.email
+    print(vars(user))
     return render(request, "alumniprofile/profile.html", vars(user))
 
 def index(request):

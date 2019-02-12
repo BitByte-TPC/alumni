@@ -68,11 +68,12 @@
                     <div class="card m-2 shadow-sm">
                         <div class="card-header">
                                 <i class="fas fa-users pr-2"></i>
-                                Attendees
+                                Attendees {{count}}
                             </div>
                     <div class="card-body">
                         <p class="m-2 font-weight-normal mb-3">
-                        Count {{count}}
+                        
+                        
                             
                   
                         </p>
@@ -91,7 +92,7 @@
                                 <!--Google map-->
                                 
                                 <div id="map-container-google-9" class="z-depth-1-half map-container" style="height: 300px">
-                                    <iframe src="https://maps.google.com/maps?q={{address}}&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0"
+                                    <iframe src="https://maps.google.com/maps?q={{event.address|safe}}&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0"
                                       style="border:0" allowfullscreen></iframe>
                                   </div>
   
@@ -111,7 +112,7 @@
                             <p class="font-weight-light m-0">
                              
                               <i class="fas fa-table"></i>
-                               {{ event.start_date|date:"d N, o" }}
+                               {{ event.start_date|date:"d M, o" }}
                                &nbsp;
                                <i class="fas fa-map-marker-alt"></i>&nbsp;
                                         {{ event.location}}
@@ -119,14 +120,18 @@
                                <i class="fas fa-user"></i>&nbsp;
                                {{ event.by }}
                                <br><br>
-                               {% if not check %}
+                               {% if event.is_completed %}
+                                <button type="button"  class="btn btn-secondary btn-sm" disabled>Event Ended</button>
+                               {% elif not check %}
                                <form method="POST" >
                                  {% csrf_token %}
-                               <button type="submit" name="submit" value="rsvp" class="btn btn-success btn-sm btn-block">RSVP</button>
+                               <button type="submit" name="submit" value="rsvp" class="btn btn-success btn-sm">Register</button>
                               </form>
                               {% else %}
-                              <button type="button"  class="btn btn-success btn-sm btn-block" disabled>Registered</button>
+                              <button type="button"  class="btn btn-success btn-sm" disabled>Registered</button>
                               {% endif %}
+                              
+                              
                             </p>
                         </div>
                     </div>

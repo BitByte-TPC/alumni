@@ -16,16 +16,22 @@ from .forms import UserRegistrationForm, RegisterForm, ProfileEdit, NewRegister
 from .token import account_activation_token
 from applications.events_news.models import Event
 from applications.alumniprofile.models import Profile, Constants
+from applications.news.models import News
 import datetime
+from django.utils import timezone
+from itertools import chain
 # Create your views here.
 
 def index(request):
     sname = None
     if( request.user.is_authenticated()):
         sname = request.user.get_short_name()
-    events_list = Event.objects.filter().order_by('start_date')[:3]
+    now = timezone.now()
+    events = Event.objects.filter(start_date__gte=now).order_by('start_date')
+    events_completed = Event.objects.filter(end_date__lt=now).order_by('-start_date')
     #Add Check here
-    return render(request, "AluminiConnect/index.html", {'name':sname, 'events':events_list})
+    news = News.objects.filter().order_by('-date')
+    return render(request, "AluminiConnect/index.html", {'name':sname, 'events':list(chain(events, events_completed))[:3], 'news': news})
 
 def alumniBody(request):
     return render(request, "AluminiConnect/alumnibody.html")

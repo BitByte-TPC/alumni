@@ -24,6 +24,7 @@ class Event(models.Model):
     def __str__(self):
         return self.title_stripped
 
+    @property
     def is_completed(self):
         return (timezone.now() > self.end_date)
     

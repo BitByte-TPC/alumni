@@ -34,7 +34,7 @@ urlpatterns += [
     url(r'^admin/', admin.site.urls),    
     url(r'^login/', auth_views.LoginView.as_view(template_name='AluminiConnect/login.html'), name='login'),
     url(r'^logout/$', auth_views.logout, name='logout'),
-    url(r'^register/', views.new_register, name='register'),
+    url(r'^register/', views.register, name='register'),
     url(r'^newregister/', views.new_register, name='new_register'),
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', views.activate, name='activate'),
     url(r'^confirm/$', TemplateView.as_view(template_name='AluminiConnect/confirm_email.html'), name = 'confirm'),

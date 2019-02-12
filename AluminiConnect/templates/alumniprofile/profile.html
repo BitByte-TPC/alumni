@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %} 
-    {{ user.username }}
+    {{ name }}
 {% endblock %}
 
 {% block body %}
@@ -44,9 +44,21 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-12 text-center font-open-sans">
+                                    <h4><span class="badge badge-pill badge-primary">{{programme}}. {{year_of_admission}} - {{batch_id}}, {{branch}}</span></h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 text-center font-open-sans">
                                     {{email}}
                                 </div>
                             </div>
+                            <br>
+                            {% if user.is_authenticated %}
+                            <div class="row">
+                                <a href="{% url 'profileedit' id=user.username %}" class="col-lg-6 btn btn-outline-primary btn-sm">Edit Profile</a>
+                                <a href="{% url 'change_password' %}" class="col-lg-6 btn btn-outline-primary btn-sm">Change Password</a>
+                            </div>
+                            {% endif %}
                         </div>
                     </div>
 
@@ -58,21 +70,40 @@
                         <div class="card-body">
                             <p class="m-2 font-weight-normal font-open-sans mb-3">
                                 <i class="fas fa-map-marker-alt"></i>
-                                &nbsp;{{ address }}
+                                &nbsp;{{ current_address }}
                             </p>
                             <p class="m-2 font-weight-normal font-open-sans  mb-3">
                                 <i class="fas fa-phone "></i>
-                                &nbsp;{{ phone_no }}
+                                &nbsp;{{ mobile1 }}
                             </p>
+                            <p class="m-2 font-weight-normal font-open-sans  mb-3">
+                                    <i class="fas fa-phone "></i>
+                                    &nbsp;{{ mobile2 }}
+                            </p>
+                            {% if phone_no %}
+                            <p class="m-2 font-weight-normal font-open-sans  mb-3">
+                                    <i class="fas fa-phone-square "></i>
+                                    &nbsp;{{ phone_no }}
+                            </p>
+                            {% endif %}
                             <p class="m-2 font-weight-normal font-open-sans mb-3">
-                                <i class="fab fa-linkedin"></i>
-                                &nbsp;<a href="{{ linkedin }}">LinkedIn</a>
+                                
+                                &nbsp;<a href="{{ linkedin }}"><i class="fab fa-linkedin"></i></a>
+                            
+                                &nbsp;
+                                    
+                                    &nbsp;<a href="{{ facebook }}" ><i class="fab fa-facebook"></i></a>
+                                {% if website %}    
+                                &nbsp;
+                                
+                                &nbsp;<a href="{{ website }}"><i class="fas fa-globe"></i></a>
+                                {% endif %}
                             </p>
                         </div>
                         
                     </div>
 
-                    <!-- Expertise -->
+                    <!-- Expertise 
                     <div class="card m-2 shadow-sm">
                             <div class="card-header font-open-sans">
                                 Expertise
@@ -84,6 +115,7 @@
                                 </p>
                             </div>
                     </div>
+                    -->
 
                     <!-- Basic Info -->
                     <div class="card m-2 shadow-sm">
@@ -93,7 +125,7 @@
                             <div class="card-body">
                                 <p class="m-2 font-weight-normal font-open-sans mb-3">
                                     <i class="fas fa-map-marker-alt"></i>
-                                    &nbsp;{{ current_city }}
+                                    &nbsp;{{ city }}, {{ state }}, {{ country }}
                                 </p>
                                 <p class="m-2 font-weight-normal font-open-sans mb-3">
                                         <i class="fas fa-birthday-cake"></i>

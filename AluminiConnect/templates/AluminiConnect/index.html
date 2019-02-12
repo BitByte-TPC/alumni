@@ -85,7 +85,7 @@
         <div class="row">
           {% for item in events %}
           <div class="col-lg-4 p-2 ">
-            <div class="card w-100 shadow-sm " style="max-width: 24rem; max-height: 40rem;">
+            <div class="card w-100 shadow-lg " style="max-width: 24rem; max-height: 40rem;">
                 <span class="border border-primary">
               {% if item.picture %}
               <img src="{{ item.picture.url }}" class="card-img-top" alt="" height="300px" width="300px">
@@ -93,6 +93,12 @@
               <img src="{% static "AluminiConnect/img/event.png" %}" class="card-img-top" alt="" height="300px" width="300px">
               {% endif %}
               <div class="card-body">
+                  {% if not item.is_completed %}
+                  <h5><span class="badge badge-pill badge-success"> Upcoming </span></h5>
+                  {% else %}
+                  <h5><span class="badge badge-pill badge-secondary"> Past </span></h5>
+                  {% endif %}
+                      <br>
                 <h5 class="card-title font-weight-bold">{{item.title_stripped}}</h5>
                 
                 <p class="m-2 font-italic  font-open-sans mb-3">
@@ -139,62 +145,45 @@
           ╚═╝  ╚═══╝╚══════╝ ╚══╝╚══╝ ╚══════╝
     -->
 
-    <section class="bg-white" id="news" style="padding:3rem">
+    <section class="bg-white" id="events" style="padding:3rem">
       <div class="container">
         <div class="row w-100">
           <div class="col-lg-6 text-left">
-            <h2 class="font-open-sans">Campus Feed</h2>
+            <h2 class="font-open-sans">News</h2>
           </div>
           <div class="col-lg-6 text-right">
-            <a class="btn btn-outline-primary btn-sm js-scroll-trigger"  href="{% url 'news:index' %}">VIEW ALL</a>
+            <a class="btn btn-outline-primary btn-sm js-scroll-trigger" href="{% url 'events_news:events' %}">VIEW ALL</a>
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-4 p-2">
-            <div class="card w-100 shadow-sm" style="max-width: 24rem;">
-              <img src="{% static "AluminiConnect/img/coll.jpg" %}" class="card-img-top" alt="">
-              <div class="card-body font-open-sans">
-                <p class="m-2 font-weight-light font-italic text-muted">
+          {% for item in news %}
+          <div class="col-lg-4 p-2 ">
+            <div class="card w-100 shadow-lg " style="max-width: 24rem; max-height: 40rem;">
+                <span class="border border-primary">
+              {% if item.picture %}
+              <img src="{{ item.picture.url }}" class="card-img-top" alt="" height="300px" width="300px">
+              {% else %}
+              <img src="{% static "AluminiConnect/img/event.png" %}" class="card-img-top" alt="" height="300px" width="300px">
+              {% endif %}
+              <div class="card-body">
+                  
+                <h5 class="card-title font-weight-bold">{{item.title_stripped|safe}}</h5>
+                
+                <p class="m-2 font-italic  font-open-sans mb-3">
                   <i class="fas fa-calendar-alt font-weight-lighter "></i>
-                  December 20, 2018 
+                  {{item.date|date:"l, d M, o"}}
+                  <br>
                 </p>
-                <h5 class="card-title font-weight-normal">Some quick example text to act as news.</h5>
-                <p class="card-text font-weight-light text-muted">Some quick example text to act as news.</p>
-                <a href="#" class="btn btn-primary">Read More</a>
+                <a href="{% url 'news:news' id=item.news_id %}" class="btn btn-primary">VIEW</a>
               </div>
+              
             </div>
+          </span>
           </div>
-          <div class="col-lg-4 p-2">
-            <div class="card w-100 shadow-sm" style="max-width: 24rem;">
-              <img src="{% static "AluminiConnect/img/coll.jpg" %}" class="card-img-top" alt="">
-              <div class="card-body font-open-sans">
-                <p class="m-2 font-weight-light font-italic text-muted">
-                  <i class="fas fa-calendar-alt font-weight-lighter "></i>
-                  December 20, 2018 
-                </p>
-                <h5 class="card-title font-weight-normal">Some quick example text to act as news.</h5>
-                <p class="card-text font-weight-light text-muted">Some quick example text to act as news.</p>
-                <a href="#" class="btn btn-primary">Read More</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 p-2">
-            <div class="card w-100 shadow-sm" style="max-width: 24rem;">
-              <img src="{% static "AluminiConnect/img/coll.jpg" %}" class="card-img-top" alt="">
-              <div class="card-body font-open-sans">
-                <p class="m-2 font-weight-light font-italic text-muted">
-                  <i class="fas fa-calendar-alt font-weight-lighter "></i>
-                  December 20, 2018 
-                </p>
-                <h5 class="card-title font-weight-normal">Some quick example text to act as news.</h5>
-                <p class="card-text font-weight-light text-muted">Some quick example text to act as news.</p>
-                <a href="#" class="btn btn-primary">Read More</a>
-              </div>
-            </div>
-          </div>
+          {% endfor %}
         </div>
       </div>
-    </section>    
+    </section>  
 
 <!--
     <section class="bg-white" id="about">
