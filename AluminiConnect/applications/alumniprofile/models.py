@@ -79,7 +79,7 @@ class Profile(models.Model):
     facebook = models.URLField(default = "www.facebook.com")
     linkedin = models.URLField(null = True, blank = True, default = "www.linkedin.com")
     website = models.URLField(null = True, blank = True )
-    profile_picture = models.ImageField(null = True, blank = True, upload_to = upload_photo)
+    profile_picture = models.ImageField(null = True, upload_to = upload_photo)
     is_registered = models.BooleanField(default=False)
 
     def __str__(self):
