@@ -32,7 +32,7 @@ urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += [
     url(r'^admin/', admin.site.urls),    
-    url(r'^login/', auth_views.LoginView.as_view(template_name='AluminiConnect/login.html'), name='login'),
+    url(r'^login/', auth_views.LoginView.as_view(template_name='AluminiConnect/login.html', redirect_authenticated_user=True), name='login'),
     url(r'^logout/$', auth_views.logout, name='logout'),
     url(r'^register/', views.register, name='register'),
     url(r'^newregister/', views.new_register, name='new_register'),

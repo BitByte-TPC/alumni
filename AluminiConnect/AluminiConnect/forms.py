@@ -59,6 +59,7 @@ class ProfileEdit(forms.ModelForm):
             attrs={'rows': 3, 'placeholder': 'Enter Permanent Address',}
         ),
         max_length=4000,
+        required = False,
     )
     linkedin = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Linkedin URL'}))
     website = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Website'}),required = False)
@@ -70,6 +71,12 @@ class ProfileEdit(forms.ModelForm):
         self.fields['mobile1'].label = "Mobile No."
         self.fields['mobile2'].label = "Alternate Mobile No."
         self.fields['batch'].label = 'Year of Passing'
+        self.fields['sex'].label = 'Gender'
+        self.fields['phone_no'].label = 'Phone No.'
+        self.fields['roll_no'].label = 'Roll No.'
+        self.fields['date_of_birth'].label = 'Date of Birth'
+        self.fields['year_of_admission'].label = 'Year of Admission'
+        self.fields['alternate_email'].label = 'Alternate Email'
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Row(
@@ -132,9 +139,6 @@ class ProfileEdit(forms.ModelForm):
                 Column('linkedin', css_class='form-group col-md-4 mb-0'),
                 Column('facebook', css_class='form-group col-md-4 mb-0'),
                 Column('website', css_class='form-group col-md-4 mb-0'),
-                css_class='form-row'
-            ),Row(
-                Column('profile_picture', css_class='form-group col-md-6 mb-0'),
                 css_class='form-row'
             ),
             Submit('submit', 'Save Changes'),
@@ -205,6 +209,7 @@ class NewRegister(forms.ModelForm):
             attrs={'rows': 3, 'placeholder': 'Enter Permanent Address',}
         ),
         max_length=4000,
+        required = False,
     )
     linkedin = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Linkedin URL'}))
     website = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Website'}), required = False)
@@ -215,7 +220,12 @@ class NewRegister(forms.ModelForm):
         self.fields['fathers_name'].label = "Father/Husband's Name"
         self.fields['mobile1'].label = "Mobile No."
         self.fields['mobile2'].label = "Alternate Mobile No."
-        self.fields['batch'].label = 'Year of Passing'
+        self.fields['sex'].label = 'Gender'
+        self.fields['phone_no'].label = 'Phone No.'
+        self.fields['roll_no'].label = 'Roll No.'
+        self.fields['date_of_birth'].label = 'Date of Birth'
+        self.fields['year_of_admission'].label = 'Year of Admission'
+        self.fields['alternate_email'].label = 'Alternate Email'
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Row(
@@ -254,9 +264,9 @@ class NewRegister(forms.ModelForm):
                 css_class='form-row'
             ),
             Row(
-                Column('country', css_class='form-group col-md-4 mb-0'),
-                Column('state', css_class='form-group col-md-4 mb-0'),
                 Column('city', css_class='form-group col-md-4 mb-0'),
+                Column('state', css_class='form-group col-md-4 mb-0'),
+                Column('country', css_class='form-group col-md-4 mb-0'),
                 
                 
                 css_class='form-row'
@@ -281,9 +291,6 @@ class NewRegister(forms.ModelForm):
                 Column('linkedin', css_class='form-group col-md-4 mb-0'),
                 Column('facebook', css_class='form-group col-md-4 mb-0'),
                 Column('website', css_class='form-group col-md-4 mb-0'),
-                css_class='form-row'
-            ),Row(
-                Column('profile_picture', css_class='form-group col-md-6 mb-0'),
                 css_class='form-row'
             ),
             Submit('submit', 'Register'),

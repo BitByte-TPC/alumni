@@ -67,7 +67,8 @@ def new_register(request):
             user = User.objects.create_user(
                 username=str(form.cleaned_data.get('roll_no')),
                 email=str(form.cleaned_data.get('email')),
-                password=str(form.cleaned_data.get('roll_no'))
+                password=str(form.cleaned_data.get('roll_no')),
+                is_active = False
                 )
             profile.user = user
             profile.save()
@@ -91,53 +92,57 @@ def new_register(request):
         form = NewRegister()
     return render(request, 'AluminiConnect/profileedit.html', {'form' :form, 'edit' : False})
 
+@login_required
 def profileedit(request, id):
-    l = Profile.objects.get(roll_no = id)
-
-    print(l)
-    if request.method == 'POST':
-        form = ProfileEdit(request.POST, instance = l)
-        print (request.POST)
-        print (form.is_valid(), form.errors, type(form.errors))
-        if form.is_valid():
-            print(l)
-            l =form.save(commit=False)
-            print(l.save())
-            if not l.is_registered:
-                current_site = get_current_site(request)
-                mail_subject = 'Activate your Alumni Account'
-                message = render_to_string('AluminiConnect/acc_active_email.html', {
-                    'user' : l.roll_no,
-                    'domain' : current_site.domain,
-                    'uid' : urlsafe_base64_encode(force_bytes(l.roll_no )).decode(),
-                    'token' : account_activation_token.make_token(l.user),
-                })
-                print ('printing email\n')
-                print (l.user.email)
-                to_email = l.user.email
-                email = EmailMessage( mail_subject, message, to=[to_email] )
-                email.send()
-                #return HttpResponse('Please confirm your email address to complete registeration process..')
-                return HttpResponseRedirect('/confirm/')
+    if (request.user.username == id):
+        l = Profile.objects.get(roll_no = id)
+        print(l)
+        if request.method == 'POST':
+            form = ProfileEdit(request.POST, instance = l)
+            print (request.POST)
+            print (form.is_valid(), form.errors, type(form.errors))
+            if form.is_valid():
+                print(l)
+                l =form.save(commit=False)
+                print(l.save())
+                if not l.is_registered:
+                    '''current_site = get_current_site(request)
+                    mail_subject = 'Activate your Alumni Account'
+                    message = render_to_string('AluminiConnect/acc_active_email.html', {
+                        'user' : l.roll_no,
+                        'domain' : current_site.domain,
+                        'uid' : urlsafe_base64_encode(force_bytes(l.roll_no )).decode(),
+                        'token' : account_activation_token.make_token(l.user),
+                    })
+                    print ('printing email\n')
+                    print (l.user.email)
+                    to_email = l.user.email
+                    email = EmailMessage( mail_subject, message, to=[to_email] )
+                    email.send()'''
+                    #return HttpResponse('Please confirm your email address to complete registeration process..')
+                    return HttpResponseRedirect('/confirm/')
+        else:
+            print("here")
+            form = ProfileEdit(instance = l)
+        return render(request, 'AluminiConnect/profileedit.html', {'form' :form, 'l': l, 'edit' : False})
     else:
-        print("here")
-        form = ProfileEdit(instance = l)
-    return render(request, 'AluminiConnect/profileedit.html', {'form' :form, 'l': l, 'edit' : False})
+        return HttpResponseRedirect('/')
 
 def activate(request, uidb64, token):
     print('inside activate')
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
         print(uid)
-        user = Profile.objects.get(roll_no = int(uid))
-        print(user)
+        u = User.objects.get(username = uid)
+        print(u)
     except(TypeError, ValueError, OverflowError):
-        user = None
-    if user is not None and account_activation_token.check_token(user.user, token):
-        user.is_registered = True
-        user.save()
+        u = None
+    if u is not None and account_activation_token.check_token(u, token):
+        u.is_active = True
+        u.save() 
+        login(request, u)
         #return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
-        return HttpResponseRedirect('/success/')
+        return HttpResponseRedirect('/password/')
     else:
         return HttpResponse('Activation link is invalid!')
     return redirect('/')

@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from .models import Profile
 from datetime import datetime
@@ -6,11 +7,10 @@ from collections import defaultdict
 #
 # Create your views here.
 
+@login_required
 def profile(request, username):
     user = Profile.objects.get(user__username = username)
-    user.name = user.user.get_full_name()
-    user.sname = user.user.get_short_name()
-    user.email = user.user.email
+    user.roll_no = str(user.roll_no)
     print(vars(user))
     return render(request, "alumniprofile/profile.html", vars(user))
 

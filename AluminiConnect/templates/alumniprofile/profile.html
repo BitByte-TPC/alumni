@@ -39,7 +39,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-12 text-center font-open-sans">
-                                    <h3>{{name}}</h3>
+                                    <h3>{{name}} </h3>
                                 </div>
                             </div>
                             <div class="row">
@@ -53,11 +53,13 @@
                                 </div>
                             </div>
                             <br>
-                            {% if user.is_authenticated %}
+                            {% if user.is_authenticated and user.username == roll_no %}
+                            {% if not user.is_superuser %}
                             <div class="row">
                                 <a href="{% url 'profileedit' id=user.username %}" class="col-lg-6 btn btn-outline-primary btn-sm">Edit Profile</a>
                                 <a href="{% url 'change_password' %}" class="col-lg-6 btn btn-outline-primary btn-sm">Change Password</a>
                             </div>
+                            {% endif %}
                             {% endif %}
                         </div>
                     </div>
