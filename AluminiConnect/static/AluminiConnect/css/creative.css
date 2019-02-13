@@ -385,12 +385,13 @@
   /*text-shadow: 0 0 0 .2rem rgba(0,0,0, .5);*/
 }
 
-
+/*
 .hover-zoomin a {
   display: block;
   position: relative;
   overflow: hidden;
 }
+*/
 .hover-zoomin img {
   -webkit-transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;
@@ -399,9 +400,9 @@
   transition: all 0.5s ease-in-out;
 }
 .hover-zoomin:hover img {
-  -webkit-transform: scale(1.2);
-  -moz-transform: scale(1.2);
-  -o-transform: scale(1.2);
-  -ms-transform: scale(1.2);
-  transform: scale(1.2);
+  -webkit-transform: scale(1.15);
+  -moz-transform: scale(1.15);
+  -o-transform: scale(1.15);
+  -ms-transform: scale(1.15);
+  transform: scale(1.15);
 }
