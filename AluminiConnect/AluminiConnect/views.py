@@ -73,7 +73,7 @@ def new_register(request):
             profile.user = user
             profile.save()
             if not profile.is_registered:
-                current_site = get_current_site(request)
+               ''' current_site = get_current_site(request)
                 mail_subject = 'Activate your Alumni Account'
                 message = render_to_string('AluminiConnect/acc_active_email.html', {
                     'user' : profile.roll_no,
@@ -85,7 +85,7 @@ def new_register(request):
                 print (profile.user.email)
                 to_email = profile.user.email
                 email = EmailMessage( mail_subject, message, to=[to_email] )
-                email.send()
+                email.send()'''
                 #return HttpResponse('Please confirm your email address to complete registeration process..')
                 return HttpResponseRedirect('/confirm/')
     else:
