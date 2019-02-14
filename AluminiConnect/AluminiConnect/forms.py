@@ -220,6 +220,7 @@ class NewRegister(forms.ModelForm):
         self.fields['fathers_name'].label = "Father/Husband's Name"
         self.fields['mobile1'].label = "Mobile No."
         self.fields['mobile2'].label = "Alternate Mobile No."
+        self.fields['batch'].label = 'Year of Passing'
         self.fields['sex'].label = 'Gender'
         self.fields['phone_no'].label = 'Phone No.'
         self.fields['roll_no'].label = 'Roll No.'
