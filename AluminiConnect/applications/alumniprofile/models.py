@@ -28,6 +28,7 @@ class Constants:
         ('ECE', 'Electronics and Communication Engineering'),
         ('ME', 'Mechanical Engineering'),
         ('NS', 'Natural Sciences'),
+        ('MT', 'Mechatronics'),
         ('NA', 'Not Applicable')
     )
 
