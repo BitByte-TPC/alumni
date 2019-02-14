@@ -81,6 +81,7 @@ class Profile(models.Model):
     website = models.URLField(null = True, blank = True )
     profile_picture = models.ImageField(null = True, upload_to = upload_photo, blank = True)
     is_registered = models.BooleanField(default=False)
+    date_of_joining = models.DateField(null = True, blank = True)
 
     def __str__(self):
         return self.name

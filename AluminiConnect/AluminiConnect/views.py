@@ -63,7 +63,9 @@ def new_register(request):
         form = NewRegister(request.POST)
         print (request.POST)
         if form.is_valid():
+            print (form.cleaned_data.get('date_of_joining'))
             profile = form.save(commit=False)
+            print(profile.date_of_joining)
             user = User.objects.create_user(
                 username=str(form.cleaned_data.get('roll_no')),
                 email=str(form.cleaned_data.get('email')),
@@ -72,6 +74,7 @@ def new_register(request):
                 )
             profile.user = user
             profile.save()
+            print(profile.date_of_joining)
             if not profile.is_registered:
                 ''' current_site = get_current_site(request)
                 mail_subject = 'Activate your Alumni Account'

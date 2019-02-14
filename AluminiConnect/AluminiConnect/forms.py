@@ -48,6 +48,12 @@ class RegisterForm(forms.ModelForm):
 
 
 class ProfileEdit(forms.ModelForm):
+    date_of_joining = forms.DateField(
+        widget=forms.TextInput(     
+            attrs={'type': 'date'} 
+        ),
+        required=False,
+    )
     current_address = forms.CharField(
         widget=forms.Textarea(
             attrs={'rows': 3, 'placeholder': 'Enter Address'}
@@ -125,9 +131,10 @@ class ProfileEdit(forms.ModelForm):
             ),
             InlineRadios('working_status'),
             Row(
-                Column('current_position', css_class='form-group col-md-4 mb-0'),
-                Column('current_organisation', css_class='form-group col-md-4 mb-0'),
-                Column('past_experience', css_class='form-group col-md-4 mb-0'),
+                Column('current_position', css_class='form-group col-md-3 mb-0'),
+                Column('current_organisation', css_class='form-group col-md-3 mb-0'),
+                Column('date_of_joining', css_class='form-group col-md-3 mb-0'),
+                Column('past_experience', css_class='form-group col-md-3 mb-0'),
                 css_class='form-row'
             ),
             Row(
@@ -163,6 +170,7 @@ class ProfileEdit(forms.ModelForm):
             'email',
             'roll_no',
             'date_of_birth',
+            'date_of_joining',
             'working_status',
             'branch',
             'programme',
@@ -197,6 +205,12 @@ class NewRegister(forms.ModelForm):
         widget=forms.TextInput(     
             attrs={'type': 'date'} 
         ),
+    )
+    date_of_joining = forms.DateField(
+        widget=forms.TextInput(     
+            attrs={'type': 'date'} 
+        ),
+        required=False,
     )
     current_address = forms.CharField(
         widget=forms.Textarea(
@@ -278,9 +292,10 @@ class NewRegister(forms.ModelForm):
             ),
             InlineRadios('working_status'),
             Row(
-                Column('current_position', css_class='form-group col-md-4 mb-0'),
-                Column('current_organisation', css_class='form-group col-md-4 mb-0'),
-                Column('past_experience', css_class='form-group col-md-4 mb-0'),
+                Column('current_position', css_class='form-group col-md-3 mb-0'),
+                Column('current_organisation', css_class='form-group col-md-3 mb-0'),
+                Column('date_of_joining', css_class='form-group col-md-3 mb-0'),
+                Column('past_experience', css_class='form-group col-md-3 mb-0'),
                 css_class='form-row'
             ),
             Row(
@@ -317,6 +332,7 @@ class NewRegister(forms.ModelForm):
             'email',
             'roll_no',
             'date_of_birth',
+            'date_of_joining',
             'working_status',
             'branch',
             'programme',
