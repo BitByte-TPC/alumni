@@ -20,7 +20,7 @@ class Constants:
         ('B.Des', 'B.Des'),
         ('M.Des', 'M.Des'),
         ('M.Tech', 'M.Tech'),
-        ('PHD', 'PHD')
+        ('PhD', 'PhD')
     )
 
     BRANCH = (

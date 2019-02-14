@@ -24,6 +24,7 @@
                         </div>
                     </div>
             {% for key1, value1 in data.items %}
+            {% if value1 %}
             <div class="row w-100">
                 <div class="col text-left">
                     <h2 class="font-open-sans"><span class="badge badge-primary">{{ key1 }}</span></h2>
@@ -40,6 +41,7 @@
                 </div>
                 {% endfor %}
             </div>
+            {% endif %}
             {% endfor %}
 
         </div>
