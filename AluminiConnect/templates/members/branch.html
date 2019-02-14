@@ -32,22 +32,21 @@
                     <div class="card shadow-lg hover-zoomin"> <!-- style="max-width: 24rem; max-height: 35em;"> -->
                         <span class="border border-primary">
                         <div class="card-body">
-                            <p class="text-center card-title"><a href="{% url 'profile:profile' username=item.roll_no %}">
+                            <p class="text-center card-title">
                                 {% if item.profile_picture %}
                                 <img src="{{ item.profile_picture.url }}" class=" img-fluid " alt="" >
                                 {% else %}
                                 <img src="{% static "AluminiConnect/img/user.png" %}" class="card-img-top img-fluid" alt="" height="200px" width="200px">
                                 {% endif %}
-                                </a>
+                                
                             </p>
-                            <p class="card-title font-open-sans font-weight-bold"><a href="{% url 'profile:profile' username=item.roll_no %}">{{item.name}} </a></p>
+                            <p class="card-title font-open-sans font-weight-bold">{{item.name}}</p>
                             <p class="font-italic card-text font-open-sans"><i class="fas fa-map-marker-alt"></i> {{item.city}}</p>
                             
                                 <h4 class="text-center card-text">
                                     
                                     {% if item.facebook %}<a href="{{item.facebook}}" target="_blank"><i class="fab fa-facebook-square"></i></a>{% endif %}
                                     {% if item.linkedin %}<a href="{{item.linkedin}}" target="_blank"><i class="fab fa-linkedin"></i></a>{% endif %}
-                                    {% if item.email %}<a href="mailto:{{item.email}}" target="_top"><i class="fas fa-envelope"></i></a>{% endif %}
                                     {% if item.website %}<a href="{{item.website}}" target="_blank"><i class="fas fa-link"></i></a>{% endif %}
                         
                                 </h4>
