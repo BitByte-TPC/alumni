@@ -75,18 +75,17 @@
     <section class="bg-white" id="events" style="padding:3rem">
       <div class="container">
         <div class="row w-100">
-          <div class="col-lg-6 text-left">
+          <div class="col-sm-6 text-left">
             <h2 class="font-open-sans">Events</h2>
           </div>
-          <div class="col-lg-6 text-right">
+          <div class="col-sm-6 text-right">
             <a class="btn btn-outline-primary btn-sm js-scroll-trigger" href="{% url 'events_news:events' %}">VIEW ALL</a>
           </div>
         </div>
         <div class="row">
           {% for item in events %}
           <div class="col-lg-4 p-2 ">
-            <div class="card w-100 shadow-lg " style="max-width: 24rem; max-height: 40rem;">
-                <span class="border border-primary">
+            <div class="card w-100 shadow-lg border border-primary border-rounded" style="max-width: 24rem; max-height: 40rem;">
               {% if item.picture %}
               <img src="{{ item.picture.url }}" class="card-img-top" alt="" height="300px" width="300px">
               {% else %}
@@ -98,8 +97,8 @@
                   {% else %}
                   <h5><span class="badge badge-pill badge-secondary"> Past </span></h5>
                   {% endif %}
-                      <br>
-                <h5 class="card-title font-weight-bold">{{item.title_stripped}}</h5>
+                  
+                <h5 class="card-title font-weight-bold mt-3">{{item.title_stripped}}</h5>
                 
                 <p class="m-2 font-italic  font-open-sans mb-3">
                   <i class="fas fa-calendar-alt font-weight-lighter "></i>
@@ -148,18 +147,18 @@
     <section class="bg-white" id="events" style="padding:3rem">
       <div class="container">
         <div class="row w-100">
-          <div class="col-lg-6 text-left">
+          <div class="col-sm-6 text-left">
             <h2 class="font-open-sans">News</h2>
           </div>
-          <div class="col-lg-6 text-right">
+          <div class="col-sm-6 text-right">
             <a class="btn btn-outline-primary btn-sm js-scroll-trigger" href="{% url 'events_news:events' %}">VIEW ALL</a>
           </div>
         </div>
         <div class="row">
           {% for item in news %}
           <div class="col-lg-4 p-2 ">
-            <div class="card w-100 shadow-lg " style="max-width: 24rem; max-height: 40rem;">
-                <span class="border border-primary">
+            <div class="card w-100 shadow-lg border border-primary border-rounded" style="max-width: 24rem; max-height: 40rem;">
+                <span class="">
               {% if item.picture %}
               <img src="{{ item.picture.url }}" class="card-img-top" alt="" height="300px" width="300px">
               {% else %}
