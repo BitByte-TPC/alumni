@@ -22,8 +22,7 @@ And additional requirements are in **requirements.txt**
   * Migrate the changes to the database `$ python manage.py migrate`
   * Run the server `$ python manage.py runserver`
   * Create admin `$ python manage.py createsuperuser`
-
-  * Create tables `python manage.py migrate --run-syncdb`
+  * Create tables `$ python manage.py migrate --run-syncdb`
 
 ## Contributing  
   * Create a new branch with a related name of the motive i.e. bug/refactor/feature  
