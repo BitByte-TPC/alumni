@@ -309,6 +309,7 @@ class NewRegister(forms.ModelForm):
                 Column('website', css_class='form-group col-md-4 mb-0'),
                 css_class='form-row'
             ),
+            'profile_picture',
             Submit('submit', 'Register'),
         )   
 

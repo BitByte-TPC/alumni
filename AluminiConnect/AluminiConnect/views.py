@@ -60,7 +60,7 @@ def register(request):
 
 def new_register(request):
     if request.method == 'POST':
-        form = NewRegister(request.POST)
+        form = NewRegister(request.POST,request.FILES)
         print (request.POST)
         if form.is_valid():
             print (form.cleaned_data.get('date_of_joining'))

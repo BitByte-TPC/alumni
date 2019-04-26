@@ -82,7 +82,7 @@ $('#id_id_working_status_0_3').click(function() {
             </div>
             <div class="container text-center p-2 mx-auto", style="width: 50rem;">
                 <div class="row text-left m-4 p-4 col-lg-12">
-                    <form method="POST" role="form">
+                    <form method="POST" role="form" enctype="multipart/form-data">
                         {% csrf_token %}
                         {% crispy form %}
                     </form>
