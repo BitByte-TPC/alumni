@@ -225,6 +225,9 @@ class NewRegister(forms.ModelForm):
         max_length=4000,
         required = False,
     )
+    country = forms.ChoiceField(widget=forms.Select(attrs={'id':'countryId','class':'countries order-alpha presel-IN','name':'country'}))
+    state = forms.ChoiceField(widget=forms.Select(attrs={'id':'stateId','class':'states order-alpha','name':'state'}))
+    city = forms.ChoiceField(widget=forms.Select(attrs={'id':'cityId','class':'cities order-alpha','name':'city'}))
     linkedin = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Linkedin URL'}))
     website = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Website'}), required = False)
     facebook = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Facebook URL'}))
@@ -279,11 +282,9 @@ class NewRegister(forms.ModelForm):
                 css_class='form-row'
             ),
             Row(
-                Column('city', css_class='form-group col-md-4 mb-0'),
-                Column('state', css_class='form-group col-md-4 mb-0'),
                 Column('country', css_class='form-group col-md-4 mb-0'),
-                
-                
+                Column('state', css_class='form-group col-md-4 mb-0'),
+                Column('city', css_class='form-group col-md-4 mb-0'),
                 css_class='form-row'
             ),
             Row(
@@ -313,6 +314,12 @@ class NewRegister(forms.ModelForm):
             Submit('submit', 'Register'),
         )   
 
+    def clean(self):
+        super(NewRegister, self).clean() #if necessary
+        del self._errors['country']
+        del self._errors['city']
+        del self._errors['state']
+        return self.cleaned_data   
 
     class Meta:
         model = Profile

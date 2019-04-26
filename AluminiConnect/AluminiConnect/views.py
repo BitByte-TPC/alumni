@@ -73,6 +73,9 @@ def new_register(request):
                 is_active = False
                 )
             profile.user = user
+            profile.country=request.POST['country']
+            profile.state=request.POST['state']
+            profile.city=request.POST['city']
             profile.save()
             print(profile.date_of_joining)
             if not profile.is_registered:
