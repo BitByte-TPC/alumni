@@ -5,8 +5,11 @@ from applications.alumniprofile.models import Profile
 
 def index(request):
     counts = Profile.objects.values('batch').order_by('-batch').annotate(count = Count('batch'))
-    print(counts)
-    return render(request, "members/index.html", {'data' : counts.values_list('batch', 'count')})
+    print(len(counts))
+    total=0
+    for batch,count in counts.values_list('batch', 'count'):
+        total+=count
+    return render(request, "members/index.html", {'data' : counts.values_list('batch', 'count'), 'total': total})
 
 def batch(request, year):
     programmes = Profile.objects.values_list('programme', flat=True).distinct()
