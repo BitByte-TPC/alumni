@@ -36,6 +36,9 @@ def index(request):
 def alumniBody(request):
     return render(request, "AluminiConnect/alumnibody.html")
 
+def alumniCard(request):
+    return render(request, "AluminiConnect/alumnicard.html")
+
 def gallery(request):
     return render(request, "AluminiConnect/gallery.html")
     
@@ -49,7 +52,7 @@ def register(request):
             batch = form.cleaned_data.get('batch')
             branch = form.cleaned_data.get('branch')
             programme = form.cleaned_data.get('programme')
-            l = Profile.objects.filter(batch = batch, programme = programme, branch = branch, is_registered = False )
+            l = Profile.objects.filter(batch = batch, programme = programme, branch = branch)
             print ('Testing output\n')
             print (l)
             check = True
@@ -58,14 +61,25 @@ def register(request):
         form = RegisterForm()
     return render(request, 'AluminiConnect/registration.html', {'form': form, 'check': check, 'l': l})
 
+def reg_no_gen(degree_, spec_, year):
+    degree = {"B.Tech" : "1", "B.Des" : '2', "M.Tech" : '3', "M.Des" : '4', "PhD" : '5'}
+    spec = {"NA" : '00', "CSE": "01", "ECE": "02", "ME":"03", "MT": "04", "NS":"05", "DS":"06"}
+    last_reg_no = Profile.objects.filter(year_of_admission=year).order_by('user__date_joined').last()
+    #print(last_reg_no)
+    new_reg_no = (int(str(last_reg_no.reg_no)[-4:]) + 1) if last_reg_no else 1
+    return degree[degree_] + spec[spec_] + str(year)[2:] + str(convert_int(new_reg_no, 4))
+
+def convert_int(number,decimals) :
+    return str(number).zfill(decimals)
+
 def new_register(request):
     if request.method == 'POST':
         form = NewRegister(request.POST)
-        print (request.POST)
+        #print (request.POST)
         if form.is_valid():
-            print (form.cleaned_data.get('date_of_joining'))
+            #print (form.cleaned_data.get('date_of_joining'))
             profile = form.save(commit=False)
-            print(profile.date_of_joining)
+            #print(profile.date_of_joining)
             user = User.objects.create_user(
                 username=str(form.cleaned_data.get('roll_no')),
                 email=str(form.cleaned_data.get('email')),
@@ -73,9 +87,10 @@ def new_register(request):
                 is_active = False
                 )
             profile.user = user
+            profile.reg_no = reg_no_gen(profile.programme, profile.branch, profile.year_of_admission)
             profile.save()
-            print(profile.date_of_joining)
-            if not profile.is_registered:
+            #print(profile.date_of_joining)
+            if profile.is_verified:
                 ''' current_site = get_current_site(request)
                 mail_subject = 'Activate your Alumni Account'
                 message = render_to_string('AluminiConnect/acc_active_email.html', {

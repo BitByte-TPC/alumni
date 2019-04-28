@@ -7,7 +7,7 @@ from collections import defaultdict
 #
 # Create your views here.
 
-@login_required
+#@login_required
 def profile(request, username):
     user = Profile.objects.get(user__username = username)
     user.roll_no = str(user.roll_no)

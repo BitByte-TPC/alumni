@@ -2,11 +2,11 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 import datetime, os
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
-
+from model_utils import FieldTracker
 from time import strftime
-
+from .funcs import send_verification_email
 class Constants:
 
     SEX_CHOICES = (
@@ -29,6 +29,7 @@ class Constants:
         ('ME', 'Mechanical Engineering'),
         ('NS', 'Natural Sciences'),
         ('MT', 'Mechatronics'),
+        ('DS', 'Design'),
         ('NA', 'Not Applicable')
     )
 
@@ -48,6 +49,7 @@ class Batch(models.Model):
 def upload_photo(instance, filename):
     name, extension = os.path.splitext(filename)
     return 'Profile_Pictures/' + str(instance.roll_no) + ".jpg"
+
 
 
 class Profile(models.Model):
@@ -81,20 +83,15 @@ class Profile(models.Model):
     linkedin = models.URLField(null = True, blank = True, default = "www.linkedin.com")
     website = models.URLField(null = True, blank = True )
     profile_picture = models.ImageField(null = True, upload_to = upload_photo, blank = True)
-    is_registered = models.BooleanField(default=False)
+    is_verified = models.BooleanField(default=True)
     date_of_joining = models.DateField(null = True, blank = True)
-
+    reg_no = models.BigIntegerField(null=True, default=0, editable=False)
+    mail_sent = models.BooleanField(default=False)
+    mail_sent_tracker = FieldTracker(fields=['mail_sent'])
     def __str__(self):
         return self.name
 
 @receiver(post_save, sender=Profile)
-def check(sender, instance, update_fields, **kwargs):
-    print('ayakya')
-    print(update_fields)
-    print(instance.is_registered)
-    print(sender)
-
-
-# @receiver(post_save, sender=User)
-# def save_user_profile(sender, instance, **kwargs):
-#     instance.profile.save()
+def check(sender, instance, created, update_fields, **kwargs):
+    if instance.mail_sent_tracker.has_changed('mail_sent') and instance.mail_sent_tracker.previous('mail_sent') == False: #Alumni Verified
+        print("Mail Sent to {}".format(instance.name), send_verification_email(instance.name, instance.email, instance.year_of_admission, instance.batch, instance.programme, instance.branch, instance.reg_no))

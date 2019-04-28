@@ -49,6 +49,7 @@ urlpatterns += [
     url(r'^newsletter/', include('applications.publications.urls')),
     url(r'^geolocation/', include('applications.geolocation.urls')),
     url(r'^alumnibody/', views.alumniBody),
+    url(r'^alumnicard/', views.alumniCard, name='alumnicard'),
     url(r'^gallery/', views.gallery, name = 'gallery'),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^awards/', include('applications.awards.urls')),

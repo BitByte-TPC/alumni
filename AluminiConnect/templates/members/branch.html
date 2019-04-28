@@ -29,10 +29,11 @@
             <div class="row p-4">     
                 {% for item in data %}
                 <div class="col-lg-3 p-2">      
-                    <div class="card shadow-lg hover-zoomin"> <!-- style="max-width: 24rem; max-height: 35em;"> -->
+                    <div class="card shadow-lg"> <!-- hover-zoomin"  style="max-width: 24rem; max-height: 35em;"> -->
                         <span class="border border-primary">
                         <div class="card-body">
                             <p class="text-center card-title">
+                                <a href="{% url 'profile:profile' item.roll_no %}">
                                 {% if item.profile_picture %}
                                 <img src="{{ item.profile_picture.url }}" class=" img-fluid " alt="" >
                                 {% else %}
@@ -40,7 +41,7 @@
                                 {% endif %}
                                 
                             </p>
-                            <p class="card-title font-open-sans font-weight-bold">{{item.name}}</p>
+                            <p class="card-title font-open-sans font-weight-bold">{{item.name}}</a></p>
                             <p class="font-italic card-text font-open-sans"><i class="fas fa-map-marker-alt"></i> {{item.city}}</p>
                             
                                 <h4 class="text-center card-text">

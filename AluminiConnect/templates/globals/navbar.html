@@ -29,22 +29,22 @@
                 </ul>
                 
             </li>
-            <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="{% url 'events_news:events' %}">Events</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="{% url 'news:index' %}">Campus&nbsp;Feeds</a>
+            <li class="nav-item dropdown">
+                <a href="{% url 'events_news:events' %}"  class="dropdown-toggle nav-link " data-toggle="dropdown">Events&nbsp;<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'events_news:events' %}" class="dropdown-item">Alumni Reunions</a></li>
+                    <li><a href="{% url 'news:index' %}" class="dropdown-item">Campus&nbsp;Feeds</a></li>
+                    
+                </ul>
+                
             </li>
             <li class="nav-item dropdown">
-                <a href="{% url 'awards:index' %}"  class="dropdown-toggle nav-link " data-toggle="dropdown">Awards&nbsp;<b class="caret"></b></a>
+                <a href="{% url 'members:index' %}"  class="dropdown-toggle nav-link " data-toggle="dropdown">Services&nbsp;<b class="caret"></b></a>
                 <ul class="dropdown-menu">
+                    <li><a href="https://forms.gle/5AwdnQjyuwUp5K2h8/" target="_blank" class="dropdown-item">Alumni Card</a></li>
                     <li><a href="{% url 'awards:award' id=1 %}" class="dropdown-item">Young Achiever Award 2019</a></li>
-                    <!--
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li class="divider"></li>
-                    -->
                 </ul>
+                
             </li>
             <li class="nav-item">
                 <a class="nav-link js-scroll-trigger" href="{% url 'publications:index' %}">Publications</a>

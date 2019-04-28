@@ -13,8 +13,8 @@ def upload_event_photo(instance, filename):
 class Event(models.Model):
     event_id = models.AutoField(primary_key = True)
     title = RichTextField()
-    start_date = models.DateTimeField(default = datetime.datetime.now() + datetime.timedelta(hours=24))
-    end_date = models.DateTimeField(default = datetime.datetime.now() + datetime.timedelta(hours=48))
+    start_date = models.DateTimeField(default = datetime.datetime(2019, 1, 1, 12, 0, 0))
+    end_date = models.DateTimeField(default = datetime.datetime(2019, 1, 1, 12, 0, 0))
     by = models.CharField(max_length = 255, null=True)
     picture = models.ImageField(null = True, blank = True, upload_to = upload_event_photo)
     location = models.CharField(max_length = 100, null = True)

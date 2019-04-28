@@ -47,11 +47,7 @@
                                     <h4><span class="badge badge-pill badge-primary">{{programme}}. {{year_of_admission}} - {{batch_id}}, {{branch}}</span></h4>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-12 text-center font-open-sans">
-                                    {{email}}
-                                </div>
-                            </div>
+                            
                             <br>
                             {% if user.is_authenticated and user.username == roll_no %}
                             {% if not user.is_superuser %}
@@ -63,13 +59,17 @@
                             {% endif %}
                         </div>
                     </div>
-
+                    {% if user.is_authenticated %} <!-- CHANGE PERMISSIONS HERE LATER -->
                     <!--   CONTACT INFO  -->
                     <div class="card m-2 shadow-sm">
                         <div class="card-header font-open-sans">
                             Contact Information
                         </div>
                         <div class="card-body">
+                            <p class="m-2 font-weight-normal font-open-sans mb-3">
+                                <i class="fas fa-envelope"></i>
+                                &nbsp;{{ email }}
+                            </p>
                             <p class="m-2 font-weight-normal font-open-sans mb-3">
                                 <i class="fas fa-map-marker-alt"></i>
                                 &nbsp;{{ current_address }}
@@ -88,23 +88,11 @@
                                     &nbsp;{{ phone_no }}
                             </p>
                             {% endif %}
-                            <p class="m-2 font-weight-normal font-open-sans mb-3">
-                                
-                                &nbsp;<a href="{{ linkedin }}"><i class="fab fa-linkedin"></i></a>
                             
-                                &nbsp;
-                                    
-                                    &nbsp;<a href="{{ facebook }}" ><i class="fab fa-facebook"></i></a>
-                                {% if website %}    
-                                &nbsp;
-                                
-                                &nbsp;<a href="{{ website }}"><i class="fas fa-globe"></i></a>
-                                {% endif %}
-                            </p>
                         </div>
                         
                     </div>
-
+                    {% endif %}
                     <!-- Expertise 
                     <div class="card m-2 shadow-sm">
                             <div class="card-header font-open-sans">
@@ -137,10 +125,19 @@
                                         <i class="fas fa-venus-mars"></i>
                                         &nbsp;{{ sex }}
                                     </p>
+                                <h4>
+                                    <a href="{{ linkedin }}"><i class="fab fa-linkedin"></i></a>&nbsp;
+                                    <a href="{{ facebook }}" ><i class="fab fa-facebook"></i></a>&nbsp; 
+                                    {% if website %}    
+                                    <a href="{{ website }}"><i class="fas fa-globe"></i></a>
+                                    {% endif %}
+                                </h4>
                             </div>
+                            <!-- 
                             <div class="card-footer">
                                     <small class="font-open-sans">Last Visit on {{ user.last_login }}</small>
                                 </div>
+                            -->
                     </div>
 
 
@@ -152,10 +149,10 @@
                         <div class="card-header font-open-sans">
                             Education
                         </div>
-                        <div class="card-body p-4">    
-                            <h3 class="font-open-sans">{{ current_university }}</h3>
-                            <small class="font-open-sans">{{ programme }}, {{ branch }}</small>
-                            <br><small class="font-open-sans">{{ batch }} - {{ batch }}</small>
+                        <div class="card-body p-4 font-open-sans">    
+                            <h3>PDPM IIITDM Jabalpur</h3>
+                            <h5>{{ programme }}, {{ year_of_admission }} - {{ batch_id }}, {{ branch }}
+                            </h5>
                         </div>
                     </div>
 
@@ -172,7 +169,7 @@
                                 None
                                 {% endif %}
                             </h3>
-                            <small class="font-open-sans">{{current_position}}</small>
+                            <h5>{{current_position}}</h5>
                         </div>
                     </div>
 
