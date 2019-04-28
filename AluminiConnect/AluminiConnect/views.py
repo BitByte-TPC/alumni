@@ -74,8 +74,8 @@ def convert_int(number,decimals) :
 
 def new_register(request):
     if request.method == 'POST':
-        form = NewRegister(request.POST)
-        #print (request.POST)
+        form = NewRegister(request.POST,request.FILES)
+        print (request.POST)
         if form.is_valid():
             #print (form.cleaned_data.get('date_of_joining'))
             profile = form.save(commit=False)
@@ -88,6 +88,9 @@ def new_register(request):
                 )
             profile.user = user
             profile.reg_no = reg_no_gen(profile.programme, profile.branch, profile.year_of_admission)
+            profile.country=request.POST['country']
+            profile.state=request.POST['state']
+            profile.city=request.POST['city']
             profile.save()
             #print(profile.date_of_joining)
             if profile.is_verified:
