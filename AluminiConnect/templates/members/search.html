@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-Members of IIITDMJ Alumni Association
+YearBook
 {% endblock %}
 
 {% block body %}
@@ -21,16 +21,20 @@ Members of IIITDMJ Alumni Association
 
         <div class="row w-100">
             <div class="col text-center">
-                <h2 class="font-open-sans"><span class="badge btn-block badge-primary">Batch of {{batch}}, {{branch}}
+                <h2 class="font-open-sans"><span class="badge btn-block badge-primary"> Search Result
                     </span></h2>
+            </div>
+            <div class="search-container" style="margin:6px;">
+                <form method="GET" action="{% url 'members:search' %}">
+                    <input type="text" placeholder="Search.." name="search" value={{val}}>
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                </form>
             </div>
         </div>
 
         <div class="row p-4">
             {% for item in data %}
             <div class="col-lg-3 p-2">
-                <div class="card shadow-lg">
-                    <!-- hover-zoomin"  style="max-width: 24rem; max-height: 35em;"> -->
                     <span class="border border-primary">
                         <div class="card-body">
                             <p class="text-center card-title">
@@ -68,8 +72,8 @@ Members of IIITDMJ Alumni Association
             </div>
             {% endfor %}
         </div>
-
     </div>
 </section>
+
 {% include 'globals/footer.html' %}
 {% endblock %}

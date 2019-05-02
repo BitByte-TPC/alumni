@@ -77,11 +77,13 @@ def new_register(request):
         form = NewRegister(request.POST,request.FILES)
         print (request.POST)
         if form.is_valid():
-            #print (form.cleaned_data.get('date_of_joining'))
+            first_name,last_name=request.POST['name'].split(' ',1)
+            print (form.cleaned_data.get('date_of_joining'))
             profile = form.save(commit=False)
-            #print(profile.date_of_joining)
             user = User.objects.create_user(
                 username=str(form.cleaned_data.get('roll_no')),
+                first_name=first_name,
+                last_name=last_name,
                 email=str(form.cleaned_data.get('email')),
                 password=str(form.cleaned_data.get('roll_no')),
                 is_active = False
@@ -92,23 +94,6 @@ def new_register(request):
             profile.state=request.POST['state']
             profile.city=request.POST['city']
             profile.save()
-            #print(profile.date_of_joining)
-            if profile.is_verified:
-                ''' current_site = get_current_site(request)
-                mail_subject = 'Activate your Alumni Account'
-                message = render_to_string('AluminiConnect/acc_active_email.html', {
-                    'user' : profile.roll_no,
-                    'domain' : current_site.domain,
-                    'uid' : urlsafe_base64_encode(force_bytes(profile.roll_no )).decode(),
-                    'token' : account_activation_token.make_token(profile.user),
-                })
-                print ('printing email\n')
-                print (profile.user.email)
-                to_email = profile.user.email
-                email = EmailMessage( mail_subject, message, to=[to_email] )
-                email.send()'''
-                #return HttpResponse('Please confirm your email address to complete registeration process..')
-                return HttpResponseRedirect('/confirm/')
     else:
         form = NewRegister()
     return render(request, 'AluminiConnect/profileedit.html', {'form' :form, 'edit' : False})

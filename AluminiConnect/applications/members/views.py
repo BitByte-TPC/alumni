@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.db.models import Count
+from django.db.models import Count,Q
+from django.contrib.auth.models import User
 from applications.alumniprofile.models import Profile
 # Create your views here.
 
@@ -30,3 +31,22 @@ def branch(request, programme, year, branch):
 
 def sacbody(request):
     return render(request, "members/sacbody.html")
+
+def search(request):
+    key = request.GET['search']
+    if len(key) < 3:
+        return render(request, "members/search.html", {'val': key })
+    words = (w.strip() for w in key.split())
+    name_q = Q()
+    for token in words:
+        name_q = name_q & (Q(first_name__icontains=token) | Q(last_name__icontains=token))
+    search_results = User.objects.filter(name_q)
+    print (search_results)
+    search = Profile.objects.filter(user_id__in=search_results)
+    print(search)
+    if len(search_results) == 0:
+        search_results = []
+    context = { 'data':search,
+                'val':key,
+            }
+    return render(request,"members/search.html",context)

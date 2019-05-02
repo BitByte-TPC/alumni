@@ -1,49 +1,70 @@
 {% extends 'globals/base.html' %}
 {% load static %}
 
-{% block title %} 
-    {{ user.username }}
+{% block title %}
+YearBook
 {% endblock %}
 
 {% block body %}
-  <!-- <body id="page-top" class="font-open-sans" style="background-color: #eaedf5"> -->
-    {% include 'globals/navbar.html' %}
+<!-- <body id="page-top" class="font-open-sans" style="background-color: #eaedf5"> -->
+{% include 'globals/navbar.html' %}
 
-    <div class=" p-0 m-0 masthead-bg w-100 parallax shadow-sm" style="min-height:250px !important;height:270px !important;background-position-y: -400px">
-        
-    </div>
-    
-    <div style="height:170px;min-height: 150px;">
-    </div>
-    
-    <section class="bg-transparent" style="padding-top:3rem">
-        <div class="container text-left p-2 mx-auto bg-light"> 
-            
-                <div class="row w-100">
-                        <div class="col text-center">
-                            <h2 class="font-open-sans"><span class="badge btn-block badge-primary"> Filter Alumni by Graduation Year </span></h2>
+<div class=" p-0 m-0 masthead-bg w-100 parallax shadow-sm"
+    style="min-height:250px !important;height:270px !important;background-position-y: -400px">
+
+</div>
+
+<div style="height:170px;min-height: 150px;">
+</div>
+
+<section class="bg-transparent" style="padding-top:3rem">
+    <div class="container text-left p-2 mx-auto bg-light">
+
+        <div class="row w-100">
+            <div class="col">
+                <h2 class="font-open-sans"><span class="badge btn-block badge-primary"> Registered Alumni : {{total}}
+                    </span></h2>
+            </div>
+            {% comment %} <div class="col">
+                <form method="GET" action="{% url 'members:search' %}">
+                    <div class="ui search">
+                        <div class="ui action input">
+                            <input type="text" name="q" placeholder="Search...">
+                            <button type="submit" class="ui button"><i class="search icon"></i></button>
                         </div>
+                        <div class="results"></div>
                     </div>
-                    <div class="row w-100">
-                        <div class="col text-center">
-                            <h2 class="font-open-sans"><span class="badge btn-block badge-primary"> Registered Alumni : {{total}} </span></h2>
-                        </div>
-                    </div>
-           <div class="row p-4">     
-            {% for batch,count in data %}
-                <div class="col-lg-3 p-2">
-                    <div class="card w-100 shadow-lg text-center" style="max-width: 15rem; max-height: 40rem;">
-                        <div class="card-body">
-                            <h5 class="card-title font-weight-bold"><a href="{% url 'members:batch' batch %}" class="btn btn-outline-primary" >Batch of {{ batch }}</a></h5>
-                            
-                            <p class="m-2 font-italic  font-open-sans">{{ count }} Member{{ count|pluralize }}</p>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
+                </form>
+            </div> {% endcomment %}
+            <div class="search-container" style="margin:6px;">
+                <form method="GET" action="{% url 'members:search' %}">
+                    <input type="text" placeholder="Search.." name="search">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                </form>
             </div>
         </div>
-    </section>
+        <div class="row w-100">
+            <div class="col text-center">
+                <h2 class="font-open-sans"><span class="badge btn-block badge-primary"> Filter Alumni by Graduation Year
+                    </span></h2>
+            </div>
+        </div>
+        <div class="row p-4">
+            {% for batch,count in data %}
+            <div class="col-lg-3 p-2">
+                <div class="card w-100 shadow-lg text-center" style="max-width: 15rem; max-height: 40rem;">
+                    <div class="card-body">
+                        <h5 class="card-title font-weight-bold"><a href="{% url 'members:batch' batch %}"
+                                class="btn btn-outline-primary">Batch of {{ batch }}</a></h5>
 
-    {% include 'globals/footer.html' %} 
+                        <p class="m-2 font-italic  font-open-sans">{{ count }} Member{{ count|pluralize }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% include 'globals/footer.html' %}
 {% endblock %}

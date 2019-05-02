@@ -12,5 +12,6 @@ extrapatterns = [
 urlpatterns = [
     url(r'^(?P<year>[0-9]{4})/', include(extrapatterns)),
     url(r'^sacbody/$', views.sacbody, name="sacbody"),
+    url(r'^search/$', views.search, name='search'),
     url(r'^$', views.index, name='index'),
 ]
