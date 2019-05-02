@@ -91,3 +91,5 @@ db.sqlite3
 
 .vscode/
 media
+dump.rdb
+celerybeat-schedule

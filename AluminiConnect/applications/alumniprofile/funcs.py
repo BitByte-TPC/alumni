@@ -3,12 +3,9 @@ from mailjet_rest import Client
 from django.contrib import messages
 
 def send_verification_email(name, email, yoa, yop, prog, spec, reg_no):
-    try:
-        api_key = os.environ['MJ_APIKEY_PUBLIC']
-        api_secret = os.environ['MJ_APIKEY_PRIVATE']
-        sender_email = os.environ['MJ_SENDER_EMAIL']
-    except:
-        return ("Not Sent")
+    api_key = os.environ['MJ_APIKEY_PUBLIC']
+    api_secret = os.environ['MJ_APIKEY_PRIVATE']
+    sender_email = os.environ['MJ_SENDER_EMAIL']
     mailjet = Client(auth=(api_key, api_secret), version='v3.1')
     data = {
     'Messages': [
@@ -35,4 +32,33 @@ def send_verification_email(name, email, yoa, yop, prog, spec, reg_no):
     }
     result = mailjet.send.create(data=data)
     return (result.status_code)
-    
+
+def send_birthday_wish(name, email):
+    api_key = os.environ['MJ_APIKEY_PUBLIC']
+    api_secret = os.environ['MJ_APIKEY_PRIVATE']
+    sender_email = os.environ['MJ_SENDER_EMAIL']
+    mailjet = Client(auth=(api_key, api_secret), version='v3.1')
+    data = {
+    'Messages': [
+                    {
+                        "From": {
+                                "Email": sender_email,
+                                "Name": "Student Alumni Cell (SAC), IIITDMJ"
+                        },
+                        "To": [
+                                {
+                                        "Email": email,
+                                        "Name": name
+                                }
+                        ],
+                        "TemplateID": 820446,
+                        "TemplateLanguage": True,
+                        "Subject": "Student Alumni Cell, IIITDMJ Wishes you a Very Happy Birthday!",
+                        "Variables" : {
+                            "firstname" : name,
+                        }
+                    }
+            ]
+    }
+    result = mailjet.send.create(data=data)
+    return result.status_code
