@@ -1,4 +1,13 @@
+{% extends 'globals/base.html' %}
 
+{% load static %}
+
+{% block title %} 
+Geolocation
+{% endblock %}
+
+{% block body %}
+{% include 'globals/navbar.html' %}
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
 
@@ -9,16 +18,6 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.Default.css" />
 <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.css" />
 <script src="https://unpkg.com/leaflet.markercluster@1.0.3/dist/leaflet.markercluster-src.js"></script>
-
-{% extends 'globals/base.html' %}
-{% load static %}
-
-{% block title %} 
-  Geolocation
-{% endblock %}
-
-{% block body %}
-{% include 'globals/navbar.html' %}
     <div class=" p-0 m-0 masthead-bg w-100 h-100 parallax" style="background-position-y: -25rem"></div>
 
     <header class="masthead text-center text-white d-flex" style="height:0px;min-height:300px">
@@ -32,6 +31,12 @@
         </div>
       </div>
     </header>
+
+    <script type="text/javascript">
+      var city = {{ city|safe }};
+      console.log(city); 
+      // widget.init(city);
+    </script>
 
     <section id="services" class="bg-primary p-1">
     </section>

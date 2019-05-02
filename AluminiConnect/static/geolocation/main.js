@@ -1,16 +1,32 @@
-var map = L.map('map',{
-    center: [23.1787577,80.0249303],
+var map = L.map('map', {
+    center: [23.1787577, 80.0249303],
     zoom: 2
 });
 var markers = L.markerClusterGroup();
 
 L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributor',    
+    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributor',
 }).addTo(map);
 
+city.forEach(item => {
+    var xhttp = new XMLHttpRequest();
 
-var center = map.getCenter();
-for(var i = 0; i < 500 ;i++){
-    markers.addLayer(L.marker([center.lat + Math.random(-20,20),center.lng + Math.random(-20,20)]));
-}
+    var city = item.fields.city;
+    var url = 'http://nominatim.openstreetmap.org/search?format=json&limit=5&q=' + encodeURIComponent(city);
+    xhttp.open("GET", url, true);
+    xhttp.send();
+
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var res = JSON.parse(this.responseText);
+            console.log(res);
+            var lat = res[0].lat;
+            var lon = res[0].lon;
+            markers.addLayer(L.marker([lat, lon]));
+        }
+    };
+});
+
 map.addLayer(markers);
+
+
