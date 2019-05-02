@@ -1,10 +1,10 @@
 # TODO
 
 **URGENT CHANGES - 2' May-19**
-- [x] Add Fixed Geolocation from the data
-- [x] Add CheckBox as T&C in Registration Form
-- [x] Temporarily remove(comment) gallery or complete if possible
-- [x] Search option
+- [ ] Add Fixed Geolocation from the data
+- [ ] Add CheckBox as T&C in Registration Form
+- [ ] Temporarily remove(comment) gallery or complete if possible
+- [ ] Search option
 
 
 
