@@ -1,5 +1,14 @@
 # TODO
 
+**URGENT CHANGES - 2' May-19**
+- [x] Add Fixed Geolocation from the data
+- [x] Add CheckBox as T&C in Registration Form
+- [x] Temporarily remove(comment) gallery or complete if possible
+- [x] Search option
+
+
+
+
 **24-jan-19**
 - [x] Home Page 
 - [x] Login/sign up page
