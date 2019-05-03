@@ -20,18 +20,28 @@ def send_verification_email(name, email, yoa, yop, prog, spec, reg_no):
                                         "Name": name
                                 }
                         ],
-                        "Subject": "IIITDMJ SAC Portal Registration",
-                        "TextPart": "Dear Alumni, Thanks for Registering on the SAC Portal, IIITDMJ!",
-                        "HTMLPart": "<h3>Dear Alumni, Thanks for Registering on the SAC Portal, IIITDMJ! You've been verified by the Admin.</h3>\
-                                <h3> <u>Details</u><br>Name : {}<br>Email : {}<br>Batch : {} - {}<br>Programme : {}<br>Branch : {}<br><u>Alumni Registration Number : {}</u></h3>\
-                                    <p> Please use this number for future references and endeavours.<br>\
-                                        Apply for Alumni Card - <a href=\"https://forms.gle/5AwdnQjyuwUp5K2h8/\">Link</a></p>".format(name,email,yoa,yop,prog,spec,reg_no)
-                                    
+                        "TemplateID": 821551,
+                        "TemplateLanguage": True,
+                        "Subject": "SAC IIITDMJ Portal Registration Successful!",
+                        "TemplateErrorDeliver": True,
+			"TemplateErrorReporting": {
+				"Email": sender_email,
+				"Name": "Error in Message Delivery - SAC"
+			},
+                        "Variables" : {
+                            "name" : name,
+                            "email" : email,
+                            "from" : yoa,
+                            "to" : yop,
+                            "prog" : prog,
+                            "branch" : spec,
+                            "reg_no" : reg_no
+                        }
                     }
             ]
     }
     result = mailjet.send.create(data=data)
-    return (result.status_code)
+    return result.status_code
 
 def send_birthday_wish(name, email):
     api_key = os.environ['MJ_APIKEY_PUBLIC']
@@ -54,6 +64,11 @@ def send_birthday_wish(name, email):
                         "TemplateID": 820446,
                         "TemplateLanguage": True,
                         "Subject": "Student Alumni Cell, IIITDMJ Wishes you a Very Happy Birthday!",
+                        "TemplateErrorDeliver": True,
+			"TemplateErrorReporting": {
+				"Email": sender_email,
+				"Name": "Error in Message Delivery - SAC"
+			},
                         "Variables" : {
                             "firstname" : name,
                         }

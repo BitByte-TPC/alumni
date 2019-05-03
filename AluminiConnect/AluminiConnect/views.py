@@ -84,6 +84,10 @@ def new_register(request):
                 last_name=""
             print (form.cleaned_data.get('date_of_joining'))
             profile = form.save(commit=False)
+            profile.reg_no = reg_no_gen(profile.programme, profile.branch, profile.year_of_admission)
+            profile.country=request.POST['country']
+            profile.state=request.POST['state']
+            profile.city=request.POST['city']
             user = User.objects.create_user(
                 username=str(form.cleaned_data.get('roll_no')),
                 first_name=first_name,
@@ -93,10 +97,6 @@ def new_register(request):
                 is_active = False
                 )
             profile.user = user
-            profile.reg_no = reg_no_gen(profile.programme, profile.branch, profile.year_of_admission)
-            profile.country=request.POST['country']
-            profile.state=request.POST['state']
-            profile.city=request.POST['city']
             profile.save()
             return render(request, 'AluminiConnect/confirm_email.html')
     else:
