@@ -77,7 +77,11 @@ def new_register(request):
         form = NewRegister(request.POST,request.FILES)
         print (request.POST)
         if form.is_valid():
-            first_name,last_name=request.POST['name'].split(' ',1)
+            try:
+                first_name,last_name=request.POST['name'].split(' ',1)
+            except:
+                first_name=request.POST['name']
+                last_name=""
             print (form.cleaned_data.get('date_of_joining'))
             profile = form.save(commit=False)
             user = User.objects.create_user(
@@ -94,6 +98,7 @@ def new_register(request):
             profile.state=request.POST['state']
             profile.city=request.POST['city']
             profile.save()
+            return render(request, 'AluminiConnect/confirm_email.html')
     else:
         form = NewRegister()
     return render(request, 'AluminiConnect/profileedit.html', {'form' :form, 'edit' : False})
