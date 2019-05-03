@@ -117,20 +117,6 @@ def profileedit(request, id):
                 l =form.save(commit=False)
                 print(l.save())
                 if not l.is_registered:
-                    '''current_site = get_current_site(request)
-                    mail_subject = 'Activate your Alumni Account'
-                    message = render_to_string('AluminiConnect/acc_active_email.html', {
-                        'user' : l.roll_no,
-                        'domain' : current_site.domain,
-                        'uid' : urlsafe_base64_encode(force_bytes(l.roll_no )).decode(),
-                        'token' : account_activation_token.make_token(l.user),
-                    })
-                    print ('printing email\n')
-                    print (l.user.email)
-                    to_email = l.user.email
-                    email = EmailMessage( mail_subject, message, to=[to_email] )
-                    email.send()'''
-                    #return HttpResponse('Please confirm your email address to complete registeration process..')
                     return HttpResponseRedirect('/confirm/')
         else:
             print("here")
