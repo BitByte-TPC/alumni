@@ -22,8 +22,11 @@ YearBook
 
         <div class="row w-100">
             <div class="col">
-                <h2 class="font-open-sans"><span class="badge btn-block badge-primary"> Registered Alumni : {{total}}
-                    </span></h2>
+                {% if not keyy %}
+                <h2 class="font-open-sans"><span class="badge btn-block badge-primary"> Registered Alumni : {{total}}</span></h2>
+                {% else %}
+                <h2 class="font-open-sans"><span class="badge btn-block badge-primary"></span></h2>
+                {% endif %}
             </div>
             {% comment %} <div class="col">
                 <form method="GET" action="{% url 'members:search' %}">
@@ -38,6 +41,14 @@ YearBook
             </div> {% endcomment %}
             <div class="search-container" style="margin:6px;">
                 <form method="GET" action="{% url 'members:search' %}">
+                    
+                    <select name="filter">
+                            <option selected value="Name">Name</option>
+                            <option value="City">City</option>
+                            <option value="Branch">Branch</option>
+                            <option value="Organisation">Company</option>
+                            <option value="Roll_no">Roll No.</option>
+                          </select>
                     <input type="text" placeholder="Search.." name="search">
                     <button type="submit"><i class="fa fa-search"></i></button>
                 </form>
@@ -45,10 +56,20 @@ YearBook
         </div>
         <div class="row w-100">
             <div class="col text-center">
-                <h2 class="font-open-sans"><span class="badge btn-block badge-primary"> Filter Alumni by Graduation Year
-                    </span></h2>
+                {% if not keyy %}
+                <h2 class="font-open-sans"><span class="badge btn-block badge-primary"> Filter Alumni by Graduation Year</span></h2>
+                {% else %}
+                <h2 class="font-open-sans"><span class="badge btn-block badge-primary"> Filter {{filter}} : {{keyy}}</span></h2>
+                
+                {% if not zero %}
+                <div class="alert alert-danger" role="alert">
+                        No Results Found!
+                      </div>
+                {% endif %}
+                {% endif %}
             </div>
         </div>
+        {% if not keyy %}
         <div class="row p-4">
             {% for batch,count in data %}
             <div class="col-lg-3 p-2">
@@ -63,6 +84,52 @@ YearBook
             </div>
             {% endfor %}
         </div>
+        {% else %}
+            
+            <div class="row p-4">
+                {% for item in profiles %}
+                <div class="col-lg-3 p-2">
+                    <div class="card shadow-lg">
+                        <!-- hover-zoomin"  style="max-width: 24rem; max-height: 35em;"> -->
+                        <span class="border border-primary">
+                            <div class="card-body">
+                                <p class="text-center card-title">
+                                    <a href="{% url 'profile:profile' item.roll_no %}">
+                                        {% if item.profile_picture %}
+                                        <img src="{{ item.profile_picture.url }}" class=" img-fluid " alt="">
+                                        {% else %}
+                                        <img src="{% static "AluminiConnect/img/user.png" %}" class="card-img-top img-fluid"
+                                            alt="" height="200px" width="200px">
+                                        {% endif %}
+    
+                                </p>
+                                <p class="card-title font-open-sans font-weight-bold">{{item.name}}</a></p>
+                                <p class="font-italic card-text font-open-sans"><i class="fas fa-map-marker-alt"></i>
+                                    {{item.city}}</p>
+    
+                                <h4 class="text-center card-text">
+    
+                                    {% if item.facebook %}<a href="{{item.facebook}}" target="_blank"><i
+                                            class="fab fa-facebook-square"></i></a>{% endif %}
+                                    {% if item.linkedin %}<a href="{{item.linkedin}}" target="_blank"><i
+                                            class="fab fa-linkedin"></i></a>{% endif %}
+                                    {% if item.website %}<a href="{{item.website}}" target="_blank"><i
+                                            class="fas fa-link"></i></a>{% endif %}
+    
+                                </h4>
+    
+    
+                            </div>
+    
+    
+                    </div>
+                    </span>
+    
+                </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
     </div>
 </section>
 

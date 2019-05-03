@@ -34,19 +34,20 @@ def sacbody(request):
 
 def search(request):
     key = request.GET['search']
-    if len(key) < 3:
-        return render(request, "members/search.html", {'val': key })
-    words = (w.strip() for w in key.split())
-    name_q = Q()
-    for token in words:
-        name_q = name_q & (Q(first_name__icontains=token) | Q(last_name__icontains=token))
-    search_results = User.objects.filter(name_q)
-    print (search_results)
-    search = Profile.objects.filter(user_id__in=search_results)
-    print(search)
-    if len(search_results) == 0:
-        search_results = []
-    context = { 'data':search,
-                'val':key,
-            }
-    return render(request,"members/search.html",context)
+    fil = request.GET['filter']
+    if fil == 'Name':
+        profiles = Profile.objects.filter(name__icontains = key).order_by("name")
+    elif fil == 'City':
+        profiles = Profile.objects.filter(city__icontains = key).order_by("name")
+    elif fil == 'Branch':
+        profiles = Profile.objects.filter(branch__icontains = key).order_by("name")
+    elif fil == 'Roll_no':
+        profiles = Profile.objects.filter(roll_no__icontains = key).order_by("name")
+    elif fil == 'Organisation':
+        profiles = Profile.objects.filter(current_organisation__icontains = key).order_by("name")    
+    context = { 'profiles':profiles,
+                'keyy':key,
+                'filter' : fil,
+                'zero' : len(profiles),
+                }
+    return render(request,"members/index.html",context)
