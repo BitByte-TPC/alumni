@@ -231,6 +231,8 @@ class NewRegister(forms.ModelForm):
     linkedin = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Linkedin URL'}))
     website = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Website'}), required = False)
     facebook = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Facebook URL'}))
+    checkbox_terms = forms.BooleanField(required=True)
+    checkbox_update = forms.BooleanField(required=True)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -244,6 +246,8 @@ class NewRegister(forms.ModelForm):
         self.fields['date_of_birth'].label = 'Date of Birth'
         self.fields['year_of_admission'].label = 'Year of Admission'
         self.fields['alternate_email'].label = 'Alternate Email'
+        self.fields['checkbox_terms'].label = 'I abide by the Terms and Conditions of the SAC'
+        self.fields['checkbox_update'].label = 'I agree to update my information at regular intervals'
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Row(
@@ -311,6 +315,8 @@ class NewRegister(forms.ModelForm):
                 css_class='form-row'
             ),
             'profile_picture',
+            'checkbox_terms',
+            'checkbox_update',
             Submit('submit', 'Register'),
         )   
 
