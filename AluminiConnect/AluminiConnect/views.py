@@ -31,6 +31,7 @@ def index(request):
     events_completed = Event.objects.filter(end_date__lt=now).order_by('-start_date')
     #Add Check here
     news = News.objects.filter().order_by('-date')
+    #messages.success(request, 'Your password was successfully updated!')
     return render(request, "AluminiConnect/index.html", {'name':sname, 'events':list(chain(events, events_completed))[:3], 'news': news})
 
 def alumniBody(request):
@@ -75,14 +76,14 @@ def convert_int(number,decimals) :
 def new_register(request):
     if request.method == 'POST':
         form = NewRegister(request.POST,request.FILES)
-        print (request.POST)
+        #print (request.POST)
         if form.is_valid():
             try:
                 first_name,last_name=request.POST['name'].split(' ',1)
             except:
                 first_name=request.POST['name']
                 last_name=""
-            print (form.cleaned_data.get('date_of_joining'))
+            #print (form.cleaned_data.get('date_of_joining'))
             profile = form.save(commit=False)
             profile.reg_no = reg_no_gen(profile.programme, profile.branch, profile.year_of_admission)
             profile.country=request.POST['country']
@@ -93,8 +94,8 @@ def new_register(request):
                 first_name=first_name,
                 last_name=last_name,
                 email=str(form.cleaned_data.get('email')),
-                password=str(form.cleaned_data.get('roll_no')),
-                is_active = False
+                password=profile.reg_no,
+                is_active = True
                 )
             profile.user = user
             profile.save()

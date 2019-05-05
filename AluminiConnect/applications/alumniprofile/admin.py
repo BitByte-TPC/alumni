@@ -1,7 +1,9 @@
 from django.contrib import admin, messages
 from .models import Profile, Constants, Batch
 from django.contrib.auth.models import User
-
+from django.http import HttpResponse
+from django.core.exceptions import PermissionDenied
+import csv
 class ProfileAdmin(admin.ModelAdmin):
     list_display = (
         'user', 'reg_no', 'is_verified', 'mail_sent', 'name', 'sex', 'roll_no', 'email', 'batch', 'programme', 'branch','date_of_birth',
@@ -9,7 +11,8 @@ class ProfileAdmin(admin.ModelAdmin):
         'current_university')
     ordering = [('-user__date_joined'),]
     search_fields = ['name', '^roll_no', '^year_of_admission', '^reg_no', '^programme', '^branch', '^city']
-    
+    actions = ['download_csv']
+
     def save_model(self, request, obj, form, change): #Doesn't detect PUBLIC_KEY Errors
         if 'mail_sent' in form.changed_data:
             if obj.mail_sent == True:
@@ -17,6 +20,25 @@ class ProfileAdmin(admin.ModelAdmin):
             else:
                 messages.error(request, "Error : Mail not sent to {}".format(obj.name))
         super(ProfileAdmin, self).save_model(request, obj, form, change)
+
+    def download_csv(self, request, queryset):
+        print(request)
+        #if request.POST.get('post'):
+        meta = self.model._meta
+        field_names = [field.name for field in meta.fields]
+
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename={}.csv'.format(meta)
+        writer = csv.writer(response)
+
+        writer.writerow(field_names)
+        for obj in queryset:
+            row = writer.writerow([getattr(obj, field) for field in field_names])
+        
+        #self.message_user(request, "Export Successful")
+        return response
+        
+    download_csv.short_description = "Export Selected"
 
 class BatchAdmin(admin.ModelAdmin):
     list_display = ('batch',)
