@@ -27,7 +27,8 @@
                                     {% if profile_picture %}
                                     <img src="{{ profile_picture.url }}" 
                                         alt="DP" class="img-fluid rounded-circle m-2"
-                                        style="height:200px;width:200px; max-width:200px;max-height:200px;"
+                                        style="object-fit:cover; object-position:50% 0%; height:200px; 
+                                         width:200px; max-width:200px;max-height:200px;"
                                     />
                                     {% else %}
                                     <img src="{% static "AluminiConnect/img/user.png" %}" 
