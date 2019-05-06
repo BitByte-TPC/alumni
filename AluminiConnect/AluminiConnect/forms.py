@@ -247,7 +247,7 @@ class NewRegister(forms.ModelForm):
         self.fields['year_of_admission'].label = 'Year of Admission'
         self.fields['alternate_email'].label = 'Alternate Email'
         self.fields['checkbox_terms'].label = 'I abide by the Terms and Conditions of the SAC'
-        self.fields['checkbox_update'].label = 'I agree to update my information at regular intervals'
+        self.fields['checkbox_update'].label = 'I will update my information at regular intervals and will engage in the Alumni network actively.'
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Row(
@@ -315,7 +315,6 @@ class NewRegister(forms.ModelForm):
                 css_class='form-row'
             ),
             'profile_picture',
-            'checkbox_terms',
             'checkbox_update',
             Submit('submit', 'Register'),
         )   
