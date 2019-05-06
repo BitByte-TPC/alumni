@@ -33,17 +33,20 @@ Members of IIITDMJ Alumni Association
                     <!-- hover-zoomin"  style="max-width: 24rem; max-height: 35em;"> -->
                     <span class="border border-primary">
                         <div class="card-body">
-                            <p class="text-center card-title">
-                                <a href="{% url 'profile:profile' item.roll_no %}">
+                            <a href="{% url 'profile:profile' item.roll_no %}">
+                                <p class="text-center card-title">
                                     {% if item.profile_picture %}
-                                    <img src="{{ item.profile_picture.url }}" class=" img-fluid " alt="">
+                                    <img src="{{ item.profile_picture.url }}" class=" img-fluid " alt="" 
+                                        style="object-fit:cover; object-position:50% 0%; max-width:216px; 
+                                         max-height:216px; width:100%; height:216px; margin-bottom: 1rem;" >
                                     {% else %}
                                     <img src="{% static "AluminiConnect/img/user.png" %}" class="card-img-top img-fluid"
                                         alt="" height="200px" width="200px">
                                     {% endif %}
-
-                            </p>
-                            <p class="card-title font-open-sans font-weight-bold">{{item.name}}</a></p>
+                                    
+                                </p>
+                                <p class="card-title font-open-sans font-weight-bold">{{item.name}}</p>
+                            </a>
                             <p class="font-italic card-text font-open-sans"><i class="fas fa-map-marker-alt"></i>
                                 {{item.city}}</p>
 
