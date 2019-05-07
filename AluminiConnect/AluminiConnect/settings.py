@@ -169,11 +169,13 @@ if DEBUG:
     }
 
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'okjoshiji@gmail.com'
+EMAIL_HOST = 'in-v3.mailjet.com'
+EMAIL_HOST_USER = '2016049@iiitdmj.ac.in'
 EMAIL_HOST_PASSWORD = os.environ.get('PASSWD')
 EMAIL_PORT = 587
-
+EMAIL_BACKEND = 'django_mailjet.backends.MailjetBackend'
+MAILJET_API_KEY = os.environ["MJ_APIKEY_PUBLIC"]
+MAILJET_API_SECRET = os.environ["MJ_APIKEY_PRIVATE"]
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # CELERY STUFF
 BROKER_URL = 'redis://localhost:6379'
