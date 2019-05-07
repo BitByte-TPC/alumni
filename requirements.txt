@@ -3,6 +3,7 @@ anyjson==0.3.3
 astroid==2.1.0
 beautifulsoup4==4.6.0
 billiard==3.3.0.23
+cachetools==3.1.0
 celery==3.1.26.post2
 certifi==2018.11.29
 chardet==3.0.4
@@ -16,11 +17,14 @@ django-crispy-forms==1.7.2
 django-debug-toolbar==1.8
 django-imagekit==4.0.2
 django-js-asset==1.1.0
+django-mailjet==0.3.1
 django-material==1.5.3
 django-model-utils==3.1.2
 django-semanticui-forms==1.6.5
 django-widget-tweaks==1.4.3
+google-auth==1.6.3
 html5lib==1.0b10
+httplib2==0.12.3
 idna==2.8
 isort==4.2.15
 kombu==3.0.37
@@ -32,6 +36,8 @@ mysqlclient==1.3.12
 oauthlib==3.0.1
 pilkit==2.0
 Pillow==5.4.1
+pyasn1==0.4.5
+pyasn1-modules==0.2.5
 pyflakes==1.5.0
 pylint==2.2.2
 python3-openid==3.1.0
@@ -39,9 +45,11 @@ pytz==2018.9
 redis==2.10.6
 requests==2.21.0
 requests-oauthlib==1.2.0
+rsa==4.0
 six==1.12.0
 sqlparse==0.2.4
 typed-ast==1.3.0
+uritemplate==3.0.0
 urllib3==1.22
 vine==1.1.4
 webencodings==0.5.1
