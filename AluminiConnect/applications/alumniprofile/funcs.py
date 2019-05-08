@@ -49,11 +49,7 @@ def send_verification_email(user, name, email, yoa, yop, prog, spec, reg_no, rol
                             "branch" : spec,
                             "reg_no" : reg_no,
                             "roll_no" : roll,
-<<<<<<< HEAD
-                            "pass" : password,
-=======
                             "pass" : loader.render_to_string(url_template_name, c)
->>>>>>> forgot_password
                         }
                     }
             ]
