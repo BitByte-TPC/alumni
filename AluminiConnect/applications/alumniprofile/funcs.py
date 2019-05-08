@@ -4,8 +4,17 @@ from django.contrib import messages
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.template import loader
 
-def send_verification_email(name, email, yoa, yop, prog, spec, reg_no, roll, password):
+def send_verification_email(user, name, email, yoa, yop, prog, spec, reg_no, roll):
+    c = {
+        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+        'user': user,
+        'token': default_token_generator.make_token(user),
+        'domain': 'sac.iiitdmj.ac.in',#request.META['HTTP_HOST'],
+        'protocol': 'http',
+    }
+    url_template_name='registration/url_password_reset_email.html'
     api_key = os.environ['MJ_APIKEY_PUBLIC']
     api_secret = os.environ['MJ_APIKEY_PRIVATE']
     sender_email = os.environ['MJ_SENDER_EMAIL']
@@ -40,7 +49,11 @@ def send_verification_email(name, email, yoa, yop, prog, spec, reg_no, roll, pas
                             "branch" : spec,
                             "reg_no" : reg_no,
                             "roll_no" : roll,
+<<<<<<< HEAD
                             "pass" : password,
+=======
+                            "pass" : loader.render_to_string(url_template_name, c)
+>>>>>>> forgot_password
                         }
                     }
             ]

@@ -365,3 +365,7 @@ class NewRegister(forms.ModelForm):
         widgets = {
             'working_status': forms.RadioSelect(choices=Constants.WORKING_STATUS),
         }
+
+class PasswordResetRequestForm(forms.Form):
+    roll_no = forms.IntegerField(label=("Roll No."))
+    email = forms.CharField(label=("Email"), max_length=254)
