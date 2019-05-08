@@ -89,13 +89,14 @@ def new_register(request):
             profile.country=request.POST['country']
             profile.state=request.POST['state']
             profile.city=request.POST['city']
+            password = User.objects.make_random_password(length=10)
             user = User.objects.create_user(
                 username=str(form.cleaned_data.get('roll_no')),
                 first_name=first_name,
                 last_name=last_name,
                 email=str(form.cleaned_data.get('email')),
-                password=profile.reg_no,
-                is_active = True
+                password=password,
+                is_active = False
                 )
             profile.user = user
             profile.save()

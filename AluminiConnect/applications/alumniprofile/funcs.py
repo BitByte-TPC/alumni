@@ -1,8 +1,11 @@
 import os
 from mailjet_rest import Client
 from django.contrib import messages
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 
-def send_verification_email(name, email, yoa, yop, prog, spec, reg_no):
+def send_verification_email(name, email, yoa, yop, prog, spec, reg_no, roll, password):
     api_key = os.environ['MJ_APIKEY_PUBLIC']
     api_secret = os.environ['MJ_APIKEY_PRIVATE']
     sender_email = os.environ['MJ_SENDER_EMAIL']
@@ -35,7 +38,9 @@ def send_verification_email(name, email, yoa, yop, prog, spec, reg_no):
                             "to" : yop,
                             "prog" : prog,
                             "branch" : spec,
-                            "reg_no" : reg_no
+                            "reg_no" : reg_no,
+                            "roll_no" : roll,
+                            "pass" : password,
                         }
                     }
             ]
