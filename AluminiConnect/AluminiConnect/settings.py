@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_cleanup',
+    'anymail',
 
     'crispy_forms',
     'applications.alumniprofile',
@@ -169,13 +170,11 @@ if DEBUG:
     }
 
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'in-v3.mailjet.com'
-EMAIL_HOST_USER = '2016049@iiitdmj.ac.in'
-EMAIL_HOST_PASSWORD = os.environ.get('PASSWD')
+#EMAIL_HOST = 'in-v3.mailjet.com'
+#EMAIL_HOST_USER = 'Student Alumni Cell (SAC), IIITDMJ'
+#EMAIL_HOST_PASSWORD = os.environ.get('PASSWD')
 EMAIL_PORT = 587
-EMAIL_BACKEND = 'django_mailjet.backends.MailjetBackend'
-MAILJET_API_KEY = os.environ["MJ_APIKEY_PUBLIC"]
-MAILJET_API_SECRET = os.environ["MJ_APIKEY_PRIVATE"]
+
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # CELERY STUFF
 BROKER_URL = 'redis://localhost:6379'
@@ -184,3 +183,14 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Asia/Kolkata'
+PASSWORD_RESET_TIMEOUT_DAYS = 1
+ANYMAIL = {
+    # (exact settings here depend on your ESP...)
+    "MAILJET_API_KEY": os.environ["MJ_APIKEY_PUBLIC"],
+    "MAILJET_SECRET_KEY": os.environ["MJ_APIKEY_PRIVATE"],  # your Mailgun domain, if needed
+    
+}
+MAILJET_API_URL = "https://api.mailjet.com/v3.1"
+EMAIL_BACKEND = "anymail.backends.mailjet.EmailBackend"  # or sendgrid.EmailBackend, or...
+DEFAULT_FROM_EMAIL = "Student Alumni Cell IIITDMJ <2016049@iiitdmj.ac.in>"  # if you don't already have this in settings
+SERVER_EMAIL =  os.environ["MJ_SENDER_EMAIL"] # ditto (default from-email for Django errors)
