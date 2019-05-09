@@ -81,7 +81,7 @@ AlumniConnect
       </div>
       <div class="col-lg-8 mx-auto align-middle">
         <h1 class="text-uppercase mt-4">
-          <strong>ALUMNI ASSOCIATION</strong>
+          <strong>STUDENT ALUMNI CELL</strong>
         </h1>
       </div>
     </div>
@@ -110,6 +110,7 @@ AlumniConnect
             <form method="POST" role="form" enctype="multipart/form-data" style="width:100%">
               {% csrf_token %}
               {% crispy form %}
+              <input type="hidden" name="next" value="{{ request.path }}">
             </form>
           </div>
         </div>

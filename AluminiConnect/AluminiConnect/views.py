@@ -96,7 +96,7 @@ def new_register(request):
                 last_name=last_name,
                 email=str(form.cleaned_data.get('email')),
                 password=password,
-                is_active = False
+                is_active = True
                 )
             profile.user = user
             profile.save()

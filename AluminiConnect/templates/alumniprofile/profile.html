@@ -53,7 +53,7 @@
                             {% if user.is_authenticated and user.username == roll_no %}
                             
                             <div class="row">
-                                <a href="{% url 'profileedit' id=user.username %}" class="col-lg-6 btn btn-outline-primary btn-sm">Edit Profile</a>
+                                <a href="{% url 'profileedit' id=user.username %}?next={% url 'profile:profile' roll_no %}" class="col-lg-6 btn btn-outline-primary btn-sm">Edit Profile</a>
                                 <a href="{% url 'change_password' %}" class="col-lg-6 btn btn-outline-primary btn-sm">Change Password</a>
                             </div>
                             
