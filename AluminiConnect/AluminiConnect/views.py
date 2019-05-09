@@ -118,7 +118,7 @@ def profileedit(request, id):
         else:
             print("here")
             form = ProfileEdit(instance = profile)
-        return render(request, 'AluminiConnect/profileedit.html', {'form' :form, 'l': profile, 'edit' : False})
+        return render(request, 'AluminiConnect/profileedit.html', {'form' : form, 'C':profile.country, 's' : profile.state, 'c' : profile.city, 'edit' : True})
     else:
         return HttpResponseRedirect('/')
 
