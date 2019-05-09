@@ -150,7 +150,12 @@
                         <div class="card-header font-open-sans">
                             Education
                         </div>
-                        <div class="card-body p-4 font-open-sans">    
+                        <div class="card-body p-4 font-open-sans">
+                            {% if current_course %} 
+                            <h3>{{current_university}}</h3>
+                            <h5>{{current_course}}
+                            </h5><hr>   
+                            {% endif %}
                             <h3>PDPM IIITDM Jabalpur</h3>
                             <h5>{{ programme }}, {{ year_of_admission }} - {{ batch_id }}, {{ branch }}
                             </h5>

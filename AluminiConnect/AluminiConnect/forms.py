@@ -73,9 +73,9 @@ class ProfileEdit(forms.ModelForm):
         max_length=4000,
         required = False,
     )
-    country = forms.ChoiceField(widget=forms.Select(attrs={'id':'countryId','class':'countries order-alpha presel-IN','name':'country'}))
-    state = forms.ChoiceField(widget=forms.Select(attrs={'id':'stateId','class':'states order-alpha','name':'state'}))
-    city = forms.ChoiceField(widget=forms.Select(attrs={'id':'cityId','class':'cities order-alpha','name':'city'}))
+    country = forms.CharField(widget=forms.Select(attrs={'id':'countryId','class':'countries order-alpha presel-IN','name':'country'}))
+    state = forms.CharField(widget=forms.Select(attrs={'id':'stateId','class':'states order-alpha','name':'state'}))
+    city = forms.CharField(widget=forms.Select(attrs={'id':'cityId','class':'cities order-alpha','name':'city'}))
     linkedin = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Linkedin URL'}))
     website = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Website'}),required = False)
     facebook = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Facebook URL'}))
@@ -160,12 +160,12 @@ class ProfileEdit(forms.ModelForm):
             'profile_picture',
             Submit('submit', 'Save Changes'),
         )   
-    def clean(self):
-        super(ProfileEdit, self).clean() #if necessary
-        del self._errors['country']
-        del self._errors['city']
-        del self._errors['state']
-        return self.cleaned_data
+    # def clean(self):
+    #     super(ProfileEdit, self).clean() #if necessary
+    #     del self._errors['country']
+    #     del self._errors['city']
+    #     del self._errors['state']
+    #     return self.cleaned_data
 
     class Meta:
         model = Profile
@@ -204,15 +204,13 @@ class ProfileEdit(forms.ModelForm):
             'profile_picture']
 
         widgets = {
-            'name': forms.TextInput(attrs={ 'readonly':'readonly'}),
-            'sex': forms.TextInput(attrs={ 'readonly':'readonly'}),
+            #'name': forms.TextInput(attrs={ 'readonly':'readonly'}),
+            #'sex': forms.TextInput(attrs={ 'readonly':'readonly'}),
             'email': forms.TextInput(attrs={ 'readonly':'readonly'}),
             'roll_no': forms.TextInput(attrs={ 'readonly':'readonly'}),
             'year_of_admission': forms.TextInput(attrs={ 'readonly':'readonly'}),
-            #'date_of_birth': forms.TextInput(attrs={ 'readonly':'readonly'}),
             'branch': forms.TextInput(attrs={ 'readonly':'readonly'}),
             'programme': forms.TextInput(attrs={ 'readonly':'readonly'}),
-            #'batch': forms.TextInput(attrs={ 'readonly':'readonly'}),
             'working_status': forms.RadioSelect(choices=Constants.WORKING_STATUS),
         }
 

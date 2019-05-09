@@ -108,22 +108,17 @@ def new_register(request):
 @login_required
 def profileedit(request, id):
     if (request.user.username == id):
-        l = Profile.objects.get(roll_no = id)
-        print(l)
+        profile = Profile.objects.get(roll_no = id)
         if request.method == 'POST':
-            form = ProfileEdit(request.POST, instance = l)
-            print (request.POST)
-            print (form.is_valid(), form.errors, type(form.errors))
+            form = ProfileEdit(request.POST, request.FILES, instance = profile)
             if form.is_valid():
-                print(l)
-                l =form.save(commit=False)
-                print(l.save())
-                if not l.is_registered:
-                    return HttpResponseRedirect('/confirm/')
+                profile = form.save()
+                profile.save()
+                return HttpResponseRedirect('/profile/'+id)
         else:
             print("here")
-            form = ProfileEdit(instance = l)
-        return render(request, 'AluminiConnect/profileedit.html', {'form' :form, 'l': l, 'edit' : False})
+            form = ProfileEdit(instance = profile)
+        return render(request, 'AluminiConnect/profileedit.html', {'form' :form, 'l': profile, 'edit' : False})
     else:
         return HttpResponseRedirect('/')
 
