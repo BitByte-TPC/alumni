@@ -114,6 +114,12 @@
                                 Basic Info
                             </div>
                             <div class="card-body">
+                                {% if user.is_authenticated and user.username == roll_no %}
+                                    <p class="m-2 font-weight-normal font-open-sans mb-3" title="Alumni Registration Number">
+                                        <i class="fas fa-user"></i>
+                                        &nbsp;Alumni Reg. No. : <b>{{ reg_no }}</b>
+                                    </p>
+                                {% endif %}                                
                                 <p class="m-2 font-weight-normal font-open-sans mb-3">
                                     <i class="fas fa-map-marker-alt"></i>
                                     &nbsp;{{ city }}, {{ state }}, {{ country }}
