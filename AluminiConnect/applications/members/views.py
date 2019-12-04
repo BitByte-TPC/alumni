@@ -39,10 +39,14 @@ def search(request):
         profiles = Profile.objects.filter(name__icontains = key).order_by("name")
     elif fil == 'City':
         profiles = Profile.objects.filter(city__icontains = key).order_by("name")
+    elif fil == 'Degree':
+        profiles = Profile.objects.filter(programme__icontains = key).order_by("name")
     elif fil == 'Branch':
         profiles = Profile.objects.filter(branch__icontains = key).order_by("name")
     elif fil == 'Roll_no':
         profiles = Profile.objects.filter(roll_no__icontains = key).order_by("name")
+    elif fil == 'Reg_no':
+        profiles = Profile.objects.filter(reg_no__icontains = key).order_by("name")
     elif fil == 'Organisation':
         profiles = Profile.objects.filter(current_organisation__icontains = key).order_by("name")    
     context = { 'profiles':profiles,
