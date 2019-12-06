@@ -1,6 +1,6 @@
 # IIITDM Alumini Connect   
   This web-application aims to facilitate the Alumini Affirs of IIITDM Jabalpur.
-  Requires `python3.5+` and `django==1.11.11+`  
+  Requires `python3.6+` and `django==1.11.18+`  
 
 ## Requirements
 
@@ -28,3 +28,4 @@ And additional requirements are in **requirements.txt**
   * Create a new branch with a related name of the motive i.e. bug/refactor/feature  
   * Create an issue before actually starting to code  
   * Send a pull request anytime :)  
+  
