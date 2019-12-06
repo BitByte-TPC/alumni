@@ -5,6 +5,7 @@ from django.db.models import Count
 from django.contrib.auth.models import User
 from django.utils import timezone
 from itertools import chain
+
 # Create your views here.
 def events(request):
     now = timezone.now()
@@ -14,7 +15,7 @@ def events(request):
 
 def event(request, id):
     e = Event.objects.get(event_id = id)
-    attending = Attendees.objects.filter(event_id = e)
+    attending = Attendees.objects.filter(event_id = e).values('user_id__profile__name', 'user_id__id')
     check = False
     if request.user.is_authenticated:
         try:
@@ -34,4 +35,4 @@ def event(request, id):
         check = True
         return HttpResponseRedirect("/events/event/"+id+"/")
 
-    return render(request, "events_news/event.html", {"event" : e, "check":check, "count":attending.count()})
+    return render(request, "events_news/event.html", {"event": e, "check": check, "count": attending.count(), "attendees": attending})
