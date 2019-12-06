@@ -92,7 +92,16 @@
 											</div>
 											<div class="modal-body">
 											{% for a in attendees %}
+                                                <p>
                                                 {{a.user_id__profile__name}}
+												{% if profile_picture %}
+												    <img src="{{ profile_picture.url }}"
+													    alt="DP" class="img-fluid rounded-circle m-2"
+													    style="object-fit:cover; object-position:50% 0%; height:50px; 
+													    width:50px; max-width:50px;max-height:50px;"
+													/>
+                                                {% endif %}
+                                                </p>
 											{% endfor %}
 											</div>
 										</div>

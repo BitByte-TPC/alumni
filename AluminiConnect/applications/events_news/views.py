@@ -15,7 +15,7 @@ def events(request):
 
 def event(request, id):
     e = Event.objects.get(event_id = id)
-    attending = Attendees.objects.filter(event_id = e).values('user_id__profile__name', 'user_id__id')
+    attending = Attendees.objects.filter(event_id = e).values('user_id__profile__name', 'user_id__profile__profile_picture', 'user_id__id')
     check = False
     if request.user.is_authenticated:
         try:
