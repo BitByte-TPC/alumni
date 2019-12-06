@@ -3,175 +3,198 @@
 
 {% block css %}
 <style>
-.map-container{
-  overflow:hidden;
-  padding-bottom:56.25%;
-  position:relative;
-  height:0;
-  }
-  .map-container iframe{
-  left:0;
-  top:0;
-  height:100%;
-  width:100%;
-  position:absolute;
-  }
+	.map-container {
+		overflow: hidden;
+		padding-bottom: 56.25%;
+		position: relative;
+		height: 0;
+	}
+
+	.map-container iframe {
+		left: 0;
+		top: 0;
+		height: 100%;
+		width: 100%;
+		position: absolute;
+	}
 </style>
 {% endblock %}
 {% block body %}
-    {% include 'globals/navbar.html' %}
-    <div class=" p-0 m-0 masthead-bg w-100 parallax shadow-sm" style="min-height:250px !important;height:270px !important;background-position-y: -400px"></div>
-    <div style="height:150px;min-height: 150px;">
+{% include 'globals/navbar.html' %}
+<div class=" p-0 m-0 masthead-bg w-100 parallax shadow-sm"
+	style="min-height:250px !important;height:270px !important;background-position-y: -400px"></div>
+<div style="height:150px;min-height: 150px;">
 
-    </div>
-    <section class="bg-transparent" id="events" style="padding-top:3rem">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 text-left p-2 mx-auto">
+</div>
+<section class="bg-transparent" id="events" style="padding-top:3rem">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4 text-left p-2 mx-auto">
 
-                    <!--   PIC CARD  -->
-                    <div class="card m-2 shadow-sm">
-                        <div class="card-body p-1">
-                            {% if event.picture %}
-                            <img src="{{ event.picture.url }}" 
+				<!--   PIC CARD  -->
+				<div class="card m-2 shadow-sm">
+					<div class="card-body p-1">
+						{% if event.picture %}
+						<img src="{{ event.picture.url }}"
                                 alt="DP" class="img-fluid h-100 w-100"
                                 style=""
                             />
                             {% else %}
-                            <img src="{% static "AluminiConnect/img/event.png" %}" 
+						<img src="{% static "AluminiConnect/img/event.png" %}"
                                 alt="DP" class="img-fluid h-100 w-100"
                                 style=""
                             />
                             {% endif %}
                         </div>
-                    </div>
+					</div>
 
-                    <!--  START END DATE  -->
-                    <div class="card m-2 shadow-sm">
-                            <div class="card-header">
-                                    <i class="fas fa-clock pr-2"></i>
-                                    Schedule
-                                </div>
-                        <div class="card-body">
-                            <p class="m-2 font-weight-normal mb-3">
-                            
-                              <small>Starts at <b>{{event.start_date|date:"h:i A"}} IST</b> on <b>{{event.start_date|date:"d M, o"}}</b></small>
-                              <br>
-                              <small>Ends at <b>{{event.end_date|date:"h:i A"}} IST</b> on <b>{{event.end_date|date:"d M, o"}}</b></small>
-                                
-                            
-                            </p>
-                        </div>
-                    </div>
+					<!--  START END DATE  -->
+					<div class="card m-2 shadow-sm">
+						<div class="card-header">
+							<i class="fas fa-clock pr-2"></i>
+							Schedule
+						</div>
+						<div class="card-body">
+							<p class="m-2 font-weight-normal mb-3">
 
-                    <!--  Attendees -->
-                    <div class="card m-2 shadow-sm">
-                        <div class="card-header">
-                                <i class="fas fa-users pr-2"></i>
-                                Attendees {{count}}
-                            </div>
-                    <div class="card-body">
-                        <p class="m-2 font-weight-normal mb-3">
-                        
-                        
-                            
-                  
-                        </p>
-                    </div>
-                </div>
-
-                    <!--   ADDRESS  -->
-                    <div class="card m-2 shadow-sm">
-                            <div class="card-header">
-                                <i class="fas fa-map-marker-alt pr-2"></i>
-                                Address
-                            </div>
-                            <div class="card-body p-4">    
-                                <p>{{event.address|safe}}</p>
-                                <br>
-                                <!--Google map-->
-                                
-                                <div id="map-container-google-9" class="z-depth-1-half map-container" style="height: 300px">
-                                    <iframe src="https://maps.google.com/maps?q={{event.address|safe}}&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0"
-                                      style="border:0" allowfullscreen></iframe>
-                                  </div>
-  
-                                  <!--Google Maps-->
-                            </div>
-                        </div>
+								<small>Starts at <b>{{event.start_date|date:"h:i A"}} IST</b> on <b>{{event.start_date|date:"d M, o"}}</b></small>
+								<br>
+								<small>Ends at <b>{{event.end_date|date:"h:i A"}} IST</b> on <b>{{event.end_date|date:"d M, o"}}</b></small>
 
 
-                </div>
-                <div class="col-lg-8 text-left p-2 mx-auto">
+							</p>
+						</div>
+					</div>
 
-                    <!--   TITLE  -->
-                    <div class="card m-2 shadow-sm">
-                            
-                        <div class="card-body p-4">    
-                            <h1 class="mb-3">{{ event.title|safe }}</h1>
-                            <p class="font-weight-light m-0">
-                             
-                              <i class="fas fa-table"></i>
-                               {{ event.start_date|date:"d M, o" }}
-                               &nbsp;
-                               <i class="fas fa-map-marker-alt"></i>&nbsp;
-                                        {{ event.location}}
-                                        &nbsp;
-                               <i class="fas fa-user"></i>&nbsp;
-                               {{ event.by }}
-                               <br><br>
+					<!--  Attendees -->
+					<div class="card m-2 shadow-sm">
+						<div class="card-header">
+							<i class="fas fa-users pr-2"></i>
+							Attendees {{count}}
+						</div>
+						<div class="card-body">
+							<p class="m-2 font-weight-normal mb-3">
+
+								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#attendees-modal">
+                            See All
+						</button>
+
+								<!-- ettendees - list -->
+								<div class="modal fade" id="attendees-modal" tabindex="-1" role="dialog"
+									aria-labelledby="modalTitle" aria-hidden="true">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="modalTitle">Attendees</h5>
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+											</div>
+											<div class="modal-body">
+											{% for a in attendees %}
+                                                {{a.user_id__profile__name}}
+											{% endfor %}
+											</div>
+										</div>
+									</div>
+								</div>
+							</p>
+						</div>
+					</div>
+
+					<!--   ADDRESS  -->
+					<div class="card m-2 shadow-sm">
+						<div class="card-header">
+							<i class="fas fa-map-marker-alt pr-2"></i>
+							Address
+						</div>
+						<div class="card-body p-4">
+							<p>{{event.address|safe}}</p>
+							<br>
+							<!--Google map-->
+
+							<div id="map-container-google-9" class="z-depth-1-half map-container" style="height: 300px">
+								<iframe
+									src="https://maps.google.com/maps?q={{event.address|safe}}&t=&z=13&ie=UTF8&iwloc=&output=embed"
+									frameborder="0" style="border:0" allowfullscreen></iframe>
+							</div>
+
+							<!--Google Maps-->
+						</div>
+					</div>
+
+
+				</div>
+				<div class="col-lg-8 text-left p-2 mx-auto">
+
+					<!--   TITLE  -->
+					<div class="card m-2 shadow-sm">
+
+						<div class="card-body p-4">
+							<h1 class="mb-3">{{ event.title|safe }}</h1>
+							<p class="font-weight-light m-0">
+
+								<i class="fas fa-table"></i>
+								{{ event.start_date|date:"d M, o" }}
+								&nbsp;
+								<i class="fas fa-map-marker-alt"></i>&nbsp;
+								{{ event.location}}
+								&nbsp;
+								<i class="fas fa-user"></i>&nbsp;
+								{{ event.by }}
+								<br><br>
                                {% if event.is_completed %}
-                                <button type="button"  class="btn btn-secondary btn-sm" disabled>Event Ended</button>
-                               {% elif not check %}
-                               <form method="POST" >
-                                 {% csrf_token %}
-                               <button type="submit" name="submit" value="rsvp" class="btn btn-success btn-sm">Register</button>
-                              </form>
-                              {% else %}
-                              <button type="button"  class="btn btn-success btn-sm" disabled>Registered</button>
-                              {% endif %}
-                              
-                              
-                            </p>
-                        </div>
-                    </div>
-
-                    
-
-                    <!--   DESCRIPTON  -->
-                    <div class="card m-2 shadow-sm">
-                        <div class="card-header">
-                            <i class="fas fa-th-list pr-2"></i>
-                            Description
-                        </div>
-                        <div class="card-body p-4">    
-                            <p>{{event.description|safe}}</p>
-                        </div>
-                    </div>
-
-                    <!--   GALLERY  -->
-                    <div class="card m-2 shadow-sm">
-                            <div class="card-header">
-                                <i class="fas fa-images pr-2"></i>
-                                Gallery
-                            </div>
-                            <div class="card-body p-4">  
-                                {% include 'globals/thumbnails.html' %}  
-                                <p></p>
-                            </div>
-                        </div>
+								<button type="button"  class="btn btn-secondary btn-sm" disabled>Event Ended</button>
+								{% elif not check %}
+								<form method="POST">
+									{% csrf_token %}
+									<button type="submit" name="submit" value="rsvp" class="btn btn-success btn-sm">Register</button>
+								</form>
+								{% else %}
+								<button type="button"  class="btn btn-success btn-sm" disabled>Registered</button>
+								{% endif %}
 
 
-                </div>
-            </div>
-        </div>
-    </section>  
-    
+							</p>
+						</div>
+					</div>
+
+
+
+					<!--   DESCRIPTON  -->
+					<div class="card m-2 shadow-sm">
+						<div class="card-header">
+							<i class="fas fa-th-list pr-2"></i>
+							Description
+						</div>
+						<div class="card-body p-4">
+							<p>{{event.description|safe}}</p>
+						</div>
+					</div>
+
+					<!--   GALLERY  -->
+					<div class="card m-2 shadow-sm">
+						<div class="card-header">
+							<i class="fas fa-images pr-2"></i>
+							Gallery
+						</div>
+						<div class="card-body p-4">
+							{% include 'globals/thumbnails.html' %}
+							<p></p>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+</section>
+
 {% include 'globals/footer.html' %}
 
 
 <script type="text/javascript">
-    let modalId = $('#image-gallery');
+	let modalId = $('#image-gallery');
     
     $(document)
       .ready(function () {
@@ -264,5 +287,5 @@
         e.preventDefault(); // prevent the default action (scroll / move caret)
       });
     
-    </script>
+</script>
 {% endblock %}
