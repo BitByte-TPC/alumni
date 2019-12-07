@@ -75,12 +75,10 @@
 						<div class="card-body">
 							<p class="m-2 font-weight-normal mb-3">
 
-								<!-- Meru_need_help_here -->
-								<!-- Limit this attendees list to 16 attendees only -->
-								<!--     "for a in attendees[:16]" is not working here -->
-                  {% for a in attendees %}            
+				<!-- not tested but doesnt give an error -->
+                  {% for a in attendees|slice:":16" %}            
                     {% if a.profile_picture %}
-                    <img src="{{ a.profile_picture_url }}" 
+                    <img src="{{ a.user_id__profile__profile_picture.url }}" 
                         alt="DP" class="img-fluid rounded-circle m-1"
                         style="object-fit:cover; object-position:50% 0%; height:30px; 
                           width:30px; max-width:30px;max-height:30px;"
@@ -115,8 +113,13 @@
                               {% for a in attendees %}            
                                 <a class="list-group-item  list-group-item-action" 
                                   href="{{ a.profile_link }}"> <!-- Link to atteendee's profile -->
+                                  <!-- href="{'%' url 'profile:profile' username=a.user_id__username %}" 
+                                        is what you need but username=admin gives me error becouse only 
+                                        numeric username(roll no) are accepted.
+                                  -->
+
                                   {% if a.profile_picture %}
-                                  <img src="{{ a.profile_picture_url }}" 
+                                  <img src="{{ a.user_id__profile__profile_picture.url }}" 
                                       alt="DP" class="img-fluid rounded-circle m-0"
                                       style="object-fit:cover; object-position:50% 0%; height:30px; 
                                         width:30px; max-width:30px;max-height:30px;"

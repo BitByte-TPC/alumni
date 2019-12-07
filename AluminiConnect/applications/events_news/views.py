@@ -10,23 +10,16 @@ from itertools import chain
 # Create your views here.
 def events(request):
     now = timezone.now()
-    events = Event.objects.filter(start_date__gte=now).order_by('start_date')
+    events = Event.objects.filter(start_date__gte=now).order_by('start_date').annotate(Count('attendees__user_id'))
     # events_current = Event.objects.filter(start_date__lt=now).filter(end_date__gte=now).order_by('start_date')
-    events_completed = Event.objects.filter(end_date__lt=now).order_by('-start_date')
+    events_completed = Event.objects.filter(end_date__lt=now).order_by('-start_date').annotate(Count('attendees__user_id'))
     events_to_display = list(chain(events, events_completed))
-    for event in events_to_display:
-        # Meru_need_help_here
-        event.attendees =  0 # Attendees.objects.filter(event_id = event.id).count()
     return render(request, "events_news/index.html", {'events' : events_to_display})
 
 def event(request, id):
     e = Event.objects.get(event_id = id)
-    attending = Attendees.objects.filter(event_id = e).values('user_id__profile__name', 'user_id__id')
-    # Meru_need_help_here
-    # Add profile picture url and link to profile below
-    # for a in attending:
-    #     a.profile_picture_url = "" # Profile.objects.get(user__username = a)
-    #     a.profile_link = ""
+    attending = Attendees.objects.filter(event_id = e).values('user_id__profile__name', 'user_id__profile__profile_picture', 'user_id__id', 'user_id__username')
+
     check = False
     if request.user.is_authenticated:
         try:
