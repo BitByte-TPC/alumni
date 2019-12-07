@@ -11,10 +11,11 @@ from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
+from django.db.models import Count
 
 from .forms import UserRegistrationForm, RegisterForm, ProfileEdit, NewRegister
 from .token import account_activation_token
-from applications.events_news.models import Event
+from applications.events_news.models import Event, Attendees
 from applications.alumniprofile.models import Profile, Constants
 from applications.news.models import News
 import datetime
@@ -27,12 +28,14 @@ def index(request):
     if( request.user.is_authenticated()):
         sname = request.user.get_short_name()
     now = timezone.now()
-    events = Event.objects.filter(start_date__gte=now).order_by('start_date')
-    events_completed = Event.objects.filter(end_date__lt=now).order_by('-start_date')
+    events = Event.objects.filter(start_date__gte=now).order_by('start_date').annotate(count=Count('attendees__user_id'))
+    events_completed = Event.objects.filter(end_date__lt=now).order_by('-start_date').annotate(count=Count('attendees__user_id'))
     #Add Check here
     news = News.objects.filter().order_by('-date')
     #messages.success(request, 'Your password was successfully updated!')
-    return render(request, "AluminiConnect/index.html", {'name':sname, 'events':list(chain(events, events_completed))[:3], 'news': news})
+    events_to_display = list(chain(events, events_completed))[:3]
+   
+    return render(request, "AluminiConnect/index.html", {'name':sname, 'events':events_to_display, 'news': news})
 
 def alumniBody(request):
     return render(request, "AluminiConnect/alumnibody.html")
