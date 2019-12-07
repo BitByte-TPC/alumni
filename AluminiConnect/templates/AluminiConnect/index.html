@@ -101,11 +101,14 @@
                 <h5 class="card-title font-weight-bold mt-3">{{item.title_stripped}}</h5>
                 
                 <p class="m-2 font-italic  font-open-sans mb-3">
-                  <i class="fas fa-calendar-alt font-weight-lighter "></i>
+                  <i class="fas fa-calendar-alt font-weight-lighter " title="Start Date"></i>
                   {{item.start_date|date:"l, d M, o"}}
                   <br>
-                  <i class="fas fa-map-marker-alt"></i>
+                  <i class="fas fa-map-marker-alt" title="Location"></i>
                   {{item.location}}
+                  <br>
+                  <i class="fas fa-users" title="Number of Attendees"></i>
+                  {{item.attendees}}
                 </p>
                 <a href="{% url 'events_news:event' id=item.event_id %}" class="btn btn-primary">VIEW</a>
               </div>

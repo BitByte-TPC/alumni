@@ -14,7 +14,7 @@ from django.core.mail import EmailMessage
 
 from .forms import UserRegistrationForm, RegisterForm, ProfileEdit, NewRegister
 from .token import account_activation_token
-from applications.events_news.models import Event
+from applications.events_news.models import Event, Attendees
 from applications.alumniprofile.models import Profile, Constants
 from applications.news.models import News
 import datetime
@@ -32,7 +32,11 @@ def index(request):
     #Add Check here
     news = News.objects.filter().order_by('-date')
     #messages.success(request, 'Your password was successfully updated!')
-    return render(request, "AluminiConnect/index.html", {'name':sname, 'events':list(chain(events, events_completed))[:3], 'news': news})
+    events_to_display = list(chain(events, events_completed))[:3]
+    for event in events_to_display:
+        # Meru_need_help_here
+        event.attendees =  0 # Attendees.objects.filter(event_id = event.id).count()
+    return render(request, "AluminiConnect/index.html", {'name':sname, 'events':events_to_display, 'news': news})
 
 def alumniBody(request):
     return render(request, "AluminiConnect/alumnibody.html")

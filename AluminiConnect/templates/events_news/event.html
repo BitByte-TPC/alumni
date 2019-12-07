@@ -75,11 +75,31 @@
 						<div class="card-body">
 							<p class="m-2 font-weight-normal mb-3">
 
+								<!-- Meru_need_help_here -->
+								<!-- Limit this attendees list to 16 attendees only -->
+								<!--     "for a in attendees[:16]" is not working here -->
+                  {% for a in attendees %}            
+                    {% if a.profile_picture %}
+                    <img src="{{ a.profile_picture_url }}" 
+                        alt="DP" class="img-fluid rounded-circle m-1"
+                        style="object-fit:cover; object-position:50% 0%; height:30px; 
+                          width:30px; max-width:30px;max-height:30px;"
+                        title="{{a.user_id__profile__name}}"
+                    />
+                    {% else %}
+                    <img src="{% static "AluminiConnect/img/user.png" %}" 
+                        alt="DP" class="img-fluid rounded-circle m-1"
+                        style="height:30px;width:30px max-width:30px;max-height:30px;"
+                        title="{{a.user_id__profile__name}}"
+                    />
+                    {% endif %}
+                {% endfor %}
+                <br><br>
 								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#attendees-modal">
                             See All
 						</button>
 
-								<!-- ettendees - list -->
+								<!-- attendees - list -->
 								<div class="modal fade" id="attendees-modal" tabindex="-1" role="dialog"
 									aria-labelledby="modalTitle" aria-hidden="true">
 									<div class="modal-dialog" role="document">
@@ -91,9 +111,26 @@
         </button>
 											</div>
 											<div class="modal-body">
-											{% for a in attendees %}
-                                                {{a.user_id__profile__name}}
-											{% endfor %}
+                          <div class="list-group">
+                              {% for a in attendees %}            
+                                <a class="list-group-item  list-group-item-action" 
+                                  href="{{ a.profile_link }}"> <!-- Link to atteendee's profile -->
+                                  {% if a.profile_picture %}
+                                  <img src="{{ a.profile_picture_url }}" 
+                                      alt="DP" class="img-fluid rounded-circle m-0"
+                                      style="object-fit:cover; object-position:50% 0%; height:30px; 
+                                        width:30px; max-width:30px;max-height:30px;"
+                                  />
+                                  {% else %}
+                                  <img src="{% static "AluminiConnect/img/user.png" %}" 
+                                      alt="DP" class="img-fluid rounded-circle m-0"
+                                      style="height:30px;width:30px max-width:30px;max-height:30px;"
+                                  />
+                                  {% endif %}
+                                  {{a.user_id__profile__name}}
+                                </a>
+                              {% endfor %}
+                          </div>
 											</div>
 										</div>
 									</div>
