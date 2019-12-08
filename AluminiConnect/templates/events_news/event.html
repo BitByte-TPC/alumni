@@ -76,9 +76,9 @@
 							<p class="m-2 font-weight-normal mb-3">
 
 				<!-- not tested but doesnt give an error -->
-                  {% for a in attendees|slice:":16" %}            
-                    {% if a.profile_picture %}
-                    <img src="{{ a.user_id__profile__profile_picture.url }}" 
+                  {% for a in attendees_sliced %}            
+                    {% if a.user_id__profile__profile_picture %}
+                    <img src="/media/{{ a.user_id__profile__profile_picture }}" 
                         alt="DP" class="img-fluid rounded-circle m-1"
                         style="object-fit:cover; object-position:50% 0%; height:30px; 
                           width:30px; max-width:30px;max-height:30px;"
@@ -91,10 +91,13 @@
                         title="{{a.user_id__profile__name}}"
                     />
                     {% endif %}
-                {% endfor %}
+								{% endfor %}
+								{% if count_difference > 0 %}
+									 +{{ count_difference }} More
+								{% endif %}
                 <br><br>
 								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#attendees-modal">
-                            See All
+                            View All
 						</button>
 
 								<!-- attendees - list -->
@@ -112,14 +115,13 @@
                           <div class="list-group">
                               {% for a in attendees %}            
                                 <a class="list-group-item  list-group-item-action" 
-                                  href="{{ a.profile_link }}"> <!-- Link to atteendee's profile -->
+                                  href="/profile/{{ a.user_id__username }}"> <!-- Link to atteendee's profile -->
                                   <!-- href="{'%' url 'profile:profile' username=a.user_id__username %}" 
                                         is what you need but username=admin gives me error becouse only 
                                         numeric username(roll no) are accepted.
-                                  -->
-
-                                  {% if a.profile_picture %}
-                                  <img src="{{ a.user_id__profile__profile_picture.url }}" 
+																	-->
+                                  {% if a.user_id__profile__profile_picture %}
+                                  <img src="/media/{{ a.user_id__profile__profile_picture }}" 
                                       alt="DP" class="img-fluid rounded-circle m-0"
                                       style="object-fit:cover; object-position:50% 0%; height:30px; 
                                         width:30px; max-width:30px;max-height:30px;"

@@ -18,8 +18,8 @@ def events(request):
 
 def event(request, id):
     e = Event.objects.get(event_id = id)
-    attending = Attendees.objects.filter(event_id = e).values('user_id__profile__name', 'user_id__profile__profile_picture', 'user_id__id', 'user_id__username')
-
+    attending = Attendees.objects.filter(event_id = e).values('user_id__profile__name', 'user_id__profile__profile_picture', 'user_id__id', 'user_id__username') #.exclude(user_id__profile__name=None)
+    attendees_limit = 5 
     check = False
     if request.user.is_authenticated:
         try:
@@ -39,4 +39,11 @@ def event(request, id):
         check = True
         return HttpResponseRedirect("/events/event/"+id+"/")
 
-    return render(request, "events_news/event.html", {"event": e, "check": check, "count": attending.count(), "attendees": attending})
+    return render(request, "events_news/event.html", {
+        "event": e, 
+        "check": check, 
+        "count": attending.count(), 
+        "count_difference": attending.count() - attendees_limit,
+        "attendees": attending, 
+        "attendees_sliced": attending[:attendees_limit]
+    })
