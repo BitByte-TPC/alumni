@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_cleanup',
     'anymail',
-
+    'easy_thumbnails',
     'crispy_forms',
     'applications.alumniprofile',
     'applications.awards',

@@ -1,6 +1,6 @@
 {% extends 'globals/base.html' %}
 {% load static %}
-
+{% load thumbnail %}
 {% block css %}
 <style>
 	.map-container {
@@ -78,7 +78,7 @@
 				<!-- not tested but doesnt give an error -->
                   {% for a in attendees_sliced %}            
                     {% if a.user_id__profile__profile_picture %}
-                    <img src="/media/{{ a.user_id__profile__profile_picture }}" 
+                    <img src="{% thumbnail a.user_id__profile__profile_picture 30x30 crop %}" 
                         alt="DP" class="img-fluid rounded-circle m-1"
                         style="object-fit:cover; object-position:50% 0%; height:30px; 
                           width:30px; max-width:30px;max-height:30px;"
@@ -121,11 +121,11 @@
                                         numeric username(roll no) are accepted.
 																	-->
                                   {% if a.user_id__profile__profile_picture %}
-                                  <img src="/media/{{ a.user_id__profile__profile_picture }}" 
+					                <img src="{% thumbnail a.user_id__profile__profile_picture 30x30 crop %}"
                                       alt="DP" class="img-fluid rounded-circle m-0"
                                       style="object-fit:cover; object-position:50% 0%; height:30px; 
                                         width:30px; max-width:30px;max-height:30px;"
-                                  />
+                                    />
                                   {% else %}
                                   <img src="{% static "AluminiConnect/img/user.png" %}" 
                                       alt="DP" class="img-fluid rounded-circle m-0"
