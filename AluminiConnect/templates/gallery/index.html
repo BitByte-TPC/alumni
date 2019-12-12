@@ -1,0 +1,54 @@
+{% extends 'globals/base.html' %}
+{% load static %}
+
+{% block title %}
+Gallery
+{% endblock %}
+
+{% block body %}
+{% include 'globals/navbar.html' %}
+<div class=" p-0 m-0 masthead-bg w-100 h-100 parallax" style="background-position-y: -25rem"></div>
+
+<header class="masthead text-center text-white d-flex" style="height:0px;min-height:300px">
+  <div class="container my-auto" style="margin-bottom:50px !important;">
+    <div class="row">
+      <div class="col-lg-8 mx-auto align-middle">
+        <h1 class="text-uppercase mt-4">
+          <strong>GALLERY</strong>
+        </h1>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="services" class="bg-primary p-1">
+</section>
+
+<section class="bg-white" id="about">
+
+  <div class="container">
+    <div class="row">
+      <div class="card-deck">
+        {% for album in albums %}
+        <div class="card dpg-album-card">
+          <img src="{{ album.thumb.url }}" alt="{{ album.title }}" class="card-image-top dpg-album-card-image" />
+          <div class="card-body">
+            <h5 class="card-title">{{ album.title|striptags }}</h5>
+            <p class="card-text">{{ album.description|striptags|truncatechars:120 }}</p>
+          </div>
+          <div class="card-footer">
+            <h5 class="text-muted text-center">
+              <a class="btn btn-primary btn-sm" href="{% url 'gallery:album' album.slug %}">
+                View All
+              </a>
+            </h5>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+</section>
+{% include 'globals/footer.html' %}
+{% endblock %}

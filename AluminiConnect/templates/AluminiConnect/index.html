@@ -79,7 +79,7 @@
             <h2 class="font-open-sans">Events</h2>
           </div>
           <div class="col-sm-6 text-right">
-            <a class="btn btn-outline-primary btn-sm js-scroll-trigger" href="{% url 'events_news:events' %}">VIEW ALL</a>
+            <a class="btn btn-primary btn-sm js-scroll-trigger" href="{% url 'events_news:events' %}">VIEW ALL</a>
           </div>
         </div>
         <div class="row">
@@ -154,7 +154,7 @@
             <h2 class="font-open-sans">News</h2>
           </div>
           <div class="col-sm-6 text-right">
-            <a class="btn btn-outline-primary btn-sm js-scroll-trigger" href="{% url 'events_news:events' %}">VIEW ALL</a>
+            <a class="btn btn-primary btn-sm js-scroll-trigger" href="{% url 'events_news:events' %}">VIEW ALL</a>
           </div>
         </div>
         <div class="row">
@@ -274,57 +274,39 @@
           ╚██████╔╝██║  ██║███████╗███████╗███████╗██║  ██║   ██║   
           ╚═════╝ ╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝   ╚═╝   
   -->
-    <section class="bg-primary"  style="padding: 3rem 0;" id="gallery">
+    <section class="bg-primary" style="padding: 3rem 0;" id="gallery">
       <div class="container">
-        <div class="row p-4">
-          <div class="col-lg-6 mx-auto text-left">
-            <h2 class="text-white font-open-sans">GALLERY</h2>
+        <div class="row w-100">
+          <div class="col-sm-6 text-left">
+            <h2 class="text-white font-open-sans">Gallery</h2>
           </div>
-          <div class="col-lg-6 mx-auto text-right">
-            <a class="btn btn-dark btn-xl js-scroll-trigger" href="#">VIEW ALL</a>
+          <div class="col-sm-6 text-right">
+            <a class="btn btn-dark btn-sm js-scroll-trigger" href="{% url 'events_news:events' %}">VIEW ALL</a>
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-3 p-2">
-            <a href="" >
-              <div class="card w-100 shadow-sm p-2" style="max-width: 24rem;">
-                <img src="{% static "AluminiConnect/img/coll.jpg" %}" class="card-img-top" alt="">
-                <div class="card-body font-open-sans">
-                  <h5 class="card-title font-weight-normal">Name of some event</h5>
+          {% for album in albums %}
+          <div class="col-lg-4 p-2 ">
+            <div class="card w-100 shadow-lg border border-primary border-rounded"
+              style="max-width: 24rem; max-height: 40rem;">
+              <span class="">
+                <img src="{{ album.thumb.url }}" alt="{{ album.title }}" class="card-img-top" height="300px" width="300px" />
+                <div class="card-body">
+    
+                  <h5 class="card-title font-weight-bold">{{album.title|striptags}}</h5>
+    
+                  <p class="m-2 font-italic  font-open-sans mb-3">
+                    <i class="fas fa-calendar-alt font-weight-lighter "></i>
+                    {{album.created|date:"l, d M, o"}}
+                    <br>
+                  </p>
+                  <a href="{% url 'gallery:album' album.slug %}" class="btn btn-primary">VIEW</a>
                 </div>
-              </div>
-            </a>
+    
+            </div>
+            </span>
           </div>
-          <div class="col-lg-3 p-2">
-            <a href="" >
-              <div class="card w-100 shadow-sm p-2" style="max-width: 24rem;">
-                <img src="{% static "AluminiConnect/img/coll.jpg" %}" class="card-img-top" alt="">
-                <div class="card-body font-open-sans">
-                  <h5 class="card-title font-weight-normal">Name of some event</h5>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-lg-3 p-2">
-            <a href="" >
-              <div class="card w-100 shadow-sm p-2" style="max-width: 24rem;">
-                <img src="{% static "AluminiConnect/img/coll.jpg" %}" class="card-img-top" alt="">
-                <div class="card-body font-open-sans">
-                  <h5 class="card-title font-weight-normal">Name of some event</h5>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-lg-3 p-2">
-            <a href="" >
-              <div class="card w-100 shadow-sm p-2" style="max-width: 24rem;">
-                <img src="{% static "AluminiConnect/img/coll.jpg" %}" class="card-img-top" alt="">
-                <div class="card-body font-open-sans">
-                  <h5 class="card-title font-weight-normal">Name of some event</h5>
-                </div>
-              </div>
-            </a>
-          </div>
+          {% endfor %}
         </div>
       </div>
     </section>

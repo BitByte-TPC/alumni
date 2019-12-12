@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_cleanup',
     'anymail',
+    'imagekit',
 
     'crispy_forms',
     'applications.alumniprofile',
@@ -50,6 +51,7 @@ INSTALLED_APPS = [
     'applications.news',
     'applications.geolocation',
     'applications.publications',
+    'applications.gallery',
     'ckeditor',
     'ckeditor_uploader',
 ]
@@ -194,3 +196,15 @@ MAILJET_API_URL = "https://api.mailjet.com/v3.1"
 EMAIL_BACKEND = "anymail.backends.mailjet.EmailBackend"  # or sendgrid.EmailBackend, or...
 DEFAULT_FROM_EMAIL = "Student Alumni Cell IIITDMJ <2016049@iiitdmj.ac.in>"  # if you don't already have this in settings
 SERVER_EMAIL =  os.environ["MJ_SENDER_EMAIL"] # ditto (default from-email for Django errors)
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder'
+)
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
+    }
+}

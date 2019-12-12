@@ -52,7 +52,7 @@ urlpatterns += [
     url(r'^geolocation/', include('applications.geolocation.urls')),
     url(r'^alumnibody/', views.alumniBody),
     url(r'^alumnicard/', views.alumniCard, name='alumnicard'),
-    url(r'^gallery/', views.gallery, name = 'gallery'),
+    url(r'^gallery/', include('applications.gallery.urls')),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^awards/', include('applications.awards.urls')),
     #url(r'^', views.index, name='home'),

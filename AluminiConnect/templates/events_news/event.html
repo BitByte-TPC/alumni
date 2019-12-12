@@ -18,6 +18,8 @@
 		position: absolute;
 	}
 </style>
+<link rel="stylesheet" href="{% static 'external/photoswipe/photoswipe.css' %}"> 
+<link rel="stylesheet" href="{% static 'external/photoswipe/default-skin/default-skin.css' %}"> 
 {% endblock %}
 {% block body %}
 {% include 'globals/navbar.html' %}
@@ -219,9 +221,24 @@
 						<div class="card-header">
 							<i class="fas fa-images pr-2"></i>
 							Gallery
+							{% if album_present %}
+							<span style="float: right;">
+							<a href="{% url 'gallery:album' album.slug %}" class="btn btn-primary btn-sm">
+									View All
+							</a>
+							</span>
+							{% endif %}
 						</div>
 						<div class="card-body p-4">
-							{% include 'globals/thumbnails.html' %}
+							<div class="container">
+							<div class="row">
+								{% for item in images %}
+								<a class="col mb-3" href="javascript:pswpInit({{ forloop.counter0 }});">
+									<img src="{{ item.thumb.url }}" class="responsive-img dpg-album-image" alt="{{ item.alt }}" />
+								</a>
+								{% endfor %}
+							</div>
+							</div>
 							<p></p>
 						</div>
 					</div>
@@ -229,105 +246,26 @@
 
 				</div>
 			</div>
-		</div>
+			
+		</div>	
 </section>
-
+{% include 'globals/init_pwsp.html' %}
 {% include 'globals/footer.html' %}
 
-
-<script type="text/javascript">
-	let modalId = $('#image-gallery');
-    
-    $(document)
-      .ready(function () {
-    
-        loadGallery(true, 'a.thumbnail');
-    
-        //This function disables buttons when needed
-        function disableButtons(counter_max, counter_current) {
-          $('#show-previous-image, #show-next-image')
-            .show();
-          if (counter_max === counter_current) {
-            $('#show-next-image')
-              .hide();
-          } else if (counter_current === 1) {
-            $('#show-previous-image')
-              .hide();
-          }
-        }
-    
-        /**
-         *
-         * @param setIDs        Sets IDs when DOM is loaded. If using a PHP counter, set to false.
-         * @param setClickAttr  Sets the attribute for the click handler.
-         */
-    
-        function loadGallery(setIDs, setClickAttr) {
-          let current_image,
-            selector,
-            counter = 0;
-    
-          $('#show-next-image, #show-previous-image')
-            .click(function () {
-              if ($(this)
-                .attr('id') === 'show-previous-image') {
-                current_image--;
-              } else {
-                current_image++;
-              }
-    
-              selector = $('[data-image-id="' + current_image + '"]');
-              updateGallery(selector);
-            });
-    
-          function updateGallery(selector) {
-            let $sel = selector;
-            current_image = $sel.data('image-id');
-            $('#image-gallery-title')
-              .text($sel.data('title'));
-            $('#image-gallery-image')
-              .attr('src', $sel.data('image'));
-            disableButtons(counter, $sel.data('image-id'));
-          }
-    
-          if (setIDs == true) {
-            $('[data-image-id]')
-              .each(function () {
-                counter++;
-                $(this)
-                  .attr('data-image-id', counter);
-              });
-          }
-          $(setClickAttr)
-            .on('click', function () {
-              updateGallery($(this));
-            });
-        }
-      });
-    
-    // build key actions
-    $(document)
-      .keydown(function (e) {
-        switch (e.which) {
-          case 37: // left
-            if ((modalId.data('bs.modal') || {})._isShown && $('#show-previous-image').is(":visible")) {
-              $('#show-previous-image')
-                .click();
-            }
-            break;
-    
-          case 39: // right
-            if ((modalId.data('bs.modal') || {})._isShown && $('#show-next-image').is(":visible")) {
-              $('#show-next-image')
-                .click();
-            }
-            break;
-    
-          default:
-            return; // exit this handler for other keys
-        }
-        e.preventDefault(); // prevent the default action (scroll / move caret)
-      });
-    
-</script>
+{% endblock %}
+{% block javascript %}
+    <script>
+        // build the json album images collection 
+        window.djangoAlbumImages = [
+            {% for item in images %}
+                {
+                    src: '{{ item.image.url }}',
+                    w:  {{ item.width }},
+                    h:  {{ item.height }}
+                },
+            {% endfor %}
+        ];
+    </script>
+    <script src="{% static 'external/photoswipe/photoswipe.min.js' %}"></script> 
+    <script src="{% static 'external/photoswipe/photoswipe-ui-default.min.js' %}"></script>
 {% endblock %}

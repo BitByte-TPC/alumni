@@ -32,7 +32,7 @@
             <li class="nav-item dropdown">
                 <a href="{% url 'events_news:events' %}"  class="dropdown-toggle nav-link " data-toggle="dropdown">Events&nbsp;<b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a href="{% url 'events_news:events' %}" class="dropdown-item">Alumni Reunions</a></li>
+                    <li><a href="{% url 'events_news:events' %}" class="dropdown-item">Alumni Events</a></li>
                     <li><a href="{% url 'news:index' %}" class="dropdown-item">Campus&nbsp;Feeds</a></li>
                     
                 </ul>
@@ -68,7 +68,7 @@
             </li>
             -->
             <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="{% url 'gallery' %}">Gallery</a>
+                <a class="nav-link js-scroll-trigger" href="{% url 'gallery:gallery' %}">Gallery</a>
             </li>
             {% if not user.is_authenticated %}
             <li class="nav-item">
