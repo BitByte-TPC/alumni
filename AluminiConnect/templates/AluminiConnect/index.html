@@ -30,32 +30,32 @@
 
     <section id="services" class="bg-primary" style="padding: 5rem 0;">
       <div class="container">
-        <div class="row">
-          <div class="col-lg-3 col-md-6 text-center">
-            <div class="service-box mt-5 mx-auto">
+        <div class="row shadow-on-hover">
+          <div class="col-lg-3 col-md-6 text-center" onclick="document.querySelectorAll('.service-box')[0].querySelector('a').click()">
+            <div class="service-box mt-5 mb-3 mx-auto">
               <i class="fas fa-4x fa-newspaper text-white mb-3 sr-icon-1"></i>
-              <a class="js-scroll-trigger mb-3 text-white" href="{% url 'publications:index' %}"><h3 class="mb-3 text-white">NEWSLETTER</a></h3>
+              <a class="js-scroll-trigger mb-3 text-white text-decoration-none" href="{% url 'publications:index' %}"><h3 class="mb-3 text-white">NEWSLETTER</a></h3>
               <p class="text-faded mb-0">Take a look at the past and upcoming events, as well as testimonials and more</p>
             </div>
           </div>
-          <div class="col-lg-3 col-md-6 text-center">
-            <div class="service-box mt-5 mx-auto">
+          <div class="col-lg-3 col-md-6 text-center" onclick="document.querySelectorAll('.service-box')[1].querySelector('a').click()">
+            <div class="service-box mt-5 mb-3 mx-auto">
               <i class="fas fa-4x fa-award text-white mb-3 sr-icon-2"></i>
-              <a class="js-scroll-trigger mb-3 text-white" href="{% url 'members:index' %}"><h3 class="mb-3 text-white">ALUMNI DIRECTORY</a></h3>
+              <a class="js-scroll-trigger mb-3 text-white text-decoration-none" href="{% url 'members:index' %}"><h3 class="mb-3 text-white">ALUMNI DIRECTORY</a></h3>
               <p class="text-faded mb-0">Our alumni have distinguished themselves in various walks of life</p>
             </div>
           </div>
-          <div class="col-lg-3 col-md-6 text-center">
-            <div class="service-box mt-5 mx-auto">
+          <div class="col-lg-3 col-md-6 text-center" onclick="document.querySelectorAll('.service-box')[2].querySelector('a').click()">
+            <div class="service-box mt-5 mb-3 mx-auto">
               <i class="fas fa-4x fa-users text-white mb-3 sr-icon-3"></i>
-              <a class="js-scroll-trigger mb-3 text-white" href="{% url 'members:sacbody' %}"><h3 class="mb-3 text-white">STUDENT ALUMNI BODY</a></h3>
+              <a class="js-scroll-trigger mb-3 text-white text-decoration-none" href="{% url 'members:sacbody' %}"><h3 class="mb-3 text-white">STUDENT ALUMNI BODY</a></h3>
               <p class="text-faded mb-0">Take a glimpse at the People working behind the scenes</p>
             </div>
           </div>
-          <div class="col-lg-3 col-md-6 text-center">
-            <div class="service-box mt-5 mx-auto">
+          <div class="col-lg-3 col-md-6 text-center" onclick="document.querySelectorAll('.service-box')[3].querySelector('a').click()">
+            <div class="service-box mt-5 mb-3 mx-auto">
               <i class="fas fa-4x fa-sign-in-alt  text-white mb-3 sr-icon-4"></i>
-              <a class="js-scroll-trigger mb-3 text-white" href="{% url 'login' %}"><h3 class="mb-3 text-white">CONNECT</a></h3>
+              <a class="js-scroll-trigger mb-3 text-white text-decoration-none" href="{% url 'login' %}"><h3 class="mb-3 text-white">CONNECT</a></h3>
               <p class="text-faded mb-0">Signin or Signup into our portal</p>
             </div>
           </div>
