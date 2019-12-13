@@ -72,7 +72,12 @@
 					<div class="card m-2 shadow-sm">
 						<div class="card-header">
 							<i class="fas fa-users pr-2"></i>
-							Attendees {{count}}
+							Attendees <b>{{count}}</b>
+							<span style="float: right;">
+								<button type="button" data-toggle="modal" data-target="#attendees-modal" class="btn btn-primary btn-sm">
+									View All
+								</button>
+							</span>
 						</div>
 						<div class="card-body">
 							<p class="m-2 font-weight-normal mb-3">
@@ -97,10 +102,6 @@
 								{% if count_difference > 0 %}
 									 +{{ count_difference }} More
 								{% endif %}
-                <br><br>
-								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#attendees-modal">
-                            View All
-						</button>
 
 								<!-- attendees - list -->
 								<div class="modal fade" id="attendees-modal" tabindex="-1" role="dialog"
