@@ -6,3 +6,30 @@
 .dpg-album-card, .dpg-album-image {
     max-width:300px;
 }
+
+
+/* CSS for MastHead-BG */
+
+.masthead-bg{
+    background-repeat: repeat-y;
+    background-position-y: 400px;
+}
+
+
+/* Custom CSS for login.html */
+
+.login-container{
+    width: 40rem;
+}
+
+@media (max-width: 576px) {
+    .login-container{
+        width: 95%;
+    }
+}
+
+@media (max-width: 400px) {
+    .login-container{
+        width: 100%;
+    }
+}
