@@ -72,24 +72,22 @@
         ███████╗ ╚████╔╝ ███████╗██║ ╚████║   ██║   ███████║
         ╚══════╝  ╚═══╝  ╚══════╝╚═╝  ╚═══╝   ╚═╝   ╚══════╝
 -->
-    <section class="bg-white" id="events" style="padding:3rem">
+    <section class="bg-white" id="events" style="padding:2rem">
       <div class="container">
-        <div class="row w-100">
-          <div class="col-sm-6 text-left">
-            <h2 class="font-open-sans">Events</h2>
-          </div>
-          <div class="col-sm-6 text-right">
-            <a class="btn btn-primary btn-sm js-scroll-trigger" href="{% url 'events_news:events' %}">VIEW ALL</a>
+        <div class="row">
+          <div class="col-12 text-left">
+            <h2 class="font-open-sans" style="float:left">Events</h2>
+            <a class="btn btn-primary btn-sm js-scroll-trigger mx-auto" style="float:right" href="{% url 'events_news:events' %}">VIEW ALL</a>
           </div>
         </div>
         <div class="row">
           {% for item in events %}
-          <div class="col-lg-4 p-2 ">
-            <div class="card w-100 shadow-lg border border-primary border-rounded" style="max-width: 24rem; max-height: 40rem;">
+          <div class="col-lg-4 col-md-6 p-2">
+            <div class="card w-100 shadow-lg border border-primary border-rounded mx-auto" style="max-width: 24rem; max-height: 40rem;">
               {% if item.picture %}
-              <img src="{{ item.picture.url }}" class="card-img-top" alt="" height="300px" width="300px">
+              <img src="{{ item.picture.url }}" class="card-img-top event-card-img" alt="" width="300px" onload="event_cards()">
               {% else %}
-              <img src="{% static "AluminiConnect/img/event.png" %}" class="card-img-top" alt="" height="300px" width="300px">
+              <img src="{% static "AluminiConnect/img/event.png" %}" class="card-img-top event-card-img" alt="" width="300px">
               {% endif %}
               <div class="card-body">
                   {% if not item.is_completed %}
@@ -147,25 +145,24 @@
           ╚═╝  ╚═══╝╚══════╝ ╚══╝╚══╝ ╚══════╝
     -->
 
-    <section class="bg-white" id="events" style="padding:3rem">
+    <section class="bg-white" id="events" style="padding:2rem">
       <div class="container">
-        <div class="row w-100">
-          <div class="col-sm-6 text-left">
-            <h2 class="font-open-sans">News</h2>
-          </div>
-          <div class="col-sm-6 text-right">
-            <a class="btn btn-primary btn-sm js-scroll-trigger" href="{% url 'events_news:events' %}">VIEW ALL</a>
+
+        <div class="row">
+          <div class="col-12 text-left">
+            <h2 class="font-open-sans" style="float:left">News</h2>
+            <a class="btn btn-primary btn-sm js-scroll-trigger mx-auto" style="float:right" href="{% url 'events_news:events' %}">VIEW ALL</a>
           </div>
         </div>
         <div class="row">
           {% for item in news %}
-          <div class="col-lg-4 p-2 ">
-            <div class="card w-100 shadow-lg border border-primary border-rounded" style="max-width: 24rem; max-height: 40rem;">
+          <div class="col-lg-4 col-md-6 p-2 ">
+            <div class="card w-100 shadow-lg border border-primary border-rounded mx-auto" style="max-width: 24rem; max-height: 40rem;">
                 <span class="">
               {% if item.picture %}
-              <img src="{{ item.picture.url }}" class="card-img-top" alt="" height="300px" width="300px">
+              <img src="{{ item.picture.url }}" class="card-img-top news-card-img" alt=""  width="300px">
               {% else %}
-              <img src="{% static "AluminiConnect/img/event.png" %}" class="card-img-top" alt="" height="300px" width="300px">
+              <img src="{% static "AluminiConnect/img/event.png" %}" class="card-img-top news-card-img" alt=""  width="300px">
               {% endif %}
               <div class="card-body">
                   
@@ -274,23 +271,21 @@
           ╚██████╔╝██║  ██║███████╗███████╗███████╗██║  ██║   ██║   
           ╚═════╝ ╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝   ╚═╝   
   -->
-    <section class="bg-primary" style="padding: 3rem 0;" id="gallery">
+    <section class="bg-primary" style="padding: 2rem ;" id="gallery">
       <div class="container">
-        <div class="row w-100">
-          <div class="col-sm-6 text-left">
-            <h2 class="text-white font-open-sans">Gallery</h2>
-          </div>
-          <div class="col-sm-6 text-right">
-            <a class="btn btn-dark btn-sm js-scroll-trigger" href="{% url 'events_news:events' %}">VIEW ALL</a>
+        <div class="row">
+          <div class="col-12 text-left">
+            <h2 class=" text-white font-open-sans" style="float:left">Gallery</h2>
+            <a class="btn btn-dark btn-sm js-scroll-trigger mx-auto" style="float:right" href="{% url 'events_news:events' %}">VIEW ALL</a>
           </div>
         </div>
         <div class="row">
           {% for album in albums %}
-          <div class="col-lg-4 p-2 ">
-            <div class="card w-100 shadow-lg border border-primary border-rounded"
+          <div class="col-lg-4 col-md-6 p-2 ">
+            <div class="card w-100 shadow-lg border border-light border-rounded mx-auto"
               style="max-width: 24rem; max-height: 40rem;">
               <span class="">
-                <img src="{{ album.thumb.url }}" alt="{{ album.title }}" class="card-img-top" height="300px" width="300px" />
+                <img src="{{ album.thumb.url }}" alt="{{ album.title }}" class="card-img-top gallery-card-img" width="300px" />
                 <div class="card-body">
     
                   <h5 class="card-title font-weight-bold">{{album.title|striptags}}</h5>
@@ -439,7 +434,6 @@
       </div>
     </section>
   -->
-
   {% include 'globals/footer.html' %}
 {% endblock %}
 </html> -->

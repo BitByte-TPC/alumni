@@ -5,7 +5,7 @@
 ## Requirements
 
  * Python: 3.6  
- * Djago: 1.11.18  
+ * Django: 1.11.18  
  * And additional requirements are in [**requirements.txt**](https://github.com/Student-Alumni-Connect/alumni/blob/master/requirements.txt). These will automatically be installed with below steps.
 
 

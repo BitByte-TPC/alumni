@@ -406,3 +406,8 @@
   -ms-transform: scale(1.15);
   transform: scale(1.15);
 }
+
+.card-body i {
+  width: 20px;
+  margin: auto;
+}
