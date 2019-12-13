@@ -72,13 +72,19 @@
 					<div class="card m-2 shadow-sm">
 						<div class="card-header">
 							<i class="fas fa-users pr-2"></i>
-							Attendees <b>{{count}}</b>
-							<span style="float: right;">
-								<button type="button" data-toggle="modal" data-target="#attendees-modal" class="btn btn-primary btn-sm">
-									View All
-								</button>
-							</span>
+							Attendees 
+							<span class="badge badge-light border rounded" style="background: #fff;font-size:0.9rem"><b>{{count}}</b></span>
+							<span class="sr-only">Number of attendees</span>
+
+							{% if count > 0 %}
+								<span style="float: right;">
+									<button type="button" data-toggle="modal" data-target="#attendees-modal" class="btn btn-primary btn-sm">
+										View All
+									</button>
+								</span>
+							{% endif %}
 						</div>
+						{% if count > 0 %}
 						<div class="card-body">
 							<p class="m-2 font-weight-normal mb-3">
 
@@ -145,6 +151,7 @@
 								</div>
 							</p>
 						</div>
+						{% endif %}
 					</div>
 
 					<!--   ADDRESS  -->
