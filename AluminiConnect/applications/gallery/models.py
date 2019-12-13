@@ -12,7 +12,7 @@ class Album(models.Model):
     thumb = ProcessedImageField(upload_to='Albums', processors=[ResizeToFit(300)], format='JPEG', options={'quality': 90})
     tags = RichTextField()
     is_visible = models.BooleanField(default=True)
-    created = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField()
     modified = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(max_length=255, unique=True)
     event_id = models.ForeignKey(Event, on_delete=models.PROTECT, null=True, blank=True)
