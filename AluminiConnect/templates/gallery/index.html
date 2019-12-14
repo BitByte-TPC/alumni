@@ -7,7 +7,7 @@ Gallery
 
 {% block body %}
 {% include 'globals/navbar.html' %}
-<div class=" p-0 m-0 masthead-bg w-100 h-100 parallax" style="background-position-y: -25rem"></div>
+<div class="p-0 m-0 masthead-bg w-100 h-100 parallax"></div>
 
 <header class="masthead text-center text-white d-flex" style="height:0px;min-height:300px">
   <div class="container my-auto" style="margin-bottom:50px !important;">
@@ -24,28 +24,26 @@ Gallery
 <section id="services" class="bg-primary p-1">
 </section>
 
-<section class="bg-white" id="about">
+<section class="bg-white" id="about" style="padding: 5rem 0 3rem;">
 
-  <div class="container">
+  <div class="container-fluid px-sm-5 px-md-4 px-xl-5">
     <div class="row">
-      <div class="card-deck">
-        {% for album in albums %}
+      {% for album in albums %}
+      <div class="col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center mb-5">
         <div class="card dpg-album-card">
-          <img src="{{ album.thumb.url }}" alt="{{ album.title }}" class="card-image-top dpg-album-card-image" />
+          <img src="{{ album.thumb.url }}" alt="{{ album.title }}" class="card-image-top dpg-album-card-image w-100" />
           <div class="card-body">
             <h5 class="card-title">{{ album.title|striptags }}</h5>
             <p class="card-text">{{ album.description|striptags|truncatechars:120 }}</p>
           </div>
           <div class="card-footer">
-            <h5 class="text-muted text-center">
-              <a class="btn btn-primary btn-sm" href="{% url 'gallery:album' album.slug %}">
-                View All
-              </a>
+            <h5 class="text-muted text-center m-0 py-2">
+              <a class="btn btn-primary btn-sm py-2 px-4" href="{% url 'gallery:album' album.slug %}">View Album</a>
             </h5>
           </div>
         </div>
-        {% endfor %}
       </div>
+      {% endfor %}
     </div>
   </div>
 
