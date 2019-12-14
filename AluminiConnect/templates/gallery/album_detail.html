@@ -35,6 +35,14 @@ Gallery
   {% if album.is_visible %}
   <div class="container font-open-sans">
     <h1>{{ album.title|safe }}</h1>
+    <div>
+      <span class="icon-detail"><i class="far fa-calendar-check"></i>
+        <time datetime="{{ album.created|date:'Y-m-d' }}">{{ album.created|date:"d M, Y" }}</time>
+      </span>
+      <span class="icon-detail"><i class="far fa-images"></i>
+        {{ images_count }} Photo{{ images_count|pluralize }}
+      </span>
+    </div>
     <p>{{ album.description|safe }}</p>
 
 
@@ -48,7 +56,6 @@ Gallery
 
 
     <div>
-      <div><b>Created : </b> <time datetime="{{ album.created|date:'Y-m-d' }}">{{ album.created|date:"d M Y" }}</time></div>
       {% if album.album_link %}
       <div><b>Album Link : </b>{{ album.album_link|safe }}</div>
       {% endif %}
