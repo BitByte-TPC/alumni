@@ -32,3 +32,35 @@
         width: 100%;
     }
 }
+
+
+/* Custom CSS for Events Page */
+
+.events-container{
+    width: 70rem;
+}
+
+.events-container .card-footer{
+    display: none;
+}
+
+@media (max-width: 991px) {
+    .events-container .card-block .card-link {
+        display: none;
+    }
+    .events-container .card-footer{
+        display: block;
+    }
+}
+
+@media (max-width: 576px) {
+    .events-container{
+        width: 95%;
+    }
+}
+
+@media (max-width: 400px) {
+    .events-container{
+        width: 100%;
+    }
+}
