@@ -6,12 +6,18 @@
     max-width:300px;
 }
 
+@media (max-width: 400px) {
+    .dpg-album-image {
+        max-width: 100%;
+    }
+}
+
 
 /* CSS for MastHead-BG */
 
 .masthead-bg{
     background-repeat: repeat-y;
-    background-position-y: 400px;
+    background-position-y: 300px;
 }
 
 
