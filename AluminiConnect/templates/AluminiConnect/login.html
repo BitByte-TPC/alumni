@@ -7,14 +7,14 @@ AlumniConnect - Login
 
 {% block body %}
 {% include 'globals/navbar.html' %}
-<div class="p-0 m-0 masthead-bg w-100 h-100 parallax"></div>
+<div class="p-0 m-0 masthead-bg w-100 h-100 parallax"  style="min-height:300px !important; height:300px !important; background-position-y: 300px;"></div>
 
-<header class="masthead text-center text-white d-flex" style="height:0px;min-height:300px">
+<header class="masthead text-center text-white d-flex" style="height:0px; min-height:300px;">
   <div class="container my-auto" style="margin-bottom:50px !important;">
     <div class="row">
       <div class="col-lg-2 mx-auto align-middle">
         <h2 class="text-uppercase">
-          <a href="{% url 'home' %}"><img src={% static "AluminiConnect/img/logo/alumb1.png" %} style="width: 4em; height: auto;"></a>
+          <a href="{% url 'home' %}"><img src="{% static 'AluminiConnect/img/logo/alumb1.png' %}" style="width: 4em; height: auto;"></a>
         </h2>
       </div>
       <div class="col-lg-8 mx-auto align-middle">
