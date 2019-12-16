@@ -11,16 +11,64 @@ YearBook
 
 <div class=" p-0 m-0 masthead-bg w-100 parallax shadow-sm"
     style="min-height:250px !important;height:270px !important;background-position-y: -400px">
-
+</div>
+  
+<div style="height:59px;min-height: 50px;">
 </div>
 
-<div style="height:170px;min-height: 150px;">
-</div>
+<header class="masthead text-center text-white d-flex" style="height:211px;min-height:200px;padding:0">
+    <div class="container my-auto">
+      <div class="row">
+        <div class="col mx-auto align-middle">
+          <h1 class="text-uppercase mt-4">
+            <strong>YEAR-BOOK</strong>
+          </h1>
+        </div>
+      </div>
+    </div>
+  </header>
 
-<section class="bg-transparent" style="padding-top:3rem">
-    <div class="container text-left p-2 mx-auto bg-light">
+<section class="bg-primary p-1"></section>
 
-        <div class="row w-100">
+
+<section class="bg-light" style="padding:0 !important">
+    <div class="container text-left p-2 mx-auto bg-light" style="padding:0 !important">
+        <div class="row w-100 mx-auto bg-primary rounded-bottom">
+            <div class="col text-white text-center p-0 pt-4 pb-4">
+                <span class="mx-auto text-uppercase h3"><strong>Search</strong></span><br>
+
+                {% if not keyy %}
+                <span class="mx-auto h6">from</span>
+                <span class="mx-auto h6">{{total}} registered alumni</span>
+                {% endif %}
+                            
+                <div class="search-container mt-3" style="margin:6px;">
+                    <form class="row w-75 mx-auto" method="GET" action="{% url 'members:search' %}">
+                        <select name="filter" class="col-10 col-sm-3 mx-auto mb-2" required
+                            style="max-width:300px;">
+                            <option selected disabled>Search by</option>
+                            <option value="Name">Name</option>
+                            <option value="City">City</option>
+                            <option value="Degree">Degree</option>
+                            <option value="Branch">Branch</option>
+                            <option value="Organisation">Company</option>
+                            <option value="Roll_no">Roll No.</option>
+                            <option value="Reg_no">Alumni Reg. No.</option>
+                        </select>
+                        <input type="text" class="form-control col-10 col-sm-7 mx-auto mb-2" placeholder="Search text ..." name="search" required>
+                        <button type="submit" class="btn btn-dark col-3 col-sm-2 rounded mx-auto mb-2"><i class="fa fa-search mx-auto"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="bg-light" style="padding-top:0rem">
+    <div class="container text-left p-2 mx-auto bg-light" style="padding-top:0 !important">
+
+        {% comment %}
+        <div class="row w-100 mx-auto">
             <div class="col">
                 {% if not keyy %}
                 <h2 class="font-open-sans"><span class="badge btn-block badge-primary"> Registered Alumni : {{total}}</span></h2>
@@ -28,40 +76,26 @@ YearBook
                 <h2 class="font-open-sans"><span class="badge btn-block badge-primary"></span></h2>
                 {% endif %}
             </div>
-            {% comment %} <div class="col">
+            <div class="col">
                 <form method="GET" action="{% url 'members:search' %}">
                     <div class="ui search">
                         <div class="ui action input">
-                            <input type="text" name="q" placeholder="Search...">
+                            <input type="text" name="q" placeholder="Search text ...">
                             <button type="submit" class="ui button"><i class="search icon"></i></button>
                         </div>
                         <div class="results"></div>
                     </div>
                 </form>
-            </div> {% endcomment %}
-            <div class="search-container" style="margin:6px;">
-                <form method="GET" action="{% url 'members:search' %}">
-                    
-                    <select name="filter">
-                            <option selected value="Name">Name</option>
-                            <option value="City">City</option>
-                            <option value="Degree">Degree</option>
-                            <option value="Branch">Branch</option>
-                            <option value="Organisation">Company</option>
-                            <option value="Roll_no">Roll No.</option>
-                            <option value="Reg_no">Alumni Reg. No.</option>
-                          </select>
-                    <input type="text" placeholder="Search.." name="search">
-                    <button type="submit"><i class="fa fa-search"></i></button>
-                </form>
-            </div>
+            </div> 
         </div>
-        <div class="row w-100">
+        {% endcomment %}
+        
+        <div class="row mx-auto">
             <div class="col text-center">
                 {% if not keyy %}
-                <h2 class="font-open-sans"><span class="badge btn-block badge-primary"> Filter Alumni by Graduation Year</span></h2>
+                <h2 class="font-open-sans"><span class="badge btn-block badge-primary text-wrap mt-2"> Filter Alumni by Graduation Year</span></h2>
                 {% else %}
-                <h2 class="font-open-sans"><span class="badge btn-block badge-primary"> Filter {{filter}} : {{keyy}}</span></h2>
+                <h2 class="font-open-sans"><span class="badge btn-block badge-primary text-wrap mt-2"> Filter {{filter}} : {{keyy}}</span></h2>
                 
                 {% if not zero %}
                 <div class="alert alert-danger" role="alert">
@@ -71,11 +105,12 @@ YearBook
                 {% endif %}
             </div>
         </div>
+        
         {% if not keyy %}
-        <div class="row p-4">
+        <div class="row p-4 mx-auto">
             {% for batch,count in data %}
-            <div class="col-lg-3 p-2">
-                <div class="card w-100 shadow-lg text-center" style="max-width: 15rem; max-height: 40rem;">
+            <div class="col-lg-3 col-md-4 col-sm-6 p-2">
+                <div class="card w-100 shadow-lg text-center mx-auto" style="max-width: 15rem; max-height: 40rem;">
                     <div class="card-body">
                         <h5 class="card-title font-weight-bold"><a href="{% url 'members:batch' batch %}"
                                 class="btn btn-outline-primary">Batch of {{ batch }}</a></h5>
@@ -88,7 +123,7 @@ YearBook
         </div>
         {% else %}
             
-            <div class="row p-4">
+            <div class="row mx-auto">
                 {% for item in profiles %}
                 <div class="col-lg-3 p-2">
                     <div class="card shadow-lg">
