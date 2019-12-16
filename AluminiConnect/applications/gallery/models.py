@@ -16,7 +16,7 @@ class Album(models.Model):
     modified = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(max_length=255, unique=True)
     event_id = models.ForeignKey(Event, on_delete=models.PROTECT, null=True, blank=True)
-    album_link = models.URLField(max_length=500, null=True, blank=True)
+    album_link = RichTextUploadingField(null = True, blank=True)
 
     #def get_absolute_url(self):
     #    return reverse('album', kwargs={'slug':self.slug})

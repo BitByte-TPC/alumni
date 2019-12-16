@@ -35,8 +35,7 @@ def index(request):
     news = News.objects.filter().order_by('-date')
     #messages.success(request, 'Your password was successfully updated!')
     events_to_display = list(chain(events, events_completed))[:3]
-    albums_list = Album.objects.order_by('-created')[:3]
-   
+    albums_list = Album.objects.order_by('-created').annotate(images_count=Count('albumimage'))[:3]
     return render(request, "AluminiConnect/index.html", {'name':sname, 'events':events_to_display, 'news': news, 'albums': albums_list})
 
 def alumniBody(request):

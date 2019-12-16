@@ -33,7 +33,6 @@
     }
 }
 
-
 /* Custom CSS for Events Page */
 
 .events-container{
@@ -63,4 +62,7 @@
     .events-container{
         width: 100%;
     }
+ 
+.icon-detail {
+    margin-right: 12px;
 }

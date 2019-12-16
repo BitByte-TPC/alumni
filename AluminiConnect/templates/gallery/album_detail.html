@@ -34,8 +34,16 @@ Gallery
 
   {% if album.is_visible %}
   <div class="container font-open-sans">
-    <h1>{{ album.title|striptags }}</h1>
-    <p>{{ album.description|striptags }}</p>
+    <h1>{{ album.title|safe }}</h1>
+    <div>
+      <span class="icon-detail"><i class="far fa-calendar-check"></i>
+        <time datetime="{{ album.created|date:'Y-m-d' }}">{{ album.created|date:"d M, Y" }}</time>
+      </span>
+      <span class="icon-detail"><i class="far fa-images"></i>
+        {{ images_count }} Photo{{ images_count|pluralize }}
+      </span>
+    </div>
+    <p>{{ album.description|safe }}</p>
 
 
     <div class="row">
@@ -47,10 +55,12 @@ Gallery
     </div>
 
 
-    <p>
-      Created on <time datetime="{{ album.created|date:'Y-m-d' }}">{{ album.created|date:"d M Y" }}</time>
-      <p>Tags: {{ album.tags|striptags }}</p>
-    </p>
+    <div>
+      {% if album.album_link %}
+      <div><b>Album Link : </b>{{ album.album_link|safe }}</div>
+      {% endif %}
+      <div><b>Tags</b> : {{ album.tags|safe }}</div>
+    </div>
   </div>
 
   {% include 'globals/init_pwsp.html' %}

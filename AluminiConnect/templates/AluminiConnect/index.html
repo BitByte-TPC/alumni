@@ -302,6 +302,9 @@
                     <i class="fas fa-calendar-alt font-weight-lighter "></i>
                     {{album.created|date:"l, d M, o"}}
                     <br>
+                    <i class="far fa-images"></i>
+                    {{ album.images_count }} Photo{{ album.images_count|pluralize }}
+                    <br>
                   </p>
                   <a href="{% url 'gallery:album' album.slug %}" class="btn btn-primary">VIEW</a>
                 </div>
