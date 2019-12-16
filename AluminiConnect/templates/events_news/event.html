@@ -23,9 +23,8 @@
 {% endblock %}
 {% block body %}
 {% include 'globals/navbar.html' %}
-<div class=" p-0 m-0 masthead-bg w-100 parallax shadow-sm"
-	style="min-height:250px !important;height:270px !important;background-position-y: -400px"></div>
-<div style="height:150px;min-height: 150px;">
+<div class=" p-0 m-0 masthead-bg w-100 parallax shadow-sm" style="min-height:250px !important; height:270px !important; background-position-y: 270px"></div>
+<div style="height:150px; min-height:150px;">
 
 </div>
 <section class="bg-transparent" id="events" style="padding-top:3rem">
@@ -37,18 +36,12 @@
 				<div class="card m-2 shadow-sm">
 					<div class="card-body p-1">
 						{% if event.picture %}
-						<img src="{{ event.picture.url }}"
-                                alt="DP" class="img-fluid h-100 w-100"
-                                style=""
-                            />
-                            {% else %}
-						<img src="{% static "AluminiConnect/img/event.png" %}"
-                                alt="DP" class="img-fluid h-100 w-100"
-                                style=""
-                            />
-                            {% endif %}
-                        </div>
+						<img src="{{ event.picture.url }}" alt="DP" class="img-fluid h-100 w-100" style="max-height: 350px;" />
+						{% else %}
+						<img src="{% static 'AluminiConnect/img/event.png' %}" alt="DP" class="img-fluid h-100 w-100" style="max-height: 350px;" />
+						{% endif %}
 					</div>
+				</div>
 
 					<!--  START END DATE  -->
 					<div class="card m-2 shadow-sm">
@@ -98,7 +91,7 @@
                         title="{{a.user_id__profile__name}}"
                     />
                     {% else %}
-                    <img src="{% static "AluminiConnect/img/user.png" %}" 
+                    <img src="{% static 'AluminiConnect/img/user.png' %}" 
                         alt="DP" class="img-fluid rounded-circle m-1"
                         style="height:30px;width:30px max-width:30px;max-height:30px;"
                         title="{{a.user_id__profile__name}}"
@@ -106,7 +99,7 @@
                     {% endif %}
 								{% endfor %}
 								{% if count_difference > 0 %}
-									 +{{ count_difference }} More
+									<a href="#attendees-modal" class="d-inline-block pt-2" data-toggle="modal"> +{{ count_difference }} More</a>
 								{% endif %}
 
 								<!-- attendees - list -->
@@ -136,7 +129,7 @@
                                         width:30px; max-width:30px;max-height:30px;"
                                   />
                                   {% else %}
-                                  <img src="{% static "AluminiConnect/img/user.png" %}" 
+                                  <img src="{% static 'AluminiConnect/img/user.png' %}" 
                                       alt="DP" class="img-fluid rounded-circle m-0"
                                       style="height:30px;width:30px max-width:30px;max-height:30px;"
                                   />
@@ -186,28 +179,32 @@
 							<h1 class="mb-3">{{ event.title|safe }}</h1>
 							<p class="font-weight-light m-0">
 
-								<i class="fas fa-table"></i>
-								{{ event.start_date|date:"d M, o" }}
-								&nbsp;
-								<i class="fas fa-map-marker-alt"></i>&nbsp;
-								{{ event.location}}
-								&nbsp;
-								<i class="fas fa-user"></i>&nbsp;
-								{{ event.by }}
-								<br><br>
-                               {% if event.is_completed %}
-								<button type="button"  class="btn btn-secondary btn-sm" disabled>Event Ended</button>
-								{% elif not check %}
-								<form method="POST">
-									{% csrf_token %}
-									<button type="submit" name="submit" value="rsvp" class="btn btn-success btn-sm">Register</button>
-								</form>
-								{% else %}
-								<button type="button"  class="btn btn-success btn-sm" disabled>Registered</button>
-								{% endif %}
-
-
+								<span class="d-inline-block pb-2">
+									<i class="fas fa-table"></i>
+									{{ event.start_date|date:"d M, o" }}
+									&nbsp;
+								</span>
+								<span class="d-inline-block mb-2">
+									<i class="fas fa-map-marker-alt"></i>
+									{{ event.location}}
+									&nbsp;
+								</span>
+								<span class="d-inline-block mb-2">
+									<i class="fas fa-user"></i>
+									{{ event.by }}
+								</span>
 							</p>
+							{% if event.is_completed %}
+							<button type="button" class="btn btn-secondary btn-sm px-4 py-2 mt-2" disabled>Event Ended</button>
+							{% elif not check %}
+							<form method="POST">
+								{% csrf_token %}
+								<button type="submit" name="submit" value="rsvp" class="btn btn-success btn-sm px-4 py-2 mt-2">Register</button>
+							</form>
+							{% else %}
+							<button type="button"  class="btn btn-success btn-sm px-4 py-2 mt-2" disabled>Registered</button>
+							{% endif %}
+
 						</div>
 					</div>
 
@@ -241,7 +238,7 @@
 							<div class="container">
 							<div class="row">
 								{% for item in images %}
-								<a class="col mb-3" href="javascript:pswpInit({{ forloop.counter0 }});">
+								<a class="col-12 col-sm mb-3 text-center d-inline-block" href="javascript:pswpInit({{ forloop.counter0 }});">
 									<img src="{{ item.thumb.url }}" class="responsive-img dpg-album-image" alt="{{ item.alt }}" />
 								</a>
 								{% endfor %}
