@@ -7,17 +7,17 @@
 
 {% block body %}
     {% include 'globals/navbar.html' %}
-    <div class=" p-0 m-0 masthead-bg w-100 parallax shadow-sm" style="min-height:250px !important;height:270px !important;background-position-y: -400px"></div>
+    <div class=" p-0 m-0 masthead-bg w-100 parallax shadow-sm" style="min-height:250px !important;height:270px !important;background-position-y: 300px"></div>
     <div style="height:150px;min-height: 150px;">
 
     </div>
     
-    <div class="container text-left p-2 mx-auto", style="width: 70rem;">
+    <div class="events-container container text-left p-2 mx-auto">
         {% for item in events %}
             <div class="card shadow bg-light m-4 border border-primary rounded ">
                 <span class="">
                 <div class="row no-gutters p-3">
-                    <div class="col-auto mx-auto p-1">
+                    <div class="col-auto mx-auto p-1 pb-3 pb-lg-1">
                         {% if item.picture %}
                         <img src="{{ item.picture.url }}" alt="" height= 200px width= 200px>
                         {% else %}
@@ -52,8 +52,11 @@
                                     {{ item.by }}
                                 </p>  
                             </p>
-                            <a href="{% url 'events_news:event' id=item.event_id %}" class="btn btn-primary">View</a>
+                            <a href="{% url 'events_news:event' id=item.event_id %}" class="btn btn-primary btn-sm card-link px-4 py-2">View</a>
                             <br>
+                        </div>
+                        <div class="card-footer text-center m-n3">
+                            <a href="{% url 'events_news:event' id=item.event_id %}" class="btn btn-primary btn-sm card-link px-4 py-2">View</a>
                         </div>
                         <div class="w-100"></div>
                                 
