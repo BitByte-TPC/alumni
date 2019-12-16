@@ -17,7 +17,7 @@ from .forms import AlbumForm
 class AlbumModelAdmin(admin.ModelAdmin):
     form = AlbumForm
     prepopulated_fields = {'slug': ('title',)}
-    list_display = ('title', 'thumb')
+    list_display = ('title_stripped', 'thumb', 'created')
     list_filter = ('created',)
 
     def save_model(self, request, obj, form, change):
