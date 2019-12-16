@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-Gallery
+Publications
 {% endblock %}
 
 {% block css %}
@@ -42,7 +42,7 @@ Gallery
       </span>
     </div>
     <p>{{ publication.description|safe }}</p>
-    
+
     <div class="">
       {% for item in media %}
       <iframe src="https://docs.google.com/viewer?url=https://sac.iiitdmj.ac.in{{item.media.url}}&embedded=true"
