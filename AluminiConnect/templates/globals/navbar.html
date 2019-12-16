@@ -41,14 +41,26 @@
             <li class="nav-item dropdown">
                 <a href="{% url 'members:index' %}"  class="dropdown-toggle nav-link " data-toggle="dropdown">Services&nbsp;<b class="caret"></b></a>
                 <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'publications:index' %}">Publications</a></li>
                     <li><a href="https://forms.gle/5AwdnQjyuwUp5K2h8/" target="_blank" class="dropdown-item">Alumni Card</a></li>
                     <li><a href="{% url 'awards:award' id=1 %}" class="dropdown-item">Young Achiever Award 2019</a></li>
                 </ul>
                 
             </li>
             <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="{% url 'gallery:gallery' %}">Gallery</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="{% url 'members:index' %}" class="dropdown-toggle nav-link " data-toggle="dropdown">About&nbsp;<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="https://www.iiitdmj.ac.in/about_us.php" target="_blank" class="dropdown-item">IIIT Jabalpur</a></li>
+                    <li><a href="{% url 'members:sacbody' %}" class="dropdown-item">Student Alumni Body</a></li>
+                </ul>
+            
+            </li>
+            <!-- <li class="nav-item">
                 <a class="nav-link js-scroll-trigger" href="{% url 'publications:index' %}">Publications</a>
-                <!--<div class="btn-group">
+                <div class="btn-group">
                     <button type="button" class="btn nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                         style="border-radius:0px;color:#212529;font-size: .9rem;">
                         Publications
@@ -60,16 +72,14 @@
                         <div class="dropdown-divider"></div>%
                         <a class="dropdown-item" href="#">Separated link</a>
                     </div>
-                </div>-->
-            </li>
+                </div>
+            </li> -->
             <!--
             <li class="nav-item">
                 <a class="nav-link js-scroll-trigger" href="">Opportunities</a>
             </li>
             -->
-            <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="{% url 'gallery:gallery' %}">Gallery</a>
-            </li>
+            
             {% if not user.is_authenticated %}
             <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="{% url 'login' %}">Login</a>
