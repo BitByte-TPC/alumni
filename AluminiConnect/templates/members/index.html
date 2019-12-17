@@ -29,6 +29,16 @@ YearBook
     <div class="container text-left p-2 mx-auto bg-light" style="padding:0 !important;">
         <div class="row w-100 mx-auto bg-primary rounded-bottom">
             <div class="col text-white text-center p-0 pt-4 pb-4">
+
+                {% if keyy %}
+                <a href="{% url 'members:index' %}" class="btn btn-dark btn-outline-primary mb-4 text-white"
+                    style="font-size: 0.85rem;">
+                    <i class="fa fa-arrow-left mr-2" style="color:inherit !important" aria-hidden="true"></i>
+                    Filter by Graduation Year
+                </a>
+                {% endif %}
+                <br>
+
                 <span class="mx-auto text-uppercase h3"><strong>Search</strong></span><br>
 
                 {% if not keyy %}
@@ -53,10 +63,6 @@ YearBook
                         <button type="submit" class="btn btn-dark col-3 col-md-2 rounded mb-2"><i class="fa fa-search mx-auto"></i></button>
                     </form>
                 </div>
-
-                {% if keyy %}
-                <a href="{% url 'members:index' %}" class="btn btn-outline-primary">Filter by Graduation Year</a>
-                {% endif %}
             </div>
         </div>
     </div>
