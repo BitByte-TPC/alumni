@@ -9,38 +9,38 @@
   <!-- <body id="page-top" class="font-open-sans" style="background-color: #eaedf5"> -->
     {% include 'globals/navbar.html' %}
 
-    <div class=" p-0 m-0 masthead-bg w-100 parallax shadow-sm" style="min-height:250px !important;height:270px !important;background-position-y: -400px">
-        
-    </div>
+    <div class="p-0 m-0 masthead-bg w-100 parallax shadow-sm" style="min-height:250px !important; height:270px !important; background-position-y: 270px;"></div>
+    <div style="height:150px; min-height:150px;"></div>
     
-    <div style="height:170px;min-height: 150px;">
-    </div>
-    
-    <section class="bg-transparent" style="padding-top:3rem">
-        <div class="container text-left p-2 mx-auto bg-light">     
-                <div class="row w-100">
+    <section class="bg-transparent" style="padding:3rem 0 5rem;">
+        <div class="members-container container text-left p-2 mx-auto bg-light shadow-lg rounded">
+                <div class="row">
                         <div class="col text-center">
                             <h2 class="font-open-sans"><span class="badge btn-block badge-primary">Graduation Year : {{year}} </span></h2>
                         </div>
                     </div>
             {% for key1, value1 in data.items %}
             {% if value1 %}
-            <div class="row w-100">
-                <div class="col text-left">
+            <div class="row">
+                <div class="col text-center">
                     <h2 class="font-open-sans"><span class="badge badge-primary">{{ key1 }}</span></h2>
                 </div>
             </div>
-            
-            <div class="row p-4">     
+
+            <div class="row p-4 mx-auto">
                 {% for key2, value2 in value1.items %}
-                <div class="col-lg-3 p-2">
-                    
-                        <a href="{% url 'members:batch' year=year %}{{key1}}/{{key2}}/" class="btn btn-outline-primary btn-block "> {{ key2}} <br>{{ value2 }} Member{{ value2|pluralize }} </a>
-                        
-                    
+                <div class="col-lg-3 col-md-4 col-sm-6 p-2">
+                    <div class="card w-100 shadow-sm text-center mx-auto" style="max-width: 15rem; max-height: 40rem;">
+                        <div class="card-body">
+                            <h5 class="card-title font-weight-bold">
+                                <a href="{% url 'members:batch' year=year %}{{key1}}/{{key2}}/" class="text-decoration-none stretched-link"> {{ key2}} <br>{{ value2 }} Member{{ value2|pluralize }} </a>
+                            </h5>
+                        </div>
+                    </div>
                 </div>
                 {% endfor %}
             </div>
+
             {% endif %}
             {% endfor %}
 
