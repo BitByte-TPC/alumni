@@ -7,47 +7,46 @@
 
 {% block body %}
     {% include 'globals/navbar.html' %}
-    <div class=" p-0 m-0 masthead-bg w-100 parallax shadow-sm" style="min-height:250px !important;height:270px !important;background-position-y: -400px"></div>
-    <div style="height:150px;min-height: 150px;">
-
-    </div>
+    <div class="p-0 m-0 masthead-bg w-100 parallax shadow-sm" style="min-height:250px !important; height:270px !important; background-position-y: 270px"></div>
+    <div style="height:150px; min-height:150px;"></div>
     
-    <div class="container text-left p-2 mx-auto", style="width: 70rem;">
-            <div class="card shadow-lg bg-light m-4">
-                <div class="row no-gutters p-3">
-                    <div class="col-auto mx-auto p-1">
-                        {% if picture %}
-                        <img src="{{ picture.url }}" alt="" height= 200px width= 200px>
-                        {% else %}
-                        <img src="{% static "AluminiConnect/img/news.jpg" %}" alt="" height= 200px width= 200px>
-                        {% endif %}
-                    </div>
-                    <div class="col-lg-9">
-                        <div class="card-block px-2">
-                                <h2 class="card-title">{{title|safe}}</h2>
-                                <!-- <p class="m-2 font-weight-normal mb-3"> -->
-                                <p class="m-2 font-weight-normal mb-3">
-                        
-                                    <i class="fas fa-table"></i>
-                                        {{ date|date:"d F, o" }}
-                                        &nbsp;
-                                        <i class="fas fa-user"></i>&nbsp;
-                                        {{ by}}
-                                        </p>  
-                                        <p>{{description|safe}}</p>
-                                
-                            <br>
-                            </div>
-                            <div class="w-100"></div>
-                                
-                    </div>
+    <div class="events-container container text-left p-2 mx-auto">
+        <div class="card shadow-lg bg-light m-4">
+            <div class="row no-gutters p-3">
+                <div class="col-auto mx-auto p-1 pb-3 pb-lg-1">
+                    {% if picture %}
+                    <img src="{{ picture.url }}" alt="" height= 200px width= 200px>
+                    {% else %}
+                    <img src="{% static 'AluminiConnect/img/news.jpg' %}" alt="" height= 200px width= 200px>
+                    {% endif %}
                 </div>
-                <!-- Footer 
-                    <div class="card-footer w-100 text-muted">
-                        Footer stating cats are CUTE little animals
+                <div class="col-lg-9">
+                    <div class="card-block px-2">
+                        <h2 class="card-title">{{title|safe}}</h2>
+                        <!-- <p class="m-2 font-weight-normal mb-3"> -->
+                        <p class="m-2 font-weight-normal mb-3">
+                            <span class="d-inline-block pb-2 pb-md-0">
+                                <i class="fas fa-table"></i>
+                                {{ date|date:"d F, o" }}
+                                &nbsp;
+                            </span>
+                            <span class="d-inline-block">
+                                <i class="fas fa-user"></i>&nbsp;
+                                {{ by}}
+                            </span>
+                        </p>
+                        <p>{{description|safe}}</p>
+                        <br>
                     </div>
-                -->
+                    <div class="w-100"></div>
+                </div>
             </div>
+            <!-- Footer 
+                <div class="card-footer w-100 text-muted">
+                    Footer stating cats are CUTE little animals
+                </div>
+            -->
         </div>
-    {% include 'globals/footer.html' %}
+    </div>
+{% include 'globals/footer.html' %}
 {% endblock %}
