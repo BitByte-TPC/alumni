@@ -7,14 +7,27 @@
 
 {% block body %}
     {% include 'globals/navbar.html' %}
-    <div class="p-0 m-0 masthead-bg w-100 parallax shadow-sm" style="min-height:250px !important; height:270px !important; background-position-y: 270px;"></div>
-    <div style="height:150px; min-height: 150px;">
+    <div class="p-0 m-0 masthead-bg w-100 parallax shadow-sm" style="min-height:300px !important; height:300px !important; background-position-y: 300px;"></div>
+    <!-- <div style="height:150px; min-height: 150px;"></div> -->
 
-    </div>
+    <header class="masthead text-center text-white d-flex" style="height:0px; min-height:300px;">
+        <div class="container my-auto" style="margin-bottom:50px !important;">
+            <div class="row">
+                <div class="col-lg-8 mx-auto align-middle">
+                <h1 class="text-uppercase mt-4">
+                    <strong>EVENTS</strong>
+                </h1>
+                </div>
+            </div>
+        </div>
+    </header>
+      
+    <section id="services" class="bg-primary p-1">
+    </section>
     
-    <div class="events-container container text-left p-2 mx-auto">
+    <div class="events-container container text-left p-2 mx-auto my-4">
         {% for item in events %}
-            <div class="card shadow bg-light m-4 border border-primary rounded">
+            <div class="card shadow bg-light m-4">
                 <span class="">
                 <div class="row no-gutters p-3">
                     <div class="col-auto mx-auto p-1 pb-3 pb-lg-1">
