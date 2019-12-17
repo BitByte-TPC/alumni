@@ -202,7 +202,11 @@
 								<button type="submit" name="submit" value="rsvp" class="btn btn-success btn-sm px-4 py-2 mt-2">Register</button>
 							</form>
 							{% else %}
-							<button type="button"  class="btn btn-success btn-sm px-4 py-2 mt-2" disabled>Registered</button>
+							<form method="POST">
+								{% csrf_token %}
+								<button type="button"  class="btn btn-success btn-sm px-4 py-2 mt-2" disabled>Registered</button>
+								<button type="submit" name="submit" value="rsvp_del" class="btn btn-danger btn-sm px-4 py-2 mt-2">Remove Registration</button>
+							</form>
 							{% endif %}
 
 						</div>

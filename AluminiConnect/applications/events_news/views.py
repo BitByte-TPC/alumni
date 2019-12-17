@@ -49,6 +49,16 @@ def event(request, id):
         check = True
         return HttpResponseRedirect("/events/event/"+id+"/")
 
+    if request.POST.get("submit") == "rsvp_del":
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect("/login/?next="+request.path)
+
+        Attendees.objects.filter(
+            user_id = User.objects.get(username = request.user.username), 
+            event_id = Event.objects.get(event_id = id)
+        ).delete()
+        return HttpResponseRedirect("/events/event/"+id+"/")
+
     return render(request, "events_news/event.html", {
         "event": e, 
         "check": check, 
