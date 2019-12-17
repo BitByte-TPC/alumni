@@ -9,32 +9,36 @@ YearBook
 <!-- <body id="page-top" class="font-open-sans" style="background-color: #eaedf5"> -->
 {% include 'globals/navbar.html' %}
 
-<div class=" p-0 m-0 masthead-bg w-100 parallax shadow-sm"
-    style="min-height:250px !important;height:270px !important;background-position-y: -400px">
-</div>
-  
-<div style="height:59px;min-height: 50px;">
-</div>
+<div class="p-0 m-0 masthead-bg w-100 parallax" style="min-height:300px !important; height:300px !important; background-position-y: 300px"></div>
 
-<header class="masthead text-center text-white d-flex" style="height:211px;min-height:200px;padding:0">
-    <div class="container my-auto">
+<header class="masthead text-center text-white d-flex" style="height:0px; min-height:300px;">
+    <div class="container my-auto" style="margin-bottom:50px !important;">
       <div class="row">
-        <div class="col mx-auto align-middle">
+        <div class="col-lg-8 mx-auto align-middle">
           <h1 class="text-uppercase mt-4">
             <strong>YEAR-BOOK</strong>
           </h1>
         </div>
       </div>
     </div>
-  </header>
+</header>
 
-<section class="bg-primary p-1"></section>
+<section id="services" class="bg-primary p-1"></section>
 
-
-<section class="bg-light" style="padding:0 !important">
-    <div class="container text-left p-2 mx-auto bg-light" style="padding:0 !important">
+<section class="bg-light" style="padding:0 !important;">
+    <div class="container text-left p-2 mx-auto bg-light" style="padding:0 !important;">
         <div class="row w-100 mx-auto bg-primary rounded-bottom">
             <div class="col text-white text-center p-0 pt-4 pb-4">
+
+                {% if keyy %}
+                <a href="{% url 'members:index' %}" class="btn btn-dark btn-outline-primary mb-4 text-white"
+                    style="font-size: 0.85rem;">
+                    <i class="fa fa-arrow-left mr-2" style="color:inherit !important" aria-hidden="true"></i>
+                    Filter by Graduation Year
+                </a>
+                {% endif %}
+                <br>
+
                 <span class="mx-auto text-uppercase h3"><strong>Search</strong></span><br>
 
                 {% if not keyy %}
@@ -43,8 +47,8 @@ YearBook
                 {% endif %}
                             
                 <div class="search-container mt-3" style="margin:6px;">
-                    <form class="row w-75 mx-auto" method="GET" action="{% url 'members:search' %}">
-                        <select name="filter" class="col-10 col-sm-3 mx-auto mb-2" required
+                    <form class="row justify-content-center w-75 mx-auto" method="GET" action="{% url 'members:search' %}">
+                        <select name="filter" class="custom-select col-10 col-md-3 mb-2" required
                             style="max-width:300px;">
                             <option selected disabled>Search by</option>
                             <option value="Name">Name</option>
@@ -55,8 +59,8 @@ YearBook
                             <option value="Roll_no">Roll No.</option>
                             <option value="Reg_no">Alumni Reg. No.</option>
                         </select>
-                        <input type="text" class="form-control col-10 col-sm-7 mx-auto mb-2" placeholder="Search text ..." name="search" required>
-                        <button type="submit" class="btn btn-dark col-3 col-sm-2 rounded mx-auto mb-2"><i class="fa fa-search mx-auto"></i></button>
+                        <input type="text" class="form-control col-10 col-md-7 mb-2" placeholder="Search text ..." name="search" required>
+                        <button type="submit" class="btn btn-dark col-3 col-md-2 rounded mb-2"><i class="fa fa-search mx-auto"></i></button>
                     </form>
                 </div>
             </div>
@@ -64,7 +68,7 @@ YearBook
     </div>
 </section>
 
-<section class="bg-light" style="padding-top:0rem">
+<section class="bg-light" style="padding:0 0 5rem;">
     <div class="container text-left p-2 mx-auto bg-light" style="padding-top:0 !important">
 
         {% comment %}
@@ -113,7 +117,7 @@ YearBook
                 <div class="card w-100 shadow-lg text-center mx-auto" style="max-width: 15rem; max-height: 40rem;">
                     <div class="card-body">
                         <h5 class="card-title font-weight-bold"><a href="{% url 'members:batch' batch %}"
-                                class="btn btn-outline-primary">Batch of {{ batch }}</a></h5>
+                                class="text-decoration-none stretched-link">Batch of {{ batch }}</a></h5>
 
                         <p class="m-2 font-italic  font-open-sans">{{ count }} Member{{ count|pluralize }}</p>
                     </div>
@@ -125,24 +129,24 @@ YearBook
             
             <div class="row mx-auto">
                 {% for item in profiles %}
-                <div class="col-lg-3 p-2">
+                <div class="col-md-6 col-lg-4 col-xl-3 p-2">
                     <div class="card shadow-lg">
                         <!-- hover-zoomin"  style="max-width: 24rem; max-height: 35em;"> -->
                         <span class="border border-primary">
                             <div class="card-body">
-                                <p class="text-center card-title">
-                                    <a href="{% url 'profile:profile' item.roll_no %}">
+                                <a href="{% url 'profile:profile' item.roll_no %}" class="text-decoration-none">
+                                    <p class="text-center card-title">
                                         {% if item.profile_picture %}
-                                        <img src="{{ item.profile_picture.url }}" class=" img-fluid " alt=""
+                                        <img src="{{ item.profile_picture.url }}" class="img-fluid" alt=""
                                             style="object-fit:cover; object-position:50% 0%; max-width:216px; 
                                             max-height:216px; width:100%; height:216px; margin-bottom: 1rem;">
                                         {% else %}
-                                        <img src="{% static "AluminiConnect/img/user.png" %}" class="card-img-top img-fluid"
+                                        <img src="{% static 'AluminiConnect/img/user.png' %}" class="img-fluid"
                                             alt="" height="200px" width="200px">
                                         {% endif %}
-    
-                                </p>
-                                <p class="card-title font-open-sans font-weight-bold">{{item.name}}</a></p>
+                                    </p>
+                                    <p class="card-title font-open-sans font-weight-bold">{{item.name}}</p>
+                                </a>
                                 <p class="font-italic card-text font-open-sans"><i class="fas fa-map-marker-alt"></i>
                                     {{item.city}}</p>
     
@@ -156,14 +160,9 @@ YearBook
                                             class="fas fa-link"></i></a>{% endif %}
     
                                 </h4>
-    
-    
                             </div>
-    
-    
+                        </span>
                     </div>
-                    </span>
-    
                 </div>
                 {% endfor %}
             </div>
