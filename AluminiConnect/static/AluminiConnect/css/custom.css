@@ -1,0 +1,90 @@
+.dpg-album-card-image {
+    height:225px;
+}
+  
+.dpg-album-card, .dpg-album-image {
+    max-width:300px;
+}
+
+@media (max-width: 400px) {
+    .dpg-album-image {
+        max-width: 100%;
+    }
+}
+
+
+/* CSS for MastHead-BG */
+
+.masthead-bg{
+    background-repeat: repeat-y;
+    background-position-y: 300px;
+}
+
+
+/* Custom CSS for login.html */
+
+.login-container{
+    width: 40rem;
+}
+
+@media (max-width: 576px) {
+    .login-container{
+        width: 95%;
+    }
+}
+
+@media (max-width: 400px) {
+    .login-container{
+        width: 100%;
+    }
+}
+
+/* Custom CSS for Events Page */
+
+.events-container{
+    width: 70rem;
+}
+
+.events-container .card-footer{
+    display: none;
+}
+
+@media (max-width: 991px) {
+    .events-container .card-block .card-link {
+        display: none;
+    }
+    .events-container .card-footer{
+        display: block;
+    }
+}
+
+@media (max-width: 576px) {
+    .events-container{
+        width: 95%;
+    }
+}
+
+@media (max-width: 400px) {
+    .events-container{
+        width: 100%;
+    }
+}
+
+.icon-detail {
+    margin-right: 12px;
+}
+
+
+/* Additional Bootstrap Features */
+
+.stretched-link::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    pointer-events: auto;
+    content: "";
+    background-color: rgba(0, 0, 0, 0);
+  }

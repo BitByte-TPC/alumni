@@ -18,6 +18,7 @@ from .token import account_activation_token
 from applications.events_news.models import Event, Attendees
 from applications.alumniprofile.models import Profile, Constants
 from applications.news.models import News
+from applications.gallery.models import Album
 import datetime
 from django.utils import timezone
 from itertools import chain
@@ -34,8 +35,8 @@ def index(request):
     news = News.objects.filter().order_by('-date')
     #messages.success(request, 'Your password was successfully updated!')
     events_to_display = list(chain(events, events_completed))[:3]
-   
-    return render(request, "AluminiConnect/index.html", {'name':sname, 'events':events_to_display, 'news': news})
+    albums_list = Album.objects.order_by('-created').annotate(images_count=Count('albumimage'))[:3]
+    return render(request, "AluminiConnect/index.html", {'name':sname, 'events':events_to_display, 'news': news, 'albums': albums_list})
 
 def alumniBody(request):
     return render(request, "AluminiConnect/alumnibody.html")

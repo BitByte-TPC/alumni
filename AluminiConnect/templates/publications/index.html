@@ -1,100 +1,55 @@
 {% extends 'globals/base.html' %}
 {% load static %}
 
-{% block title %} 
-  Publications
+{% block title %}
+Publications
 {% endblock %}
 
 {% block body %}
 {% include 'globals/navbar.html' %}
-    <div class=" p-0 m-0 masthead-bg w-100 h-100 parallax" style="background-position-y: -25rem"></div>
+<div class="p-0 m-0 masthead-bg w-100 h-100 parallax" style="min-height:300px !important; height:300px !important; background-position-y: 300px;"></div>
 
-    <header class="masthead text-center text-white d-flex" style="height:0px;min-height:300px">
-      <div class="container my-auto" style="margin-bottom:50px !important;">
-        <div class="row">
-          <div class="col-lg-8 mx-auto align-middle">
-            <h1 class="text-uppercase mt-4">
-              <strong>PUBLICATIONS</strong>
-            </h1>
+<header class="masthead text-center text-white d-flex" style="height:0px; min-height:300px;">
+  <div class="container my-auto" style="margin-bottom:50px !important;">
+    <div class="row">
+      <div class="col-lg-8 mx-auto align-middle">
+        <h1 class="text-uppercase mt-4">
+          <strong>PUBLICATIONS</strong>
+        </h1>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="services" class="bg-primary p-1">
+</section>
+
+<section class="bg-white" id="about" style="padding: 5rem 0 3rem;">
+
+  <div class="container px-sm-0 px-md-4 px-xl-2 font-open-sans">
+    <div class="row w-100 mx-auto">
+      {% for item in publications %}
+      <div class="col-sm-6 col-lg-4 col-xl-3 d-flex justify-content-center mb-5 px-sm-2 px-md-4 px-lg-3 px-xl-2">
+        <div class="card dpg-album-card">
+          <img src="{{ item.thumb.url }}" alt="{{ item.title }}" class="card-image-top dpg-album-card-image w-100" />
+          <div class="card-body">
+            <h5 class="card-title">{{ item.title|safe }}</h5>
+            <span class=""><i class="far fa-calendar-check"></i>
+              <time datetime="{{ album.created|date:'Y-m-d' }}">{{ item.created|date:"d M, Y" }}</time>
+            </span>
+            <p class="card-text">{{ item.description|safe|truncatechars:200 }}</p>
+          </div>
+          <div class="card-footer">
+            <h5 class="text-muted text-center m-0 py-2">
+              <a class="btn btn-primary btn-sm py-2 px-4" href="{% url 'publications:publication' item.slug %}">View</a>
+            </h5>
           </div>
         </div>
       </div>
-    </header>
+      {% endfor %}
+    </div>
+  </div>
 
-    <section id="services" class="bg-primary p-1">
-    </section>
-
-    <section class="bg-white" id="about">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12 text-left p-2 mx-auto">
-            <div class="row">
-
-                <div class="col-lg-3 col-md-4 col-sm-6 p-2">
-                  <a href="http://alumni.iiitdmj.ac.in/files/Vol2Iss2_May18.pdf">
-                    <div class="card w-100 shadow-sm p-2" style="max-width: 24rem;">
-                      <img src="{% static "AluminiConnect/img/newsletter.png" %}" class="card-img-top" alt="">
-                      <div class="card-body font-open-sans">
-                        <h5 class="card-title font-weight-normal">Newsletter May 2018</h5>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 p-2">
-                  <a href="http://alumni.iiitdmj.ac.in/files/Vol2Iss1_Jan18.pdf" >
-                    <div class="card w-100 shadow-sm p-2" style="max-width: 24rem;">
-                      <img src="{% static "AluminiConnect/img/newsletter.png" %}" class="card-img-top" alt="">
-                      <div class="card-body font-open-sans">
-                        <h5 class="card-title font-weight-normal">Newsletter Jan 2018</h5>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 p-2">
-                  <a href="http://alumni.iiitdmj.ac.in/files/Vol1Iss2_Apr17.pdf" >
-                    <div class="card w-100 shadow-sm p-2" style="max-width: 24rem;">
-                      <img src="{% static "AluminiConnect/img/newsletter.png" %}" class="card-img-top" alt="">
-                      <div class="card-body font-open-sans">
-                        <h5 class="card-title font-weight-normal">Newsletter Apr 2017</h5>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 p-2">
-                  <a href="http://alumni.iiitdmj.ac.in/files/Vol1Iss1_Dec16.pdf" >
-                    <div class="card w-100 shadow-sm p-2" style="max-width: 24rem;">
-                      <img src="{% static "AluminiConnect/img/newsletter.png" %}" class="card-img-top" alt="">
-                      <div class="card-body font-open-sans">
-                        <h5 class="card-title font-weight-normal">Newsletter Dec 2016</h5>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 p-2">
-                  <a href="http://alumni.iiitdmj.ac.in/files/Minutes%20of%20Meetings%20Alumni%20Meet%2025%2026%20Dec%202016_v1.pdf" >
-                    <div class="card w-100 shadow-sm p-2" style="max-width: 24rem;">
-                      <img src="{% static "AluminiConnect/img/newsletter.png" %}" class="card-img-top" alt="">
-                      <div class="card-body font-open-sans">
-                        <h5 class="card-title font-weight-normal">Alumni Meet Minutes Dec 2016</h5>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 p-2">
-                  <a href="" >
-                    <div class="card w-100 shadow-sm p-2" style="max-width: 24rem;">
-                      <img src="{% static "AluminiConnect/img/newsletter.png" %}" class="card-img-top" alt="">
-                      <div class="card-body font-open-sans">
-                        <h5 class="card-title font-weight-normal">Society Registration</h5>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    {% include 'globals/footer.html' %}
+</section>
+{% include 'globals/footer.html' %}
 {% endblock %}

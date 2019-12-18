@@ -1,0 +1,53 @@
+{% extends 'globals/base.html' %}
+{% load static %}
+
+{% block title %}
+Gallery
+{% endblock %}
+
+{% block body %}
+{% include 'globals/navbar.html' %}
+<div class="p-0 m-0 masthead-bg w-100 h-100 parallax" style="min-height:300px !important; height:300px !important; background-position-y: 300px;"></div>
+
+<header class="masthead text-center text-white d-flex" style="height:0px; min-height:300px;">
+  <div class="container my-auto" style="margin-bottom:50px !important;">
+    <div class="row">
+      <div class="col-lg-8 mx-auto align-middle">
+        <h1 class="text-uppercase mt-4">
+          <strong>GALLERY</strong>
+        </h1>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="services" class="bg-primary p-1">
+</section>
+
+<section class="bg-white" id="about" style="padding: 5rem 0 3rem;">
+
+  <div class="container px-sm-0 px-md-4 px-xl-2 font-open-sans">
+    <div class="row w-100 mx-auto">
+      {% for album in albums %}
+      <div class="col-sm-6 col-lg-4 col-xl-3 d-flex justify-content-center mb-5 px-sm-2 px-md-4 px-lg-3 px-xl-2">
+        <div class="card dpg-album-card">
+          <img src="{{ album.thumb.url }}" alt="{{ album.title }}" class="card-image-top dpg-album-card-image w-100" />
+          <div class="card-body">
+            <h5 class="card-title">{{ album.title|safe }}</h5>
+            <i class="far fa-images"></i>{{ album.images_count }} Photo{{ album.images_count|pluralize }}
+            <p class="card-text">{{ album.description|safe|truncatechars:200 }}</p>
+          </div>
+          <div class="card-footer">
+            <h5 class="text-muted text-center m-0 py-2">
+              <a class="btn btn-primary btn-sm py-2 px-4" href="{% url 'gallery:album' album.slug %}">View Album</a>
+            </h5>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+</section>
+{% include 'globals/footer.html' %}
+{% endblock %}

@@ -30,34 +30,42 @@
 
     <section id="services" class="bg-primary" style="padding: 5rem 0;">
       <div class="container">
-        <div class="row">
+        <div class="row shadow-on-hover">
           <div class="col-lg-3 col-md-6 text-center">
-            <div class="service-box mt-5 mx-auto">
-              <i class="fas fa-4x fa-newspaper text-white mb-3 sr-icon-1"></i>
-              <a class="js-scroll-trigger mb-3 text-white" href="{% url 'publications:index' %}"><h3 class="mb-3 text-white">NEWSLETTER</a></h3>
-              <p class="text-faded mb-0">Take a look at the past and upcoming events, as well as testimonials and more</p>
-            </div>
+            <a class="d-inline-block h-100 w-100" style="color: transparent;" href="{% url 'publications:index' %}">
+                <div class="service-box mt-5 mb-3 mx-auto">
+                    <i class="fas fa-4x fa-newspaper text-white mb-3 sr-icon-1"></i>
+                    <h3 class="mb-3 text-white">NEWSLETTER</h3>
+                    <p class="text-faded mb-0">Take a look at the past and upcoming events, as well as testimonials and more</p>
+                </div>
+            </a>
           </div>
           <div class="col-lg-3 col-md-6 text-center">
-            <div class="service-box mt-5 mx-auto">
-              <i class="fas fa-4x fa-award text-white mb-3 sr-icon-2"></i>
-              <a class="js-scroll-trigger mb-3 text-white" href="{% url 'members:index' %}"><h3 class="mb-3 text-white">ALUMNI DIRECTORY</a></h3>
-              <p class="text-faded mb-0">Our alumni have distinguished themselves in various walks of life</p>
-            </div>
+            <a class="d-inline-block h-100 w-100" style="color: transparent;" href="{% url 'members:index' %}">    
+                <div class="service-box mt-5 mb-3 mx-auto">
+                    <i class="fas fa-4x fa-award text-white mb-3 sr-icon-2"></i>
+                    <h3 class="mb-3 text-white">ALUMNI DIRECTORY</h3>
+                    <p class="text-faded mb-0">Our alumni have distinguished themselves in various walks of life</p>
+                </div>
+            </a>
           </div>
           <div class="col-lg-3 col-md-6 text-center">
-            <div class="service-box mt-5 mx-auto">
-              <i class="fas fa-4x fa-users text-white mb-3 sr-icon-3"></i>
-              <a class="js-scroll-trigger mb-3 text-white" href="{% url 'members:sacbody' %}"><h3 class="mb-3 text-white">STUDENT ALUMNI BODY</a></h3>
-              <p class="text-faded mb-0">Take a glimpse at the People working behind the scenes</p>
-            </div>
+            <a class="d-inline-block h-100 w-100" style="color: transparent;" href="{% url 'members:sacbody' %}">    
+                <div class="service-box mt-5 mb-3 mx-auto">
+                    <i class="fas fa-4x fa-users text-white mb-3 sr-icon-3"></i>
+                    <h3 class="mb-3 text-white">STUDENT ALUMNI BODY</h3>
+                    <p class="text-faded mb-0">Take a glimpse at the People working behind the scenes</p>
+                </div>
+            </a>
           </div>
           <div class="col-lg-3 col-md-6 text-center">
-            <div class="service-box mt-5 mx-auto">
-              <i class="fas fa-4x fa-sign-in-alt  text-white mb-3 sr-icon-4"></i>
-              <a class="js-scroll-trigger mb-3 text-white" href="{% url 'login' %}"><h3 class="mb-3 text-white">CONNECT</a></h3>
-              <p class="text-faded mb-0">Signin or Signup into our portal</p>
-            </div>
+            <a class="d-inline-block h-100 w-100" style="color: transparent;" href="{% url 'login' %}">    
+                <div class="service-box mt-5 mb-3 mx-auto">
+                    <i class="fas fa-4x fa-sign-in-alt  text-white mb-3 sr-icon-4"></i>
+                    <h3 class="mb-3 text-white">CONNECT</h3>
+                    <p class="text-faded mb-0">Signin or Signup into our portal</p>
+                </div>
+            </a>
           </div>
         </div>
       </div>
@@ -72,24 +80,22 @@
         ███████╗ ╚████╔╝ ███████╗██║ ╚████║   ██║   ███████║
         ╚══════╝  ╚═══╝  ╚══════╝╚═╝  ╚═══╝   ╚═╝   ╚══════╝
 -->
-    <section class="bg-white" id="events" style="padding:3rem">
+    <section class="bg-white" id="events" style="padding:2rem">
       <div class="container">
-        <div class="row w-100">
-          <div class="col-sm-6 text-left">
-            <h2 class="font-open-sans">Events</h2>
-          </div>
-          <div class="col-sm-6 text-right">
-            <a class="btn btn-outline-primary btn-sm js-scroll-trigger" href="{% url 'events_news:events' %}">VIEW ALL</a>
+        <div class="row">
+          <div class="col-12 text-left">
+            <h2 class="font-open-sans" style="float:left">Events</h2>
+            <a class="btn btn-primary btn-sm js-scroll-trigger mx-auto" style="float:right" href="{% url 'events_news:events' %}">VIEW ALL</a>
           </div>
         </div>
         <div class="row">
           {% for item in events %}
-          <div class="col-lg-4 p-2 ">
-            <div class="card w-100 shadow-lg border border-primary border-rounded" style="max-width: 24rem; max-height: 40rem;">
+          <div class="col-lg-4 col-md-6 p-2">
+            <div class="card w-100 shadow-lg border border-primary border-rounded mx-auto" style="max-width: 24rem; max-height: 40rem;">
               {% if item.picture %}
-              <img src="{{ item.picture.url }}" class="card-img-top" alt="" height="300px" width="300px">
+              <img src="{{ item.picture.url }}" class="card-img-top event-card-img" alt="" width="300px" onload="event_cards()">
               {% else %}
-              <img src="{% static "AluminiConnect/img/event.png" %}" class="card-img-top" alt="" height="300px" width="300px">
+              <img src="{% static "AluminiConnect/img/event.png" %}" class="card-img-top event-card-img" alt="" width="300px">
               {% endif %}
               <div class="card-body">
                   {% if not item.is_completed %}
@@ -147,25 +153,24 @@
           ╚═╝  ╚═══╝╚══════╝ ╚══╝╚══╝ ╚══════╝
     -->
 
-    <section class="bg-white" id="events" style="padding:3rem">
+    <section class="bg-white" id="events" style="padding:2rem">
       <div class="container">
-        <div class="row w-100">
-          <div class="col-sm-6 text-left">
-            <h2 class="font-open-sans">News</h2>
-          </div>
-          <div class="col-sm-6 text-right">
-            <a class="btn btn-outline-primary btn-sm js-scroll-trigger" href="{% url 'events_news:events' %}">VIEW ALL</a>
+
+        <div class="row">
+          <div class="col-12 text-left">
+            <h2 class="font-open-sans" style="float:left">News</h2>
+            <a class="btn btn-primary btn-sm js-scroll-trigger mx-auto" style="float:right" href="{% url 'news:index' %}">VIEW ALL</a>
           </div>
         </div>
         <div class="row">
           {% for item in news %}
-          <div class="col-lg-4 p-2 ">
-            <div class="card w-100 shadow-lg border border-primary border-rounded" style="max-width: 24rem; max-height: 40rem;">
+          <div class="col-lg-4 col-md-6 p-2 ">
+            <div class="card w-100 shadow-lg border border-primary border-rounded mx-auto" style="max-width: 24rem; max-height: 40rem;">
                 <span class="">
               {% if item.picture %}
-              <img src="{{ item.picture.url }}" class="card-img-top" alt="" height="300px" width="300px">
+              <img src="{{ item.picture.url }}" class="card-img-top news-card-img" alt=""  width="300px">
               {% else %}
-              <img src="{% static "AluminiConnect/img/event.png" %}" class="card-img-top" alt="" height="300px" width="300px">
+              <img src="{% static "AluminiConnect/img/event.png" %}" class="card-img-top news-card-img" alt=""  width="300px">
               {% endif %}
               <div class="card-body">
                   
@@ -274,57 +279,40 @@
           ╚██████╔╝██║  ██║███████╗███████╗███████╗██║  ██║   ██║   
           ╚═════╝ ╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝   ╚═╝   
   -->
-    <section class="bg-primary"  style="padding: 3rem 0;" id="gallery">
+    <section class="bg-primary" style="padding: 2rem ;" id="gallery">
       <div class="container">
-        <div class="row p-4">
-          <div class="col-lg-6 mx-auto text-left">
-            <h2 class="text-white font-open-sans">GALLERY</h2>
-          </div>
-          <div class="col-lg-6 mx-auto text-right">
-            <a class="btn btn-dark btn-xl js-scroll-trigger" href="#">VIEW ALL</a>
+        <div class="row">
+          <div class="col-12 text-left">
+            <h2 class=" text-white font-open-sans" style="float:left">Gallery</h2>
+            <a class="btn btn-dark btn-sm js-scroll-trigger mx-auto" style="float:right" href="{% url 'gallery:gallery' %}">VIEW ALL</a>
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-3 p-2">
-            <a href="" >
-              <div class="card w-100 shadow-sm p-2" style="max-width: 24rem;">
-                <img src="{% static "AluminiConnect/img/coll.jpg" %}" class="card-img-top" alt="">
-                <div class="card-body font-open-sans">
-                  <h5 class="card-title font-weight-normal">Name of some event</h5>
+          {% for album in albums %}
+          <div class="col-lg-4 col-md-6 p-2 ">
+            <div class="card w-100 shadow-lg border border-light border-rounded mx-auto"
+              style="max-width: 24rem; max-height: 40rem;">
+              <span class="">
+                <img src="{{ album.thumb.url }}" alt="{{ album.title }}" class="card-img-top gallery-card-img" width="300px" />
+                <div class="card-body">
+    
+                  <h5 class="card-title font-weight-bold">{{album.title|striptags}}</h5>
+    
+                  <p class="m-2 font-italic  font-open-sans mb-3">
+                    <i class="fas fa-calendar-alt font-weight-lighter "></i>
+                    {{album.created|date:"l, d M, o"}}
+                    <br>
+                    <i class="far fa-images"></i>
+                    {{ album.images_count }} Photo{{ album.images_count|pluralize }}
+                    <br>
+                  </p>
+                  <a href="{% url 'gallery:album' album.slug %}" class="btn btn-primary">VIEW</a>
                 </div>
-              </div>
-            </a>
+    
+            </div>
+            </span>
           </div>
-          <div class="col-lg-3 p-2">
-            <a href="" >
-              <div class="card w-100 shadow-sm p-2" style="max-width: 24rem;">
-                <img src="{% static "AluminiConnect/img/coll.jpg" %}" class="card-img-top" alt="">
-                <div class="card-body font-open-sans">
-                  <h5 class="card-title font-weight-normal">Name of some event</h5>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-lg-3 p-2">
-            <a href="" >
-              <div class="card w-100 shadow-sm p-2" style="max-width: 24rem;">
-                <img src="{% static "AluminiConnect/img/coll.jpg" %}" class="card-img-top" alt="">
-                <div class="card-body font-open-sans">
-                  <h5 class="card-title font-weight-normal">Name of some event</h5>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-lg-3 p-2">
-            <a href="" >
-              <div class="card w-100 shadow-sm p-2" style="max-width: 24rem;">
-                <img src="{% static "AluminiConnect/img/coll.jpg" %}" class="card-img-top" alt="">
-                <div class="card-body font-open-sans">
-                  <h5 class="card-title font-weight-normal">Name of some event</h5>
-                </div>
-              </div>
-            </a>
-          </div>
+          {% endfor %}
         </div>
       </div>
     </section>
@@ -457,7 +445,6 @@
       </div>
     </section>
   -->
-
   {% include 'globals/footer.html' %}
 {% endblock %}
 </html> -->

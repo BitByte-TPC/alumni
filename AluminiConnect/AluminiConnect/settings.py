@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django_cleanup',
     'anymail',
     'easy_thumbnails',
+    'imagekit',
     'crispy_forms',
     'applications.alumniprofile',
     'applications.awards',
@@ -50,6 +51,7 @@ INSTALLED_APPS = [
     'applications.news',
     'applications.geolocation',
     'applications.publications',
+    'applications.gallery',
     'ckeditor',
     'ckeditor_uploader',
 ]
@@ -184,13 +186,25 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Asia/Kolkata'
 PASSWORD_RESET_TIMEOUT_DAYS = 1
-ANYMAIL = {
-    # (exact settings here depend on your ESP...)
-    "MAILJET_API_KEY": os.environ["MJ_APIKEY_PUBLIC"],
-    "MAILJET_SECRET_KEY": os.environ["MJ_APIKEY_PRIVATE"],  # your Mailgun domain, if needed
+# ANYMAIL = {
+#     # (exact settings here depend on your ESP...)
+#     "MAILJET_API_KEY": os.environ["MJ_APIKEY_PUBLIC"],
+#     "MAILJET_SECRET_KEY": os.environ["MJ_APIKEY_PRIVATE"],  # your Mailgun domain, if needed
     
+# }
+# MAILJET_API_URL = "https://api.mailjet.com/v3.1"
+# EMAIL_BACKEND = "anymail.backends.mailjet.EmailBackend"  # or sendgrid.EmailBackend, or...
+# DEFAULT_FROM_EMAIL = "Student Alumni Cell IIITDMJ <alumni@iiitdmj.ac.in>"  # if you don't already have this in settings
+# SERVER_EMAIL =  os.environ["MJ_SENDER_EMAIL"] # ditto (default from-email for Django errors)
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder'
+)
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
+    }
 }
-MAILJET_API_URL = "https://api.mailjet.com/v3.1"
-EMAIL_BACKEND = "anymail.backends.mailjet.EmailBackend"  # or sendgrid.EmailBackend, or...
-DEFAULT_FROM_EMAIL = "Student Alumni Cell IIITDMJ <2016049@iiitdmj.ac.in>"  # if you don't already have this in settings
-SERVER_EMAIL =  os.environ["MJ_SENDER_EMAIL"] # ditto (default from-email for Django errors)

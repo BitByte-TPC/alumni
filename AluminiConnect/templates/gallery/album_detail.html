@@ -1,0 +1,90 @@
+{% extends 'globals/base.html' %}
+{% load static %}
+
+{% block title %}
+Gallery
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'external/photoswipe/photoswipe.css' %}">
+<link rel="stylesheet" href="{% static 'external/photoswipe/default-skin/default-skin.css' %}">
+{% endblock %}
+
+{% block body %}
+{% include 'globals/navbar.html' %}
+<div class="p-0 m-0 masthead-bg w-100 h-100 parallax" style="min-height:300px !important; height:300px !important; background-position-y: 300px;"></div>
+
+<header class="masthead text-center text-white d-flex" style="height:0px; min-height:300px;">
+  <div class="container my-auto" style="margin-bottom:50px !important;">
+    <div class="row">
+      <div class="col-lg-8 mx-auto align-middle">
+        <h1 class="text-uppercase mt-4">
+          <strong>GALLERY</strong>
+        </h1>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="services" class="bg-primary p-1">
+</section>
+
+<section class="bg-white" id="about" style="padding: 5rem 0;">
+
+
+  {% if album.is_visible %}
+  <div class="container font-open-sans">
+    <h1>{{ album.title|safe }}</h1>
+    <div>
+      <span class="icon-detail"><i class="far fa-calendar-check"></i>
+        <time datetime="{{ album.created|date:'Y-m-d' }}">{{ album.created|date:"d M, Y" }}</time>
+      </span>
+      <span class="icon-detail"><i class="far fa-images"></i>
+        {{ images_count }} Photo{{ images_count|pluralize }}
+      </span>
+    </div>
+    <p>{{ album.description|safe }}</p>
+
+
+    <div class="row">
+      {% for item in images %}
+      <a class="col-md-4 mb-3" href="javascript:pswpInit({{ forloop.counter0 }});">
+        <img src="{{ item.thumb.url }}" style="width: 100%;" class="dpg-album-card-image" alt="{{ item.alt }}" />
+      </a>
+      {% endfor %}
+    </div>
+
+
+    <div>
+      {% if album.album_link %}
+      <div><b>Album Link : </b>{{ album.album_link|safe }}</div>
+      {% endif %}
+      <div><b>Tags</b> : {{ album.tags|safe }}</div>
+    </div>
+  </div>
+
+  {% include 'globals/init_pwsp.html' %}
+  {% else %}
+  <h3>This album is temporarily unavailable.</h3>
+  {% endif %}
+
+</section>
+{% include 'globals/footer.html' %}
+{% endblock %}
+
+{% block javascript %}
+<script>
+  // build the json album images collection 
+  window.djangoAlbumImages = [
+    {% for item in images %}
+    {
+      src: '{{ item.image.url }}',
+      w: {{ item.width }},
+      h: {{ item.height }}
+    },
+  {% endfor %}
+  ];
+</script>
+<script src="{% static 'external/photoswipe/photoswipe.min.js' %}"></script>
+<script src="{% static 'external/photoswipe/photoswipe-ui-default.min.js' %}"></script>
+{% endblock %}

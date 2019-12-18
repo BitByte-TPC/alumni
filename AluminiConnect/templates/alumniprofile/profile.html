@@ -10,12 +10,10 @@
   <!-- <body id="page-top" class="font-open-sans" style="background-color: #eaedf5"> -->
     {% include 'globals/navbar.html' %}
 
-    <div class=" p-0 m-0 masthead-bg w-100 parallax shadow-sm" style="min-height:250px !important;height:270px !important;background-position-y: -400px"></div>
-    <div style="height:150px;min-height: 150px;">
+    <div class="p-0 m-0 masthead-bg w-100 parallax shadow-sm" style="min-height:250px !important; height:270px !important; background-position-y: 270px;"></div>
+    <div style="height:150px; min-height:150px;"></div>
 
-    </div>
-
-    <section class="bg-transparent" id="events" style="padding-top:3rem">
+    <section class="bg-transparent" id="events" style="padding:3rem 0 5rem;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 text-left p-2 mx-auto">
@@ -32,7 +30,7 @@
                                          width:200px; max-width:200px;max-height:200px;"
                                     />
                                     {% else %}
-                                    <img src="{% static "AluminiConnect/img/user.png" %}" 
+                                    <img src="{% static 'AluminiConnect/img/user.png' %}" 
                                         alt="DP" class="img-fluid rounded-circle m-2"
                                         style="height:200px;width:200px; max-width:200px;max-height:200px;"
                                     />
@@ -187,6 +185,7 @@
                     </div>
 
                     <!--   Publications  -->
+                    {% comment %}
                     <div class="card m-2 shadow-sm">
                             <div class="card-header font-open-sans">
                                 Publications
@@ -202,6 +201,7 @@
                                 <small class="font-open-sans">{{current_position}}</small>
                             </div>
                         </div>
+                    {% endcomment %}
 
                     <!--   BLOGS  -->
                     <div class="card m-2 shadow-sm">

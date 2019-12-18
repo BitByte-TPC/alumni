@@ -138,9 +138,9 @@ section .section-title {
 {% block body %}
   <!-- <body id="page-top" class="font-open-sans" style="background-color: #eaedf5"> -->
     {% include 'globals/navbar.html' %}
-    <div class=" p-0 m-0 masthead-bg w-100 h-100 parallax" style="background-position-y: -25rem"></div>
+    <div class="p-0 m-0 masthead-bg w-100 h-100 parallax" style="min-height:300px !important; height:300px !important; background-position-y: 300px;"></div>
 
-    <header class="masthead text-center text-white d-flex" style="height:0px;min-height:300px">
+    <header class="masthead text-center text-white d-flex" style="height:0px; min-height:300px;">
       <div class="container my-auto" style="margin-bottom:50px !important;">
         <div class="row">
           <div class="col-lg-8 mx-auto align-middle">
@@ -210,11 +210,11 @@ section .section-title {
             <h1 class="section-title h1 text-center">Patrons</h1><br>
             <div class="row">
                 <!-- Team member -->
-                <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="col-xs-12 col-md-6">
                         <div class="frontside">
                             <div class="card shadow-lg">
                                 <div class="card-body text-center">
-                                    <p><img class=" img-fluid" src="{% static "AluminiConnect/img/people/Director.jpg" %}" alt="card image"
+                                    <p><img class=" img-fluid" src="{% static 'AluminiConnect/img/people/Director.jpg' %}" alt="card image"
                                         style="object-fit:cover; object-position:50% 0%;"></p>
                                     <h4 class="card-title">Prof. Sanjeev Jain</h4>
                                     <p class="card-text">Director</p>
@@ -225,11 +225,11 @@ section .section-title {
                     
                     <!-- ./Team member -->
                 <!-- Team member -->
-                <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="col-xs-12 col-md-6">
                     <div class="frontside">
                         <div class="card shadow-lg">
                             <div class="card-body text-center">
-                                <p><img class=" img-fluid" src="{% static "AluminiConnect/img/people/PKJainSir.JPG" %}" alt="card image"
+                                <p><img class=" img-fluid" src="{% static 'AluminiConnect/img/people/PKJainSir.JPG' %}" alt="card image"
                                     style="object-fit:cover; object-position:50% 0%;"></p>
                                 <h4 class="card-title">Dr. Prashant Kumar Jain</h4>
                                 <p class="card-text">Dean Students</p>
@@ -240,11 +240,11 @@ section .section-title {
                 
                 <!-- ./Team member -->
                 <!-- Team member -->
-                <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="col-xs-12 col-md-6">
                     <div class="frontside">
                         <div class="card shadow-lg">
                             <div class="card-body text-center">
-                                <p><img class=" img-fluid" src="{% static "AluminiConnect/img/people/TulikaRuthNelson.jpg" %}" alt="card image"
+                                <p><img class=" img-fluid" src="{% static 'AluminiConnect/img/people/TulikaRuthNelson.jpg' %}" alt="card image"
                                     style="object-fit:cover; object-position:50% 0%;"></p>
                                 <h4 class="card-title">Ms. Tulika Ruth Nelson</h4>
                                 <p class="card-text">Placement Officer<br>Office In-Charge Alumni Affairs</p>
@@ -255,11 +255,11 @@ section .section-title {
                 
                 <!-- ./Team member -->
                 <!-- Team member -->
-                <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="col-xs-12 col-md-6">
                     <div class="frontside">
                         <div class="card shadow-lg">
                             <div class="card-body text-center">
-                                <p><img class=" img-fluid" src="{% static "AluminiConnect/img/user.png" %}" alt="card image"
+                                <p><img class=" img-fluid" src="{% static 'AluminiConnect/img/user.png' %}" alt="card image"
                                     style="object-fit:cover; object-position:50% 0%;"></p>
                                 <h4 class="card-title">Mr. Anil Kumar</h4>
                                 <p class="card-text">Junior Superintendent<br>Office of Alumni Affairs</p>
@@ -272,11 +272,11 @@ section .section-title {
             <h1 class="section-title h1 text-center">Web Team</h1><br>
             <div class="row">
                 <!-- Team member -->
-                <div class="col-xs-12 col-sm-6 col-md-3">
+                <div class="col-xs-12 col-md-6 col-lg-4 col-xl-3">
                     <div class="frontside">
                         <div class="card shadow-lg">
                             <div class="card-body text-center">
-                                <p><img class=" img-fluid" src="{% static "AluminiConnect/img/people/ArpanTarkas.jpeg" %}" alt="card image"
+                                <p><img class=" img-fluid" src="{% static 'AluminiConnect/img/people/ArpanTarkas.jpeg' %}" alt="card image"
                                     style="object-fit:cover; object-position:50% 0%;"></p>
                                 <h4 class="card-title">Arpan Tarkas</h4>
                                 <p class="card-text"><i class="fas fa-user-graduate"></i> B.Tech (ME)<br><i class="far fa-calendar-plus"></i> Batch of 2020</p>
@@ -295,11 +295,11 @@ section .section-title {
                 
                 <!-- ./Team member -->
                 <!-- Team member -->
-                <div class="col-xs-12 col-sm-6 col-md-3">
+                <div class="col-xs-12 col-md-6 col-lg-4 col-xl-3">
                     <div class="frontside">
                         <div class="card shadow-lg">
                             <div class="card-body text-center">
-                                <p><img class=" img-fluid" src="{% static "AluminiConnect/img/people/MJ.jpg" %}" alt="card image"
+                                <p><img class=" img-fluid" src="{% static 'AluminiConnect/img/people/MJ.jpg' %}" alt="card image"
                                         style="object-fit:cover; object-position:50% 0%;"></p>
                                 <h4 class="card-title">Mudit Joshi</h4>
                                 <p class="card-text"><i class="fas fa-user-graduate"></i> B.Tech (CSE)<br><i class="far fa-calendar-plus"></i> Batch of 2020</p>
@@ -318,11 +318,11 @@ section .section-title {
 
                 <!-- ./Team member -->
                 <!-- Team member -->
-                <div class="col-xs-12 col-sm-6 col-md-3">
+                <div class="col-xs-12 col-md-6 col-lg-4 col-xl-3">
                     <div class="frontside">
                         <div class="card shadow-lg">
                             <div class="card-body text-center">
-                                <p><img class=" img-fluid" src="{% static "AluminiConnect/img/people/shivanshdhiman.jpg" %}" alt="card image"
+                                <p><img class=" img-fluid" src="{% static 'AluminiConnect/img/people/shivanshdhiman.jpg' %}" alt="card image"
                                     style="object-fit:cover; object-position:50% 0%;"></p>
                                 <h4 class="card-title">Shivansh Dhiman</h4>
                                 <p class="card-text"><i class="fas fa-user-graduate"></i> B.Tech (CSE)<br><i class="far fa-calendar-plus"></i> Batch of 2021</p>
@@ -341,11 +341,11 @@ section .section-title {
 
                 <!-- ./Team member -->
                 <!-- Team member -->
-                <div class="col-xs-12 col-sm-6 col-md-3">
+                <div class="col-xs-12 col-md-6 col-lg-4 col-xl-3">
                     <div class="frontside">
                         <div class="card shadow-lg">
                             <div class="card-body text-center">
-                                <p><img class=" img-fluid" src="{% static "AluminiConnect/img/people/meru.jpeg" %}" alt="card image"
+                                <p><img class=" img-fluid" src="{% static 'AluminiConnect/img/people/meru.jpeg' %}" alt="card image"
                                         style="object-fit:cover; object-position:50% 0%;"></p>
                                 <h4 class="card-title">Meru Patel</h4>
                                 <p class="card-text"><i class="fas fa-user-graduate"></i> B.Tech (CSE)<br><i class="far fa-calendar-plus"></i> Batch of 2021</p>
@@ -362,6 +362,28 @@ section .section-title {
                     </div>   
                 </div>
                 
+                <!-- ./Team member -->
+                <!-- Team member -->
+                <div class="col-xs-12 col-md-6 col-lg-4 col-xl-3">
+                    <div class="frontside">
+                        <div class="card shadow-lg">
+                            <div class="card-body text-center">
+                                <p><img class=" img-fluid" src="{% static 'AluminiConnect/img/people/priyansh.jpg' %}" alt="card image"
+                                        style="object-fit:cover; object-position:50% 0%;"></p>
+                                <h4 class="card-title">Priyansh Garg</h4>
+                                <p class="card-text"><i class="fas fa-user-graduate"></i> B.Tech (CSE)<br><i class="far fa-calendar-plus"></i> Batch of 2022</p>
+                                <p class="card-text text-center">
+                                    <h4>
+                                        <a href="https://www.facebook.com/priyansh.garg.3/" target="_blank"><i class="fab fa-facebook-square"></i></a> 
+                                        <a href="https://www.linkedin.com/in/priyansh3133/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                                        <a href="mailto:2018196@iiitdmj.ac.in" target="_top"><i class="fas fa-envelope"></i></a>
+                                        <!-- <a href="#" target="_blank"><i class="fas fa-link"></i></a> -->
+                                    </h4>
+                                </p>
+                            </div>
+                        </div>
+                    </div>   
+                </div>
                 
                 <!-- ./Team member -->
         

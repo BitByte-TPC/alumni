@@ -7,14 +7,14 @@ AlumniConnect - Login
 
 {% block body %}
 {% include 'globals/navbar.html' %}
-<div class=" p-0 m-0 masthead-bg w-100 h-100 parallax" style="background-position-y: -25rem"></div>
+<div class="p-0 m-0 masthead-bg w-100 h-100 parallax"  style="min-height:300px !important; height:300px !important; background-position-y: 300px;"></div>
 
-<header class="masthead text-center text-white d-flex" style="height:0px;min-height:300px">
+<header class="masthead text-center text-white d-flex" style="height:0px; min-height:300px;">
   <div class="container my-auto" style="margin-bottom:50px !important;">
     <div class="row">
       <div class="col-lg-2 mx-auto align-middle">
         <h2 class="text-uppercase">
-          <a href="{% url 'home' %}"><img src={% static "AluminiConnect/img/logo/alumb1.png" %} style="width: 4em; height: auto;"></a>
+          <a href="{% url 'home' %}"><img src="{% static 'AluminiConnect/img/logo/alumb1.png' %}" style="width: 4em; height: auto;"></a>
         </h2>
       </div>
       <div class="col-lg-8 mx-auto align-middle">
@@ -30,42 +30,47 @@ AlumniConnect - Login
 </section>
 
 <div class="bg-white">
-  <div class="container text-left p-2 mx-auto" , style="width: 40rem;">
-      <div class="alert alert-primary text-center" role="alert" >
-          Please Sign In to Continue! Don't have an Account? <h5><a href="{% url "new_register" %}"><span class="badge badge-pill badge-primary">Register! &nbsp;<i class="fas fa-external-link-alt"></span></i></a></h5>
+    <div class="login-container container text-left p-2 mx-auto">
+        <div class="alert alert-primary m-4 text-center" role="alert" >
+            Please Sign In to Continue! Don't have an Account?
+            <h5 class="pt-2 m-0">
+                <a class="d-inline-block" href="{% url 'new_register' %}">
+                    <span class="badge badge-pill badge-primary p-2">Register! &nbsp;<i class="fas fa-external-link-alt"></i></span>
+                </a>
+            </h5>
         </div>
-    <div class="card shadow m-4 bg-light">
-      <div class="col-lg-12 mx-auto mx-auto">
-        <div class="row text-center">
-          <div class="col-lg-12 text-primary" , style="padding-top: 3rem;">
-            <h2>SIGN IN</h2>
-            <hr class="mb-4">
-          </div>
+        <div class="card shadow m-4 bg-light">
+            <div class="col-lg-12 mx-auto">
+                <div class="row text-center">
+                    <div class="col-lg-12 text-primary pt-4 mt-4">
+                        <h2>SIGN IN</h2>
+                        <hr class="mb-4">
+                    </div>
+                </div>
+                <div class="row text-center mb-4 py-4 justify-content-center">
+                    <div class="col-sm-11 col-md-10 col-lg-9">
+                        {% if form.errors %}
+                        <p class="alert alert-danger">Your username and password is not correct. Please try again.</p>
+                        {% endif %}
+                        <form method="POST" class="font-open-sans" novalidate>
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label class="d-block text-left" for="signin-uname">Roll No.</label>
+                            <input id="signin-uname" type="text" name="username" class="form-control" placeholder="Roll No."
+                            aria-label="Username" aria-describedby="button-addon2" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="d-block text-left" for="signin-password">Password</label>
+                            <input id="signin-password" type="password" name="password" class="form-control" placeholder="Password"
+                            aria-label="Password" aria-describedby="button-addon2" required>
+                        </div>
+                        <p class="alert font-open-sans m-3 p-2"><a href="{% url 'password_reset' %}">Forgot Password? </a></p>
+                        <button class="btn btn-primary px-5 py-2" type="submit" value="login" name="submit">Sign In</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="row text-left m-4 p-4">
-          <div class="col-lg-12">
-            {% if form.errors %}
-            <p class="alert alert-danger">Your username and password is not correct. Please try again.</p>
-            {% endif %}
-            <form method="POST" class="font-open-sans" novalidate>
-              {% csrf_token %}
-              <div class="form-group">
-                <label for="signin-uname">Roll No.</label>
-                <input id="signin-uname" type="text" name="username" class="form-control" placeholder="Roll No."
-                  aria-label="Username" aria-describedby="button-addon2" required>
-              </div>
-              <div class="form-group">
-                <label for="signin-password">Password</label>
-                <input id="signin-password" type="password" name="password" class="form-control" placeholder="Password"
-                  aria-label="Password" aria-describedby="button-addon2" required>
-              </div>
-              <button class="btn btn-primary" type="submit" value="login" name="submit">Sign In</button>
-            </form>
-            <p class="alert font-open-sans"><a href={% url 'password_reset' %}>Forgot Password </a></p>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </div>
 {% include 'globals/footer.html' %}

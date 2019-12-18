@@ -7,21 +7,34 @@
 
 {% block body %}
     {% include 'globals/navbar.html' %}
-    <div class=" p-0 m-0 masthead-bg w-100 parallax shadow-sm" style="min-height:250px !important;height:270px !important;background-position-y: -400px"></div>
-    <div style="height:150px;min-height: 150px;">
+    <div class="p-0 m-0 masthead-bg w-100 parallax shadow-sm" style="min-height:300px !important; height:300px !important; background-position-y: 300px;"></div>
+    <!-- <div style="height:150px; min-height: 150px;"></div> -->
 
-    </div>
+    <header class="masthead text-center text-white d-flex" style="height:0px; min-height:300px;">
+        <div class="container my-auto" style="margin-bottom:50px !important;">
+            <div class="row">
+                <div class="col-lg-8 mx-auto align-middle">
+                <h1 class="text-uppercase mt-4">
+                    <strong>EVENTS</strong>
+                </h1>
+                </div>
+            </div>
+        </div>
+    </header>
+      
+    <section id="services" class="bg-primary p-1">
+    </section>
     
-    <div class="container text-left p-2 mx-auto", style="width: 70rem;">
+    <div class="events-container container text-left p-2 mx-auto my-4">
         {% for item in events %}
-            <div class="card shadow bg-light m-4 border border-primary rounded ">
+            <div class="card shadow bg-light m-4">
                 <span class="">
                 <div class="row no-gutters p-3">
-                    <div class="col-auto mx-auto p-1">
+                    <div class="col-auto mx-auto p-1 pb-3 pb-lg-1">
                         {% if item.picture %}
                         <img src="{{ item.picture.url }}" alt="" height= 200px width= 200px>
                         {% else %}
-                        <img src="{% static "AluminiConnect/img/event.png" %}" alt="" height= 200px width= 200px>
+                        <img src="{% static 'AluminiConnect/img/event.png' %}" alt="" height= 200px width= 200px>
                         {% endif %}
                     </div>
                     
@@ -52,8 +65,11 @@
                                     {{ item.by }}
                                 </p>  
                             </p>
-                            <a href="{% url 'events_news:event' id=item.event_id %}" class="btn btn-primary">View</a>
+                            <a href="{% url 'events_news:event' id=item.event_id %}" class="btn btn-primary btn-sm card-link px-4 py-2">View</a>
                             <br>
+                        </div>
+                        <div class="card-footer text-center m-n3">
+                            <a href="{% url 'events_news:event' id=item.event_id %}" class="btn btn-primary btn-sm card-link px-4 py-2">View</a>
                         </div>
                         <div class="w-100"></div>
                                 

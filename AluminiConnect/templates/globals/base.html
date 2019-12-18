@@ -15,6 +15,7 @@
       {% endblock %}
     </title>
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="{% static "AluminiConnect/js/index.js" %}"></script>
 
     <!-- Bootstrap core CSS -->
     <link href="{% static "AluminiConnect/css/bootstrap.min.css" %}" rel="stylesheet">
@@ -33,7 +34,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-creative/5.0.2/css/creative.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="{% static "AluminiConnect/css/creative.css" %}" rel="stylesheet">
+    <link href="{% static 'AluminiConnect/css/creative.css' %}" rel="stylesheet">
+    <link href="{% static 'AluminiConnect/css/custom.css' %}" rel="stylesheet">
     
     {% block css %}
     {% endblock %}
@@ -82,7 +84,7 @@ $(function(){
           });
   });
 </script>
-  
+<script src="{% static 'app.js' %}"></script>
 {% block javascript %}
 {% endblock %}
 

@@ -18,12 +18,13 @@
 		position: absolute;
 	}
 </style>
+<link rel="stylesheet" href="{% static 'external/photoswipe/photoswipe.css' %}"> 
+<link rel="stylesheet" href="{% static 'external/photoswipe/default-skin/default-skin.css' %}"> 
 {% endblock %}
 {% block body %}
 {% include 'globals/navbar.html' %}
-<div class=" p-0 m-0 masthead-bg w-100 parallax shadow-sm"
-	style="min-height:250px !important;height:270px !important;background-position-y: -400px"></div>
-<div style="height:150px;min-height: 150px;">
+<div class=" p-0 m-0 masthead-bg w-100 parallax shadow-sm" style="min-height:250px !important; height:270px !important; background-position-y: 270px"></div>
+<div style="height:150px; min-height:150px;">
 
 </div>
 <section class="bg-transparent" id="events" style="padding-top:3rem">
@@ -35,18 +36,12 @@
 				<div class="card m-2 shadow-sm">
 					<div class="card-body p-1">
 						{% if event.picture %}
-						<img src="{{ event.picture.url }}"
-                                alt="DP" class="img-fluid h-100 w-100"
-                                style=""
-                            />
-                            {% else %}
-						<img src="{% static "AluminiConnect/img/event.png" %}"
-                                alt="DP" class="img-fluid h-100 w-100"
-                                style=""
-                            />
-                            {% endif %}
-                        </div>
+						<img src="{{ event.picture.url }}" alt="DP" class="img-fluid h-100 w-100" style="max-height: 350px;" />
+						{% else %}
+						<img src="{% static 'AluminiConnect/img/event.png' %}" alt="DP" class="img-fluid h-100 w-100" style="max-height: 350px;" />
+						{% endif %}
 					</div>
+				</div>
 
 					<!--  START END DATE  -->
 					<div class="card m-2 shadow-sm">
@@ -70,8 +65,19 @@
 					<div class="card m-2 shadow-sm">
 						<div class="card-header">
 							<i class="fas fa-users pr-2"></i>
-							Attendees {{count}}
+							Attendees 
+							<span class="badge badge-light border rounded" style="background: #fff;font-size:0.9rem"><b>{{count}}</b></span>
+							<span class="sr-only">Number of attendees</span>
+
+							{% if count > 0 %}
+								<span style="float: right;">
+									<button type="button" data-toggle="modal" data-target="#attendees-modal" class="btn btn-primary btn-sm">
+										View All
+									</button>
+								</span>
+							{% endif %}
 						</div>
+						{% if count > 0 %}
 						<div class="card-body">
 							<p class="m-2 font-weight-normal mb-3">
 
@@ -85,7 +91,7 @@
                         title="{{a.user_id__profile__name}}"
                     />
                     {% else %}
-                    <img src="{% static "AluminiConnect/img/user.png" %}" 
+                    <img src="{% static 'AluminiConnect/img/user.png' %}" 
                         alt="DP" class="img-fluid rounded-circle m-1"
                         style="height:30px;width:30px max-width:30px;max-height:30px;"
                         title="{{a.user_id__profile__name}}"
@@ -93,12 +99,8 @@
                     {% endif %}
 								{% endfor %}
 								{% if count_difference > 0 %}
-									 +{{ count_difference }} More
+									<a href="#attendees-modal" class="d-inline-block pt-2" data-toggle="modal"> +{{ count_difference }} More</a>
 								{% endif %}
-                <br><br>
-								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#attendees-modal">
-                            View All
-						</button>
 
 								<!-- attendees - list -->
 								<div class="modal fade" id="attendees-modal" tabindex="-1" role="dialog"
@@ -127,7 +129,7 @@
                                         width:30px; max-width:30px;max-height:30px;"
                                     />
                                   {% else %}
-                                  <img src="{% static "AluminiConnect/img/user.png" %}" 
+                                  <img src="{% static 'AluminiConnect/img/user.png' %}" 
                                       alt="DP" class="img-fluid rounded-circle m-0"
                                       style="height:30px;width:30px max-width:30px;max-height:30px;"
                                   />
@@ -142,6 +144,7 @@
 								</div>
 							</p>
 						</div>
+						{% endif %}
 					</div>
 
 					<!--   ADDRESS  -->
@@ -176,28 +179,36 @@
 							<h1 class="mb-3">{{ event.title|safe }}</h1>
 							<p class="font-weight-light m-0">
 
-								<i class="fas fa-table"></i>
-								{{ event.start_date|date:"d M, o" }}
-								&nbsp;
-								<i class="fas fa-map-marker-alt"></i>&nbsp;
-								{{ event.location}}
-								&nbsp;
-								<i class="fas fa-user"></i>&nbsp;
-								{{ event.by }}
-								<br><br>
-                               {% if event.is_completed %}
-								<button type="button"  class="btn btn-secondary btn-sm" disabled>Event Ended</button>
-								{% elif not check %}
-								<form method="POST">
-									{% csrf_token %}
-									<button type="submit" name="submit" value="rsvp" class="btn btn-success btn-sm">Register</button>
-								</form>
-								{% else %}
-								<button type="button"  class="btn btn-success btn-sm" disabled>Registered</button>
-								{% endif %}
-
-
+								<span class="d-inline-block pb-2">
+									<i class="fas fa-table"></i>
+									{{ event.start_date|date:"d M, o" }}
+									&nbsp;
+								</span>
+								<span class="d-inline-block mb-2">
+									<i class="fas fa-map-marker-alt"></i>
+									{{ event.location}}
+									&nbsp;
+								</span>
+								<span class="d-inline-block mb-2">
+									<i class="fas fa-user"></i>
+									{{ event.by }}
+								</span>
 							</p>
+							{% if event.is_completed %}
+							<button type="button" class="btn btn-secondary btn-sm px-4 py-2 mt-2" disabled>Event Ended</button>
+							{% elif not check %}
+							<form method="POST">
+								{% csrf_token %}
+								<button type="submit" name="submit" value="rsvp" class="btn btn-success btn-sm px-4 py-2 mt-2">Register</button>
+							</form>
+							{% else %}
+							<form method="POST">
+								{% csrf_token %}
+								<button type="button"  class="btn btn-success btn-sm px-4 py-2 mt-2" disabled>Registered</button>
+								<button type="submit" name="submit" value="rsvp_del" class="btn btn-danger btn-sm px-4 py-2 mt-2">Remove Registration</button>
+							</form>
+							{% endif %}
+
 						</div>
 					</div>
 
@@ -219,9 +230,24 @@
 						<div class="card-header">
 							<i class="fas fa-images pr-2"></i>
 							Gallery
+							{% if album_present %}
+							<span style="float: right;">
+							<a href="{% url 'gallery:album' album.slug %}" class="btn btn-primary btn-sm">
+									View All
+							</a>
+							</span>
+							{% endif %}
 						</div>
 						<div class="card-body p-4">
-							{% include 'globals/thumbnails.html' %}
+							<div class="container">
+							<div class="row">
+								{% for item in images %}
+								<a class="col-12 col-sm mb-3 text-center d-inline-block" href="javascript:pswpInit({{ forloop.counter0 }});">
+									<img src="{{ item.thumb.url }}" class="responsive-img dpg-album-image" alt="{{ item.alt }}" />
+								</a>
+								{% endfor %}
+							</div>
+							</div>
 							<p></p>
 						</div>
 					</div>
@@ -229,105 +255,26 @@
 
 				</div>
 			</div>
-		</div>
+			
+		</div>	
 </section>
-
+{% include 'globals/init_pwsp.html' %}
 {% include 'globals/footer.html' %}
 
-
-<script type="text/javascript">
-	let modalId = $('#image-gallery');
-    
-    $(document)
-      .ready(function () {
-    
-        loadGallery(true, 'a.thumbnail');
-    
-        //This function disables buttons when needed
-        function disableButtons(counter_max, counter_current) {
-          $('#show-previous-image, #show-next-image')
-            .show();
-          if (counter_max === counter_current) {
-            $('#show-next-image')
-              .hide();
-          } else if (counter_current === 1) {
-            $('#show-previous-image')
-              .hide();
-          }
-        }
-    
-        /**
-         *
-         * @param setIDs        Sets IDs when DOM is loaded. If using a PHP counter, set to false.
-         * @param setClickAttr  Sets the attribute for the click handler.
-         */
-    
-        function loadGallery(setIDs, setClickAttr) {
-          let current_image,
-            selector,
-            counter = 0;
-    
-          $('#show-next-image, #show-previous-image')
-            .click(function () {
-              if ($(this)
-                .attr('id') === 'show-previous-image') {
-                current_image--;
-              } else {
-                current_image++;
-              }
-    
-              selector = $('[data-image-id="' + current_image + '"]');
-              updateGallery(selector);
-            });
-    
-          function updateGallery(selector) {
-            let $sel = selector;
-            current_image = $sel.data('image-id');
-            $('#image-gallery-title')
-              .text($sel.data('title'));
-            $('#image-gallery-image')
-              .attr('src', $sel.data('image'));
-            disableButtons(counter, $sel.data('image-id'));
-          }
-    
-          if (setIDs == true) {
-            $('[data-image-id]')
-              .each(function () {
-                counter++;
-                $(this)
-                  .attr('data-image-id', counter);
-              });
-          }
-          $(setClickAttr)
-            .on('click', function () {
-              updateGallery($(this));
-            });
-        }
-      });
-    
-    // build key actions
-    $(document)
-      .keydown(function (e) {
-        switch (e.which) {
-          case 37: // left
-            if ((modalId.data('bs.modal') || {})._isShown && $('#show-previous-image').is(":visible")) {
-              $('#show-previous-image')
-                .click();
-            }
-            break;
-    
-          case 39: // right
-            if ((modalId.data('bs.modal') || {})._isShown && $('#show-next-image').is(":visible")) {
-              $('#show-next-image')
-                .click();
-            }
-            break;
-    
-          default:
-            return; // exit this handler for other keys
-        }
-        e.preventDefault(); // prevent the default action (scroll / move caret)
-      });
-    
-</script>
+{% endblock %}
+{% block javascript %}
+    <script>
+        // build the json album images collection 
+        window.djangoAlbumImages = [
+            {% for item in images %}
+                {
+                    src: '{{ item.image.url }}',
+                    w:  {{ item.width }},
+                    h:  {{ item.height }}
+                },
+            {% endfor %}
+        ];
+    </script>
+    <script src="{% static 'external/photoswipe/photoswipe.min.js' %}"></script> 
+    <script src="{% static 'external/photoswipe/photoswipe-ui-default.min.js' %}"></script>
 {% endblock %}
