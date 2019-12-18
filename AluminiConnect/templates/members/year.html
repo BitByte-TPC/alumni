@@ -29,8 +29,8 @@
 
             <div class="row p-4 mx-auto">
                 {% for key2, value2 in value1.items %}
-                <div class="col-lg-3 col-md-4 col-sm-6 p-2">
-                    <div class="card w-100 shadow-sm text-center mx-auto" style="max-width: 15rem; max-height: 40rem;">
+                <div class="col-lg-3 col-md-4 col-sm-6 p-2 members-shadow-on-hover">
+                    <div class="card w-100 text-center mx-auto" style="max-width: 15rem; max-height: 40rem;">
                         <div class="card-body">
                             <h5 class="card-title font-weight-bold">
                                 <a href="{% url 'members:batch' year=year %}{{key1}}/{{key2}}/" class="text-decoration-none stretched-link"> {{ key2}} <br>{{ value2 }} Member{{ value2|pluralize }} </a>

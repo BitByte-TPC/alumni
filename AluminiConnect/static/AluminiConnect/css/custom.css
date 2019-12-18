@@ -70,6 +70,23 @@
     }
 }
 
+
+/* Custom CSS for Members Pages */
+
+.members-shadow-on-hover > div{
+    box-shadow:0 0.5rem 2rem rgba(0,0,0,.175);
+}
+
+.members-shadow-on-hover > div:hover{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+@media (max-width: 576px) {
+    .members-container{
+        width: 95%;
+    }
+}
+
 .icon-detail {
     margin-right: 12px;
 }
