@@ -19,14 +19,14 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.views.generic import TemplateView
+from django.views.generic.base import RedirectView
 
 from os import listdir
 from .  import views
 
-urlpatterns = []
 
-#for app in listdir('applications'):
-#    urlpatterns.append(url(r'^'+app+'/', include('applications.' + app + '.urls')))
+favicon_view = RedirectView.as_view(url='/static/favicon.ico', permanent=True)
+urlpatterns = []
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
@@ -55,6 +55,7 @@ urlpatterns += [
     url(r'^gallery/', include('applications.gallery.urls')),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^awards/', include('applications.awards.urls')),
+    url(r'favicon.ico', favicon_view)
     #url(r'^', views.index, name='home'),
 ]
 

@@ -40,7 +40,8 @@ YearBook
                             <p class="text-center card-title">
                                 <a href="{% url 'profile:profile' item.roll_no %}">
                                     {% if item.profile_picture %}
-                                    <img src="{{ item.profile_picture.url }}" class=" img-fluid " alt="">
+                                    
+                                    <img  src="{% thumbnail item.profile_picture  200x200 crop %}" class=" img-fluid " alt="">
                                     {% else %}
                                     <img src="{% static "AluminiConnect/img/user.png" %}" class="card-img-top img-fluid"
                                         alt="" height="200px" width="200px">

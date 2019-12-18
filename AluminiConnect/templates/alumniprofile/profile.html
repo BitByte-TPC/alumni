@@ -1,5 +1,6 @@
 {% extends 'globals/base.html' %}
 {% load static %}
+{% load thumbnail %}
 
 {% block title %} 
     {{ name }}
@@ -23,7 +24,7 @@
                             <div class="row">
                                 <div class="col-lg-12 text-center">
                                     {% if profile_picture %}
-                                    <img src="{{ profile_picture.url }}" 
+                                    <img src="{% thumbnail profile_picture 200x200 crop %}" 
                                         alt="DP" class="img-fluid rounded-circle m-2"
                                         style="object-fit:cover; object-position:50% 0%; height:200px; 
                                          width:200px; max-width:200px;max-height:200px;"
