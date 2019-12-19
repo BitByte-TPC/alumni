@@ -30,7 +30,7 @@
 <section class="bg-transparent" id="events" style="padding-top:3rem">
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-4 text-left p-2 mx-auto">
+			<div class="col-lg-4 text-left px-2 py-0 py-lg-2 mx-auto">
 
 				<!--   PIC CARD  -->
 				<div class="card m-2 shadow-sm">
@@ -40,6 +40,46 @@
 						{% else %}
 						<img src="{% static 'AluminiConnect/img/event.png' %}" alt="DP" class="img-fluid h-100 w-100" style="max-height: 350px;" />
 						{% endif %}
+					</div>
+				</div>
+
+				<!--   TITLE FOR MOBILE   -->
+				<div class="card m-2 shadow-sm d-block d-lg-none">
+
+					<div class="card-body p-4">
+						<h1 class="mb-3">{{ event.title|safe }}</h1>
+						<p class="font-weight-light m-0">
+
+							<span class="d-inline-block pb-2">
+								<i class="fas fa-table"></i>
+								{{ event.start_date|date:"d M, o" }}
+								&nbsp;
+							</span>
+							<span class="d-inline-block mb-2">
+								<i class="fas fa-map-marker-alt"></i>
+								{{ event.location}}
+								&nbsp;
+							</span>
+							<span class="d-inline-block mb-2">
+								<i class="fas fa-user"></i>
+								{{ event.by }}
+							</span>
+						</p>
+						{% if event.is_completed %}
+						<button type="button" class="btn btn-secondary btn-sm px-4 py-2 mt-2" disabled>Event Ended</button>
+						{% elif not check %}
+						<form method="POST">
+							{% csrf_token %}
+							<button type="submit" name="submit" value="rsvp" class="btn btn-success btn-sm px-4 py-2 mt-2">Register</button>
+						</form>
+						{% else %}
+						<form method="POST">
+							{% csrf_token %}
+							<button type="button"  class="btn btn-success btn-sm px-4 py-2 mt-2" disabled>Registered</button>
+							<button type="submit" name="submit" value="rsvp_del" class="btn btn-danger btn-sm px-4 py-2 mt-2">Remove Registration</button>
+						</form>
+						{% endif %}
+
 					</div>
 				</div>
 
@@ -93,7 +133,7 @@
                     {% else %}
                     <img src="{% static 'AluminiConnect/img/user.png' %}" 
                         alt="DP" class="img-fluid rounded-circle m-1"
-                        style="height:30px;width:30px max-width:30px;max-height:30px;"
+                        style="height:30px;width:30px; max-width:30px;max-height:30px;"
                         title="{{a.user_id__profile__name}}"
                     />
                     {% endif %}
@@ -110,8 +150,8 @@
 											<div class="modal-header">
 												<h5 class="modal-title" id="modalTitle">Attendees</h5>
 												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+													<span aria-hidden="true">&times;</span>
+												</button>
 											</div>
 											<div class="modal-body">
                           <div class="list-group">
@@ -131,7 +171,7 @@
                                   {% else %}
                                   <img src="{% static 'AluminiConnect/img/user.png' %}" 
                                       alt="DP" class="img-fluid rounded-circle m-0"
-                                      style="height:30px;width:30px max-width:30px;max-height:30px;"
+                                      style="height:30px;width:30px; max-width:30px;max-height:30px;"
                                   />
                                   {% endif %}
                                   {{a.user_id__profile__name}}
@@ -170,10 +210,10 @@
 
 
 				</div>
-				<div class="col-lg-8 text-left p-2 mx-auto">
+				<div class="col-lg-8 text-left px-2 py-0 py-lg-2 mx-auto">
 
-					<!--   TITLE  -->
-					<div class="card m-2 shadow-sm">
+					<!--   TITLE FOR PC   -->
+					<div class="card m-2 shadow-sm d-none d-lg-block">
 
 						<div class="card-body p-4">
 							<h1 class="mb-3">{{ event.title|safe }}</h1>
