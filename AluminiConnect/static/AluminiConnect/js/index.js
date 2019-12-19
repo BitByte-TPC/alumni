@@ -1,3 +1,14 @@
+/*  
+    FOR FUTURE USE
+
+    this file is for handling card height of events,news,gallery in homepage. 
+    this script gets the height of images of the cards, 
+    calculates its average and applies average height to the cards 
+
+    for now, this is not included in the project as card-image height is fixed
+*/ 
+
+
 function event_cards() {
   var event_cards = document.getElementsByClassName('event-card-img');
   var event_cards_height_sum = 0;

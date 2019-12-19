@@ -83,44 +83,48 @@
     <section class="bg-white" id="events" style="padding:2rem">
       <div class="container">
         <div class="row">
-          <div class="col-12 text-left">
-            <h2 class="font-open-sans" style="float:left">Events</h2>
-            <a class="btn btn-primary btn-sm js-scroll-trigger mx-auto" style="float:right" href="{% url 'events_news:events' %}">VIEW ALL</a>
+          <div class="col-12 text-left mb-2">
+            <h2 class="font-open-sans m-0" style="float:left">Events</h2>
+            <div class="d-flex align-items-center h-100" style="float:right">
+              <a class="btn btn-primary btn-sm px-3 py-2 js-scroll-trigger mx-auto" href="{% url 'events_news:events' %}">VIEW ALL</a>
+            </div>
+            
           </div>
         </div>
         <div class="row">
           {% for item in events %}
-          <div class="col-lg-4 col-md-6 p-2">
+          <div class="col-lg-4 col-md-6 p-2 d-flex justify-content-center">
             <div class="card w-100 shadow-lg border border-primary border-rounded mx-auto" style="max-width: 24rem; max-height: 40rem;">
               {% if item.picture %}
-              <img src="{{ item.picture.url }}" class="card-img-top event-card-img" alt="" width="300px" onload="event_cards()">
+              <img src="{{ item.picture.url }}" class="card-img-top home-card-img" alt="" width="300px" >
               {% else %}
-              <img src="{% static "AluminiConnect/img/event.png" %}" class="card-img-top event-card-img" alt="" width="300px">
+              <img src="{% static 'AluminiConnect/img/event.png' %}" class="card-img-top home-card-img" alt="" width="300px">
               {% endif %}
-              <div class="card-body">
+              <div class="card-body pb-0">
                   {% if not item.is_completed %}
                   <h5><span class="badge badge-pill badge-success"> Upcoming </span></h5>
                   {% else %}
                   <h5><span class="badge badge-pill badge-secondary"> Past </span></h5>
                   {% endif %}
                   
-                <h5 class="card-title font-weight-bold mt-3">{{item.title_stripped}}</h5>
+                  <h5 class="card-title font-weight-bold mt-3">{{item.title_stripped}}</h5>
                 
-                <p class="m-2 font-italic  font-open-sans mb-3">
-                  <i class="fas fa-calendar-alt font-weight-lighter " title="Start Date"></i>
-                  {{item.start_date|date:"l, d M, o"}}
-                  <br>
-                  <i class="fas fa-map-marker-alt" title="Location"></i>
-                  {{item.location}}
-                  <br>
-                  <i class="fas fa-users" title="Number of Attendees"></i>
-                  {{item.count}}
-                </p>
-                <a href="{% url 'events_news:event' id=item.event_id %}" class="btn btn-primary">VIEW</a>
+                  <p class="m-2 font-italic font-open-sans mb-3">
+                    <i class="fas fa-calendar-alt font-weight-lighter " title="Start Date"></i>
+                    {{item.start_date|date:"l, d M, o"}}
+                    <br>
+                    <i class="fas fa-map-marker-alt" title="Location"></i>
+                    {{item.location}}
+                    <br>
+                    <i class="fas fa-users" title="Number of Attendees"></i>
+                    {{item.count}}
+                  </p>
+                  
               </div>
-              
+              <div class="card-footer text-center">
+                <a href="{% url 'events_news:event' id=item.event_id %}" class="btn btn-primary btn-sm px-4 py-2">VIEW</a>
+              </div>
             </div>
-          </span>
           </div>
           {% endfor %}
           <!-- 
@@ -141,7 +145,7 @@
           -->
         </div>
       </div>
-    </section>  
+    </section>
 
 
     <!--
@@ -157,35 +161,34 @@
       <div class="container">
 
         <div class="row">
-          <div class="col-12 text-left">
-            <h2 class="font-open-sans" style="float:left">News</h2>
-            <a class="btn btn-primary btn-sm js-scroll-trigger mx-auto" style="float:right" href="{% url 'news:index' %}">VIEW ALL</a>
+          <div class="col-12 text-left mb-2">
+            <h2 class="font-open-sans m-0" style="float:left">News</h2>
+            <div class="d-flex align-items-center h-100" style="float:right">
+              <a class="btn btn-primary btn-sm px-3 py-2 js-scroll-trigger mx-auto" href="{% url 'news:index' %}">VIEW ALL</a>
+            </div>
           </div>
         </div>
         <div class="row">
           {% for item in news %}
-          <div class="col-lg-4 col-md-6 p-2 ">
+          <div class="col-lg-4 col-md-6 p-2 d-flex justify-content-center">
             <div class="card w-100 shadow-lg border border-primary border-rounded mx-auto" style="max-width: 24rem; max-height: 40rem;">
-                <span class="">
-              {% if item.picture %}
-              <img src="{{ item.picture.url }}" class="card-img-top news-card-img" alt=""  width="300px">
-              {% else %}
-              <img src="{% static "AluminiConnect/img/event.png" %}" class="card-img-top news-card-img" alt=""  width="300px">
-              {% endif %}
-              <div class="card-body">
-                  
-                <h5 class="card-title font-weight-bold">{{item.title_stripped|safe}}</h5>
-                
-                <p class="m-2 font-italic  font-open-sans mb-3">
-                  <i class="fas fa-calendar-alt font-weight-lighter "></i>
-                  {{item.date|date:"l, d M, o"}}
-                  <br>
-                </p>
-                <a href="{% url 'news:news' id=item.news_id %}" class="btn btn-primary">VIEW</a>
-              </div>
-              
+                  {% if item.picture %}
+                  <img src="{{ item.picture.url }}" class="card-img-top home-card-img" alt=""  width="300px">
+                  {% else %}
+                  <img src="{% static 'AluminiConnect/img/event.png' %}" class="card-img-top home-card-img" alt=""  width="300px">
+                  {% endif %}
+                  <div class="card-body pb-0">
+                    <h5 class="card-title font-weight-bold">{{item.title_stripped|safe}}</h5>
+                    <p class="m-2 font-italic  font-open-sans mb-3">
+                      <i class="fas fa-calendar-alt font-weight-lighter "></i>
+                      {{item.date|date:"l, d M, o"}}
+                      <br>
+                    </p>
+                  </div>
+                  <div class="card-footer text-center">
+                    <a href="{% url 'news:news' id=item.news_id %}" class="btn btn-primary btn-sm px-4 py-2">VIEW</a>
+                  </div>
             </div>
-          </span>
           </div>
           {% endfor %}
         </div>
@@ -282,19 +285,20 @@
     <section class="bg-primary" style="padding: 2rem ;" id="gallery">
       <div class="container">
         <div class="row">
-          <div class="col-12 text-left">
-            <h2 class=" text-white font-open-sans" style="float:left">Gallery</h2>
-            <a class="btn btn-dark btn-sm js-scroll-trigger mx-auto" style="float:right" href="{% url 'gallery:gallery' %}">VIEW ALL</a>
+          <div class="col-12 text-left mb-2">
+            <h2 class=" text-white font-open-sans m-0" style="float:left">Gallery</h2>
+            <div class="d-flex align-items-center h-100" style="float:right">
+              <a class="btn btn-dark btn-sm px-3 py-2 js-scroll-trigger mx-auto" href="{% url 'gallery:gallery' %}">VIEW ALL</a>
+            </div>
           </div>
         </div>
         <div class="row">
           {% for album in albums %}
-          <div class="col-lg-4 col-md-6 p-2 ">
+          <div class="col-lg-4 col-md-6 p-2 d-flex justify-content-center">
             <div class="card w-100 shadow-lg border border-light border-rounded mx-auto"
               style="max-width: 24rem; max-height: 40rem;">
-              <span class="">
-                <img src="{{ album.thumb.url }}" alt="{{ album.title }}" class="card-img-top gallery-card-img" width="300px" />
-                <div class="card-body">
+                <img src="{{ album.thumb.url }}" alt="{{ album.title }}" class="card-img-top home-card-img" width="300px" />
+                <div class="card-body pb-0">
     
                   <h5 class="card-title font-weight-bold">{{album.title|striptags}}</h5>
     
@@ -306,11 +310,12 @@
                     {{ album.images_count }} Photo{{ album.images_count|pluralize }}
                     <br>
                   </p>
-                  <a href="{% url 'gallery:album' album.slug %}" class="btn btn-primary">VIEW</a>
+                  
                 </div>
-    
+                <div class="card-footer text-center">
+                  <a href="{% url 'gallery:album' album.slug %}" class="btn btn-primary btn-sm px-4 py-2">VIEW</a>
+                </div>
             </div>
-            </span>
           </div>
           {% endfor %}
         </div>
