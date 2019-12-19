@@ -30,7 +30,7 @@ Gallery
     <div class="row w-100 mx-auto">
       {% for album in albums %}
       <div class="col-sm-6 col-lg-4 col-xl-3 d-flex justify-content-center mb-5 px-sm-2 px-md-4 px-lg-3 px-xl-2">
-        <div class="card dpg-album-card">
+        <div class="card dpg-album-card w-100">
           <img src="{{ album.thumb.url }}" alt="{{ album.title }}" class="card-image-top dpg-album-card-image w-100" />
           <div class="card-body">
             <h5 class="card-title">{{ album.title|safe }}</h5>
