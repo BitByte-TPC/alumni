@@ -96,7 +96,7 @@
           <div class="col-lg-4 col-md-6 p-2 d-flex justify-content-center">
             <div class="card w-100 shadow-lg border border-primary border-rounded mx-auto" style="max-width: 24rem; max-height: 40rem;">
               {% if item.picture %}
-              <img src="{{ item.picture.url }}" class="card-img-top home-card-img" alt="" width="300px" onload="event_cards()">
+              <img src="{{ item.picture.url }}" class="card-img-top home-card-img" alt="" width="300px" >
               {% else %}
               <img src="{% static 'AluminiConnect/img/event.png' %}" class="card-img-top home-card-img" alt="" width="300px">
               {% endif %}
