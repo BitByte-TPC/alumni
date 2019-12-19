@@ -113,8 +113,8 @@ YearBook
         {% if not keyy %}
         <div class="row p-4 mx-auto">
             {% for batch,count in data %}
-            <div class="col-lg-3 col-md-4 col-sm-6 p-2">
-                <div class="card w-100 shadow-lg text-center mx-auto" style="max-width: 15rem; max-height: 40rem;">
+            <div class="col-lg-3 col-md-4 col-sm-6 p-2 members-shadow-on-hover">
+                <div class="card w-100 text-center mx-auto" style="max-width: 15rem; max-height: 40rem;">
                     <div class="card-body">
                         <h5 class="card-title font-weight-bold"><a href="{% url 'members:batch' batch %}"
                                 class="text-decoration-none stretched-link">Batch of {{ batch }}</a></h5>
@@ -129,8 +129,8 @@ YearBook
             
             <div class="row mx-auto">
                 {% for item in profiles %}
-                <div class="col-md-6 col-lg-4 col-xl-3 p-2">
-                    <div class="card shadow-lg">
+                <div class="col-md-6 col-lg-4 col-xl-3 p-2 members-shadow-on-hover">
+                    <div class="card">
                         <!-- hover-zoomin"  style="max-width: 24rem; max-height: 35em;"> -->
                         <span class="border border-primary">
                             <div class="card-body">
