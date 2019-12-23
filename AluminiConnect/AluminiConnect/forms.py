@@ -79,10 +79,12 @@ class ProfileEdit(forms.ModelForm):
     linkedin = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Linkedin URL'}))
     website = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Website'}),required = False)
     facebook = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Facebook URL'}))
+    instagram = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Instagram Username'}), required = False)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['fathers_name'].label = "Father/Husband's Name"
+        self.fields['fathers_name'].label = "Father/Mother's Name"
+        self.fields['husbands_name'].label = "Husband's Name"
         self.fields['mobile1'].label = "Mobile No."
         self.fields['mobile2'].label = "Alternate Mobile No."
         self.fields['batch'].label = 'Year of Passing'
@@ -95,9 +97,10 @@ class ProfileEdit(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Row(
-                Column('name', css_class='form-group col-md-4 mb-0'),
-                Column('sex', css_class='form-group col-md-4 mb-0'),
-                Column('fathers_name', css_class='form-group col-md-4 mb-0'),
+                Column('name', css_class='form-group col-md-3 mb-0'),
+                Column('sex', css_class='form-group col-md-3 mb-0'),
+                Column('fathers_name', css_class='form-group col-md-3 mb-0'),
+                Column('husbands_name', css_class='form-group col-md-3 mb-0'),
                 css_class='form-row'
             ),
             Row(
@@ -152,9 +155,13 @@ class ProfileEdit(forms.ModelForm):
                 css_class='form-row'
             ),
             Row(
-                Column('linkedin', css_class='form-group col-md-4 mb-0'),
-                Column('facebook', css_class='form-group col-md-4 mb-0'),
-                Column('website', css_class='form-group col-md-4 mb-0'),
+                Column('linkedin', css_class='form-group col-md-6 mb-0'),
+                Column('website', css_class='form-group col-md-6 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('facebook', css_class='form-group col-md-6 mb-0'),
+                Column('instagram', css_class='form-group col-md-6 mb-0'),
                 css_class='form-row'
             ),
             'profile_picture',
@@ -180,8 +187,10 @@ class ProfileEdit(forms.ModelForm):
             'mobile1',
             'mobile2',
             'facebook',
+            'instagram',
             'name',
             'fathers_name',
+            'husbands_name',
             'sex',
             'email',
             'roll_no',
@@ -247,11 +256,13 @@ class NewRegister(forms.ModelForm):
     website = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Website'}), required = False)
     facebook = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Facebook URL'}))
     #checkbox_terms = forms.BooleanField(required=True)
+    instagram = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Instagram Username'}), required = False)
     checkbox_update = forms.BooleanField(required=True)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['fathers_name'].label = "Father/Husband's Name"
+        self.fields['fathers_name'].label = "Father/Mother's Name"
+        self.fields['husbands_name'].label = "Husband's Name"
         self.fields['mobile1'].label = "Mobile No."
         self.fields['mobile2'].label = "Alternate Mobile No."
         self.fields['batch'].label = 'Year of Passing'
@@ -266,9 +277,10 @@ class NewRegister(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Row(
-                Column('name', css_class='form-group col-md-4 mb-0'),
-                Column('sex', css_class='form-group col-md-4 mb-0'),
-                Column('fathers_name', css_class='form-group col-md-4 mb-0'),
+                Column('name', css_class='form-group col-md-3 mb-0'),
+                Column('sex', css_class='form-group col-md-3 mb-0'),
+                Column('fathers_name', css_class='form-group col-md-3 mb-0'),
+                Column('husbands_name', css_class='form-group col-md-3 mb-0'),
                 css_class='form-row'
             ),
             Row(
@@ -324,9 +336,13 @@ class NewRegister(forms.ModelForm):
                 css_class='form-row'
             ),
             Row(
-                Column('linkedin', css_class='form-group col-md-4 mb-0'),
-                Column('facebook', css_class='form-group col-md-4 mb-0'),
-                Column('website', css_class='form-group col-md-4 mb-0'),
+                Column('linkedin', css_class='form-group col-md-6 mb-0'),
+                Column('website', css_class='form-group col-md-6 mb-0'),
+                css_class='form-row'
+            ),
+            Row(
+                Column('facebook', css_class='form-group col-md-6 mb-0'),
+                Column('instagram', css_class='form-group col-md-6 mb-0'),
                 css_class='form-row'
             ),
             'profile_picture',
@@ -354,8 +370,10 @@ class NewRegister(forms.ModelForm):
             'mobile1',
             'mobile2',
             'facebook',
+            'instagram',
             'name',
             'fathers_name',
+            'husbands_name',
             'sex',
             'email',
             'roll_no',

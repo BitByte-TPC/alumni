@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 
 def upload_event_photo(instance, filename):
     name, extension = os.path.splitext(filename)
-    return "Events/" + str(instance.title_stripped) + extension
+    return "Events/" + str(instance.event_id) + extension
 
 class Event(models.Model):
     event_id = models.AutoField(primary_key = True)

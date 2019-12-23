@@ -4,7 +4,7 @@ var map = L.map('map', {
 });
 var markers = L.markerClusterGroup();
 
-L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributor',
 }).addTo(map);
 
@@ -12,7 +12,7 @@ city.forEach(item => {
     var xhttp = new XMLHttpRequest();
 
     var city = item.fields.city;
-    var url = 'http://nominatim.openstreetmap.org/search?format=json&limit=5&q=' + encodeURIComponent(city);
+    var url = 'https://nominatim.openstreetmap.org/search?format=json&limit=5&q=' + encodeURIComponent(city);
     xhttp.open("GET", url, true);
     xhttp.send();
 

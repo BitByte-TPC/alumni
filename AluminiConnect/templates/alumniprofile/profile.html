@@ -133,7 +133,10 @@
                                     </p>
                                 <h4>
                                     <a href="{{ linkedin }}"><i class="fab fa-linkedin"></i></a>&nbsp;
-                                    <a href="{{ facebook }}" ><i class="fab fa-facebook"></i></a>&nbsp; 
+                                    <a href="{{ facebook }}" ><i class="fab fa-facebook"></i></a>&nbsp;
+                                    {% if instagram %}    
+                                    <a href="https://www.instagram.com/{{ instagram }}"><i class="fab fa-instagram"></i></a>
+                                    {% endif %} 
                                     {% if website %}    
                                     <a href="{{ website }}"><i class="fas fa-globe"></i></a>
                                     {% endif %}
