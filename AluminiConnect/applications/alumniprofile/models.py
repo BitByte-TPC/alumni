@@ -39,6 +39,8 @@ class Constants:
         ('Is Self Employed', 'Is Self Employed')
     )
 
+    YEAR_OF_ADDMISSION = tuple((n, str(n)) for n in range(2005, datetime.datetime.now().year))
+
 
 class Batch(models.Model):
     batch = models.IntegerField(primary_key= True)
@@ -57,7 +59,7 @@ class Profile(models.Model):
     roll_no = models.IntegerField(primary_key = True)
     email = models.EmailField(null = False, default="")
     alternate_email = models.EmailField(null = True, blank = True)
-    year_of_admission = models.IntegerField(null = True)
+    year_of_admission = models.IntegerField(null = True, choices = Constants.YEAR_OF_ADDMISSION)
     batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
     name = models.CharField(max_length = 1000, default="", null = False)
     fathers_name = models.CharField(max_length=1000, default="")
