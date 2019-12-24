@@ -166,7 +166,8 @@ class ProfileEdit(forms.ModelForm):
                 Field('instagram', css_class="form-control", wrapper_class='col-md-6'),
                 css_class='form-row',
             ),
-            'profile_picture',
+            Field('profile_picture', css_class="w-100"),
+            # 'profile_picture',
             Submit('submit', 'Save Changes'),
         )   
     # def clean(self):
@@ -348,7 +349,8 @@ class NewRegister(forms.ModelForm):
                 Field('instagram', css_class="form-control", wrapper_class='col-md-6'),
                 css_class='form-row',
             ),
-            'profile_picture',
+            Field('profile_picture', css_class="w-100"),
+            # 'profile_picture',
             'checkbox_update',
             Submit('submit', 'Register'),
         )   
