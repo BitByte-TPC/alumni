@@ -12,6 +12,8 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 from django.db.models import Count
+from django.contrib.auth.views import LoginView
+from django.contrib.messages.views import SuccessMessageMixin
 
 from .forms import UserRegistrationForm, RegisterForm, ProfileEdit, NewRegister
 from .token import account_activation_token
@@ -23,6 +25,12 @@ import datetime
 from django.utils import timezone
 from itertools import chain
 # Create your views here.
+
+class LoginFormView(SuccessMessageMixin, LoginView):
+    template_name='AluminiConnect/login.html'
+    redirect_authenticated_user=True
+    # success_url = '/'
+    success_message = "Logged in successfully!"
 
 def index(request):
     sname = None
