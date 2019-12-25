@@ -454,11 +454,11 @@
   <!-- Toast -->
   {% for message in messages %}
   <div class="row justify-content-center">
-    <div style="position: fixed; bottom: 25px; left: 10px;">
-      <div class="toast bg-success {{ message.tags }}" id="alert_toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
-        <div class="toast-header">
+    <div style="position: fixed; bottom: 25px; left: 10px; z-index: 10;">
+      <div class="toast bg-success {{ message.tags }}" id="alert_toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="1500">
+        <div class="toast-body p-2 px-3">
           <strong class="mr-auto">{{message}}</strong>
-          <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <button type="button" class="ml-3 close" style="margin-top: -3px;" data-dismiss="toast" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -474,7 +474,7 @@
   <script>
     if("{{messages}}"){
       $('#alert_toast').toast('show');
-    }	
+    }
   </script>
 {% endblock %}
 
