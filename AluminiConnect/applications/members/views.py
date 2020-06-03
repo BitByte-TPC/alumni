@@ -34,24 +34,26 @@ def sacbody(request):
 
 def search(request):
     key = request.GET['search']
-    fil = request.GET['filter']
-    if fil == 'Name':
-        profiles = Profile.objects.filter(name__icontains = key).order_by("name")
-    elif fil == 'City':
-        profiles = Profile.objects.filter(city__icontains = key).order_by("name")
-    elif fil == 'Degree':
-        profiles = Profile.objects.filter(programme__icontains = key).order_by("name")
-    elif fil == 'Branch':
-        profiles = Profile.objects.filter(branch__icontains = key).order_by("name")
-    elif fil == 'Roll_no':
-        profiles = Profile.objects.filter(roll_no__icontains = key).order_by("name")
-    elif fil == 'Reg_no':
-        profiles = Profile.objects.filter(reg_no__icontains = key).order_by("name")
-    elif fil == 'Organisation':
-        profiles = Profile.objects.filter(current_organisation__icontains = key).order_by("name")    
+    profiles = Profile.objects.filter(name__icontains = key) | Profile.objects.filter(roll_no__icontains = key) | Profile.objects.filter(reg_no__icontains = key)
+    if len(request.GET) > 1:
+        if request.GET['batch'] != '':
+            batch = request.GET['batch']
+            print(batch)
+            profiles = profiles.filter(batch = batch)
+        if request.GET['city'] != '':
+            city = request.GET['city']
+            profiles = profiles.filter(city__icontains = city)
+        if 'programme' in request.GET:
+            programme = request.GET['programme']
+            profiles = profiles.filter(programme__icontains = programme)
+        if 'branch' in request.GET:
+            branch = request.GET['branch']
+            profiles = profiles.filter(branch__icontains = branch)
+    profiles = profiles.order_by('name')
+    print(profiles)
     context = { 'profiles':profiles,
                 'keyy':key,
-                'filter' : fil,
                 'zero' : len(profiles),
+                'request' : request.GET
                 }
     return render(request,"members/index.html",context)
