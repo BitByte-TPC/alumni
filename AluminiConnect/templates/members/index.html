@@ -6,14 +6,33 @@ YearBook
 {% endblock %}
 
 {% block javascript %}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         {% if request.programme %}
-        $('select[name="programme"]').val('{{ request.programme}}')
-        {% endif %}
+        $('select[name="programme"]').val('{{ request.programme}}') 
+        {% endif %} 
         {% if request.branch %}
         $('select[name="branch"]').val('{{ request.branch}}') 
         {% endif %}
+    });
+
+    $(document).ready(function () {
+        $("#search").autocomplete({
+            source: "/members/autosearch/",
+            minLength: 3,
+            open: function () {
+                setTimeout(function () {
+                    $('.ui-autocomplete').css('z-index', 99).css('max-height', '200px').css(
+                        'overflow-y', 'auto').css('overflow-x', 'hidden')
+                }, 0);
+            },
+            select: function () {
+                alert("MJ")
+            }
+        });
     });
 </script>
 {% endblock %}
@@ -64,11 +83,11 @@ YearBook
                     <form method="GET" action="{% url 'members:search' %}">
                         <div class='row justify-content-center m-3'>
                             {% if request.search %}
-                            <input type="text" class="form-control col-5 mx-2" placeholder="Name, Roll No or Reg No"
-                                name="search" value={{request.search}} required>
+                            <input type="text" id="search" class="form-control col-5 mx-2"
+                                placeholder="Name, Roll No or Reg No" name="search" value={{request.search}} required>
                             {% else %}
-                            <input type="text" class="form-control col-5 mx-2" placeholder="Name, Roll No or Reg No"
-                                name="search" required>
+                            <input type="text" id="search" class="form-control col-5 mx-2"
+                                placeholder="Name, Roll No or Reg No" name="search" required>
                             {% endif %}
                             <button type="submit" class="btn btn-dark col-1 rounded mx-2"><i
                                     class="fa fa-search mx-auto"></i></button>
@@ -81,7 +100,7 @@ YearBook
                             <input type='text' class='form-control col-2 mx-1' placeholder='Batch' name='batch'>
                             {% endif %}
                             <select name="programme" class="custom-select col-2 mx-1">
-                                <option selected disabled>Programme</option>
+                                <option selected value="">Programme</option>
                                 <option value="B.Tech">B.Tech</option>
                                 <option value="B.Des">B.Des</option>
                                 <option value="M.Tech">M.Tech</option>
@@ -89,7 +108,7 @@ YearBook
                                 <option value="PhD">PhD</option>
                             </select>
                             <select name="branch" class="custom-select col-2 mx-1">
-                                <option selected disabled>Branch</option>
+                                <option selected value="">Branch</option>
                                 <option value="CSE">Computer Science and Engineering</option>
                                 <option value="ECE">Electronics and Communication Engineering</option>
                                 <option value="ME">Mechanical Engineering</option>

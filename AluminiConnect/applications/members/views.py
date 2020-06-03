@@ -1,12 +1,16 @@
+import json
+
 from django.shortcuts import render
 from django.db.models import Count,Q
+from django.http import JsonResponse
 from django.contrib.auth.models import User
 from applications.alumniprofile.models import Profile
+
 # Create your views here.
 
 def index(request):
     counts = Profile.objects.values('batch').order_by('-batch').annotate(count = Count('batch'))
-    print(len(counts))
+    # print(len(counts))
     total=0
     for batch,count in counts.values_list('batch', 'count'):
         total+=count
@@ -21,12 +25,12 @@ def batch(request, year):
         for item in result:
             data[row][item['branch']] = item['count']
     
-    print(data) #prints {'B.Des': {'CSE': 1}, 'B.Tech': {'CSE': 1, 'ME': 1}} 
+    # print(data) #prints {'B.Des': {'CSE': 1}, 'B.Tech': {'CSE': 1, 'ME': 1}} 
     return render(request, "members/year.html", {'data' : data, 'year': year})
 
 def branch(request, programme, year, branch):
     alumni = Profile.objects.filter(programme = programme, batch = year, branch = branch)
-    print(alumni)
+    # print(alumni)
     return render(request, "members/branch.html", {'data':alumni, 'batch':year, 'branch':branch})
 
 def sacbody(request):
@@ -43,17 +47,28 @@ def search(request):
         if request.GET['city'] != '':
             city = request.GET['city']
             profiles = profiles.filter(city__icontains = city)
-        if 'programme' in request.GET:
+        if request.GET['programme'] != 'Programme':
             programme = request.GET['programme']
             profiles = profiles.filter(programme__icontains = programme)
-        if 'branch' in request.GET:
+        if request.GET['branch'] != '':
             branch = request.GET['branch']
             profiles = profiles.filter(branch__icontains = branch)
     profiles = profiles.order_by('name')
-    print(profiles)
     context = { 'profiles':profiles,
                 'keyy':key,
                 'zero' : len(profiles),
                 'request' : request.GET
                 }
     return render(request,"members/index.html",context)
+
+def autoSearch(request):
+    if request.is_ajax():
+        key = request.GET['term']
+        search_qs = Profile.objects.filter(name__icontains = key) | Profile.objects.filter(roll_no__icontains = key) | Profile.objects.filter(reg_no__icontains = key)
+        data = []
+        for r in search_qs:
+            print(r.name)
+            data.append(r.name)
+    else:
+        data = 'fail'
+    return JsonResponse(data,safe = False)
