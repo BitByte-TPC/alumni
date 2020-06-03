@@ -15,10 +15,6 @@ YearBook
         $('select[name="branch"]').val('{{ request.branch}}') 
         {% endif %}
     });
-
-    function toggle() {
-        $('#filters').toggle()
-    }
 </script>
 {% endblock %}
 
@@ -77,14 +73,14 @@ YearBook
                             <button type="submit" class="btn btn-dark col-1 rounded mx-2"><i
                                     class="fa fa-search mx-auto"></i></button>
                         </div>
-                        <div class='row justify-content-center m-3' id='filters' style='display: none;'>
+                        <div class='row justify-content-center m-3' id='filters'>
                             {% if request.batch %}
                             <input type='text' class='form-control col-2 mx-1' placeholder='Batch' name='batch'
                                 value={{request.batch}}>
                             {% else %}
                             <input type='text' class='form-control col-2 mx-1' placeholder='Batch' name='batch'>
                             {% endif %}
-                            <select name="programme" class="custom-select col-2 mx-1 progexist">
+                            <select name="programme" class="custom-select col-2 mx-1">
                                 <option selected disabled>Programme</option>
                                 <option value="B.Tech">B.Tech</option>
                                 <option value="B.Des">B.Des</option>
@@ -109,9 +105,6 @@ YearBook
                             {% endif %}
                         </div>
                     </form>
-                    <div class="search-container m-1 p-1">
-                        <button class='btn btn-dark rounded mx-2' onclick='toggle()'>Filters</button>
-                    </div>
                 </div>
             </div>
         </div>
