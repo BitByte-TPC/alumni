@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.db.models import Count,Q
 from django.http import JsonResponse
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from applications.alumniprofile.models import Profile
 
 # Create your views here.
@@ -36,6 +37,7 @@ def branch(request, programme, year, branch):
 def sacbody(request):
     return render(request, "members/sacbody.html")
 
+@login_required
 def search(request):
     key = request.GET['search']
     profiles = Profile.objects.filter(name__icontains = key) | Profile.objects.filter(roll_no__icontains = key) | Profile.objects.filter(reg_no__icontains = key)
@@ -72,3 +74,16 @@ def autoSearch(request):
     else:
         data = 'fail'
     return JsonResponse(data,safe = False)
+
+@login_required
+def mapSearch(request):
+    key = request.GET['search']
+    city = key.split(',',1)[0]
+    profiles = Profile.objects.filter(city__icontains = city)
+    profiles = profiles.order_by('name')
+    context = { 'profiles':profiles,
+                'keyy':key,
+                'zero' : len(profiles),
+                'map': True
+                }
+    return render(request,"members/index.html",context)

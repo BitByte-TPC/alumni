@@ -162,9 +162,8 @@ YearBook
                 {% if not keyy %}
                 <h2 class="font-open-sans"><span class="badge btn-block badge-primary text-wrap mt-2"> Alumni by
                         Graduation Year</span></h2>
-                {% else %}
-                <!-- <h2 class="font-open-sans"><span class="badge btn-block badge-primary text-wrap mt-2"> Filter {{filter}}
-                        : {{keyy}}</span></h2> -->
+                {% elif map %}
+                <h2 class="font-open-sans"><span class="badge btn-block badge-primary text-wrap mt-2"> Alumni in {{keyy}}</span></h2>
 
                 {% if not zero %}
                 <div class="alert alert-danger" role="alert">
