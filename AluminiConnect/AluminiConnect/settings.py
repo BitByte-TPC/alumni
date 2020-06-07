@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'applications.geolocation',
     'applications.publications',
     'applications.gallery',
+    'applications.chapter',
     'ckeditor',
     'ckeditor_uploader',
 ]

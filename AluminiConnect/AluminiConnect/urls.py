@@ -55,6 +55,7 @@ urlpatterns += [
     url(r'^gallery/', include('applications.gallery.urls')),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^awards/', include('applications.awards.urls')),
+    url(r'^chapter/', include('applications.chapter.urls')),
     url(r'favicon.ico', favicon_view)
     #url(r'^', views.index, name='home'),
 ]
