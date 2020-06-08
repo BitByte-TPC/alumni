@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'applications.chapter',
     'ckeditor',
     'ckeditor_uploader',
+    'tempus_dominus'
 ]
 
 MIDDLEWARE = [
@@ -157,8 +158,11 @@ CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': None,
         'extraplugins' : ['table'],
-    },
+        'width': '100%'
+    }
 }
+
+TEMPUS_DOMINUS_LOCALIZE = True
 
 if DEBUG:
     MIDDLEWARE += (

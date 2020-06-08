@@ -1,8 +1,17 @@
-from django.shortcuts import render
+import zipfile,uuid
+from datetime import datetime
+from zipfile import ZipFile
+from PIL import Image
+
+import AluminiConnect.settings
+from django.core.files.base import ContentFile
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
+from django.utils.html import strip_tags
 from applications.alumniprofile.models import Profile
 from applications.gallery.models import AlbumImage,Album
 from .models import *
+from .forms import *
 
 # Create your views here.
 def index(request):
@@ -10,10 +19,9 @@ def index(request):
     context = {
         'chapters' : chapters,
     }
-    print("Yaaha Pahucha")
     return render(request, 'chapter/index.html',context)
 
-def chapter(request, id):
+def chapter_data(id):
     chapter = Chapters.objects.get(pk=id)
     post = ChapterTeam.objects.filter(chapter = chapter)
     event = ChapterEvent.objects.filter(chapter=chapter)
@@ -27,8 +35,30 @@ def chapter(request, id):
         'chapter' : chapter,
         'team' : team,
         'event' : event,
-        'album' : album
+        'album' : album,
+        'eventf': EventForm(),
+        'chapterf': DescriptionForm(instance=chapter),
+        'albumf': AlbumForm()
     }
+    return context
+
+def chapter(request, id):
+    res = 'GET Request'
+    if request.method == 'POST':
+        if 'chapter' in request.POST:
+            res = chapter_edit(request,id)
+        elif 'event' in request.POST:
+            res = event_add(request,id)
+        elif 'album' in request.POST:
+            res = album_add(request,id)
+        else:
+            res = 'Unknown Form'
+    print(res)
+    # return render(request, 'chapter/chapter.html', context)
+    return redirect('chapter:chapter_redirect',id=id)
+
+def chapter_redirect(request, id):
+    context = chapter_data(id)
     return render(request, 'chapter/chapter.html', context)
 
 def chapter_images(request):
@@ -42,3 +72,72 @@ def chapter_images(request):
     else:
         data= 'fail'
     return JsonResponse(data,safe = False)
+
+def chapter_edit(request, id):
+    if request.method == 'POST':
+        chapter = Chapters.objects.get(pk=id)
+        form = DescriptionForm(request.POST, request.FILES, instance=chapter)
+        if form.is_valid():
+            chapter = form.save()
+            chapter.save()
+            return 'Success'
+        return 'Form is not Valid'
+    return 'Request method is not POST'
+            
+def event_add(request, id):
+    if request.method == 'POST':
+        form = EventForm(request.POST, request.FILES)
+        print(request.POST['start_date'], request.POST['end_date'])
+        if form.is_valid():
+            event = form.save()
+            event.save()
+            chapter = Chapters.objects.get(pk=id)
+            chapter_event = ChapterEvent(chapter = chapter, event = event)
+            chapter_event.save()
+            return 'Success'
+        else:
+            print (form.errors)
+            return 'Form is not Valid'
+    return 'Request method is not POST'
+
+def album_add(request, id):
+    if request.method == 'POST':
+        form = AlbumForm(request.POST, request.FILES)
+        if form.is_valid():
+            album = form.save(commit=False)
+            album.created = datetime.now()
+            album.is_visible = True
+            album.slug = strip_tags(album.title)
+            album.save()
+
+            if form.cleaned_data['zip'] != None:
+                zip = zipfile.ZipFile(form.cleaned_data['zip'])
+                for filename in sorted(zip.namelist()):
+
+                    file_name = os.path.basename(filename)
+                    if not file_name:
+                        continue
+
+                    data = zip.read(filename)
+                    contentfile = ContentFile(data)
+
+                    img = AlbumImage()
+                    img.album = album
+                    img.alt = filename
+                    filename = '{0}{1}.jpg'.format(album.slug, str(uuid.uuid4())[-13:])
+                    img.image.save(filename, contentfile)
+                
+                    filepath = '{0}/Albums/{1}'.format(AluminiConnect.settings.MEDIA_ROOT, filename)
+                    with Image.open(filepath) as i:
+                        img.width, img.height = i.size
+
+                    img.thumb.save('thumb-{0}'.format(filename), contentfile)
+                    img.save()
+                zip.close() 
+
+            chapter = Chapters.objects.get(pk=id)
+            chapter_album = ChapterAlbum(chapter = chapter, album = album)
+            chapter_album.save()
+            return 'Success'
+        return 'Form is not Valid'
+    return 'Request method is not POST'

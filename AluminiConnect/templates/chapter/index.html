@@ -6,7 +6,7 @@ Chapters
 {% endblock %}
 
 {% block css %}
-<link rel="stylesheet" href='{% static "chapter/chapter.css" %}'/>
+<link rel="stylesheet" href='{% static "chapter/chapter.css" %}' />
 {% endblock %}
 
 {% block body %}
@@ -32,20 +32,23 @@ Chapters
 
 <div class="container">
     <div class="row my-5">
-    {% for item in chapters %}
-        <div class="col-xl-4 col-md-6 mb-4 mx-auto" style="cursor: pointer" onclick="location.href='{% url 'chapter:chapter' item.id %}'">
+        {% for item in chapters %}
+        <div class="col-xl-4 col-md-6 mb-4 mx-auto" style="cursor: pointer"
+            onclick="location.href='{% url 'chapter:chapter' item.id %}'">
             <div class="card border-0 shadow shadow-on-hover">
                 {% if item.wall_picture %}
-                <img src="{{ item.wall_picture.url }}" class="card-img-top" alt="{{item.name}}" style="object-fit:cover; max-width:350px; max-height:245px; height:245px;">
+                <img src="{{ item.wall_picture.url }}" class="card-img-top" alt="{{item.name}}"
+                    style="object-fit:cover; max-width:350px; max-height:245px; height:245px;">
                 {% else %}
-                <img src="/static/AluminiConnect/img/coll3.jpeg" class="card-img-top" alt="..." style="object-fit:cover; max-width:350px; max-height:245px; height:245px;">
+                <img src="/static/AluminiConnect/img/coll3.jpeg" class="card-img-top" alt="..."
+                    style="object-fit:cover; max-width:350px; max-height:245px; height:245px;">
                 {% endif %}
                 <div class="card-body text-center">
                     <h5 class="card-title mb-0">{{item.name}}</h5>
                 </div>
             </div>
         </div>
-    {% endfor %}
+        {% endfor %}
     </div>
 </div>
 

@@ -6,9 +6,9 @@ Chapters
 {% endblock %}
 
 {% block css %}
-<link rel="stylesheet" href="{% static "chapter/chapter.css" %}"/>
-<link rel="stylesheet" href="{% static 'external/photoswipe/photoswipe.css' %}"/>
-<link rel="stylesheet" href="{% static 'external/photoswipe/default-skin/default-skin.css' %}"/>
+<link rel="stylesheet" href="{% static "chapter/chapter.css" %}" />
+<link rel="stylesheet" href="{% static 'external/photoswipe/photoswipe.css' %}" />
+<link rel="stylesheet" href="{% static 'external/photoswipe/default-skin/default-skin.css' %}" />
 {% endblock %}
 
 {% block body %}
@@ -54,7 +54,13 @@ Chapters
 {% if chapter.description %}
 <div class="container" <div class="card m-2 shadow-sm">
   <div class="border-bottom p-3">
-    <h4>Description</h4>
+    <h4>
+      Description
+      <button type="button" class="btn btn-link float-right" title="Edit Description" data-toggle="modal"
+        data-target="#chapterModal">
+        <i class="fas fa-edit"></i>
+      </button>
+    </h4>
   </div>
   <div class="card-body p-4">
     <h6>{{chapter.description|safe}}</h6>
@@ -66,9 +72,15 @@ Chapters
 {% if event %}
 <div class="container">
   <div class="border-bottom p-3 mb-2">
-    <h4>Events</h4>
+    <h4>
+      Events
+      <button type="button" class="btn btn-link float-right" title="Add Events" data-toggle="modal"
+        data-target="#eventModal">
+        <i class="fas fa-plus"></i>
+      </button>
+    </h4>
   </div>
-  <div class="row">
+  <div class="row p-3">
     {% for item in event %}
     <div class="card mb-3 mx-auto" style="max-width: 540px; width: 50%; cursor: pointer"
       onclick="location.href='{% url 'events_news:event' id=item.event.event_id %}'">
@@ -105,14 +117,20 @@ Chapters
 {% if album %}
 <div class="container">
   <div class="border-bottom p-3 mb-2">
-    <h4>Gallery</h4>
+    <h4>
+      Gallery
+      <button type="button" class="btn btn-link float-right" title="Add Album" data-toggle="modal"
+        data-target="#albumModal">
+        <i class="fas fa-plus"></i>
+      </button>
+    </h4>
   </div>
   <div class="row p-3">
     {% for item in album %}
     <div class="card mb-3 mx-3" style="max-width: 540px; width: 22%; cursor: pointer"
       onclick="location.href='javascript:chapteralbum({{ item.album.id }});'">
       {% if item.album.thumb.url %}
-      <img class="card-img-top" src="/static/AluminiConnect/img/album.png" alt="{{ item.album.title|striptags|safe }}">
+      <img class="card-img-top" src="{{ item.album.thumb.url }}" alt="{{ item.album.title|striptags }}">
       {% else %}
       <img class="card-img-top" src="/static/AluminiConnect/img/album.png" alt="Album">
       {% endif %}
@@ -132,31 +150,31 @@ Chapters
 <h3>This album is temporarily unavailable.</h3>
 
 {% endif %}
+{% include 'chapter/modal.html' %}
 {% include 'globals/footer.html' %}
 {% endblock %}
 
 {% block javascript %}
 <script>
-  var chapteralbum = function (album){
+  var chapteralbum = function (album) {
     $.ajax({
-        url: '/chapter/images?album='+album,
-        contentType: "application/json",
-        dataType: 'json',
-        success: function(result){
-          var pswpElement = document.querySelectorAll('.pswp')[0];
-          var options = {
-            index: 0,
-            bgOpacity: 0.8,
-            captionEl: false,
-            tapToClose: true,
-            fullscreenEl: false,
-          };
-          var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, result, options);
-          gallery.init();
-        }
+      url: '/chapter/images?album=' + album,
+      contentType: "application/json",
+      dataType: 'json',
+      success: function (result) {
+        var pswpElement = document.querySelectorAll('.pswp')[0];
+        var options = {
+          index: 0,
+          bgOpacity: 0.8,
+          captionEl: false,
+          tapToClose: true,
+          fullscreenEl: false,
+        };
+        var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, result, options);
+        gallery.init();
+      }
     });
   }
-  
 </script>
 <script src="{% static 'external/photoswipe/photoswipe.min.js' %}"></script>
 <script src="{% static 'external/photoswipe/photoswipe-ui-default.min.js' %}"></script>
