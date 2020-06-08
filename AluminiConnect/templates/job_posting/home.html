@@ -1,1 +1,217 @@
-Lets get started !
+{% extends 'globals/base.html' %}
+{% load static %}
+
+{% block title %}
+Posting
+{% endblock %}
+
+{% block body %}
+{% include 'globals/navbar.html' %}
+<br>
+<br>
+<br>
+<script type="text/javascript">
+
+function CheckColors(val){
+ var element=document.getElementById('others');
+ var element1=document.getElementById('label');
+ if(val=='other'){
+   element.style.display='block';
+   element1.style.display='block';
+ }
+ else{
+   element.style.display='none';
+   element1.style.display='none';
+ }
+}
+
+</script>
+<div class="row">
+
+  <div class="col-sm-3">
+    <br>
+    <br>
+    <div class="card m-2 shadow-sm">
+            <div class="card bg-primary text-white">
+              {% if request.user.is_superuser %}
+              <div class="card-body" align='center'>Welcome {{request.user}}!</div>
+              {% else %}
+              <div class="card-body" align='center'>Welcome {{request.user.first_name}}!</div>
+              {% endif %}
+            </div>
+            <!-- <div class="card-header font-open-sans">
+              Welcome {{request.user.first_name}}
+            </div> -->
+            <div class="card-header font-open-sans">
+                Basic Info
+            </div>
+            <div class="card-body">
+                    <p class="m-2 font-weight-normal font-open-sans mb-3" title="Alumni Registration Number">
+                        <i class="fas fa-user"></i>
+                        &nbsp;Alumni Reg. No : <b>{{ alumni.reg_no }}</b>
+                    </p>
+                <p class="m-2 font-weight-normal font-open-sans mb-3">
+                    <i class="fas fa-map-marker-alt"></i>
+                    &nbsp;{{ alumni.city }}, {{ alumni.state }}, {{ alumni.country }}
+                </p>
+                <p class="m-2 font-weight-normal font-open-sans mb-3">
+                        <i class="fas fa-birthday-cake"></i>
+                        &nbsp;{{ alumni.date_of_birth|date:"d F, o" }}
+                    </p>
+                <p class="m-2 font-weight-normal font-open-sans mb-3">
+                        <i class="fas fa-venus-mars"></i>
+                        &nbsp;{{ alumni.sex }}
+                    </p>
+                <h4>
+                    <a href="{{ alumni.linkedin }}"><i class="fab fa-linkedin"></i></a>&nbsp;
+                    <a href="{{ alumni.facebook }}" ><i class="fab fa-facebook"></i></a>&nbsp;
+                    {% if alumni.instagram %}
+                    <a href="https://www.instagram.com/{{ alumni.instagram }}"><i class="fab fa-instagram"></i></a>
+                    {% endif %}
+                    {% if alumni.website %}
+                    <a href="{{ alumni.website }}"><i class="fas fa-globe"></i></a>
+                    {% endif %}
+                </h4>
+            </div>
+    </div>
+    </div>
+
+    <div class="col-sm-5">
+      <div class="jumbotron">
+        <h1 class="text-primary" align = "center"><strong>Job openings</strong></h1>
+      </div>
+
+      <form class="form-inline" name="filter"  action = "{% url 'jobs:filter' %}" method="post">{% csrf_token %}
+        <div class="form-group">
+          <label for="position1">Filter by Position:</label>
+          <select class='form-control' name="position" id="position1" >
+            <option disabled selected value> -- select an option -- </option>
+            <option value="Software Developer">Software Developer</option>
+            <option value="Machine Learning">Machine Learning</option>
+            <option value="Business">Business</option>
+            <option value="d">D</option>
+          </select>
+
+        </div>
+
+        <div class="form-group">
+          <label for="type1">Filter by Type:</label>
+          <select class='form-control' name="type" id="type1" >
+            <option disabled selected value> -- select an option -- </option>
+            <option value="Full Time">Full Time</option>
+            <option value="Internship">Internship</option>
+            <option value="Both">Both</option>>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+      <div class="container p-3 my-3 border">
+        {% if ls1 %}
+        {% for i,j in ls1 %}
+          <div class="card m-2 shadow-sm">
+            <div class="card bg-success text-white">
+              <div class="card-header font-open-sans">
+                <div align="left">
+                  Posted by <a style="color:white" title="View Profile" href="{% url 'profile:profile' j %}" >{{ i.person }}</a>
+                </div>
+                <div align="right">
+                  Date: {{ i.posting_date }}
+                </div>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <p>Position: {{ i.position }}</p>
+              <p>Type: {{ i.type }}</p>
+              <p>Description: {{ i.desc }}</p>
+              <p>Click on the link to apply: <a target="_blank" href={{i.link}}>{{i.link}}</a></p>
+              <p>Location: {{ i.location }}</p>
+            </div>
+          </div>
+        {% endfor %}
+        {% else %}
+          <h3 align='center'>No posts yet</h3>
+        {% endif %}
+      </div>
+      {% if ls2.has_other_pages %}
+        <ul class="pagination">
+          {% if ls2.has_previous %}
+            <li><a href="?page={{ ls2.previous_page_number }}">&laquo;</a></li>
+          {% else %}
+            <li class="disabled"><span>&laquo;</span></li>
+          {% endif %}
+          {% for i in ls2.paginator.page_range %}
+            {% if ls2.number == i %}
+              <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+            {% else %}
+              <li><a href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+          {% endfor %}
+          {% if ls2.has_next %}
+            <li><a href="?page={{ ls2.next_page_number }}">&raquo;</a></li>
+          {% else %}
+            <li class="disabled"><span>&raquo;</span></li>
+          {% endif %}
+        </ul>
+      {% endif %}
+    </div>
+
+    <div class="col-sm-4" >
+      <div class="card m-2 shadow-sm" >
+        <div class="card bg-primary text-white">
+          <div class="card-header font-open-sans">
+              Post a new Job here!
+          </div>
+        </div>
+
+        <form name = "new_post" action = "{% url 'jobs:new_post' %}"
+              method = "POST" >{% csrf_token %}
+
+                <div class="form-group">
+                  <label for="position_type">Position:</label>
+                  <select class='form-control' name="position" id="position_type" onchange='CheckColors(this.value);'>
+                    <option disabled selected value> -- select an option -- </option>
+                    <option value="Software Developer">Software Developer</option>
+                    <option value="Machine Learning">Machine Learning</option>
+                    <option value="Business">Business</option>
+                    <option value="d">D</option>
+                    <option value="other">other</option>
+                  </select>
+                </div>
+                <div class="form-group" id="others" style='display:none;'>
+                  <label for="others">Please Specify</label>
+                  <input required class="form-control" type="text" name="other" id="others"/>
+                </div>
+
+                <div class="form-group">
+                  <label for="duration_type">Type:</label>
+                  <select required class="form-control" name="duration" id="duration_type">
+                    <option disabled selected value> -- select an option -- </option>
+                    <option value="Internship">Internship</option>
+                    <option value="Full time">Full Time</option>
+                    <option value="Both">Both</option>
+                  </select>
+                  </div>
+                <div class="form-group">
+                  <label for="descr">Description:</label>
+                  <textarea class="form-control" rows="4" cols="50" name="desc" form="new_post" id='descr'>
+                  </textarea>
+                  <!-- <input class="form-control" type="text" name="desc" id='descr'> -->
+              </div>
+              <div class="form-group">
+                <label for="link_id">Apply Link:</label>
+                <input required class="form-control" type="text" name="link" id='link_id'>
+            </div>
+            <div class="form-group">
+              <label for="loc_id">Location:</label>
+              <input required class="form-control" type="text" name="city" id='loc_id'>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+      </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,114 @@
+{% extends 'globals/base.html' %}
+{% load static %}
+
+{% block title %}
+Posting
+{% endblock %}
+
+{% block body %}
+{% include 'globals/navbar.html' %}
+<br>
+<br>
+<br>
+<div class="row">
+
+  <div class="col-sm-3">
+    <br>
+    <br>
+    <div class="card m-2 shadow-sm">
+      <div class="card bg-primary text-white">
+        <div class="card-body" align='center'>Welcome {{request.user.first_name}}!</div>
+      </div>
+            <div class="card-header font-open-sans">
+                Basic Info
+            </div>
+            <div class="card-body">
+                    <p class="m-2 font-weight-normal font-open-sans mb-3" title="Alumni Registration Number">
+                        <i class="fas fa-user"></i>
+                        &nbsp;Alumni Reg. No. : <b>{{ alumni.reg_no }}</b>
+                    </p>
+                <p class="m-2 font-weight-normal font-open-sans mb-3">
+                    <i class="fas fa-map-marker-alt"></i>
+                    &nbsp;{{ alumni.city }}, {{ alumni.state }}, {{ alumni.country }}
+                </p>
+                <p class="m-2 font-weight-normal font-open-sans mb-3">
+                        <i class="fas fa-birthday-cake"></i>
+                        &nbsp;{{ alumni.date_of_birth|date:"d F, o" }}
+                    </p>
+                <p class="m-2 font-weight-normal font-open-sans mb-3">
+                        <i class="fas fa-venus-mars"></i>
+                        &nbsp;{{ alumni.sex }}
+                    </p>
+                <h4>
+                    <a href="{{ alumni.linkedin }}"><i class="fab fa-linkedin"></i></a>&nbsp;
+                    <a href="{{ alumni.facebook }}" ><i class="fab fa-facebook"></i></a>&nbsp;
+                    {% if alumni.instagram %}
+                    <a href="https://www.instagram.com/{{ alumni.instagram }}"><i class="fab fa-instagram"></i></a>
+                    {% endif %}
+                    {% if alumni.website %}
+                    <a href="{{ alumni.website }}"><i class="fas fa-globe"></i></a>
+                    {% endif %}
+                </h4>
+            </div>
+    </div>
+    </div>
+
+    <div class="col-sm-5">
+      <div class="jumbotron">
+        <h1 class="text-primary" align = "center"><strong>Job openings</strong></h1>
+        <p class="text-success" align="center">Matching your query</p>
+      </div>
+      <div class="container p-3 my-3 border">
+        {% if ls1 %}
+        {% for i,j in ls1 %}
+          <div class="card m-2 shadow-sm">
+            <div class="card bg-success text-white">
+              <div class="card-header font-open-sans">
+                <div align="left">
+                  Posted by <a style="color:white" title="View Profile" href="{% url 'profile:profile' j %}">{{ i.person }}</a>
+                </div>
+                <div align="right">
+                  Date: {{ i.posting_date }}
+                </div>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <p>Position: {{ i.position }}</p>
+              <p>Type: {{ i.type }}</p>
+              <p>Description: {{ i.desc }}</p>
+              <p>Click on the link to apply: <a target="_blank" href={{i.link}}>{{i.link}}</a></p>
+              <p>Location: {{ i.location }}</p>
+            </div>
+          </div>
+        {% endfor %}
+        {% else %}
+          <p align='center'>No posts matching your current requirements</p>
+        {% endif %}
+
+      </div>
+      {% if ls2.has_other_pages %}
+        <ul class="pagination">
+          {% if ls2.has_previous %}
+            <li><a href="?page={{ ls2.previous_page_number }}">&laquo;</a></li>
+          {% else %}
+            <li class="disabled"><span>&laquo;</span></li>
+          {% endif %}
+          {% for i in ls2.paginator.page_range %}
+            {% if ls2.number == i %}
+              <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+            {% else %}
+              <li><a href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+          {% endfor %}
+          {% if ls2.has_next %}
+            <li><a href="?page={{ ls2.next_page_number }}">&raquo;</a></li>
+          {% else %}
+            <li class="disabled"><span>&raquo;</span></li>
+          {% endif %}
+        </ul>
+      {% endif %}
+    </div>
+</div>
+
+{% endblock %}

@@ -32,10 +32,10 @@ urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += [
     url(r'^$', views.index, name='home'),
-    url(r'^admin/', admin.site.urls),    
+    url(r'^admin/', admin.site.urls),
     url(r'^login/', views.LoginFormView.as_view(), name='login'),
     #url(r'^account/reset_password', views.ResetPasswordRequestView.as_view(), name="reset_password"),
-    url(r'^logout/$', auth_views.logout, name='logout'),
+    url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
     url(r'^register/', views.register, name='register'),
     url(r'^newregister/', views.new_register, name='new_register'),
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', views.activate, name='activate'),
@@ -55,18 +55,19 @@ urlpatterns += [
     url(r'^gallery/', include('applications.gallery.urls')),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^awards/', include('applications.awards.urls')),
+    url(r'^job_posting/', include('applications.job_posting.urls')),
     url(r'favicon.ico', favicon_view)
     #url(r'^', views.index, name='home'),
 ]
 
 if settings.DEBUG:
-    
+
 
     import debug_toolbar
     urlpatterns = [
         url(r'^__debug__/', include(debug_toolbar.urls)),
     ] + urlpatterns
-    
+
 admin.site.site_header = "IIITDMJ Alumni Association"
 admin.site.site_title = "Alumni Association"
 admin.site.index_title = "Alumni Association Admin"

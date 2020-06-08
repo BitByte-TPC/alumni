@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from .models import Profile
 from datetime import datetime
-from collections import defaultdict 
+from collections import defaultdict
 #
 # Create your views here.
 
@@ -15,8 +15,8 @@ def profile(request, username):
     return render(request, "alumniprofile/profile.html", vars(user))
 
 def index(request):
-    years = set(Profile.objects.all().values_list('batch', flat=True)) 
-    print(years)    
+    years = set(Profile.objects.all().values_list('batch', flat=True))
+    print(years)
     return render(request, "alumniprofile/index.html", {'years':years})
 
 def index_year(request, year):
@@ -25,7 +25,7 @@ def index_year(request, year):
 
 '''
 def edit(request):
-    
+
     if request.method == "POST":
         print('processing data')
         form = editProfile(request.POST)
@@ -42,4 +42,3 @@ def edit(request):
         form = editProfile()
         return render(request, "alumniprofile/edit.html", {'form': form, 'user' : user })
 '''
-    

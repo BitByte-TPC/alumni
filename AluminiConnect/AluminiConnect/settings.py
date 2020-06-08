@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.humanize',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -55,6 +56,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -148,10 +150,10 @@ LOGIN_URL = 'login'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
- 
+
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 CKEDITOR_IMAGE_BACKEND = "pillow"
- 
+
 CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': None,
@@ -190,7 +192,7 @@ PASSWORD_RESET_TIMEOUT_DAYS = 1
 #     # (exact settings here depend on your ESP...)
 #     "MAILJET_API_KEY": os.environ["MJ_APIKEY_PUBLIC"],
 #     "MAILJET_SECRET_KEY": os.environ["MJ_APIKEY_PRIVATE"],  # your Mailgun domain, if needed
-    
+
 # }
 # MAILJET_API_URL = "https://api.mailjet.com/v3.1"
 # EMAIL_BACKEND = "anymail.backends.mailjet.EmailBackend"  # or sendgrid.EmailBackend, or...

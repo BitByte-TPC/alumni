@@ -34,7 +34,7 @@ class LoginFormView(SuccessMessageMixin, LoginView):
 
 def index(request):
     sname = None
-    if( request.user.is_authenticated()):
+    if( request.user.is_authenticated):
         sname = request.user.get_short_name()
     now = timezone.now()
     events = Event.objects.filter(start_date__gte=now).order_by('start_date').annotate(count=Count('attendees__user_id'))
@@ -54,7 +54,13 @@ def alumniCard(request):
 
 def gallery(request):
     return render(request, "AluminiConnect/gallery.html")
-    
+
+def job_posting(request):
+    return render(request, "AluminiConnect/job_posting.html")
+
+# def jobboard(request):
+#     return render(request, "env/Lib/site-packages/gallery.html")
+
 def register(request):
     check=False
     l = None
@@ -69,7 +75,7 @@ def register(request):
             print ('Testing output\n')
             print (l)
             check = True
-            
+
     else:
         form = RegisterForm()
     return render(request, 'AluminiConnect/registration.html', {'form': form, 'check': check, 'l': l})
@@ -102,6 +108,7 @@ def new_register(request):
             profile.state=request.POST['state']
             profile.city=request.POST['city']
             password = User.objects.make_random_password(length=10)
+            # password = '12345678'
             user = User.objects.create_user(
                 username=str(form.cleaned_data.get('roll_no')),
                 first_name=first_name,
@@ -145,7 +152,7 @@ def activate(request, uidb64, token):
         u = None
     if u is not None and account_activation_token.check_token(u, token):
         u.is_active = True
-        u.save() 
+        u.save()
         login(request, u)
         #return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
         return HttpResponseRedirect('/password/')
@@ -167,4 +174,3 @@ def change_password(request):
     else:
         form = PasswordChangeForm(request.user)
     return render(request, 'AluminiConnect/change_password.html', {'form': form })
-
