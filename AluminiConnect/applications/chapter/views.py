@@ -21,7 +21,7 @@ def index(request):
     }
     return render(request, 'chapter/index.html',context)
 
-def chapter_data(id):
+def chapter_data(request, id):
     chapter = Chapters.objects.get(pk=id)
     post = ChapterTeam.objects.filter(chapter = chapter)
     event = ChapterEvent.objects.filter(chapter=chapter)
@@ -35,16 +35,22 @@ def chapter_data(id):
         'chapter' : chapter,
         'team' : team,
         'event' : event,
-        'album' : album,
-        'eventf': EventForm(),
-        'chapterf': DescriptionForm(instance=chapter),
-        'albumf': AlbumForm()
+        'album' : album
     }
+    if request.user.is_authenticated and ChapterTeam.objects.filter(chapter = chapter, user = request.user).exists():
+        forms = {
+            'eventf': EventForm(),
+            'chapterf': DescriptionForm(instance=chapter),
+            'albumf': AlbumForm()
+        }
+        context.update(forms)
     return context
 
 def chapter(request, id):
     res = 'GET Request'
     if request.method == 'POST':
+        if not request.user.is_authenticated:
+            return redirect('%s?next=%s' % (AluminiConnect.settings.LOGIN_URL, request.path))
         if 'chapter' in request.POST:
             res = chapter_edit(request,id)
         elif 'event' in request.POST:
@@ -58,7 +64,7 @@ def chapter(request, id):
     return redirect('chapter:chapter_redirect',id=id)
 
 def chapter_redirect(request, id):
-    context = chapter_data(id)
+    context = chapter_data(request, id)
     return render(request, 'chapter/chapter.html', context)
 
 def chapter_images(request):

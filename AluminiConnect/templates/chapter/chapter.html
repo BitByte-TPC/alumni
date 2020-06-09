@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-Chapters
+{{chapter.name}} - IIITDM Jabalpur
 {% endblock %}
 
 {% block css %}
@@ -51,15 +51,17 @@ Chapters
   </div>
 </div>
 
-{% if chapter.description %}
+{% if chapter.description or chapterf %}
 <div class="container" <div class="card m-2 shadow-sm">
   <div class="border-bottom p-3">
     <h4>
       Description
+      {% if chapterf %}
       <button type="button" class="btn btn-link float-right" title="Edit Description" data-toggle="modal"
-        data-target="#chapterModal">
+        data-target="#chapterModal" data-backdrop="static">
         <i class="fas fa-edit"></i>
       </button>
+      {% endif %}
     </h4>
   </div>
   <div class="card-body p-4">
@@ -69,20 +71,22 @@ Chapters
 </div>
 {% endif %}
 
-{% if event %}
+{% if event or eventf %}
 <div class="container">
   <div class="border-bottom p-3 mb-2">
     <h4>
       Events
+      {% if eventf %}
       <button type="button" class="btn btn-link float-right" title="Add Events" data-toggle="modal"
-        data-target="#eventModal">
+        data-target="#eventModal" data-backdrop="static">
         <i class="fas fa-plus"></i>
       </button>
+      {% endif %}
     </h4>
   </div>
   <div class="row p-3">
     {% for item in event %}
-    <div class="card mb-3 mx-auto" style="max-width: 540px; width: 50%; cursor: pointer"
+    <div class="card mb-3 mx-1" style="max-width: 540px; width: 50%; cursor: pointer"
       onclick="location.href='{% url 'events_news:event' id=item.event.event_id %}'">
       <div class="row no-gutters">
         <div class="col-md-4 my-auto pl-2">
@@ -114,15 +118,17 @@ Chapters
 </div>
 {% endif %}
 
-{% if album %}
+{% if album or albumf %}
 <div class="container">
   <div class="border-bottom p-3 mb-2">
     <h4>
-      Gallery
+      Album
+      {% if albumf %}
       <button type="button" class="btn btn-link float-right" title="Add Album" data-toggle="modal"
-        data-target="#albumModal">
+        data-target="#albumModal" data-backdrop="static">
         <i class="fas fa-plus"></i>
       </button>
+      {% endif %}
     </h4>
   </div>
   <div class="row p-3">
@@ -144,13 +150,11 @@ Chapters
     {% endfor %}
   </div>
 </div>
-
 {% include 'globals/init_pwsp.html' %}
-{% else %}
-<h3>This album is temporarily unavailable.</h3>
-
 {% endif %}
+{% if chapterf and eventf and albumf %}
 {% include 'chapter/modal.html' %}
+{% endif %}
 {% include 'globals/footer.html' %}
 {% endblock %}
 
