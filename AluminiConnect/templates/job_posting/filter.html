@@ -79,6 +79,9 @@ Posting
               <p>Description: {{ i.desc }}</p>
               <p>Click on the link to apply: <a target="_blank" href={{i.link}}>{{i.link}}</a></p>
               <p>Location: {{ i.location }}</p>
+              {% if request.user.is_superuser %}
+              <a href="{% url 'jobs:del1' i.id %}" class="btn btn-danger" role="button">Delete</a>
+              {% endif %}
             </div>
           </div>
         {% endfor %}

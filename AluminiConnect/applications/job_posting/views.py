@@ -85,19 +85,16 @@ def filter(request):
 
 def new_post(request):
     if request.method=='POST':
-        job_other = request.POST.get('other')
         job_t = request.POST.get('position')
         job_d = request.POST.get('duration')
         desc = request.POST.get('desc')
         link = request.POST.get('link')
         city = request.POST.get('city')
-        print(job_t, job_other)
-        if job_t =='other':
-            x = job_other
-        else:
-            x = job_t
         person = Profile.objects.get(roll_no = str(request.user))
-        insert = Posting.objects.create(position = x, type = job_d, desc = desc, link = link, posting_date = date.today(), location = city, person = person )
-        posts = Posting.objects.all().order_by('-posting_date')
-        user = Profile.objects.get(roll_no = str(request.user))
+        insert = Posting.objects.create(position = job_t, type = job_d, desc = desc, link = link, posting_date = date.today(), location = city, person = person )
+    return redirect('jobs:index',permanent=True)
+
+def del1(request,i_id=None):
+    object = Posting.objects.get(id=i_id)
+    object.delete()
     return redirect('jobs:index',permanent=True)
