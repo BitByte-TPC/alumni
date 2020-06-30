@@ -46,6 +46,7 @@ def search(request):
             batch = request.GET['batch']
             print(batch)
             profiles = profiles.filter(batch = batch)
+            print(profiles)
         if request.GET['city'] != '':
             city = request.GET['city']
             profiles = profiles.filter(city__icontains = city)
@@ -55,6 +56,11 @@ def search(request):
         if request.GET['branch'] != '':
             branch = request.GET['branch']
             profiles = profiles.filter(branch__icontains = branch)
+        if request.GET['org'] != '':
+            org = request.GET['org']
+            profiles1 = profiles.filter(current_organisation__icontains = org)
+            profiles2 = profiles.filter(current_university__icontains = org)
+            profiles = profiles1 | profiles2
     profiles = profiles.order_by('name')
     context = { 'profiles':profiles,
                 'keyy':key,
