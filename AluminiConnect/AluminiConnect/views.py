@@ -21,6 +21,7 @@ from applications.events_news.models import Event, Attendees
 from applications.alumniprofile.models import Profile, Constants
 from applications.news.models import News
 from applications.gallery.models import Album
+from applications.geolocation.views import addPoints
 import datetime
 from django.utils import timezone
 from itertools import chain
@@ -112,6 +113,8 @@ def new_register(request):
                 )
             profile.user = user
             profile.save()
+            mappt = addPoints({'city':str(request.POST['city']), 'state':str(request.POST['state']), 'country':str(request.POST['country'])})
+            print('Adding Map Point Status: '+str(mappt))
             return render(request, 'AluminiConnect/confirm_email.html')
     else:
         form = NewRegister()

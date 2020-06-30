@@ -5,21 +5,54 @@
 YearBook
 {% endblock %}
 
+{% block javascript %}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        {% if request.programme %}
+        $('select[name="programme"]').val('{{ request.programme}}') 
+        {% endif %} 
+        {% if request.branch %}
+        $('select[name="branch"]').val('{{ request.branch}}') 
+        {% endif %}
+    });
+
+    $(document).ready(function () {
+        $("#search").autocomplete({
+            source: "/members/autosearch/",
+            minLength: 3,
+            open: function () {
+                setTimeout(function () {
+                    $('.ui-autocomplete').css('z-index', 99).css('max-height', '200px').css(
+                        'overflow-y', 'auto').css('overflow-x', 'hidden')
+                }, 0);
+            },
+            select: function () {
+                alert("MJ")
+            }
+        });
+    });
+</script>
+{% endblock %}
+
 {% block body %}
 <!-- <body id="page-top" class="font-open-sans" style="background-color: #eaedf5"> -->
 {% include 'globals/navbar.html' %}
 
-<div class="p-0 m-0 masthead-bg w-100 parallax" style="min-height:300px !important; height:300px !important; background-position-y: 300px"></div>
+<div class="p-0 m-0 masthead-bg w-100 parallax"
+    style="min-height:300px !important; height:300px !important; background-position-y: 300px"></div>
 
 <header class="masthead text-center text-white d-flex" style="height:0px; min-height:300px;">
     <div class="container my-auto" style="margin-bottom:50px !important;">
-      <div class="row">
-        <div class="col-lg-8 mx-auto align-middle">
-          <h1 class="text-uppercase mt-4">
-            <strong>YEAR-BOOK</strong>
-          </h1>
+        <div class="row">
+            <div class="col-lg-8 mx-auto align-middle">
+                <h1 class="text-uppercase mt-4">
+                    <strong>YEAR-BOOK</strong>
+                </h1>
+            </div>
         </div>
-      </div>
     </div>
 </header>
 
@@ -45,22 +78,51 @@ YearBook
                 <span class="mx-auto h6">from</span>
                 <span class="mx-auto h6">{{total}} registered alumni</span>
                 {% endif %}
-                            
-                <div class="search-container mt-3" style="margin:6px;">
-                    <form class="row justify-content-center w-75 mx-auto" method="GET" action="{% url 'members:search' %}">
-                        <select name="filter" class="custom-select col-10 col-md-3 mb-2" required
-                            style="max-width:300px;">
-                            <option selected disabled>Search by</option>
-                            <option value="Name">Name</option>
-                            <option value="City">City</option>
-                            <option value="Degree">Degree</option>
-                            <option value="Branch">Branch</option>
-                            <option value="Organisation">Company</option>
-                            <option value="Roll_no">Roll No.</option>
-                            <option value="Reg_no">Alumni Reg. No.</option>
-                        </select>
-                        <input type="text" class="form-control col-10 col-md-7 mb-2" placeholder="Search text ..." name="search" required>
-                        <button type="submit" class="btn btn-dark col-3 col-md-2 rounded mb-2"><i class="fa fa-search mx-auto"></i></button>
+
+                <div class="search-container m-3 p-3" style="margin:6px;">
+                    <form method="GET" action="{% url 'members:search' %}">
+                        <div class='row justify-content-center m-3'>
+                            {% if request.search %}
+                            <input type="text" id="search" class="form-control col-5 mx-2"
+                                placeholder="Name, Roll No or Reg No" name="search" value={{request.search}} required>
+                            {% else %}
+                            <input type="text" id="search" class="form-control col-5 mx-2"
+                                placeholder="Name, Roll No or Reg No" name="search" required>
+                            {% endif %}
+                            <button type="submit" class="btn btn-dark col-1 rounded mx-2"><i
+                                    class="fa fa-search mx-auto"></i></button>
+                        </div>
+                        <div class='row justify-content-center m-3' id='filters'>
+                            {% if request.batch %}
+                            <input type='text' class='form-control col-2 mx-1' placeholder='Batch' name='batch'
+                                value={{request.batch}}>
+                            {% else %}
+                            <input type='text' class='form-control col-2 mx-1' placeholder='Batch' name='batch'>
+                            {% endif %}
+                            <select name="programme" class="custom-select col-2 mx-1">
+                                <option selected value="">Programme</option>
+                                <option value="B.Tech">B.Tech</option>
+                                <option value="B.Des">B.Des</option>
+                                <option value="M.Tech">M.Tech</option>
+                                <option value="M.Des">M.Des</option>
+                                <option value="PhD">PhD</option>
+                            </select>
+                            <select name="branch" class="custom-select col-2 mx-1">
+                                <option selected value="">Branch</option>
+                                <option value="CSE">Computer Science and Engineering</option>
+                                <option value="ECE">Electronics and Communication Engineering</option>
+                                <option value="ME">Mechanical Engineering</option>
+                                <option value="NS">Natural Sciences</option>
+                                <option value="MT">Mechatronics</option>
+                                <option value="DS">Design</option>
+                            </select>
+                            {% if request.city %}
+                            <input type="text" class="form-control col-2 mx-1" placeholder="City" name="city"
+                                value={{request.city}}>
+                            {% else %}
+                            <input type="text" class="form-control col-2 mx-1" placeholder="City" name="city">
+                            {% endif %}
+                        </div>
                     </form>
                 </div>
             </div>
@@ -75,7 +137,8 @@ YearBook
         <div class="row w-100 mx-auto">
             <div class="col">
                 {% if not keyy %}
-                <h2 class="font-open-sans"><span class="badge btn-block badge-primary"> Registered Alumni : {{total}}</span></h2>
+                <h2 class="font-open-sans"><span class="badge btn-block badge-primary"> Registered Alumni :
+                        {{total}}</span></h2>
                 {% else %}
                 <h2 class="font-open-sans"><span class="badge btn-block badge-primary"></span></h2>
                 {% endif %}
@@ -90,26 +153,27 @@ YearBook
                         <div class="results"></div>
                     </div>
                 </form>
-            </div> 
+            </div>
         </div>
         {% endcomment %}
-        
+
         <div class="row mx-auto">
             <div class="col text-center">
                 {% if not keyy %}
-                <h2 class="font-open-sans"><span class="badge btn-block badge-primary text-wrap mt-2"> Filter Alumni by Graduation Year</span></h2>
-                {% else %}
-                <h2 class="font-open-sans"><span class="badge btn-block badge-primary text-wrap mt-2"> Filter {{filter}} : {{keyy}}</span></h2>
-                
+                <h2 class="font-open-sans"><span class="badge btn-block badge-primary text-wrap mt-2"> Alumni by
+                        Graduation Year</span></h2>
+                {% elif map %}
+                <h2 class="font-open-sans"><span class="badge btn-block badge-primary text-wrap mt-2"> Alumni in {{keyy}}</span></h2>
+
                 {% if not zero %}
                 <div class="alert alert-danger" role="alert">
-                        No Results Found!
-                      </div>
+                    No Results Found!
+                </div>
                 {% endif %}
                 {% endif %}
             </div>
         </div>
-        
+
         {% if not keyy %}
         <div class="row p-4 mx-auto">
             {% for batch,count in data %}
@@ -126,46 +190,45 @@ YearBook
             {% endfor %}
         </div>
         {% else %}
-            
-            <div class="row mx-auto">
-                {% for item in profiles %}
-                <div class="col-md-6 col-lg-4 col-xl-3 p-2 members-shadow-on-hover">
-                    <div class="card">
-                        <!-- hover-zoomin"  style="max-width: 24rem; max-height: 35em;"> -->
-                        <span class="border border-primary">
-                            <div class="card-body">
-                                <a href="{% url 'profile:profile' item.roll_no %}" class="text-decoration-none">
-                                    <p class="text-center card-title">
-                                        {% if item.profile_picture %}
-                                        <img src="{{ item.profile_picture.url }}" class="img-fluid" alt=""
-                                            style="object-fit:cover; object-position:50% 0%; max-width:216px; 
+
+        <div class="row mx-auto">
+            {% for item in profiles %}
+            <div class="col-md-6 col-lg-4 col-xl-3 p-2 members-shadow-on-hover">
+                <div class="card">
+                    <!-- hover-zoomin"  style="max-width: 24rem; max-height: 35em;"> -->
+                    <span class="border border-primary">
+                        <div class="card-body">
+                            <a href="{% url 'profile:profile' item.roll_no %}" class="text-decoration-none">
+                                <p class="text-center card-title">
+                                    {% if item.profile_picture %}
+                                    <img src="{{ item.profile_picture.url }}" class="img-fluid" alt="" style="object-fit:cover; object-position:50% 0%; max-width:216px; 
                                             max-height:216px; width:100%; height:216px; margin-bottom: 1rem;">
-                                        {% else %}
-                                        <img src="{% static 'AluminiConnect/img/user.png' %}" class="img-fluid"
-                                            alt="" height="200px" width="200px">
-                                        {% endif %}
-                                    </p>
-                                    <p class="card-title font-open-sans font-weight-bold">{{item.name}}</p>
-                                </a>
-                                <p class="font-italic card-text font-open-sans"><i class="fas fa-map-marker-alt"></i>
-                                    {{item.city}}</p>
-    
-                                <h4 class="text-center card-text">
-    
-                                    {% if item.facebook %}<a href="{{item.facebook}}" target="_blank"><i
-                                            class="fab fa-facebook-square"></i></a>{% endif %}
-                                    {% if item.linkedin %}<a href="{{item.linkedin}}" target="_blank"><i
-                                            class="fab fa-linkedin"></i></a>{% endif %}
-                                    {% if item.website %}<a href="{{item.website}}" target="_blank"><i
-                                            class="fas fa-link"></i></a>{% endif %}
-    
-                                </h4>
-                            </div>
-                        </span>
-                    </div>
+                                    {% else %}
+                                    <img src="{% static 'AluminiConnect/img/user.png' %}" class="img-fluid" alt=""
+                                        height="200px" width="200px">
+                                    {% endif %}
+                                </p>
+                                <p class="card-title font-open-sans font-weight-bold">{{item.name}}</p>
+                            </a>
+                            <p class="font-italic card-text font-open-sans"><i class="fas fa-map-marker-alt"></i>
+                                {{item.city}}</p>
+
+                            <h4 class="text-center card-text">
+
+                                {% if item.facebook %}<a href="{{item.facebook}}" target="_blank"><i
+                                        class="fab fa-facebook-square"></i></a>{% endif %}
+                                {% if item.linkedin %}<a href="{{item.linkedin}}" target="_blank"><i
+                                        class="fab fa-linkedin"></i></a>{% endif %}
+                                {% if item.website %}<a href="{{item.website}}" target="_blank"><i
+                                        class="fas fa-link"></i></a>{% endif %}
+
+                            </h4>
+                        </div>
+                    </span>
                 </div>
-                {% endfor %}
             </div>
+            {% endfor %}
+        </div>
         {% endif %}
 
     </div>
