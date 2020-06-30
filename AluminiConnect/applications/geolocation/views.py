@@ -9,14 +9,13 @@ from .models import MapPoints
 
 # Create your views here.
 def index(request):
-    city = Profile.objects.only('city')
-    city = Counter([c.city for c in city])
-    # print(city)
+    city = Profile.objects.only('city','state','country')
+    city = Counter([c.city+c.state+c.country for c in city])
     points = MapPoints.objects.all()
     data = []
     for pt in points:
         title = pt.city+', '+pt.state+', '+pt.country
-        data = data + [{'city':pt.city, 'lat':pt.lat, 'lon':pt.long, 'count':city[pt.city], 'title':title}]
+        data = data + [{'city':pt.city, 'lat':pt.lat, 'lon':pt.long, 'count':city[pt.city+pt.state+pt.country], 'title':title}]
     # print(data)
     return render(request, "geolocation/index.html",{'data':data})
 
