@@ -33,7 +33,7 @@ urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += [
     url(r'^$', views.index, name='home'),
     url(r'^admin/', admin.site.urls),    
-    url(r'^login/', auth_views.LoginView.as_view(template_name='AluminiConnect/login.html', redirect_authenticated_user=True), name='login'),
+    url(r'^login/', views.LoginFormView.as_view(), name='login'),
     #url(r'^account/reset_password', views.ResetPasswordRequestView.as_view(), name="reset_password"),
     url(r'^logout/$', auth_views.logout, name='logout'),
     url(r'^register/', views.register, name='register'),
@@ -55,6 +55,7 @@ urlpatterns += [
     url(r'^gallery/', include('applications.gallery.urls')),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^awards/', include('applications.awards.urls')),
+    url(r'^chapter/', include('applications.chapter.urls')),
     url(r'favicon.ico', favicon_view)
     #url(r'^', views.index, name='home'),
 ]

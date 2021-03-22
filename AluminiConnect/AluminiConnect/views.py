@@ -12,6 +12,8 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 from django.db.models import Count
+from django.contrib.auth.views import LoginView
+from django.contrib.messages.views import SuccessMessageMixin
 
 from .forms import UserRegistrationForm, RegisterForm, ProfileEdit, NewRegister
 from .token import account_activation_token
@@ -19,10 +21,17 @@ from applications.events_news.models import Event, Attendees
 from applications.alumniprofile.models import Profile, Constants
 from applications.news.models import News
 from applications.gallery.models import Album
+from applications.geolocation.views import addPoints
 import datetime
 from django.utils import timezone
 from itertools import chain
 # Create your views here.
+
+class LoginFormView(SuccessMessageMixin, LoginView):
+    template_name='AluminiConnect/login.html'
+    redirect_authenticated_user=True
+    # success_url = '/'
+    success_message = "Logged in successfully!"
 
 def index(request):
     sname = None
@@ -104,6 +113,8 @@ def new_register(request):
                 )
             profile.user = user
             profile.save()
+            mappt = addPoints({'city':str(request.POST['city']), 'state':str(request.POST['state']), 'country':str(request.POST['country'])})
+            print('Adding Map Point Status: '+str(mappt))
             return render(request, 'AluminiConnect/confirm_email.html')
     else:
         form = NewRegister()

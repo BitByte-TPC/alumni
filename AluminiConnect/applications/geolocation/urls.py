@@ -5,5 +5,6 @@ from . import views
 app_name = 'geolocation'
 
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
+    url(r'^update/$', views.updatePoints, name='updatePoints'),
+    url(r'^$', views.index, name='index')
 ]

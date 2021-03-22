@@ -52,8 +52,10 @@ INSTALLED_APPS = [
     'applications.geolocation',
     'applications.publications',
     'applications.gallery',
+    'applications.chapter',
     'ckeditor',
     'ckeditor_uploader',
+    'tempus_dominus'
 ]
 
 MIDDLEWARE = [
@@ -155,8 +157,11 @@ CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': None,
         'extraplugins' : ['table'],
-    },
+        'width': '100%'
+    }
 }
+
+TEMPUS_DOMINUS_LOCALIZE = True
 
 if DEBUG:
     MIDDLEWARE += (

@@ -1,0 +1,79 @@
+{% load crispy_forms_tags %}
+
+<!-- Chapter Modal -->
+<div class="modal fade" id="chapterModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Chapter Description</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form action="{% url 'chapter:chapter' chapter.id %}" method="POST" role="form"
+                enctype="multipart/form-data" class="post-form">
+                {% csrf_token %}
+                <div class="modal-body">
+                    {{ chapterf.media }}
+                    {{ chapterf|crispy }}
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" name="chapter">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Event Modal -->
+<div class="modal fade" id="eventModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Event</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form action="{% url 'chapter:chapter' chapter.id %}" method="POST" role="form"
+                enctype="multipart/form-data" class="post-form">
+                {% csrf_token %}
+                <div class="modal-body">
+                    {{ eventf.media }}
+                    {{ eventf|crispy }}
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" name="event">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Album Modal -->
+<div class="modal fade" id="albumModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Album</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form action="{% url 'chapter:chapter' chapter.id %}" method="POST" role="form"
+                enctype="multipart/form-data" class="post-form">
+                {% csrf_token %}
+                <div class="modal-body">
+                    {{ albumf.media }}
+                    {{ albumf|crispy }}
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" name="album">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

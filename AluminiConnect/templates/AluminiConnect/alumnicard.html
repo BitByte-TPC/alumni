@@ -7,14 +7,14 @@ Alumni Card Form
 
 {% block body %}
 {% include 'globals/navbar.html' %}
-<div class=" p-0 m-0 masthead-bg w-100 h-100 parallax" style="background-position-y: -25rem"></div>
+<div class="p-0 m-0 masthead-bg w-100 h-100 parallax" style="min-height:300px !important; height:300px !important; background-position-y: 300px;"></div>
 
-<header class="masthead text-center text-white d-flex" style="height:0px;min-height:300px">
+<header class="masthead text-center text-white d-flex" style="height:0px; min-height:300px;">
   <div class="container my-auto" style="margin-bottom:50px !important;">
     <div class="row">
       <div class="col-lg-2 mx-auto align-middle">
         <h2 class="text-uppercase">
-          <a href="{% url 'home' %}"><img src={% static "AluminiConnect/img/logo/alumb1.png" %} style="width: 4em; height: auto;"></a>
+          <a href="{% url 'home' %}"><img src="{% static 'AluminiConnect/img/logo/alumb1.png' %}" style="width: 4em; height: auto;"></a>
         </h2>
       </div>
       <div class="col-lg-8 mx-auto align-middle">
@@ -28,9 +28,10 @@ Alumni Card Form
 
 <section id="services" class="bg-primary p-1">
 </section>
+
 <section class="bg-white" id="about">
 <div class="bg-white">
-    <div class="container text-left p-2 mx-auto" , style="width: 40rem;">
+    <div class="login-container container text-left p-2 mx-auto">
       <form action="https://mailthis.to/2016049@iiitdmj.ac.in/"
           method="POST" encType="multipart/form-data">
           <input type="text" name="name" placeholder="Your name">
