@@ -20,12 +20,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'dikj)qxgkhe7v$y7l))d!!nkut&^6q7+x^@ys7c1z!#!&*94r5'
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY_ALUMNI")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['58.84.25.100', '103.59.142.75', 'https://www.iiitdmj.ac.in/sac.iiitdmj.ac.in/', 'sac.iiitdmj.ac.in']
 
 
 # Application definition
@@ -136,10 +136,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
-# For production release STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-STATICFILES_DIRS = (
-  os.path.join(BASE_DIR, 'static/'),
-)
+# For production release 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+#STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static/'),)
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 LOGIN_REDIRECT_URL = '/'
@@ -186,16 +185,16 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Asia/Kolkata'
 PASSWORD_RESET_TIMEOUT_DAYS = 1
-# ANYMAIL = {
-#     # (exact settings here depend on your ESP...)
-#     "MAILJET_API_KEY": os.environ["MJ_APIKEY_PUBLIC"],
-#     "MAILJET_SECRET_KEY": os.environ["MJ_APIKEY_PRIVATE"],  # your Mailgun domain, if needed
+ANYMAIL = {
+    # (exact settings here depend on your ESP...)
+    "MAILJET_API_KEY": os.environ.get("MJ_APIKEY_PUBLIC", ""),
+    "MAILJET_SECRET_KEY": os.environ.get("MJ_APIKEY_PRIVATE", ""),  # your Mailgun domain, if needed
     
-# }
-# MAILJET_API_URL = "https://api.mailjet.com/v3.1"
-# EMAIL_BACKEND = "anymail.backends.mailjet.EmailBackend"  # or sendgrid.EmailBackend, or...
-# DEFAULT_FROM_EMAIL = "Student Alumni Cell IIITDMJ <alumni@iiitdmj.ac.in>"  # if you don't already have this in settings
-# SERVER_EMAIL =  os.environ["MJ_SENDER_EMAIL"] # ditto (default from-email for Django errors)
+}
+MAILJET_API_URL = "https://api.mailjet.com/v3.1"
+EMAIL_BACKEND = "anymail.backends.mailjet.EmailBackend"  # or sendgrid.EmailBackend, or...
+DEFAULT_FROM_EMAIL = "Student Alumni Cell IIITDMJ <alumni@iiitdmj.ac.in>"  # if you don't already have this in settings
+SERVER_EMAIL =  os.environ.get("MJ_SENDER_EMAIL", "") # ditto (default from-email for Django errors)
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',

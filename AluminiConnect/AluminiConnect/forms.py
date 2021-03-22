@@ -78,7 +78,7 @@ class ProfileEdit(forms.ModelForm):
     city = forms.CharField(widget=forms.Select(attrs={'id':'cityId','class':'cities order-alpha','name':'city'}))
     linkedin = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Linkedin URL'}))
     website = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Website'}),required = False)
-    facebook = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Facebook URL'}))
+    facebook = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Facebook URL'}), required = False)
     instagram = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Instagram Username'}), required = False)
 
     def __init__(self, *args, **kwargs):
@@ -254,7 +254,7 @@ class NewRegister(forms.ModelForm):
     city = forms.ChoiceField(widget=forms.Select(attrs={'id':'cityId','class':'cities order-alpha','name':'city'}))
     linkedin = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Linkedin URL'}))
     website = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Website'}), required = False)
-    facebook = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Facebook URL'}))
+    facebook = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Facebook URL'}), required = False)
     #checkbox_terms = forms.BooleanField(required=True)
     instagram = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Instagram Username'}), required = False)
     checkbox_update = forms.BooleanField(required=True)
