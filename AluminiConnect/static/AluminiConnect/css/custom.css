@@ -104,6 +104,15 @@
     }
 }
 
+
+/* Custom CSS for Crispy Forms */
+
+.asteriskField{
+    color: red;
+    font-size: small;
+    vertical-align: top;
+}
+
 .icon-detail {
     margin-right: 12px;
 }

@@ -3,7 +3,7 @@ from django import forms
 from applications.alumniprofile.models import Profile, Constants, Batch
 from django.contrib.auth.models import User
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit, Row, Column
+from crispy_forms.layout import Layout, Submit, Row, Column, Div, Field
 from crispy_forms.bootstrap import InlineRadios
 
 
@@ -73,9 +73,9 @@ class ProfileEdit(forms.ModelForm):
         max_length=4000,
         required = False,
     )
-    country = forms.CharField(widget=forms.Select(attrs={'id':'countryId','class':'countries order-alpha','name':'country'}))
-    state = forms.CharField(widget=forms.Select(attrs={'id':'stateId','class':'states order-alpha','name':'state'}))
-    city = forms.CharField(widget=forms.Select(attrs={'id':'cityId','class':'cities order-alpha','name':'city'}))
+    country = forms.CharField(widget=forms.Select(attrs={'id':'countryId','class':'countries order-alpha custom-select','name':'country'}))
+    state = forms.CharField(widget=forms.Select(attrs={'id':'stateId','class':'states order-alpha custom-select','name':'state'}))
+    city = forms.CharField(widget=forms.Select(attrs={'id':'cityId','class':'cities order-alpha custom-selects','name':'city'}))
     linkedin = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Linkedin URL'}))
     website = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Website'}),required = False)
     facebook = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Facebook URL'}), required = False)
@@ -96,75 +96,78 @@ class ProfileEdit(forms.ModelForm):
         self.fields['alternate_email'].label = 'Alternate Email'
         self.helper = FormHelper()
         self.helper.layout = Layout(
-            Row(
-                Column('name', css_class='form-group col-md-3 mb-0'),
-                Column('sex', css_class='form-group col-md-3 mb-0'),
-                Column('fathers_name', css_class='form-group col-md-3 mb-0'),
-                Column('husbands_name', css_class='form-group col-md-3 mb-0'),
-                css_class='form-row'
+            Div(
+                Field('roll_no', css_class="form-control", wrapper_class='col-md-4'),
+                Field('name', css_class="form-control", wrapper_class='col-md-4'),
+                Field('sex', css_class="custom-select", wrapper_class="col-md-4"),
+                css_class='form-row',
             ),
-            Row(
-                Column('roll_no', css_class='form-group col-md-4 mb-0'),
-                Column('date_of_birth', css_class='form-group col-md-4 mb-0'),
-                Column('year_of_admission', css_class='form-group col-md-4 mb-0'),
-                css_class='form-row'
+            Div(
+                Field('fathers_name', css_class="form-control", wrapper_class='col-md-6'),
+                Field('husbands_name', css_class="form-control", wrapper_class='col-md-6'),
+                css_class='form-row',
             ),
-            Row(
-                Column('batch', css_class='form-group col-md-4 mb-0'),
-                Column('programme', css_class='form-group col-md-4 mb-0'),
-                Column('branch', css_class='form-group col-md-4 mb-0'),
-                css_class='form-row'
+            Div(
+                Field('date_of_birth', css_class="form-control", wrapper_class='col-md-4'),
+                Field('year_of_admission', css_class="custom-select", wrapper_class='col-md-4'),
+                Field('batch', css_class="custom-select", wrapper_class="col-md-4"),
+                css_class='form-row',
             ),
-            Row(
-                Column('mobile1', css_class='form-group col-md-4 mb-0'),
-                Column('mobile2', css_class='form-group col-md-4 mb-0'),
-                Column('phone_no', css_class='form-group col-md-4 mb-0'),
-                css_class='form-row'
+            Div(
+                Field('branch', css_class="custom-select", wrapper_class="col-md-6"),
+                Field('programme', css_class="custom-select", wrapper_class="col-md-6"),
+                css_class='form-row',
             ),
-
-            Row(
-                Column('email', css_class='form-group col-md-6 mb-0'),
-                Column('alternate_email', css_class='form-group col-md-6 mb-0'),
-                css_class='form-row'
+            Div(
+                Field('mobile1', css_class="form-control", wrapper_class='col-md-4'),
+                Field('mobile2', css_class="form-control", wrapper_class='col-md-4'),
+                Field('phone_no', css_class="form-control", wrapper_class="col-md-4"),
+                css_class='form-row',
             ),
-            Row(
-                Column('current_address', css_class='form-group col mb-0'),
-                
-                css_class='form-row'
+            Div(
+                Field('email', css_class="form-control", wrapper_class='col-md-6'),
+                Field('alternate_email', css_class="form-control", wrapper_class='col-md-6'),
+                css_class='form-row',
             ),
-            Row(
-                Column('country', css_class='form-group col-md-4 mb-0'),
-                Column('state', css_class='form-group col-md-4 mb-0'),
-                Column('city', css_class='form-group col-md-4 mb-0'),
-                css_class='form-row'
+            Div(
+                Field('current_address', css_class="form-control", wrapper_class='col-md'),
+                css_class='form-row',
             ),
-            Row(
-                Column('permanent_address', css_class='form-group col-md mb-0'),
+            Div(
+                Field('country', wrapper_class="col-md-4"),
+                Field('state', wrapper_class="col-md-4"),
+                Field('city', wrapper_class="col-md-4"),
+                css_class='form-row',
+            ),
+            Div(
+                Field('permanent_address', css_class="form-control", wrapper_class='col-md'),
+                css_class='form-row',
             ),
             InlineRadios('working_status'),
-            Row(
-                Column('current_position', css_class='form-group col-md-3 mb-0'),
-                Column('current_organisation', css_class='form-group col-md-3 mb-0'),
-                Column('date_of_joining', css_class='form-group col-md-3 mb-0'),
-                Column('past_experience', css_class='form-group col-md-3 mb-0'),
-                css_class='form-row'
+            Div(
+                Field('current_position', css_class="form-control", wrapper_class='col-md-6 col-lg-4'),
+                Field('current_organisation', css_class="form-control", wrapper_class='col-md-6 col-lg-4'),
+                Field('date_of_joining', css_class="form-control", wrapper_class='col-md-6 col-lg-4'),
+                Field('past_experience', css_class="form-control", wrapper_class="col-md-6 col-lg-4"),
+                css_class='form-row',
             ),
-            Row(
-                Column('current_course', css_class='form-group col-md-4 mb-0'),
-                Column('current_university', css_class='form-group col-md-4 mb-0'),
-                css_class='form-row'
+            Div(
+                Field('current_course', css_class="form-control", wrapper_class='col-md-6 col-lg-4'),
+                Field('current_university', css_class="form-control", wrapper_class='col-md-6 col-lg-4'),
+                css_class='form-row',
             ),
-            Row(
-                Column('linkedin', css_class='form-group col-md-6 mb-0'),
-                Column('website', css_class='form-group col-md-6 mb-0'),
-                css_class='form-row'
+            Div(
+                Field('linkedin', css_class="form-control", wrapper_class='col-md-6'),
+                Field('website', css_class="form-control", wrapper_class='col-md-6'),
+                css_class='form-row',
             ),
-            Row(
-                Column('facebook', css_class='form-group col-md-6 mb-0'),
-                Column('instagram', css_class='form-group col-md-6 mb-0'),
-                css_class='form-row'
+            Div(
+                Field('facebook', css_class="form-control", wrapper_class='col-md-6'),
+                Field('instagram', css_class="form-control", wrapper_class='col-md-6'),
+                css_class='form-row',
             ),
-            'profile_picture',
+            Field('profile_picture', css_class="w-100"),
+            # 'profile_picture',
             Submit('submit', 'Save Changes'),
         )   
     # def clean(self):
@@ -249,9 +252,9 @@ class NewRegister(forms.ModelForm):
         max_length=4000,
         required = False,
     )
-    country = forms.ChoiceField(widget=forms.Select(attrs={'id':'countryId','class':'countries order-alpha presel-IN','name':'country'}))
-    state = forms.ChoiceField(widget=forms.Select(attrs={'id':'stateId','class':'states order-alpha','name':'state'}))
-    city = forms.ChoiceField(widget=forms.Select(attrs={'id':'cityId','class':'cities order-alpha','name':'city'}))
+    country = forms.ChoiceField(widget=forms.Select(attrs={'id':'countryId','class':'countries order-alpha presel-IN custom-select','name':'country'}))
+    state = forms.ChoiceField(widget=forms.Select(attrs={'id':'stateId','class':'states order-alpha custom-select','name':'state'}))
+    city = forms.ChoiceField(widget=forms.Select(attrs={'id':'cityId','class':'cities order-alpha custom-select','name':'city'}))
     linkedin = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Linkedin URL'}))
     website = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Website'}), required = False)
     facebook = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Facebook URL'}), required = False)
@@ -276,76 +279,78 @@ class NewRegister(forms.ModelForm):
         self.fields['checkbox_update'].label = 'I will update my information at regular intervals and will engage in the Alumni network actively.'
         self.helper = FormHelper()
         self.helper.layout = Layout(
-            Row(
-                Column('name', css_class='form-group col-md-3 mb-0'),
-                Column('sex', css_class='form-group col-md-3 mb-0'),
-                Column('fathers_name', css_class='form-group col-md-3 mb-0'),
-                Column('husbands_name', css_class='form-group col-md-3 mb-0'),
-                css_class='form-row'
+            Div(
+                Field('roll_no', css_class="form-control", wrapper_class='col-md-4'),
+                Field('name', css_class="form-control", wrapper_class='col-md-4'),
+                Field('sex', css_class="custom-select", wrapper_class="col-md-4"),
+                css_class='form-row',
             ),
-            Row(
-                Column('roll_no', css_class='form-group col-md-4 mb-0'),
-                Column('date_of_birth', css_class='form-group col-md-4 mb-0'),
-                Column('year_of_admission', css_class='form-group col-md-4 mb-0'),
-                css_class='form-row'
+            Div(
+                Field('fathers_name', css_class="form-control", wrapper_class='col-md-6'),
+                Field('husbands_name', css_class="form-control", wrapper_class='col-md-6'),
+                css_class='form-row',
             ),
-            Row(
-                Column('batch', css_class='form-group col-md-4 mb-0'),
-                Column('programme', css_class='form-group col-md-4 mb-0'),
-                Column('branch', css_class='form-group col-md-4 mb-0'),
-                css_class='form-row'
+            Div(
+                Field('date_of_birth', css_class="form-control", wrapper_class='col-md-4'),
+                Field('year_of_admission', css_class="custom-select", wrapper_class='col-md-4'),
+                Field('batch', css_class="custom-select", wrapper_class="col-md-4"),
+                css_class='form-row',
             ),
-            Row(
-                Column('mobile1', css_class='form-group col-md-4 mb-0'),
-                Column('mobile2', css_class='form-group col-md-4 mb-0'),
-                Column('phone_no', css_class='form-group col-md-4 mb-0'),
-                css_class='form-row'
+            Div(
+                Field('branch', css_class="custom-select", wrapper_class="col-md-6"),
+                Field('programme', css_class="custom-select", wrapper_class="col-md-6"),
+                css_class='form-row',
             ),
-
-            Row(
-                Column('email', css_class='form-group col-md-6 mb-0'),
-                Column('alternate_email', css_class='form-group col-md-6 mb-0'),
-                css_class='form-row'
+            Div(
+                Field('mobile1', css_class="form-control", wrapper_class='col-md-4'),
+                Field('mobile2', css_class="form-control", wrapper_class='col-md-4'),
+                Field('phone_no', css_class="form-control", wrapper_class="col-md-4"),
+                css_class='form-row',
             ),
-            Row(
-                Column('current_address', css_class='form-group col-md mb-0'),
-                
-                css_class='form-row'
+            Div(
+                Field('email', css_class="form-control", wrapper_class='col-md-6'),
+                Field('alternate_email', css_class="form-control", wrapper_class='col-md-6'),
+                css_class='form-row',
             ),
-            Row(
-                Column('country', css_class='form-group col-md-4 mb-0'),
-                Column('state', css_class='form-group col-md-4 mb-0'),
-                Column('city', css_class='form-group col-md-4 mb-0'),
-                css_class='form-row'
+            Div(
+                Field('current_address', css_class="form-control", wrapper_class='col-md'),
+                css_class='form-row',
             ),
-            Row(
-                Column('permanent_address', css_class='form-group col-md mb-0'),
-                css_class='form-row'
+            Div(
+                Field('country', wrapper_class="col-md-4"),
+                Field('state', wrapper_class="col-md-4"),
+                Field('city', wrapper_class="col-md-4"),
+                css_class='form-row',
+            ),
+            Div(
+                Field('permanent_address', css_class="form-control", wrapper_class='col-md'),
+                css_class='form-row',
             ),
             InlineRadios('working_status'),
-            Row(
-                Column('current_position', css_class='form-group col-md-3 mb-0'),
-                Column('current_organisation', css_class='form-group col-md-3 mb-0'),
-                Column('date_of_joining', css_class='form-group col-md-3 mb-0'),
-                Column('past_experience', css_class='form-group col-md-3 mb-0'),
-                css_class='form-row'
+            Div(
+                Field('current_position', css_class="form-control", wrapper_class='col-md-6 col-lg-4'),
+                Field('current_organisation', css_class="form-control", wrapper_class='col-md-6 col-lg-4'),
+                Field('date_of_joining', css_class="form-control", wrapper_class='col-md-6 col-lg-4'),
+                Field('past_experience', css_class="form-control", wrapper_class="col-md-6 col-lg-4"),
+                css_class='form-row',
             ),
-            Row(
-                Column('current_course', css_class='form-group col-md-4 mb-0'),
-                Column('current_university', css_class='form-group col-md-4 mb-0'),
-                css_class='form-row'
+            Div(
+                Field('current_course', css_class="form-control", wrapper_class='col-md-6 col-lg-4'),
+                Field('current_university', css_class="form-control", wrapper_class='col-md-6 col-lg-4'),
+                css_class='form-row',
             ),
-            Row(
-                Column('linkedin', css_class='form-group col-md-6 mb-0'),
-                Column('website', css_class='form-group col-md-6 mb-0'),
-                css_class='form-row'
+            Div(
+                Field('linkedin', css_class="form-control", wrapper_class='col-md-6'),
+                Field('website', css_class="form-control", wrapper_class='col-md-6'),
+                css_class='form-row',
             ),
-            Row(
-                Column('facebook', css_class='form-group col-md-6 mb-0'),
-                Column('instagram', css_class='form-group col-md-6 mb-0'),
-                css_class='form-row'
+            Div(
+                Field('facebook', css_class="form-control", wrapper_class='col-md-6'),
+                Field('instagram', css_class="form-control", wrapper_class='col-md-6'),
+                css_class='form-row',
             ),
-            'profile_picture',
+            Field('profile_picture', css_class="w-100"),
+            # 'profile_picture',
             'checkbox_update',
             Submit('submit', 'Register'),
         )   
