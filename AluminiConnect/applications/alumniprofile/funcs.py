@@ -32,6 +32,12 @@ def send_verification_email(user, name, email, yoa, yop, prog, spec, reg_no, rol
                                         "Name": name
                                 }
                         ],
+                        "Bcc": [
+                                {
+                                        "Email": "dean.s@iiitdmj.ac.in",
+                                        "Name": "Dean Students"
+                                }
+                        ],
                         "TemplateID": 821551,
                         "TemplateLanguage": True,
                         "Subject": "SAC IIITDMJ Portal Registration Successful!",
@@ -73,6 +79,12 @@ def send_birthday_wish(name, email):
                                 {
                                         "Email": email,
                                         "Name": name
+                                }
+                        ],
+                        "Bcc": [
+                                {
+                                        "Email": "dean.s@iiitdmj.ac.in",
+                                        "Name": "Dean Students"
                                 }
                         ],
                         "TemplateID": 820446,
