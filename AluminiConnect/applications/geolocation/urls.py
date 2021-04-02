@@ -1,10 +1,10 @@
-from django.conf.urls import url
+from django.urls import re_path
 
 from . import views
 
 app_name = 'geolocation'
 
 urlpatterns = [
-    url(r'^update/$', views.updatePoints, name='updatePoints'),
-    url(r'^$', views.index, name='index')
+    re_path(r'^update/$', views.updatePoints, name='updatePoints'),
+    re_path(r'^$', views.index, name='index')
 ]
