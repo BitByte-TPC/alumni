@@ -38,7 +38,7 @@ def edit(request):
             profile.save()
 
     else:
-        if (not request.user.is_authenticated()):
+        if not request.user.is_authenticated:
             return render(request, "/")
 
         user = request.user

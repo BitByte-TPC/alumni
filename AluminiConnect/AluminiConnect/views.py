@@ -35,7 +35,7 @@ class LoginFormView(SuccessMessageMixin, LoginView):
 
 def index(request):
     sname = None
-    if( request.user.is_authenticated()):
+    if request.user.is_authenticated:
         sname = request.user.get_short_name()
     now = timezone.now()
     events = Event.objects.filter(start_date__gte=now).order_by('start_date').annotate(count=Count('attendees__user_id'))
