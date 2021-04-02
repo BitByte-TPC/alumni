@@ -171,9 +171,6 @@ if DEBUG:
         'debug_toolbar',
     )
     INTERNAL_IPS = ('127.0.0.1',)
-    DEBUG_TOOLBAR_CONFIG = {
-        'INTERCEPT_REDIRECTS': False,
-    }
 
 EMAIL_USE_TLS = True
 #EMAIL_HOST = 'in-v3.mailjet.com'
