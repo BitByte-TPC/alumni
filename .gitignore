@@ -81,8 +81,9 @@ target/
 ### Django ###
 *.log
 *.pyc
-migrations
 local_settings.py
+**/migrations/*
+!**/migrations/__init__.py
 
 .env
 db.sqlite3
