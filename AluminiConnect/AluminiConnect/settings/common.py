@@ -19,14 +19,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY_ALUMNI")
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-
-ALLOWED_HOSTS = ['58.84.25.100', '103.59.142.75', 'https://www.iiitdmj.ac.in/sac.iiitdmj.ac.in/', 'sac.iiitdmj.ac.in']
-
 
 # Application definition
 
@@ -73,7 +65,7 @@ ROOT_URLCONF = 'AluminiConnect.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['/', os.path.join(BASE_DIR, 'templates')],
+        'DIRS': ['/', os.path.join(BASE_DIR, '..', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -96,7 +88,7 @@ WSGI_APPLICATION = 'AluminiConnect.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, '..', 'db.sqlite3'),
     }
 }
 
@@ -138,10 +130,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
-# For production release 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-#STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static/'),)
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'media/')
 MEDIA_URL = '/media/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
@@ -162,18 +152,6 @@ CKEDITOR_CONFIGS = {
 }
 
 TEMPUS_DOMINUS_LOCALIZE = True
-
-if DEBUG:
-    MIDDLEWARE += (
-        'debug_toolbar.middleware.DebugToolbarMiddleware',
-    )
-    INSTALLED_APPS += (
-        'debug_toolbar',
-    )
-    INTERNAL_IPS = ('127.0.0.1',)
-    DEBUG_TOOLBAR_CONFIG = {
-        'INTERCEPT_REDIRECTS': False,
-    }
 
 EMAIL_USE_TLS = True
 #EMAIL_HOST = 'in-v3.mailjet.com'

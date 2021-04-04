@@ -1,5 +1,8 @@
 import requests
-from collections import Counter
+try:
+    from collections.abc import Counter
+except ImportError:
+    from collections import Counter
 
 from django.shortcuts import render
 from django.db.models import Count

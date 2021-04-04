@@ -94,4 +94,3 @@ dump.rdb
 celerybeat-schedule
 
 .idea/
-/env/
