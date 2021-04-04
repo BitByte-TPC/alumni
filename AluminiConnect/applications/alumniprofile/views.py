@@ -3,7 +3,10 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from .models import Profile
 from datetime import datetime
-from collections import defaultdict 
+try:
+    from collections.abc import defaultdict
+except ImportError:
+    from collections import defaultdict
 #
 # Create your views here.
 
@@ -35,7 +38,7 @@ def edit(request):
             profile.save()
 
     else:
-        if (not request.user.is_authenticated()):
+        if not request.user.is_authenticated:
             return render(request, "/")
 
         user = request.user

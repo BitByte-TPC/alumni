@@ -1,11 +1,12 @@
-from django.conf.urls import url
+from django.urls import path, re_path
 
 from . import views
 
 app_name = 'publications'
+
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
-    url(r'^(?P<slug>[-\w]+)$', views.PublicationDetail.as_view(), name='publication'),
-    #url(r'^(?P<slug>[-\w]+)/download$', views.download_pdf, name='download_pdf'),
+    path('', views.index, name='index'),
+    re_path(r'^(?P<slug>[-\w]+)$', views.PublicationDetail.as_view(), name='publication'),
+    #re_path(r'^(?P<slug>[-\w]+)/download$', views.download_pdf, name='download_pdf'),
     
 ]
