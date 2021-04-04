@@ -1,4 +1,4 @@
-from django.urls import re_path
+from django.urls import path
 
 from . import views
 
@@ -6,5 +6,5 @@ app_name = 'jobs'
 
 urlpatterns = [
 
-    re_path(r'^$', views.index, name='index'),
+    path('', views.index, name='index'),
 ]
