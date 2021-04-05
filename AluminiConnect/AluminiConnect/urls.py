@@ -17,7 +17,7 @@ from django.conf import settings
 from django.urls import include, path, re_path
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.contrib.auth import views as auth_views
+from django.contrib.auth.views import LogoutView
 from django.views.generic import TemplateView
 from django.views.generic.base import RedirectView
 
@@ -35,7 +35,7 @@ urlpatterns += [
     path('admin/', admin.site.urls),    
     path('login/', views.LoginFormView.as_view(), name='login'),
     #path('account/reset_password/', views.ResetPasswordRequestView.as_view(), name="reset_password"),
-    path('logout/', auth_views.logout, name='logout'),
+    path('logout/', LogoutView.as_view(), name='logout'),
     path('register/', views.register, name='register'),
     path('newregister/', views.new_register, name='new_register'),
     re_path(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', views.activate, name='activate'),
