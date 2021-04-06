@@ -9,7 +9,7 @@ certifi==2018.11.29
 chardet==3.0.4
 colorama==0.4.4
 defusedxml==0.5.0
-Django==2.0.13
+Django==2.1.15
 django-allauth==0.32.0
 django-anymail==6.0
 django-appconf==1.0.2
