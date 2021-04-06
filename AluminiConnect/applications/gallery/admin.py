@@ -26,7 +26,7 @@ class AlbumModelAdmin(admin.ModelAdmin):
             album.modified = datetime.now()
             album.save()
 
-            if form.cleaned_data['zip'] != None:
+            if form.cleaned_data['zip'] is not None:
                 zip = zipfile.ZipFile(form.cleaned_data['zip'])
                 for filename in sorted(zip.namelist()):
 

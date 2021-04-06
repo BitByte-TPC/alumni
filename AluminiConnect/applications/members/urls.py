@@ -5,7 +5,7 @@ from . import views
 app_name = 'members'
 
 extrapatterns = [
-    
+
     re_path(r'^(?P<programme>[.a-zA-Z]+)/(?P<branch>[A-Z]+)/$', views.branch, name="branch"),
     path('', views.batch, name="batch"),
 ]

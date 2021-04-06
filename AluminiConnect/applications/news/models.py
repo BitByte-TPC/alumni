@@ -9,12 +9,13 @@ def upload_news_photo(instance, filename):
     name, extension = os.path.splitext(filename)
     return "News/" + str(instance.news_id) + extension
 
+
 class News(models.Model):
-    news_id = models.AutoField(primary_key = True)
+    news_id = models.AutoField(primary_key=True)
     title = RichTextField()
     date = models.DateTimeField(auto_now_add=True)
-    by = models.TextField(max_length = 500)
-    picture = models.ImageField(null = True, blank = True, upload_to = upload_news_photo)
+    by = models.TextField(max_length=500)
+    picture = models.ImageField(null=True, blank=True, upload_to=upload_news_photo)
     description = RichTextUploadingField(null=True)
 
     def __str__(self):
@@ -22,5 +23,5 @@ class News(models.Model):
 
     @property
     def title_stripped(self):
-       from django.utils.html import strip_tags
-       return strip_tags(self.title)
+        from django.utils.html import strip_tags
+        return strip_tags(self.title)

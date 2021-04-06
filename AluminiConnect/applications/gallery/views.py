@@ -5,6 +5,7 @@ from django.views.generic import DetailView
 from django.db.models import Count
 from .models import Album, AlbumImage
 
+
 def gallery(request):
     album_list = Album.objects.filter(is_visible=True).order_by('-created').annotate(images_count=Count('albumimage'))
     # paginator = Paginator(list, 10)
@@ -17,12 +18,13 @@ def gallery(request):
     # except EmptyPage:
     #     albums = paginator.page(paginator.num_pages) # If page is out of range (e.g.  9999), deliver last page of results.
 
-    return render(request, "gallery/index.html", { 'albums': album_list })
+    return render(request, "gallery/index.html", {'albums': album_list})
+
 
 class AlbumDetail(DetailView):
-     model = Album
+    model = Album
 
-     def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(AlbumDetail, self).get_context_data(**kwargs)
         # Add in a QuerySet of all the images
@@ -30,6 +32,7 @@ class AlbumDetail(DetailView):
         context['images'] = images
         context['images_count'] = images.count()
         return context
+
 
 def handler404(request, exception):
     assert isinstance(request, HttpRequest)
