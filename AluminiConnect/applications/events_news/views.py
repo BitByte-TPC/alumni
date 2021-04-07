@@ -75,5 +75,6 @@ def event(request, id):
         "attendees_sliced": attending[:attendees_limit],
         "album_present": album_present,
         "images": images,
-        "album": album
+        "album": album,
+        "base_uri": request.build_absolute_uri()
     })

@@ -65,7 +65,8 @@
 								{{ event.by }}
 							</span>
 						</p>
-						{% if event.is_completed %}
+						<div class="row">
+							{% if event.is_completed %}
 						<button type="button" class="btn btn-secondary btn-sm px-4 py-2 mt-2" disabled>Event Ended</button>
 						{% elif not check %}
 						<form method="POST">
@@ -79,7 +80,22 @@
 							<button type="submit" name="submit" value="rsvp_del" class="btn btn-danger btn-sm px-4 py-2 mt-2">Remove Registration</button>
 						</form>
 						{% endif %}
+						<!-- Social Sharing -->
+						<div class="dropdown d-inline-block " style="margin-left: 3px;">
+							<button class="btn btn-primary btn-sm px-4 py-2 mt-2 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Share
+							</button>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+							<!-- Dropdown menu links -->
+								<a href="https://www.facebook.com/sharer.php?u= {{ base_uri }}" target="_blank" title="Facebook Share" class="dropdown-item" >Facebook</a>
 
+								<a href="https://twitter.com/share?text=Attending%20this%20event%20at%20IIITDM%20Jabalpur. &url= {{ base_uri }}" target="_blank" title="Twitter Share" class="dropdown-item"  >Twitter</a>
+
+								<a href="https://www.linkedin.com/shareArticle?mini=true&url= {{ base_uri }}" target="_blank" title="LinkedIn Share"  class="dropdown-item" >LinkedIn</a>
+
+							</div>
+						</div>
+						</div>
 					</div>
 				</div>
 
@@ -214,7 +230,6 @@
 
 					<!--   TITLE FOR PC   -->
 					<div class="card m-2 shadow-sm d-none d-lg-block">
-
 						<div class="card-body p-4">
 							<h1 class="mb-3">{{ event.title|safe }}</h1>
 							<p class="font-weight-light m-0">
@@ -234,21 +249,40 @@
 									{{ event.by }}
 								</span>
 							</p>
-							{% if event.is_completed %}
-							<button type="button" class="btn btn-secondary btn-sm px-4 py-2 mt-2" disabled>Event Ended</button>
-							{% elif not check %}
-							<form method="POST">
-								{% csrf_token %}
-								<button type="submit" name="submit" value="rsvp" class="btn btn-success btn-sm px-4 py-2 mt-2">Register</button>
-							</form>
-							{% else %}
-							<form method="POST">
-								{% csrf_token %}
-								<button type="button"  class="btn btn-success btn-sm px-4 py-2 mt-2" disabled>Registered</button>
-								<button type="submit" name="submit" value="rsvp_del" class="btn btn-danger btn-sm px-4 py-2 mt-2">Remove Registration</button>
-							</form>
-							{% endif %}
+							
+							<div class="row">
+								
+								{% if event.is_completed %}
+								<button type="button" class="btn btn-secondary btn-sm px-4 py-2 mt-2" disabled>Event Ended</button>
+								{% elif not check %}
+								<form method="POST">
+									{% csrf_token %}
+									<button type="submit" name="submit" value="rsvp" class="btn btn-success btn-sm px-4 py-2 mt-2">Register</button>
+								</form>
+								{% else %}
+								<form method="POST">
+									{% csrf_token %}
+									<button type="button"  class="btn btn-success btn-sm px-4 py-2 mt-2" disabled>Registered</button>
+									<button type="submit" name="submit" value="rsvp_del" class="btn btn-danger btn-sm px-4 py-2 mt-2">Remove Registration</button>
+								</form>
+								{% endif %}
 
+								<!-- Social Sharing -->
+								<div class="dropdown d-inline-block " style="margin-left: 3px;">
+									<button class="btn btn-primary btn-sm px-4 py-2 mt-2 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									Share
+									</button>
+									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+									<!-- Dropdown menu links -->
+										<a href="https://www.facebook.com/sharer.php?u= {{ base_uri }}" target="_blank" title="Facebook Share" class="dropdown-item" >Facebook</a>
+
+										<a href="https://twitter.com/share?text=Attending%20this%20event%20at%20IIITDM%20Jabalpur. &url= {{ base_uri }}" target="_blank" title="Twitter Share" class="dropdown-item"  >Twitter</a>
+
+										<a href="https://www.linkedin.com/shareArticle?mini=true&url={{ base_uri }}" target="_blank" title="LinkedIn Share"  class="dropdown-item" >LinkedIn</a>
+
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 
