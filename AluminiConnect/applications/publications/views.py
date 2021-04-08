@@ -5,6 +5,7 @@ from django.views.generic import DetailView
 from django.db.models import Count
 from .models import Publication, PublicationMedia
 
+
 def index(request):
     publication_list = Publication.objects.filter(is_visible=True).order_by('-created')
     # paginator = Paginator(list, 10)
@@ -17,16 +18,18 @@ def index(request):
     # except EmptyPage:
     #     albums = paginator.page(paginator.num_pages) # If page is out of range (e.g.  9999), deliver last page of results.
 
-    return render(request, "publications/index.html", { 'publications': publication_list })
+    return render(request, "publications/index.html", {'publications': publication_list})
+
 
 class PublicationDetail(DetailView):
-     model = Publication
+    model = Publication
 
-     def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(PublicationDetail, self).get_context_data(**kwargs)
         context['media'] = PublicationMedia.objects.filter(publication=self.object.id)
         return context
+
 
 def handler404(request, exception):
     assert isinstance(request, HttpRequest)
