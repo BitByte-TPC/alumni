@@ -7,26 +7,26 @@ from crispy_forms.layout import Layout, Submit, Row, Column, Div, Field
 from crispy_forms.bootstrap import InlineRadios
 
 
-
 class UserRegistrationForm(forms.Form):
     username = forms.CharField(
-        required = True,
-        label = 'Roll No',
-        max_length = 8,
+        required=True,
+        label='Roll No',
+        max_length=8,
     )
     email = forms.CharField(
-        required = True,
-        label = 'Email Addresss',
-        max_length = 32,
+        required=True,
+        label='Email Addresss',
+        max_length=32,
     )
 
-    password =  forms.CharField(
-        required = True,
-        label = 'Passsword',
-        max_length = 32,
-        min_length = 8,
-        widget = forms.PasswordInput(),
+    password = forms.CharField(
+        required=True,
+        label='Passsword',
+        max_length=32,
+        min_length=8,
+        widget=forms.PasswordInput(),
     )
+
 
 class RegisterForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -44,19 +44,19 @@ class RegisterForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ['batch','programme','branch']
+        fields = ['batch', 'programme', 'branch']
 
 
 class ProfileEdit(forms.ModelForm):
     date_of_birth = forms.DateField(
-        widget=forms.TextInput(     
-            attrs={'type': 'date'} 
+        widget=forms.TextInput(
+            attrs={'type': 'date'}
         ),
         required=True,
     )
     date_of_joining = forms.DateField(
-        widget=forms.TextInput(     
-            attrs={'type': 'date'} 
+        widget=forms.TextInput(
+            attrs={'type': 'date'}
         ),
         required=False,
     )
@@ -68,18 +68,21 @@ class ProfileEdit(forms.ModelForm):
     )
     permanent_address = forms.CharField(
         widget=forms.Textarea(
-            attrs={'rows': 3, 'placeholder': 'Enter Permanent Address',}
+            attrs={'rows': 3, 'placeholder': 'Enter Permanent Address', }
         ),
         max_length=4000,
-        required = False,
+        required=False,
     )
-    country = forms.CharField(widget=forms.Select(attrs={'id':'countryId','class':'countries order-alpha custom-select','name':'country'}))
-    state = forms.CharField(widget=forms.Select(attrs={'id':'stateId','class':'states order-alpha custom-select','name':'state'}))
-    city = forms.CharField(widget=forms.Select(attrs={'id':'cityId','class':'cities order-alpha custom-selects','name':'city'}))
+    country = forms.CharField(widget=forms.Select(
+        attrs={'id': 'countryId', 'class': 'countries order-alpha custom-select', 'name': 'country'}))
+    state = forms.CharField(
+        widget=forms.Select(attrs={'id': 'stateId', 'class': 'states order-alpha custom-select', 'name': 'state'}))
+    city = forms.CharField(
+        widget=forms.Select(attrs={'id': 'cityId', 'class': 'cities order-alpha custom-selects', 'name': 'city'}))
     linkedin = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Linkedin URL'}))
-    website = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Website'}),required = False)
-    facebook = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Facebook URL'}), required = False)
-    instagram = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Instagram Username'}), required = False)
+    website = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Website'}), required=False)
+    facebook = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Facebook URL'}), required=False)
+    instagram = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Instagram Username'}), required=False)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -169,8 +172,9 @@ class ProfileEdit(forms.ModelForm):
             Field('profile_picture', css_class="w-100"),
             # 'profile_picture',
             Submit('submit', 'Save Changes'),
-        )   
-    # def clean(self):
+        )
+        # def clean(self):
+
     #     super(ProfileEdit, self).clean() #if necessary
     #     del self._errors['country']
     #     del self._errors['city']
@@ -216,26 +220,26 @@ class ProfileEdit(forms.ModelForm):
             'profile_picture']
 
         widgets = {
-            #'name': forms.TextInput(attrs={ 'readonly':'readonly'}),
-            #'sex': forms.TextInput(attrs={ 'readonly':'readonly'}),
-            'email': forms.TextInput(attrs={ 'readonly':'readonly'}),
-            'roll_no': forms.TextInput(attrs={ 'readonly':'readonly'}),
-            'year_of_admission': forms.TextInput(attrs={ 'readonly':'readonly'}),
-            'branch': forms.TextInput(attrs={ 'readonly':'readonly'}),
-            'programme': forms.TextInput(attrs={ 'readonly':'readonly'}),
+            # 'name': forms.TextInput(attrs={ 'readonly':'readonly'}),
+            # 'sex': forms.TextInput(attrs={ 'readonly':'readonly'}),
+            'email': forms.TextInput(attrs={'readonly': 'readonly'}),
+            'roll_no': forms.TextInput(attrs={'readonly': 'readonly'}),
+            'year_of_admission': forms.TextInput(attrs={'readonly': 'readonly'}),
+            'branch': forms.TextInput(attrs={'readonly': 'readonly'}),
+            'programme': forms.TextInput(attrs={'readonly': 'readonly'}),
             'working_status': forms.RadioSelect(choices=Constants.WORKING_STATUS),
         }
 
 
 class NewRegister(forms.ModelForm):
     date_of_birth = forms.DateField(
-        widget=forms.TextInput(     
-            attrs={'type': 'date'} 
+        widget=forms.TextInput(
+            attrs={'type': 'date'}
         ),
     )
     date_of_joining = forms.DateField(
-        widget=forms.TextInput(     
-            attrs={'type': 'date'} 
+        widget=forms.TextInput(
+            attrs={'type': 'date'}
         ),
         required=False,
     )
@@ -247,19 +251,22 @@ class NewRegister(forms.ModelForm):
     )
     permanent_address = forms.CharField(
         widget=forms.Textarea(
-            attrs={'rows': 3, 'placeholder': 'Enter Permanent Address',}
+            attrs={'rows': 3, 'placeholder': 'Enter Permanent Address', }
         ),
         max_length=4000,
-        required = False,
+        required=False,
     )
-    country = forms.ChoiceField(widget=forms.Select(attrs={'id':'countryId','class':'countries order-alpha presel-IN custom-select','name':'country'}))
-    state = forms.ChoiceField(widget=forms.Select(attrs={'id':'stateId','class':'states order-alpha custom-select','name':'state'}))
-    city = forms.ChoiceField(widget=forms.Select(attrs={'id':'cityId','class':'cities order-alpha custom-select','name':'city'}))
+    country = forms.ChoiceField(widget=forms.Select(
+        attrs={'id': 'countryId', 'class': 'countries order-alpha presel-IN custom-select', 'name': 'country'}))
+    state = forms.ChoiceField(
+        widget=forms.Select(attrs={'id': 'stateId', 'class': 'states order-alpha custom-select', 'name': 'state'}))
+    city = forms.ChoiceField(
+        widget=forms.Select(attrs={'id': 'cityId', 'class': 'cities order-alpha custom-select', 'name': 'city'}))
     linkedin = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Linkedin URL'}))
-    website = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Website'}), required = False)
-    facebook = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Facebook URL'}), required = False)
-    #checkbox_terms = forms.BooleanField(required=True)
-    instagram = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Instagram Username'}), required = False)
+    website = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Website'}), required=False)
+    facebook = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Facebook URL'}), required=False)
+    # checkbox_terms = forms.BooleanField(required=True)
+    instagram = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Instagram Username'}), required=False)
     checkbox_update = forms.BooleanField(required=True)
 
     def __init__(self, *args, **kwargs):
@@ -275,8 +282,9 @@ class NewRegister(forms.ModelForm):
         self.fields['date_of_birth'].label = 'Date of Birth'
         self.fields['year_of_admission'].label = 'Year of Admission'
         self.fields['alternate_email'].label = 'Alternate Email'
-        #self.fields['checkbox_terms'].label = 'I abide by the Terms and Conditions of the SAC'
-        self.fields['checkbox_update'].label = 'I will update my information at regular intervals and will engage in the Alumni network actively.'
+        # self.fields['checkbox_terms'].label = 'I abide by the Terms and Conditions of the SAC'
+        self.fields[
+            'checkbox_update'].label = 'I will update my information at regular intervals and will engage in the Alumni network actively.'
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Div(
@@ -353,14 +361,14 @@ class NewRegister(forms.ModelForm):
             # 'profile_picture',
             'checkbox_update',
             Submit('submit', 'Register'),
-        )   
+        )
 
     def clean(self):
-        super(NewRegister, self).clean() #if necessary
+        super(NewRegister, self).clean()  # if necessary
         del self._errors['country']
         del self._errors['city']
         del self._errors['state']
-        return self.cleaned_data   
+        return self.cleaned_data
 
     class Meta:
         model = Profile
@@ -403,6 +411,7 @@ class NewRegister(forms.ModelForm):
         widgets = {
             'working_status': forms.RadioSelect(choices=Constants.WORKING_STATUS),
         }
+
 
 class PasswordResetRequestForm(forms.Form):
     roll_no = forms.IntegerField(label=("Roll No."))

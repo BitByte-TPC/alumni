@@ -14,10 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf import settings
-from django.conf.urls import url, include
+from django.urls import include, path, re_path
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.contrib.auth import views as auth_views
+from django.contrib.auth.views import LogoutView
 from django.views.generic import TemplateView
 from django.views.generic.base import RedirectView
 
@@ -31,33 +31,33 @@ urlpatterns = []
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += [
-    url(r'^$', views.index, name='home'),
-    url(r'^admin/', admin.site.urls),    
-    url(r'^login/', views.LoginFormView.as_view(), name='login'),
-    #url(r'^account/reset_password', views.ResetPasswordRequestView.as_view(), name="reset_password"),
-    url(r'^logout/$', auth_views.logout, name='logout'),
-    url(r'^register/', views.register, name='register'),
-    url(r'^newregister/', views.new_register, name='new_register'),
-    url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', views.activate, name='activate'),
-    url(r'^confirm/$', TemplateView.as_view(template_name='AluminiConnect/confirm_email.html'), name = 'confirm'),
-    url(r'^success/$', TemplateView.as_view(template_name='AluminiConnect/account_success.html'), name = 'success'),
-    url('^', include('django.contrib.auth.urls')),
-    url(r'^password/$', views.change_password, name='change_password'),
-    url(r'^profileedit/(?P<id>[0-9]+)/$', views.profileedit, name='profileedit'),
-    url(r'^profile/', include('applications.alumniprofile.urls')),
-    url(r'^members/', include('applications.members.urls')),
-    url(r'^events/', include('applications.events_news.urls')),
-    url(r'^news/', include('applications.news.urls')),
-    url(r'^newsletter/', include('applications.publications.urls')),
-    url(r'^geolocation/', include('applications.geolocation.urls')),
-    url(r'^alumnibody/', views.alumniBody),
-    url(r'^alumnicard/', views.alumniCard, name='alumnicard'),
-    url(r'^gallery/', include('applications.gallery.urls')),
-    url(r'^ckeditor/', include('ckeditor_uploader.urls')),
-    url(r'^awards/', include('applications.awards.urls')),
-    url(r'^chapter/', include('applications.chapter.urls')),
-    url(r'favicon.ico', favicon_view)
-    #url(r'^', views.index, name='home'),
+    path('', views.index, name='home'),
+    path('admin/', admin.site.urls),    
+    path('login/', views.LoginFormView.as_view(), name='login'),
+    #path('account/reset_password/', views.ResetPasswordRequestView.as_view(), name="reset_password"),
+    path('logout/', LogoutView.as_view(), name='logout'),
+    path('register/', views.register, name='register'),
+    path('newregister/', views.new_register, name='new_register'),
+    re_path(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', views.activate, name='activate'),
+    path('confirm/', TemplateView.as_view(template_name='AluminiConnect/confirm_email.html'), name = 'confirm'),
+    path('success/', TemplateView.as_view(template_name='AluminiConnect/account_success.html'), name = 'success'),
+    re_path('^', include('django.contrib.auth.urls')),
+    path('password/', views.change_password, name='change_password'),
+    re_path(r'^profileedit/(?P<id>[0-9]+)/$', views.profileedit, name='profileedit'),
+    path('profile/', include('applications.alumniprofile.urls')),
+    path('members/', include('applications.members.urls')),
+    path('events/', include('applications.events_news.urls')),
+    path('news/', include('applications.news.urls')),
+    path('newsletter/', include('applications.publications.urls')),
+    path('geolocation/', include('applications.geolocation.urls')),
+    path('alumnibody/', views.alumniBody),
+    path('alumnicard/', views.alumniCard, name='alumnicard'),
+    path('gallery/', include('applications.gallery.urls')),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('awards/', include('applications.awards.urls')),
+    path('chapter/', include('applications.chapter.urls')),
+    re_path(r'favicon.ico', favicon_view)
+    #path('', views.index, name='home'),
 ]
 
 if settings.DEBUG:
@@ -65,7 +65,7 @@ if settings.DEBUG:
 
     import debug_toolbar
     urlpatterns = [
-        url(r'^__debug__/', include(debug_toolbar.urls)),
+        path('__debug__/', include(debug_toolbar.urls)),
     ] + urlpatterns
     
 admin.site.site_header = "IIITDMJ Alumni Association"

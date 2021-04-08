@@ -7,4 +7,3 @@ for user in users:
     #user.user.is_active = True
     user.user.set_password(user.reg_no)
     user.user.save()
-    
