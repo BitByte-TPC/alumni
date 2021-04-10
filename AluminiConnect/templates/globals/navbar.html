@@ -4,7 +4,7 @@
 <nav class="navbar navbar-expand-lg navbar-light fixed-top navbar-shrink" id="mainNav">
         <div class="container">
         <a class="navbar-brand js-scroll-trigger" href="{% url 'home' %}">
-            <img src="{% static "AluminiConnect/img/logo-min.png" %}" class="h-100" style="max-height:30px">
+            <img src="{% static 'AluminiConnect/img/logo-min.png' %}" class="h-100" style="max-height:30px">
             Alumni Connect
         </a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,8 +19,9 @@
                 <a href="{% url 'members:index' %}"  class="dropdown-toggle nav-link " data-toggle="dropdown">Community&nbsp;<b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="{% url 'members:index' %}" class="dropdown-item">Yearbook</a></li>
-                    <li><a href="{% url 'geolocation:index' %}" class="dropdown-item">By Map</a></li>
                     <li><a href="{% url 'chapter:index' %}" class="dropdown-item">Chapters</a></li>
+                    <li><a href="{% url 'awards:award' id=1 %}" class="dropdown-item">Young Achiever Award 2019</a></li>
+                    <li><a href="{% url 'geolocation:index' %}" class="dropdown-item">By Map</a></li>
                 </ul>
                 
             </li>
@@ -29,25 +30,14 @@
                 <ul class="dropdown-menu">
                     <li><a href="{% url 'events_news:events' %}" class="dropdown-item">Alumni Events</a></li>
                     <li><a href="{% url 'news:index' %}" class="dropdown-item">Campus&nbsp;Feeds</a></li>
-                    
+                    <li><a href="{% url 'gallery:gallery' %}" class="dropdown-item">Gallery</a></li>
                 </ul>
                 
-            </li>
-            <li class="nav-item dropdown">
-                <a href="{% url 'members:index' %}"  class="dropdown-toggle nav-link " data-toggle="dropdown">Services&nbsp;<b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="{% url 'publications:index' %}">Publications</a></li>
-                    <li><a href="https://forms.gle/5AwdnQjyuwUp5K2h8/" target="_blank" class="dropdown-item">Alumni Card</a></li>
-                    <li><a href="{% url 'awards:award' id=1 %}" class="dropdown-item">Young Achiever Award 2019</a></li>
-                </ul>
-                
-            </li>
-            <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="{% url 'gallery:gallery' %}">Gallery</a>
             </li>
             <li class="nav-item dropdown">
                 <a href="{% url 'members:index' %}" class="dropdown-toggle nav-link " data-toggle="dropdown">About&nbsp;<b class="caret"></b></a>
                 <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'publications:index' %}">Publications</a></li>
                     <li><a href="https://www.iiitdmj.ac.in/about_us.php" target="_blank" class="dropdown-item">IIIT Jabalpur</a></li>
                     <li><a href="{% url 'members:sacbody' %}" class="dropdown-item">Student Alumni Body</a></li>
                 </ul>
