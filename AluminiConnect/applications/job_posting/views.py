@@ -8,6 +8,7 @@ from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
+
 # Create your views here.
 def index(request):
     posts = Posting.objects.all().order_by('-posting_date')

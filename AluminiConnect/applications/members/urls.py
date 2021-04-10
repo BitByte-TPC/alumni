@@ -1,17 +1,19 @@
-from django.conf.urls import url, include
+from django.urls import include, path, re_path
 
 from . import views
 
 app_name = 'members'
 
 extrapatterns = [
-    
-    url(r'^(?P<programme>[.a-zA-Z]+)/(?P<branch>[A-Z]+)/$', views.branch, name="branch"),
-    url(r'^$', views.batch, name="batch"),
+
+    re_path(r'^(?P<programme>[.a-zA-Z]+)/(?P<branch>[A-Z]+)/$', views.branch, name="branch"),
+    path('', views.batch, name="batch"),
 ]
 urlpatterns = [
-    url(r'^(?P<year>[0-9]{4})/', include(extrapatterns)),
-    url(r'^sacbody/$', views.sacbody, name="sacbody"),
-    url(r'^search/$', views.search, name='search'),
-    url(r'^$', views.index, name='index'),
+    re_path(r'^(?P<year>[0-9]{4})/', include(extrapatterns)),
+    path('sacbody/', views.sacbody, name="sacbody"),
+    path('search/', views.search, name='search'),
+    path('autosearch/', views.autoSearch, name='autosearch'),
+    path('mapsearch/', views.mapSearch, name='mapsearch'),
+    path('', views.index, name='index'),
 ]

@@ -24,7 +24,7 @@ class PublicationModelAdmin(admin.ModelAdmin):
             publication.modified = datetime.now()
             publication.save()
 
-            if form.cleaned_data['zip'] != None:
+            if form.cleaned_data['zip'] is not None:
                 zip = zipfile.ZipFile(form.cleaned_data['zip'])
                 for filename in sorted(zip.namelist()):
 

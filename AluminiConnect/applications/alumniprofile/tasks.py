@@ -8,14 +8,15 @@ import datetime
 
 logger = get_task_logger(__name__)
 
+
 @periodic_task(
-    run_every=(crontab(hour=10, minute=0)),
+    run_every=(crontab(hour=13, minute=5)),
     name="send_birthday_wish_celery",
     ignore_result=True
 )
 def send_birthday_wish_celery():
     today = date.today()
-    birthday_users = Profile.objects.filter(date_of_birth__day = today.day, date_of_birth__month = today.month)
+    birthday_users = Profile.objects.filter(date_of_birth__day=today.day, date_of_birth__month=today.month)
     if birthday_users:
         logger.info("{} People have birthdays today".format(len(birthday_users)))
         for user in birthday_users:

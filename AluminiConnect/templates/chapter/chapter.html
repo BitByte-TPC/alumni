@@ -1,0 +1,185 @@
+{% extends 'globals/base.html' %}
+{% load static %}
+
+{% block title %}
+{{chapter.name}} - IIITDM Jabalpur
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static "chapter/chapter.css" %}" />
+<link rel="stylesheet" href="{% static 'external/photoswipe/photoswipe.css' %}" />
+<link rel="stylesheet" href="{% static 'external/photoswipe/default-skin/default-skin.css' %}" />
+{% endblock %}
+
+{% block body %}
+{% include 'globals/navbar.html' %}
+
+<div class="mt-5 overlay-image">
+  {% if chapter.wall_picture %}
+  <img class="image" src="{{ chapter.wall_picture.url }}" alt="Alt text" />
+  {% else %}
+  <img class="image" src="/static/AluminiConnect/img/coll3.jpeg" alt="Alt text" />
+  {% endif %}
+
+  <div class="text text-center">
+    <h1 class="text-uppercase" style="font-size: 4rem; font-weight: bold;">{{chapter.name}}</h1>
+  </div>
+</div>
+
+<section id="services" class="bg-primary p-1">
+</section>
+
+<div class="container">
+  <div class="row my-5">
+    {% for item in team %}
+    <div class="col-xl-4 col-md-6 mb-4 mx-auto">
+      <div class="card border-1">
+        {% if item.pic %}
+        <img src="{{ item.pic }}" class="card-img-top" alt="{{item.name}}"
+          style="object-fit:cover; max-width:350px; max-height:245px; height:245px;">
+        {% else %}
+        <img src="/static/AluminiConnect/img/coll3.jpeg" class="card-img-top" alt="..."
+          style="object-fit:cover; max-width:350px; max-height:245px; height:245px;">
+        {% endif %}
+        <div class="card-body text-center">
+          <h5 class="card-title mb-0">{{item.name}}</h5>
+          <div class="card-text text-black-50">{{item.post}}<br>{{item.email}}</div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% if chapter.description or chapterf %}
+<div class="container" <div class="card m-2 shadow-sm">
+  <div class="border-bottom p-3">
+    <h4>
+      Description
+      {% if chapterf %}
+      <button type="button" class="btn btn-link float-right" title="Edit Description" data-toggle="modal"
+        data-target="#chapterModal" data-backdrop="static">
+        <i class="fas fa-edit"></i>
+      </button>
+      {% endif %}
+    </h4>
+  </div>
+  <div class="card-body p-4">
+    <h6>{{chapter.description|safe}}</h6>
+  </div>
+</div>
+</div>
+{% endif %}
+
+{% if event or eventf %}
+<div class="container">
+  <div class="border-bottom p-3 mb-2">
+    <h4>
+      Events
+      {% if eventf %}
+      <button type="button" class="btn btn-link float-right" title="Add Events" data-toggle="modal"
+        data-target="#eventModal" data-backdrop="static">
+        <i class="fas fa-plus"></i>
+      </button>
+      {% endif %}
+    </h4>
+  </div>
+  <div class="row p-3">
+    {% for item in event %}
+    <div class="card mb-3 mx-1" style="max-width: 540px; width: 50%; cursor: pointer"
+      onclick="location.href='{% url 'events_news:event' id=item.event.event_id %}'">
+      <div class="row no-gutters">
+        <div class="col-md-4 my-auto pl-2">
+          {% if item.event.picture %}
+          <img src="{{item.event.picture.url}}" class="card-img" alt="...">
+          {% else %}
+          <img src="/static/AluminiConnect/img/coll3.jpeg" class="card-img" alt="...">
+          {% endif %}
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">{{item.event.title|safe}}</h5>
+            <h6 class="card-text m-1 mt-3">
+              <small class="text-muted">
+                <i class="fas fa-table mr-2"></i>
+                {{ item.event.start_date|date:"d F, o" }}<br>
+                <i class="fas fa-map-marker-alt mr-2"></i>&nbsp;
+                {{ item.event.location}}<br>
+                <i class="fas fa-user mr-2"></i>
+                {{ item.event.by }}
+              </small>
+            </h6>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+{% if album or albumf %}
+<div class="container">
+  <div class="border-bottom p-3 mb-2">
+    <h4>
+      Album
+      {% if albumf %}
+      <button type="button" class="btn btn-link float-right" title="Add Album" data-toggle="modal"
+        data-target="#albumModal" data-backdrop="static">
+        <i class="fas fa-plus"></i>
+      </button>
+      {% endif %}
+    </h4>
+  </div>
+  <div class="row p-3">
+    {% for item in album %}
+    <div class="card mb-3 mx-3" style="max-width: 540px; width: 22%; cursor: pointer"
+      onclick="location.href='javascript:chapteralbum({{ item.album.id }});'">
+      {% if item.album.thumb.url %}
+      <img class="card-img-top" src="{{ item.album.thumb.url }}" alt="{{ item.album.title|striptags }}">
+      {% else %}
+      <img class="card-img-top" src="/static/AluminiConnect/img/album.png" alt="Album">
+      {% endif %}
+      <div class="card-body">
+        <h5 class="card-title border-bottom">{{ item.album.title|safe }}</h5>
+        <small class="text-muted">
+          {{ item.album.description|safe|truncatechars:150 }}<br>
+        </small>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% include 'globals/init_pwsp.html' %}
+{% endif %}
+{% if chapterf and eventf and albumf %}
+{% include 'chapter/modal.html' %}
+{% endif %}
+{% include 'globals/footer.html' %}
+{% endblock %}
+
+{% block javascript %}
+<script>
+  var chapteralbum = function (album) {
+    $.ajax({
+      url: '/chapter/images?album=' + album,
+      contentType: "application/json",
+      dataType: 'json',
+      success: function (result) {
+        var pswpElement = document.querySelectorAll('.pswp')[0];
+        var options = {
+          index: 0,
+          bgOpacity: 0.8,
+          captionEl: false,
+          tapToClose: true,
+          fullscreenEl: false,
+        };
+        var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, result, options);
+        gallery.init();
+      }
+    });
+  }
+</script>
+<script src="{% static 'external/photoswipe/photoswipe.min.js' %}"></script>
+<script src="{% static 'external/photoswipe/photoswipe-ui-default.min.js' %}"></script>
+{% endblock %}
