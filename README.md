@@ -1,12 +1,10 @@
 # IIITDM Alumni Connect   
-  This web-application aims to facilitate the Alumni Affairs of IIITDM Jabalpur.
-  Requires `python 3.6+` and `django 2.1.15+`.
-  Must read contributing guidelines before starting.
+  This web-application aims to facilitate the Alumni Affairs of IIITDM Jabalpur. Please read contributing guidelines before starting.
 
 ## Requirements
 
  * Python: 3.6/3.7  
- * Django: 2.1.15  
+ * Django: 2.2.20 
  * And additional requirements are in [**requirements.txt**](./requirements.txt). These will automatically be installed with below steps.
 
 
