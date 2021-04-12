@@ -1,0 +1,84 @@
+{% extends 'globals/base.html' %}
+{% load static %}
+
+{% block title %}
+Post a Job
+{% endblock %}
+
+{% block body %}
+{% include 'globals/navbar.html' %}
+
+<br>
+<br>
+<br>
+<br>
+<center>
+	<div class="col-sm-4" >
+      <div class="card m-2 shadow-sm" >
+        <div class="card bg-primary text-white">
+          <div class="card-header font-open-sans">
+              Post a new Job here!
+          </div>
+        </div>
+
+        <form name = "new_post" action = "{% url 'jobs:new_post' %}"
+              method = "POST" >{% csrf_token %}
+
+                <div class="form-group">
+                  <label for="position_type">Position:</label>
+                  <select class='form-control' name="position" id="position_type" onchange='CheckColors(this.value);'>
+                    <option disabled selected value> -- select an option -- </option>
+                    <option value="Software Developer">Software Developer</option>
+                    <!-- <option value="Backend Developer">Backend Developer</option>
+                    <option value="Frontend Developer">Frontend Developer</option> -->
+                    <option value="Data Engineer">Data Engineer</option>
+                    <option value="Android">Android</option>
+                    <option value="IoS">IoS</option>
+                    <option value="Software Engineer">Software Engineer</option>
+                    <option value="Data Analytics">Data Analytics</option>
+                    <option value="Data Science">Data Science</option>
+                    <option value="Machine Learning">Machine Learning</option>
+                    <option value="Business Development">Business Development</option>
+                    <option value="Research">Research</option>
+                    <option value="Blockchain">Blockchain</option>
+                    <option value="UI/UX Designer">UI/UX Designer</option>
+                    <option value="Marketing and Sales">Marketing and Sales</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+                <!-- <div class="form-group" id="others" style='display:none;'>
+                  <label for="others">Please Specify</label>
+                  <input required class="form-control" type="text" name="other" id="others"/>
+                </div> -->
+
+                <div class="form-group">
+                  <label for="duration_type">Type:</label>
+                  <select required class="form-control" name="duration" id="duration_type">
+                    <option disabled selected value> -- select an option -- </option>
+                    <option value="Internship">Internship</option>
+                    <option value="Full time">Full Time</option>
+                    <option value="Both">Both</option>
+                  </select>
+                  </div>
+                <div class="form-group">
+                  <label for="descr">Description: <p id="others" style='display:none;'>(Please specify the Job title in Description)</p></label>
+                  <textarea class="form-control" rows="4" cols="50" name="desc" form="new_post" id='descr'>
+                  </textarea>
+                  <!-- <input class="form-control" type="text" name="desc" id='descr'> -->
+              </div>
+              <div class="form-group">
+                <label for="link_id">Apply Link:</label>
+                <input required class="form-control" type="text" name="link" id='link_id'>
+            </div>
+            <div class="form-group">
+              <label for="loc_id">Location:</label>
+              <input required class="form-control" type="text" name="city" id='loc_id'>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+      </div>
+
+    </div>
+</center>
+
+{% endblock %}

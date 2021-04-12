@@ -3,6 +3,7 @@ from .models import Posting
 from applications.alumniprofile.models import Profile
 from datetime import date
 from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib import messages 
 from django.shortcuts import redirect
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -84,17 +85,24 @@ def filter(request):
         ls1 = []
         return render(request, "job_posting/filter.html", {'ls1': ls1})
 
+def post(request):
+    return render(request, "job_posting/post.html")
 
 def new_post(request):
     if request.method == 'POST':
-        job_t = request.POST.get('position')
-        job_d = request.POST.get('duration')
-        desc = request.POST.get('desc')
-        link = request.POST.get('link')
-        city = request.POST.get('city')
-        person = Profile.objects.get(roll_no=str(request.user))
-        insert = Posting.objects.create(position=job_t, type=job_d, desc=desc, link=link, posting_date=date.today(),
+        try:
+            job_t = request.POST.get('position')
+            job_d = request.POST.get('duration')
+            desc = request.POST.get('desc')
+            link = request.POST.get('link')
+            city = request.POST.get('city')
+            person = Profile.objects.get(roll_no=str(request.user))
+            insert = Posting.objects.create(position=job_t, type=job_d, desc=desc, link=link, posting_date=date.today(),
                                         location=city, person=person)
+            messages.success(request, "Job posted successfully!")
+        except Exception:
+            messages.error(request, "Some error occurred, try again.")
+            
     return redirect('jobs:index', permanent=True)
 
 
