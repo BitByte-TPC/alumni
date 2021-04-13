@@ -106,7 +106,6 @@
 						<div class="card-header">
 							<i class="fas fa-clock pr-2"></i>
 							Schedule
-							<!-- Add to Google Calender -->
 								
 						</div>
 						<div class="card-body">
@@ -118,9 +117,10 @@
 
 							</p>
 						</div>
+						<!-- Add to Google Calender -->
 						{% if not event.is_completed %}
 							<div class="card-footer text-center">
-								<a href="http://www.google.com/calendar/event?action=TEMPLATE&dates={{ event.start_date|date:'Ymd' }}T{{ event.start_date|date:'his' }}Z/{{ event.end_date|date:'Ymd' }}T{{ event.end_date|date:'his' }}Z&text={{ event.title|striptags|urlencode }}&location={{ event.location }}" class="btn btn-primary btn-sm" title="Add Event To Google Calendar" target="_blank"><i style="font-size: 16px; color: #fff;"class='far'>&#xf271;</i> Add to calendar</a>
+								<a href="http://www.google.com/calendar/event?action=TEMPLATE&dates={{ event.start_date|date:'Ymd' }}T{{ event.start_date|date:'His' }}/{{ event.end_date|date:'Ymd' }}T{{ event.end_date|date:'His' }}Z&text={{ event.title|striptags|urlencode }}&location={{ event.location }}&details={{ base_uri|urlencode }}" class="btn btn-primary btn-sm" title="Add Event To Google Calendar" target="_blank"><i style="font-size: 16px; color: #fff;"class='far'>&#xf271;</i> Add to calendar</a>
 							</div>
 						{% endif %}
 					</div>
