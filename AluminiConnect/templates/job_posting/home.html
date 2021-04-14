@@ -7,6 +7,8 @@ Job Opportunities
 
 {% block body %}
 {% include 'globals/navbar.html' %}
+{% include 'globals/theme.html' with heading='Jobs' %}
+
 <br>
 <br>
 <br>
@@ -26,76 +28,15 @@ function CheckColors(val){
 }
 
 </script>
-
-{% for message in messages %}
-<center><div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert" style="width: 400px;">
-                <strong>Message : </strong> {{ message }}
-               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              </center>
-{% endfor %}
-
-<div class="row">
-
-  <div class="col-sm-3">
-    <br>
-    <br>
-    <div class="card m-2 shadow-sm">
-            <div class="card bg-primary text-white">
-              {% if request.user.is_superuser %}
-              <div class="card-body" align='center'>Welcome {{request.user}}!</div>
-              {% else %}
-              <div class="card-body" align='center'>Welcome {{request.user.first_name}}!</div>
-              {% endif %}
-            </div>
-            <!-- <div class="card-header font-open-sans">
-              Welcome {{request.user.first_name}}
-            </div> -->
-            <div class="card-header font-open-sans">
-                Basic Info
-            </div>
-            <div class="card-body">
-                    <p class="m-2 font-weight-normal font-open-sans mb-3" title="Alumni Registration Number">
-                        <i class="fas fa-user"></i>
-                        &nbsp;Alumni Reg. No : <b>{{ alumni.reg_no }}</b>
-                    </p>
-                <p class="m-2 font-weight-normal font-open-sans mb-3">
-                    <i class="fas fa-map-marker-alt"></i>
-                    &nbsp;{{ alumni.city }}, {{ alumni.state }}, {{ alumni.country }}
-                </p>
-                <p class="m-2 font-weight-normal font-open-sans mb-3">
-                        <i class="fas fa-birthday-cake"></i>
-                        &nbsp;{{ alumni.date_of_birth|date:"d F, o" }}
-                    </p>
-                <p class="m-2 font-weight-normal font-open-sans mb-3">
-                        <i class="fas fa-venus-mars"></i>
-                        &nbsp;{{ alumni.sex }}
-                    </p>
-                <h4>
-                    <a href="{{ alumni.linkedin }}"><i class="fab fa-linkedin"></i></a>&nbsp;
-                    <a href="{{ alumni.facebook }}" ><i class="fab fa-facebook"></i></a>&nbsp;
-                    {% if alumni.instagram %}
-                    <a href="https://www.instagram.com/{{ alumni.instagram }}"><i class="fab fa-instagram"></i></a>
-                    {% endif %}
-                    {% if alumni.website %}
-                    <a href="{{ alumni.website }}"><i class="fas fa-globe"></i></a>
-                    {% endif %}
-                </h4>
-            </div>
-    </div>
-    </div>
-
-    <div class="col-sm-5">
-      <div class="jumbotron">
-        <h1 class="text-primary" align = "center"><strong>Job openings</strong></h1>
-      </div>
-
-      <form class="form-inline" name="filter"  action = "{% url 'jobs:filter' %}" method="post">{% csrf_token %}
-        <div class="form-group">
-          <label for="position1">Filter by Position:</label>
-          <select class='form-control' name="position" id="position1" >
+      
+      <center><h3>Filters</h3></center>
+      <br>
+      {% if viewname != 'filter' %}
+      <form name="filter"  action = "{% url 'jobs:filter' %}" method="post">{% csrf_token %}
+        <div class="form-row justify-content-center">
+          <div class="form-group col-md-4 mr-3">
+            <label for="position1">Position:</label>
+            <select class='form-control' name="position" id="position1" >
             <option disabled selected value> -- select an option -- </option>
             <option value="Software Developer">Software Developer</option>
             <!-- <option value="Backend Developer">Backend Developer</option>
@@ -113,26 +54,41 @@ function CheckColors(val){
             <option value="UI/UX Designer">UI/UX Designer</option>
             <option value="Marketing and Sales">Marketing and Sales</option>
             <option value="Other">Other</option>
-          </select>
+            </select>
+          </div>
 
-        </div>
-
-        <div class="form-group">
-          <label for="type1">Filter by Type:</label>
+          <div class="form-group col-md-4 mr-3">
+          <label for="type1">Role:</label>
           <select class='form-control' name="type" id="type1" >
             <option disabled selected value> -- select an option -- </option>
             <option value="Full Time">Full Time</option>
             <option value="Internship">Internship</option>
             <option value="Both">Both</option>>
           </select>
+          </div>
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
+        
+        <center><button type="submit" class="btn btn-primary m-3">Submit</button></center>
       </form>
-      <div class="container p-3 my-3 border">
+      {% else %}
+        <center><a href="{% url 'jobs:index' %}" class="btn btn-primary m-3">Clear your filter</a></center>
+      {% endif %}
+
+       <br><center><a href="{% url 'jobs:post' %}">Want to add an opportunity?</a></center><br>
+       {% for message in messages %}
+<center><div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert" style="width: 600px;">
+                <strong>Message : </strong> {{ message }}
+               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              </center>
+{% endfor %}
+      <div class="container">
         {% if ls1 %}
         {% for i,j in ls1 %}
-          <div class="card m-2 shadow-sm">
-            <div class="card bg-success text-white">
+          <div class="card mb-5 shadow-sm">
+            <div class="card bg-primary text-white">
               <div class="card-header font-open-sans">
                 <div align="left">
                   Posted by <a style="color:white" title="View Profile" href="{% url 'profile:profile' j %}" >{{ i.person }}</a>
@@ -158,28 +114,29 @@ function CheckColors(val){
         {% else %}
           <h3 align='center'>No posts yet</h3>
         {% endif %}
-      </div>
-      {% if ls2.has_other_pages %}
-        <ul class="pagination">
+      
+        {% if ls2.has_other_pages %}
+        <ul class="pagination" style="justify-content: center;">
           {% if ls2.has_previous %}
-            <li><a href="?page={{ ls2.previous_page_number }}">&laquo;</a></li>
+            <li class="m-1"><a href="?page={{ ls2.previous_page_number }}">&laquo;</a></li>
           {% else %}
-            <li class="disabled"><span>&laquo;</span></li>
+            <li class="disabled m-1"><span>&laquo;</span></li>
           {% endif %}
           {% for i in ls2.paginator.page_range %}
             {% if ls2.number == i %}
-              <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+              <li class="active m-1"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
             {% else %}
-              <li><a href="?page={{ i }}">{{ i }}</a></li>
+              <li class="m-1"><a href="?page={{ i }}">{{ i }}</a></li>
             {% endif %}
           {% endfor %}
           {% if ls2.has_next %}
-            <li><a href="?page={{ ls2.next_page_number }}">&raquo;</a></li>
+            <li class="m-1"><a href="?page={{ ls2.next_page_number }}">&raquo;</a></li>
           {% else %}
-            <li class="disabled"><span>&raquo;</span></li>
+            <li class="disabled m-1"><span>&raquo;</span></li>
           {% endif %}
         </ul>
       {% endif %}
+      
     </div>
 
 </div>

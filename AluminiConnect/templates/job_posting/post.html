@@ -2,20 +2,21 @@
 {% load static %}
 
 {% block title %}
-Post a Job
+Post
 {% endblock %}
 
 {% block body %}
 {% include 'globals/navbar.html' %}
-
-<br>
-<br>
+{% include 'globals/theme.html' with heading='Post' %}
 <br>
 <br>
 <center>
+  <a href="{% url 'jobs:index' %}">&laquo; Go back to opportunities.</a>
+  <br>
+  <br>
 	<div class="col-sm-4" >
-      <div class="card m-2 shadow-sm" >
-        <div class="card bg-primary text-white">
+      <div class="card m-2 border-0" >
+        <div class="card bg-primary text-white border-0">
           <div class="card-header font-open-sans">
               Post a new Job here!
           </div>
@@ -24,7 +25,7 @@ Post a Job
         <form name = "new_post" action = "{% url 'jobs:new_post' %}"
               method = "POST" >{% csrf_token %}
 
-                <div class="form-group">
+                <div class="m-4">
                   <label for="position_type">Position:</label>
                   <select class='form-control' name="position" id="position_type" onchange='CheckColors(this.value);'>
                     <option disabled selected value> -- select an option -- </option>
@@ -46,12 +47,12 @@ Post a Job
                     <option value="Other">Other</option>
                   </select>
                 </div>
-                <!-- <div class="form-group" id="others" style='display:none;'>
+                <!-- <div class="m-4" id="others" style='display:none;'>
                   <label for="others">Please Specify</label>
                   <input required class="form-control" type="text" name="other" id="others"/>
                 </div> -->
 
-                <div class="form-group">
+                <div class="m-4">
                   <label for="duration_type">Type:</label>
                   <select required class="form-control" name="duration" id="duration_type">
                     <option disabled selected value> -- select an option -- </option>
@@ -60,17 +61,17 @@ Post a Job
                     <option value="Both">Both</option>
                   </select>
                   </div>
-                <div class="form-group">
+                <div class="m-4">
                   <label for="descr">Description: <p id="others" style='display:none;'>(Please specify the Job title in Description)</p></label>
                   <textarea class="form-control" rows="4" cols="50" name="desc" form="new_post" id='descr'>
                   </textarea>
                   <!-- <input class="form-control" type="text" name="desc" id='descr'> -->
               </div>
-              <div class="form-group">
+              <div class="m-4">
                 <label for="link_id">Apply Link:</label>
                 <input required class="form-control" type="text" name="link" id='link_id'>
             </div>
-            <div class="form-group">
+            <div class="m-4">
               <label for="loc_id">Location:</label>
               <input required class="form-control" type="text" name="city" id='loc_id'>
           </div>
