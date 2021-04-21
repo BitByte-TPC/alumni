@@ -1,0 +1,21 @@
+{% extends 'globals/base.html' %}
+{% load static %}
+
+{% block title %}
+    ERROR_404
+{% endblock %}
+
+{% block body %} 
+    <div class="container pt-5">
+            <div class="text-center">
+                <img src="{% static 'AluminiConnect/img/custom_error/er500.png' %}" class="img-fluid mx-auto mt-5" alt="500 error">
+            </div>
+            <div class="text-center">Looks like there is a glitch in the matrix. So now is the time to choose</div>
+            <div class=" text-center">
+                <button class="btn btn-primary py-2 px-3 m-2" onclick="window.location.reload()"> Refresh</button>
+                <a href="{% url 'home' %}" class="btn btn-danger p-2 m-2">
+                    homepage
+                </a>
+            </div>
+    </div>
+{% endblock %}

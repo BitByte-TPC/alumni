@@ -1,0 +1,37 @@
+{% extends 'globals/base.html' %}
+{% load static %}
+
+{% block title %}
+    ERROR_404
+{% endblock %}
+
+{% block body %} 
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 "></div>
+            <div class="col-md-4 ">
+                <div class="pt-md-5">
+                    <img src="{% static 'AluminiConnect/img/custom_error/ER404.png' %}" class="img-fluid mx-auto mt-5 mt-md-5 pt-md-5" alt="404 error">
+                </div>
+            </div>
+            <div class="col-md-4 "></div>
+            
+        </div>
+        <div class="mx-auto text-center mb-3 mt-3">
+            <div class="d-none d-xl-block">We could not find whatever you were looking for.Either it never existed or doesn't exist anymore.Hope it wasn't your Social Life.....</div>
+
+            <div class="d-none d-lg-block d-xl-none">We could not find whatever you were looking for.Either it never existed or doesn't exist anymore.</div>
+            <div class="d-none d-lg-block d-xl-none" >Hope it wasn't your Social Life.....</div>
+            
+            <div class="d-sm-block d-lg-none" style="font-size: 85%;" >We couldn't find whatever you were looking for.</div>
+            <div class="d-sm-block d-lg-none" style="font-size: 85%;" >Either it never existed or doesn't exist anymore.</div>
+            <div class="d-sm-block d-lg-none" style="font-size: 85%;" >Hope it wasn't your Social Life.....</div>
+            
+        </div>
+        <div class="text-center">
+            <a href="{% url 'home' %}" class="btn btn-primary p-2">
+                homepage
+            </a>
+        </div>
+    </div>
+{% endblock %}
