@@ -26,6 +26,10 @@ from .  import views
 
 
 favicon_view = RedirectView.as_view(url='/static/favicon.ico', permanent=True)
+
+handler404 = 'AluminiConnect.views.error_404'
+handler500 = 'AluminiConnect.views.error_500'
+
 urlpatterns = []
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

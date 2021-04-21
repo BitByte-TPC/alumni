@@ -1,3 +1,4 @@
+from django.http.response import HttpResponseServerError
 from django.shortcuts import render, redirect
 from django import forms
 from django.contrib import messages
@@ -188,3 +189,10 @@ def change_password(request):
     else:
         form = PasswordChangeForm(request.user)
     return render(request, 'AluminiConnect/change_password.html', {'form': form})
+
+
+def error_404(request,exception=None):
+    return render(request, '404.html',status=404)
+
+def error_500(request,exception=None):
+    return render(request, '500.html',status=500)
