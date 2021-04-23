@@ -5,6 +5,38 @@
 Job Opportunities
 {% endblock %}
 
+{% block css %}
+<link rel="stylesheet" href="{% static 'external/icofont/icofont.min.css' %}">
+<style type="text/css">
+  body{
+    white-space: nowrap;
+  }
+  
+  .icon{
+    color: #324b7e !important;
+    margin-right: 8px !important;
+  }
+
+  .heading{
+    color: rgba(0,0,0,0.5) !important;
+    margin-bottom: 7px;
+    font-size: 13px;
+  }
+
+  .detail{
+    color: rgb(0,0,0);
+    font-size: 15px;
+  }
+
+  .type{
+    padding: 4px 7px;
+    width: max-content;
+    background-color: #324b7e;
+    border-radius: 15px;
+    color: rgb(255,255,255);
+  }
+</style>
+{% endblock %}
 {% block body %}
 {% include 'globals/navbar.html' %}
 {% include 'globals/theme.html' with heading='Jobs' %}
@@ -76,41 +108,115 @@ function CheckColors(val){
 
        <br><center><a href="{% url 'jobs:post' %}">Want to add an opportunity?</a></center><br>
        {% for message in messages %}
-<center><div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert" style="width: 600px;">
-                <strong>Message : </strong> {{ message }}
-               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <center>
+          <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert" style="width: 600px;">
+              <strong>Message : </strong> {{ message }}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              </center>
-{% endfor %}
+              </button>
+            </div>
+        </center>
+        {% endfor %}
+      
       <div class="container">
         {% if ls1 %}
+        <div class="row">
         {% for i,j in ls1 %}
-          <div class="card mb-5 shadow-sm">
+        <div class="col-md-6 px-5">
+          <div class="card mb-5 shadow-lg">
             <div class="card bg-primary text-white">
               <div class="card-header font-open-sans">
                 <div align="left">
-                  Posted by <a style="color:white" title="View Profile" href="{% url 'profile:profile' j %}" >{{ i.person }}</a>
+                  <a style="color:white; font-size: 25px">{{ i.position }}</a>
                 </div>
-                <div align="right">
-                  Date: {{ i.posting_date }}
+                <div align="left">
+                  <a style="color: rgba(255, 255, 255, 0.7); font-size: 18px;">{{ i.company }}</a>
                 </div>
               </div>
             </div>
 
             <div class="card-body">
-              <p>Position: {{ i.position }}</p>
-              <p>Type: {{ i.type }}</p>
-              <p>Description: {{ i.desc }}</p>
-              <p>Click on the link to apply: <a target="_blank" href={{i.link}}>{{i.link}}</a></p>
-              <p>Location: {{ i.location }}</p>
-              {% if request.user.is_superuser %}
-              <a href="{% url 'jobs:del1' i.id %}" class="btn btn-danger" role="button">Delete</a>
-              {% endif %}
+              <div class="container">
+
+                <div class="row mb-4">
+                  <div class="col-sm-4">
+                    <i class="icon icofont-location-pin"></i><a class="detail">{{ i.location }}</a>
+                  </div>
+                </div>
+
+                <div class="row mb-4">
+                  <div class="col-md-4 mb-2">
+                    <div class="heading">
+                      <i class="icon icofont-money"></i><a>Stipend</a>
+                    </div>
+                    <a class="detail">{{ i.stipend }}</a>
+                  </div>
+
+                  <div class="col-md-4 mb-2">
+                    <div class="heading">
+                      <i class="icon icofont-briefcase"></i><a>Exp Required</a>
+                    </div>
+                    <a class="detail">{{ i.exp_req }}</a>
+                  </div>
+                </div>
+
+                <div class="row mb-4">
+                  <div class="col-md-4 mb-2">
+                    <div class="heading">
+                      <i class="icon icofont-calendar"></i><a>Apply By</a>
+                    </div>
+                    <a class="detail">{{ i.last_date }}</a>
+                  </div>
+
+                  <div class="col-md-4 mb-2">
+                    <div class="heading">
+                      <i class="icon icofont-briefcase"></i><a>Join Date</a>
+                    </div>
+                    <a class="detail">{{ i.join_date }}</a>
+                  </div>
+
+                  <div class="col-md-4 mb-2">
+                    <div class="heading">
+                      <i class="icon icofont-clock-time"></i><a>Tenure</a>
+                    </div>
+                    <a class="detail">{{ i.tenure }}</a>
+                  </div>
+                </div>
+                
+                <div class="row mb-4">
+                  <div class="col">
+                    <div class="heading">
+                      <i class="icon icofont-notepad"></i><a>Description</a>
+                    </div>
+                    <div id="more">
+                      <p class="detail">{{ i.desc}}</p>
+                    </div> 
+                  </div>
+                </div>
+
+                <div class="row mb-4">  
+                  <div class="col-sm-4">
+                    <p>Link  &ensp; &ensp; <a target="_blank" href={{i.link}}>{{ i.link }}</a></p>
+                  </div>
+                </div>
+
+                <div class="row mb-4">
+                  <div class="col-sm-4">
+                    <div class="type">
+                      {{ i.type }}
+                    </div>
+                  </div>
+                </div>
+                
+                {% if request.user.is_superuser %}
+                  <a href="{% url 'jobs:del1' i.id %}" class="btn btn-danger" role="button">Delete</a>
+                {% endif %}
+              </div>
             </div>
           </div>
+        </div>
         {% endfor %}
+      </div>
         {% else %}
           <h3 align='center'>No posts yet</h3>
         {% endif %}
