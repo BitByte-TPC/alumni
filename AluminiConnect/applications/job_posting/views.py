@@ -14,7 +14,7 @@ def index(request):
     posts = Posting.objects.all().order_by('-posting_date')
     page = request.GET.get('page', 1)
     if posts:
-        paginator = Paginator(posts, 5)
+        paginator = Paginator(posts, 6)
         try:
             ls2 = paginator.page(page)
         except PageNotAnInteger:
@@ -59,7 +59,7 @@ def filter(request):
         print(posts)
     if posts:
         messages.success(request, "Found " + str(posts.count()) + " posts matching your query!")
-        paginator = Paginator(posts, 5)
+        paginator = Paginator(posts, 6)
         try:
             ls2 = paginator.page(page)
         except PageNotAnInteger:
@@ -84,14 +84,20 @@ def post(request):
 def new_post(request):
     if request.method == 'POST':
         try:
-            job_t = request.POST.get('position')
-            job_d = request.POST.get('duration')
+            type = request.POST.get('type')
+            position = request.POST.get('position')
+            company = request.POST.get('company')
+            location = request.POST.get('location')
             desc = request.POST.get('desc')
+            stipend = request.POST.get('stipend')
+            exp_req = request.POST.get('exp_req')
+            last_date = request.POST.get('last_date')
+            join_date = request.POST.get('join_date')
+            tenure = request.POST.get('tenure')
             link = request.POST.get('link')
-            city = request.POST.get('city')
             person = Profile.objects.get(roll_no=str(request.user))
-            insert = Posting.objects.create(position=job_t, type=job_d, desc=desc, link=link, posting_date=date.today(),
-                                        location=city, person=person)
+            insert = Posting.objects.create(type=type, position=position, company=company, location=location, desc=desc, stipend=stipend, exp_req=exp_req, last_date=last_date, join_date=join_date, tenure=tenure, link=link, posting_date=date.today(),
+                person=person)
             messages.success(request, "Job posted successfully!")
         except Exception:
             messages.error(request, "Some error occurred, try again.")
