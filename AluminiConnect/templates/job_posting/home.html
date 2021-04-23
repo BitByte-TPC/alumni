@@ -35,6 +35,29 @@ Job Opportunities
     border-radius: 15px;
     color: rgb(255,255,255);
   }
+
+  #more p{
+    margin-bottom: 4px;
+    white-space: pre-wrap;
+  }
+
+  #more .colapse:not(.show){
+    display: block;
+    height: 1.5rem;
+    overflow: hidden;
+  }
+  #more .colapse.collapsing{
+    height: 1.5rem;
+  }
+
+  #more a.collapsed::after{
+    content: 'Read More';
+  }
+
+  #more a:not(.collapsed)::after{
+    content: 'Read Less';
+  }
+
 </style>
 {% endblock %}
 {% block body %}
@@ -127,10 +150,10 @@ function CheckColors(val){
             <div class="card bg-primary text-white">
               <div class="card-header font-open-sans">
                 <div align="left">
-                  <a style="color:white; font-size: 25px">{{ i.position }}</a>
+                  <a style="color:white; font-size: 25px">{{ i.position|title }}</a>
                 </div>
                 <div align="left">
-                  <a style="color: rgba(255, 255, 255, 0.7); font-size: 18px;">{{ i.company }}</a>
+                  <a style="color: rgba(255, 255, 255, 0.7); font-size: 18px;">{{ i.company|title }}</a>
                 </div>
               </div>
             </div>
@@ -140,7 +163,7 @@ function CheckColors(val){
 
                 <div class="row mb-4">
                   <div class="col-sm-4">
-                    <i class="icon icofont-location-pin"></i><a class="detail">{{ i.location }}</a>
+                    <i class="icon icofont-location-pin"></i><a class="detail">{{ i.location|title }}</a>
                   </div>
                 </div>
 
@@ -149,15 +172,21 @@ function CheckColors(val){
                     <div class="heading">
                       <i class="icon icofont-money"></i><a>Stipend</a>
                     </div>
-                    <a class="detail">{{ i.stipend }}</a>
+                    {% if i.stipend != None %}
+                    <a class="detail">₹ {{ i.stipend }}/ Month</a>
+                    {% else %}
+                    <a class="detail">Unpaid</a>
+                    {% endif %}
                   </div>
 
+                  {% if i.exp_req %}
                   <div class="col-md-4 mb-2">
                     <div class="heading">
                       <i class="icon icofont-briefcase"></i><a>Exp Required</a>
                     </div>
-                    <a class="detail">{{ i.exp_req }}</a>
+                    <a class="detail">{{ i.exp_req }} Years</a>
                   </div>
+                  {% endif %}
                 </div>
 
                 <div class="row mb-4">
@@ -172,27 +201,36 @@ function CheckColors(val){
                     <div class="heading">
                       <i class="icon icofont-briefcase"></i><a>Join Date</a>
                     </div>
+                    {% if i.join_date > timezone.now %}
                     <a class="detail">{{ i.join_date }}</a>
+                    {% else %}
+                    <a class="detail">Immediately</a>
+                    {% endif %}
                   </div>
 
+                  {% if i.tenure %}
                   <div class="col-md-4 mb-2">
                     <div class="heading">
                       <i class="icon icofont-clock-time"></i><a>Tenure</a>
                     </div>
-                    <a class="detail">{{ i.tenure }}</a>
+                    <a class="detail">{{ i.tenure }} Months</a>
                   </div>
+                  {% endif %}
                 </div>
                 
+                {% if i.desc %}
                 <div class="row mb-4">
                   <div class="col">
                     <div class="heading">
                       <i class="icon icofont-notepad"></i><a>Description</a>
                     </div>
                     <div id="more">
-                      <p class="detail">{{ i.desc}}</p>
+                      <p class="detail colapse" id="collapseExample{{ forloop.counter }}" aria-exapanded="false">{{ i.desc}}</p>
+                      <a role="button" class="collapsed" data-toggle="collapse" href="#collapseExample{{ forloop.counter }}" aria-expanded="false" aria-controls="collapseExample" style="font-size: 16px;"></a>
                     </div> 
                   </div>
                 </div>
+                {% endif %}
 
                 <div class="row mb-4">  
                   <div class="col-sm-4">
