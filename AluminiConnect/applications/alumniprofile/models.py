@@ -102,7 +102,4 @@ class Profile(models.Model):
 def check(sender, instance, created, update_fields, **kwargs):
     if instance.mail_sent_tracker.has_changed('mail_sent') and instance.mail_sent_tracker.previous(
             'mail_sent') == False:  # Alumni Verified
-        print("Mail Sent to {}".format(instance.name),
-              send_verification_email(instance.user, instance.name, instance.email, instance.year_of_admission,
-                                      instance.batch.batch, instance.programme, instance.branch, instance.reg_no,
-                                      instance.roll_no))
+        send_verification_email(instance)
