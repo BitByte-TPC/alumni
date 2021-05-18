@@ -56,7 +56,7 @@ urlpatterns += [
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('awards/', include('applications.awards.urls')),
     path('chapter/', include('applications.chapter.urls')),
-    path('mailservice/', include('applications.mailservice.urls')),
+    path('adminportal/', include('applications.adminportal.urls')),
     re_path(r'favicon.ico', favicon_view)
     #path('', views.index, name='home'),
 ]

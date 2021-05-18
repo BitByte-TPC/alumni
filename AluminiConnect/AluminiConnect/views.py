@@ -15,7 +15,7 @@ from django.db.models import Count
 from django.contrib.auth.views import LoginView
 from django.contrib.messages.views import SuccessMessageMixin
 
-from .forms import UserRegistrationForm, RegisterForm, ProfileEdit, NewRegister
+from .forms import RegisterForm, ProfileEdit, NewRegister
 from .token import account_activation_token
 from applications.events_news.models import Event, Attendees
 from applications.alumniprofile.models import Profile, Constants

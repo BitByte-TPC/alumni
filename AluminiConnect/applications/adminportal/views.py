@@ -56,6 +56,51 @@ def get_rendered_emails(from_email, email_template, recipients):
     login_url=reverse_lazy('home')
 )
 def index(request):
+    return render(request, 'adminportal/index.html')
+
+
+@login_required
+@user_passes_test(
+    is_superuser, redirect_field_name=None,
+    login_url=reverse_lazy('home')
+)
+def registrations_index(request):
+    if request.method == 'POST':
+        try:
+            profile = Profile.objects.get(roll_no=request.POST.get('id'))
+            if profile.verify is not None:
+                raise RuntimeError("Invalid Verification request for {}".format(profile.roll_no))
+
+            if 'approve' in request.POST:
+                # send the mail here
+                profile.verify = True
+                messages.add_message(request, messages.SUCCESS, "Registration Success, Mail sent to {}".format(profile.name))
+
+            elif 'decline' in request.POST:
+                profile.verify = False
+                messages.add_message(request, messages.SUCCESS, "Registration Declined for {}".format(profile.name))
+
+            profile.save()
+        except Exception:
+            print(Exception)
+            messages.add_message(request, messages.ERROR, "Something went wrong, contact the admins.")
+
+        return redirect('adminportal:registrations')
+
+    unregistered = Profile.objects.all().filter(verify=None).filter(mail_sent=False)
+
+    context = {
+        'pending': unregistered
+    }
+    return render(request, 'adminportal/registrations.html', context)
+
+
+@login_required
+@user_passes_test(
+    is_superuser, redirect_field_name=None,
+    login_url=reverse_lazy('home')
+)
+def mailservice_index(request):
     if request.method == 'POST':
         template_id = request.POST['template_id']
         programme = request.POST['programme']
@@ -77,7 +122,7 @@ def index(request):
         connection = mail.get_connection(fail_silently=True)
         connection.send_messages(messages)
 
-        return redirect('mailservice:email_sent')
+        return redirect('adminportal:email_sent')
 
     email_templates = EmailTemplate.objects.all()
     programmes = Profile.objects.values_list('programme', flat=True).distinct()
@@ -91,8 +136,13 @@ def index(request):
         'branches': branches,
     }
 
-    return render(request, 'mailservice/index.html', context)
+    return render(request, 'adminportal/mailservice.html', context)
 
 
+@login_required
+@user_passes_test(
+    is_superuser, redirect_field_name=None,
+    login_url=reverse_lazy('home')
+)
 def email_sent(request):
-    return render(request, 'mailservice/success.html')
+    return render(request, 'adminportal/success.html')

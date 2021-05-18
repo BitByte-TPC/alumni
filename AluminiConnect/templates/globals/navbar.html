@@ -80,7 +80,7 @@
             </li>
             <li class="nav-item">
                 {% if user.is_superuser %}
-                <a class="btn btn-dark btn-xl js-scroll-trigger text-white" style="padding: .5rem 1rem;" href="/admin/">Admin</a>
+                <a class="btn btn-dark btn-xl js-scroll-trigger text-white" style="padding: .5rem 1rem;" href="{% url 'adminportal:index' %}">Admin</a>
                 {% else %}
                 <a class="btn btn-dark btn-xl js-scroll-trigger text-white" style="padding: .5rem 1rem;" href="{% url 'profile:profile' username=user.username %}">Profile</a>
                 {% endif %}

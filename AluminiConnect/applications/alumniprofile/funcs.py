@@ -54,9 +54,11 @@ def send_verification_email(profile):
     )
     email.attach_alternative(html_message, "text/html")
 
+    print("sending email to {}".format(to))
     try:
         email.send()
     except Exception as error:
+        print("Exception while sending mail to {}".format(to))
         print(error)
 
 

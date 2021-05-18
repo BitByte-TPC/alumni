@@ -26,7 +26,7 @@ INSTALLED_APPS = [
     'applications.blog',
     'applications.events_news',
     'applications.job_posting',
-    'applications.mailservice',
+    'applications.adminportal',
     'applications.members',
     'applications.news',
     'applications.geolocation',
