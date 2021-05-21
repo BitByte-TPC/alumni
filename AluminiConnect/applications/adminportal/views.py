@@ -50,6 +50,53 @@ def get_rendered_emails(from_email, email_template, recipients):
     return messages
 
 
+def send_verification_email(request, profile):
+    current_site = get_current_site(request)
+    protocol = 'https' if request.is_secure() else 'http'
+
+    rendered_url = render_to_string('registration/url_password_reset_email.html', {
+        'uid': urlsafe_base64_encode(force_bytes(profile.user.pk)),
+        'user': profile.user,
+        'token': default_token_generator.make_token(profile.user),
+        'domain': current_site.domain,
+        'protocol': protocol,
+    })
+
+    from_email = settings.DEFAULT_FROM_EMAIL
+    to = [profile.email]
+
+    subject = 'SAC IIITDMJ Portal Registration Successful!'
+
+    html_message = render_to_string('registration/account_verification_email.html', {
+        "name" : profile.name,
+        "email" : profile.email,
+        "from" : profile.year_of_admission,
+        "to" : profile.batch.batch,
+        "prog" : profile.programme,
+        "branch" : profile.branch,
+        "reg_no" : profile.reg_no,
+        "roll_no" : profile.roll_no,
+        "pass" : rendered_url,
+    })
+    plain_message = strip_tags(html_message)
+
+    email = EmailMultiAlternatives(
+        subject,
+        plain_message,
+        from_email,
+        to,
+        [settings.BCC_EMAIL_ID],
+    )
+    email.attach_alternative(html_message, "text/html")
+
+    print("sending email to {}".format(to))
+    try:
+        email.send()
+    except Exception as error:
+        print("Exception while sending mail to {}".format(to))
+        print(error)
+
+
 @login_required
 @user_passes_test(
     is_superuser, redirect_field_name=None,
@@ -72,7 +119,7 @@ def registrations_index(request):
                 raise RuntimeError("Invalid Verification request for {}".format(profile.roll_no))
 
             if 'approve' in request.POST:
-                # send the mail here
+                send_verification_email(request, profile)
                 profile.verify = True
                 messages.add_message(request, messages.SUCCESS, "Registration Success, Mail sent to {}".format(profile.name))
 

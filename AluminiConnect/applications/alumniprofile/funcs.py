@@ -11,57 +11,6 @@ from django.utils.html import strip_tags
 from django.template.loader import render_to_string
 
 
-def send_verification_email(profile):
-    # UNCOMMENT WHEN UI FOR ACCOUNT VERIFICATION BY ADMIN IS CREATED
-    # current_site = get_current_site(request)
-    # protocol = 'https' if request.is_secure() else 'http'
-    current_site_domain = 'sac.iiitdmj.ac.in'
-    protocol = 'http'
-
-    rendered_url = render_to_string('registration/url_password_reset_email.html', {
-        'uid': urlsafe_base64_encode(force_bytes(profile.user.pk)),
-        'user': profile.user,
-        'token': default_token_generator.make_token(profile.user),
-        # 'domain': current_site.domain,
-        'domain': current_site_domain,
-        'protocol': protocol,
-    })
-
-    from_email = settings.DEFAULT_FROM_EMAIL
-    to = [profile.email]
-
-    subject = 'SAC IIITDMJ Portal Registration Successful!'
-
-    html_message = render_to_string('registration/account_verification_email.html', {
-        "name" : profile.name,
-        "email" : profile.email,
-        "from" : profile.year_of_admission,
-        "to" : profile.batch.batch,
-        "prog" : profile.programme,
-        "branch" : profile.branch,
-        "reg_no" : profile.reg_no,
-        "roll_no" : profile.roll_no,
-        "pass" : rendered_url,
-    })
-    plain_message = strip_tags(html_message)
-
-    email = EmailMultiAlternatives(
-        subject,
-        plain_message,
-        from_email,
-        to,
-        [settings.BCC_EMAIL_ID],
-    )
-    email.attach_alternative(html_message, "text/html")
-
-    print("sending email to {}".format(to))
-    try:
-        email.send()
-    except Exception as error:
-        print("Exception while sending mail to {}".format(to))
-        print(error)
-
-
 def send_verification_email_old(user, name, email, yoa, yop, prog, spec, reg_no, roll):
     c = {
         'uid': urlsafe_base64_encode(force_bytes(user.pk)),
