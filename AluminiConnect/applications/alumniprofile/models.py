@@ -6,7 +6,7 @@ from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from model_utils import FieldTracker
 from time import strftime
-from .funcs import send_verification_email
+# from .funcs import send_verification_email
 
 
 class Constants:
@@ -89,7 +89,7 @@ class Profile(models.Model):
     website = models.URLField(null=True, blank=True)
     profile_picture = models.ImageField(null=True, upload_to=upload_photo)
     is_verified = models.BooleanField(default=True)
-    date_of_joining = models.DateField(null=True, blank=True)
+    date_of_joining = models.DateField(null=True, blank=True, default=datetime.date.today)
     reg_no = models.BigIntegerField(null=True, default=0, editable=False)
     mail_sent = models.BooleanField(default=False)
     verify = models.BooleanField(null=True)
