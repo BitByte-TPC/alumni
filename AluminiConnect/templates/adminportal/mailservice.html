@@ -40,7 +40,7 @@
             <div class="row justify-content-center">
                 <div class="col-sm-6 col-lg-3 mb-3">
                     <label for="template">Template</label>
-                    <select name="template_id" class="form-control" id="template">
+                    <select name="template_id" class="form-control" id="template" required>
                         {% for template in email_templates %}
                         <option value="{{ template.template_id }}">{{ template.name }}</option>
                         {% endfor %}
