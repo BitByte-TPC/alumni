@@ -15,7 +15,7 @@ from django.utils.html import strip_tags
 from django.utils.http import urlsafe_base64_encode
 
 from applications.alumniprofile.models import Profile
-from .models import EmailTemplate
+from .models import EmailTemplate, EmailHistory
 
 
 def is_superuser(user):
@@ -148,6 +148,10 @@ def registrations_index(request):
     login_url=reverse_lazy('home')
 )
 def mailservice_index(request):
+    programmes = Profile.objects.values_list('programme', flat=True).distinct()
+    batches = Profile.objects.select_related('batch').values_list('batch__batch', flat=True).distinct()
+    branches = Profile.objects.values_list('branch', flat=True).distinct()
+
     if request.method == 'POST':
         template_id = request.POST['template_id']
         programme = request.POST['programme']
@@ -164,32 +168,38 @@ def mailservice_index(request):
         if branch:
             recipients = recipients.filter(branch=branch)
 
-        messages = get_rendered_emails(settings.DEFAULT_FROM_EMAIL, template, recipients)
+        total_recipients = recipients.count()
 
-        connection = mail.get_connection(fail_silently=True)
-        connection.send_messages(messages)
+        email_messages = get_rendered_emails(settings.DEFAULT_FROM_EMAIL, template, recipients)
 
-        return redirect('adminportal:email_sent')
+        try:
+            connection = mail.get_connection()
+            total_messages_delivered = connection.send_messages(email_messages)
+            EmailHistory.objects.create(
+                email_template=template.name,
+                programme=programme if programme else ', '.join(programmes),
+                batch=batch if batch else ', '.join(map(str, batches)),
+                branch=branch if branch else ', '.join(branches),
+                total_recipients=total_recipients,
+                total_delivered=total_messages_delivered,
+            )
+        except Exception as error:
+            print(error)
+            messages.error(request, "Something went wrong while sending the emails.")
+            return redirect('adminportal:mailservice')
+
+        messages.success(request, "Email sent successfully!!")
+        return redirect('adminportal:mailservice')
 
     email_templates = EmailTemplate.objects.all()
-    programmes = Profile.objects.values_list('programme', flat=True).distinct()
-    batches = Profile.objects.select_related('batch').values_list('batch__batch', flat=True).distinct()
-    branches = Profile.objects.values_list('branch', flat=True).distinct()
+    email_history = EmailHistory.objects.all().order_by('-timestamp')
 
     context = {
         'email_templates': email_templates,
+        'email_history': email_history,
         'programmes': programmes,
         'batches': batches,
         'branches': branches,
     }
 
     return render(request, 'adminportal/mailservice.html', context)
-
-
-@login_required
-@user_passes_test(
-    is_superuser, redirect_field_name=None,
-    login_url=reverse_lazy('home')
-)
-def email_sent(request):
-    return render(request, 'adminportal/success.html')

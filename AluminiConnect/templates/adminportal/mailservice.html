@@ -35,7 +35,17 @@
     </section>
     
     <div class="container px-5 px-sm-2 my-5">
-        <form method="post" onsubmit="return confirm('Are you sure want to send the email?');">
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'error' %}
+                    <div class="alert alert-danger" role="alert">{{ message }}</div>
+                {% else %}
+                    <div class="alert alert-success" role="alert">{{ message }}</div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
+        <form method="post" class="mt-4" onsubmit="return confirm('Are you sure want to send the email?');">
             {% csrf_token %}
             <div class="row justify-content-center">
                 <div class="col-sm-6 col-lg-3 mb-3">
@@ -81,6 +91,38 @@
                 Note: Sending email to a lot of people might take some time. Please have patience.
             </div>
         </form>
+
+        <div class="row justify-content-center mt-5">
+            <h2 class="text-center mb-4">Email History</h2>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Date & Time</th>
+                            <th>Template</th>
+                            <th>Programme</th>
+                            <th>Batch</th>
+                            <th>Branch</th>
+                            <th>Recipients</th>
+                            <th>Delivered</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for hist in email_history %}
+                        <tr>
+                            <td>{{ hist.timestamp }}</td>
+                            <td>{{ hist.email_template }}</td>
+                            <td>{{ hist.programme }}</td>
+                            <td>{{ hist.batch }}</td>
+                            <td>{{ hist.branch }}</td>
+                            <td>{{ hist.total_recipients }}</td>
+                            <td>{{ hist.total_delivered }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
     {% include 'globals/footer.html' %}
