@@ -5,6 +5,7 @@ from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
 from django.core import mail
 from django.core.mail import EmailMultiAlternatives
+from django.db.models import Sum
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template import Context, Template
@@ -14,8 +15,13 @@ from django.utils.encoding import force_bytes
 from django.utils.html import strip_tags
 from django.utils.http import urlsafe_base64_encode
 
+from datetime import date
+
 from applications.alumniprofile.models import Profile
 from .models import EmailTemplate, EmailHistory
+
+
+ALLOWED_RECIPIENTS_PER_DAY = 500
 
 
 def is_superuser(user):
@@ -169,6 +175,21 @@ def mailservice_index(request):
             recipients = recipients.filter(branch=branch)
 
         total_recipients = recipients.count()
+        if total_recipients == 0:
+            messages.error(request, f"Cannot send email to 0 recipients.")
+            return redirect('adminportal:mailservice')
+
+        emails_sent_today = EmailHistory.objects.filter(
+            timestamp__date=date.today()
+        ).aggregate(Sum('total_delivered'))['total_delivered__sum']
+
+        if emails_sent_today is None:
+            emails_sent_today = 0
+
+        total_recipients_allowed = ALLOWED_RECIPIENTS_PER_DAY - emails_sent_today
+        if total_recipients > total_recipients_allowed:
+            messages.error(request, f"You can only send {total_recipients_allowed} more emails today. Limit: 500 per day.")
+            return redirect('adminportal:mailservice')
 
         email_messages = get_rendered_emails(settings.DEFAULT_FROM_EMAIL, template, recipients)
 
@@ -188,7 +209,7 @@ def mailservice_index(request):
             messages.error(request, "Something went wrong while sending the emails.")
             return redirect('adminportal:mailservice')
 
-        messages.success(request, "Email sent successfully!!")
+        messages.success(request, f"Email sent successfully to {total_messages_delivered} recipients.")
         return redirect('adminportal:mailservice')
 
     email_templates = EmailTemplate.objects.all()
