@@ -36,6 +36,13 @@
                 </ul>
 
             </li>
+
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="{% url 'jobs:index' %}">Jobs</a>
+            </li>
+            {% endif %}
+
             <li class="nav-item dropdown">
                 <a href="{% url 'members:index' %}" class="dropdown-toggle nav-link " data-toggle="dropdown">About&nbsp;<b class="caret"></b></a>
                 <ul class="dropdown-menu">
