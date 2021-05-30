@@ -2,287 +2,287 @@
 {% load static %}
 
 {% block title %}
-Job Opportunities
+    Job Opportunities
 {% endblock %}
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'external/icofont/icofont.min.css' %}">
-<style type="text/css">
-  body{
-    white-space: nowrap;
-  }
-  
-  .icon{
-    color: #324b7e !important;
-    margin-right: 8px !important;
-  }
+    <style type="text/css">
 
-  .heading{
-    color: rgba(0,0,0,0.5) !important;
-    margin-bottom: 7px;
-    font-size: 13px;
-  }
+        .icon {
+            color: #324b7e !important;
+            margin-right: 8px !important;
+        }
 
-  .detail{
-    color: rgb(0,0,0);
-    font-size: 15px;
-  }
+        .heading {
+            color: rgba(0, 0, 0, 0.5) !important;
+            margin-bottom: 7px;
+            font-size: 13px;
+        }
 
-  .type{
-    padding: 4px 7px;
-    width: max-content;
-    background-color: #324b7e;
-    border-radius: 15px;
-    color: rgb(255,255,255);
-  }
+        .detail {
+            color: rgb(0, 0, 0);
+            font-size: 15px;
+        }
 
-  #more p{
-    margin-bottom: 4px;
-    white-space: pre-wrap;
-  }
+        .type {
+            padding: 4px 7px;
+            width: max-content;
+            background-color: #324b7e;
+            border-radius: 15px;
+            color: rgb(255, 255, 255);
+        }
 
-  #more .colapse:not(.show){
-    display: block;
-    height: 1.5rem;
-    overflow: hidden;
-  }
-  #more .colapse.collapsing{
-    height: 1.5rem;
-  }
+        #more p {
+            margin-bottom: 4px;
+            white-space: pre-wrap;
+        }
 
-  #more a.collapsed::after{
-    content: 'Read More';
-  }
+        #more .colapse:not(.show) {
+            display: block;
+            height: 1.5rem;
+            overflow: hidden;
+        }
 
-  #more a:not(.collapsed)::after{
-    content: 'Read Less';
-  }
+        #more .colapse.collapsing {
+            height: 1.5rem;
+        }
 
-</style>
+        #more a.collapsed::after {
+            content: 'Read More';
+        }
+
+        #more a:not(.collapsed)::after {
+            content: 'Read Less';
+        }
+
+    </style>
 {% endblock %}
+
 {% block body %}
-{% include 'globals/navbar.html' %}
-{% include 'globals/theme.html' with heading='Jobs' %}
+    {% include 'globals/navbar.html' %}
+    {% include 'globals/theme.html' with heading='Jobs' %}
 
-<br>
-<br>
-<br>
-<script type="text/javascript">
+    <section class="bg-light" style="padding:0 !important;">
+        <div class="container text-left mx-auto bg-light" style="padding:0 !important;">
+            <div class="row w-100 mx-auto bg-primary rounded-bottom">
+                <div class="col text-white text-center p-0 pt-4 pb-4">
 
-function CheckColors(val){
- var element=document.getElementById('others');
- // var element1=document.getElementById('label');
- if(val=='Other'){
-   element.style.display='block';
-   // element1.style.display='block';
- }
- else{
-   element.style.display='none';
-   // element1.style.display='none';
- }
-}
+                    <br>
+                    <span class="mx-auto text-uppercase h3"><strong>Search</strong></span><br>
+                    <span class="mx-auto h6">from</span>
+                    <span class="mx-auto h6">{{ total }} jobs posted here</span>
 
-</script>
-      
-      <center><h3>Filters</h3></center>
-      <br>
-      {% if viewname != 'filter' %}
-      <form name="filter"  action = "{% url 'jobs:filter' %}" method="post">{% csrf_token %}
-        <div class="form-row justify-content-center">
-          <div class="form-group col-md-4 mr-3">
-            <label for="position1">Position:</label>
-            <select class='form-control' name="position" id="position1" >
-            <option disabled selected value> -- select an option -- </option>
-            <option value="Software Developer">Software Developer</option>
-            <!-- <option value="Backend Developer">Backend Developer</option>
-            <option value="Frontend Developer">Frontend Developer</option> -->
-            <option value="Data Engineer">Data Engineer</option>
-            <option value="Android">Android</option>
-            <option value="IoS">IoS</option>
-            <option value="Software Engineer">Software Engineer</option>
-            <option value="Data Analytics">Data Analytics</option>
-            <option value="Data Science">Data Science</option>
-            <option value="Machine Learning">Machine Learning</option>
-            <option value="Business Development">Business Development</option>
-            <option value="Research">Research</option>
-            <option value="Blockchain">Blockchain</option>
-            <option value="UI/UX Designer">UI/UX Designer</option>
-            <option value="Marketing and Sales">Marketing and Sales</option>
-            <option value="Other">Other</option>
-            </select>
-          </div>
+                    <div class="search-container m-3 p-3" style="margin:6px;">
+                        {% if viewname != 'filter' %}
+                            <form name="filter" action="{% url 'jobs:filter' %}" method="post">{% csrf_token %}
+                                <div class="row justify-content-center m-3">
+                                    <select class='form-control col-4 mx-2' name="position" id="position1">
+                                        <option selected value="all">Any Position</option>
+                                        <option value="Software Developer">Software Developer</option>
+                                        <option value="Data Engineer">Data Engineer</option>
+                                        <option value="Android">Android</option>
+                                        <option value="IoS">IoS</option>
+                                        <option value="Software Engineer">Software Engineer</option>
+                                        <option value="Data Analytics">Data Analytics</option>
+                                        <option value="Data Science">Data Science</option>
+                                        <option value="Machine Learning">Machine Learning</option>
+                                        <option value="Business Development">Business Development</option>
+                                        <option value="Research">Research</option>
+                                        <option value="Blockchain">Blockchain</option>
+                                        <option value="UI/UX Designer">UI/UX Designer</option>
+                                        <option value="Marketing and Sales">Marketing and Sales</option>
+                                        <option value="Other">Other</option>
+                                    </select>
 
-          <div class="form-group col-md-4 mr-3">
-          <label for="type1">Role:</label>
-          <select class='form-control' name="type" id="type1" >
-            <option disabled selected value> -- select an option -- </option>
-            <option value="Full Time">Full Time</option>
-            <option value="Internship">Internship</option>
-            <option value="Both">Both</option>>
-          </select>
-          </div>
+                                    <select class='form-control col-4 mx-2' name="type" id="type1">
+                                        <option selected value="all">Any Role</option>
+                                        <option value="Full Time">Full Time</option>
+                                        <option value="Internship">Internship</option>
+                                        <option value="Both">Both</option>
+                                    </select>
+                                    <button type="submit" class="btn btn-dark col-1 rounded mx-2">
+                                        <i class="fa fa-search mx-auto"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        {% else %}
+                            <a href="{% url 'jobs:index' %}" class="btn btn-dark btn-outline-primary m-3 text-white">
+                                <i class="fa fa-arrow-left mr-2" style="color:inherit !important"
+                                   aria-hidden="true"></i>
+                                See all posts
+                            </a>
+                        {% endif %}
+                    </div>
+
+                    <a href="{% url 'jobs:post' %}" class="btn btn-dark btn-outline-primary mb-2 text-white">
+                        <i class="fa fa-plus-square mr-2" style="color:inherit !important" aria-hidden="true"></i>
+                        Want to add an opportunity?
+                    </a>
+
+                </div>
+            </div>
         </div>
-        
-        <center><button type="submit" class="btn btn-primary m-3">Submit</button></center>
-      </form>
-      {% else %}
-        <center><a href="{% url 'jobs:index' %}" class="btn btn-primary m-3">Clear your filter</a></center>
-      {% endif %}
+    </section>
 
-       <br><center><a href="{% url 'jobs:post' %}">Want to add an opportunity?</a></center><br>
-       {% for message in messages %}
-        <center>
-          <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert" style="width: 600px;">
-              <strong>Message : </strong> {{ message }}
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-        </center>
-        {% endfor %}
-      
-      <div class="container">
-        {% if ls1 %}
-        <div class="row">
-        {% for i,j in ls1 %}
-        <div class="col-md-6 px-5">
-          <div class="card mb-5 shadow-lg">
-            <div class="card bg-primary text-white">
-              <div class="card-header font-open-sans">
-                <div align="left">
-                  <a style="color:white; font-size: 25px">{{ i.position|title }}</a>
+
+    <section class="bg-light" style="padding:2rem 0 2rem;">
+        <div class="container text-left mx-auto bg-light" style="padding-top:0 !important">
+
+            {% for message in messages %}
+                <div class="alert alert-primary alert-dismissible fade show mb-4" role="alert">
+                    <strong>Message : </strong> {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div align="left">
-                  <a style="color: rgba(255, 255, 255, 0.7); font-size: 18px;">{{ i.company|title }}</a>
+            {% endfor %}
+
+
+            {% if ls1 %}
+                <div class="row">
+                    {% for i,j in ls1 %}
+                        <div class="col-lg-6 px-5">
+                            <div class="card mb-5 shadow-lg">
+                                <div class="card-header bg-primary font-open-sans">
+                                    <div class="row">
+
+                                        <div class="col mx-auto text-left">
+                                            <a style="color:white; font-size: 25px">{{ i.position|title }}</a><br>
+                                            <a style="color: rgba(255, 255, 255, 0.7); font-size: 18px;">{{ i.company|title }}</a>
+                                        </div>
+
+                                        <div class="col-4 mx-auto text-right">
+                                            <a href="{{ i.link }}" class="btn btn-light">
+                                                Apply <i class="fa fa-link"></i>
+                                            </a>
+                                            {% if request.user.is_superuser %}
+                                                <a href="{% url 'jobs:del1' i.id %}" class="btn btn-danger mt-1"
+                                                   role="button">Remove <i class="fa fa-trash-alt text-white"></i></a>
+                                            {% endif %}
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="container">
+
+                                        <div class="row mb-4">
+                                            <div class="col">
+                                                <i class="fa fa-map-marker-alt" aria-hidden="true"></i>
+                                                <a class="detail">{{ i.type }} in {{ i.location|title }}</a>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-4">
+                                            <div class="col-md-4 mb-2">
+                                                <div class="heading">
+                                                    <i class="fa fa-money-bill" aria-hidden="true"></i><a>Stipend</a>
+                                                </div>
+                                                {% if i.stipend != None %}
+                                                    <a class="detail">₹ {{ i.stipend }}/ Month</a>
+                                                {% else %}
+                                                    <a class="detail">Unknown</a>
+                                                {% endif %}
+                                            </div>
+
+                                            {% if i.exp_req %}
+                                                <div class="col-md-4 mb-2">
+                                                    <div class="heading">
+                                                        <i class="fa fa-briefcase"></i><a>Exp Required</a>
+                                                    </div>
+                                                    <a class="detail">{{ i.exp_req }} Years</a>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+
+                                        <div class="row mb-4">
+                                            <div class="col-md-4 mb-2">
+                                                <div class="heading">
+                                                    <i class="fa fa-calendar"></i><a>Apply By</a>
+                                                </div>
+                                                <a class="detail">{{ i.last_date }}</a>
+                                            </div>
+
+                                            <div class="col-md-4 mb-2">
+                                                <div class="heading">
+                                                    <i class="fa fa-calendar"></i><a>Join Date</a>
+                                                </div>
+                                                {% if i.join_date %}
+                                                    <a class="detail">{{ i.join_date }}</a>
+                                                {% else %}
+                                                    <a class="detail">Immediately</a>
+                                                {% endif %}
+                                            </div>
+
+                                            {% if i.tenure %}
+                                                <div class="col-md-4 mb-2">
+                                                    <div class="heading">
+                                                        <i class="fa fa-calendar"></i><a>Tenure</a>
+                                                    </div>
+                                                    <a class="detail">{{ i.tenure }} Months</a>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+
+                                        {% if i.desc %}
+                                            <div class="row mb-4">
+                                                <div class="col">
+                                                    <div class="heading">
+                                                        <i class="icon icofont-notepad"></i><a>Description</a>
+                                                    </div>
+                                                    <div id="more">
+                                                        <p class="detail colapse"
+                                                           id="collapseExample{{ forloop.counter }}"
+                                                           aria-exapanded="false">{{ i.desc }}</p>
+                                                        <a role="button" class="collapsed" data-toggle="collapse"
+                                                           href="#collapseExample{{ forloop.counter }}"
+                                                           aria-expanded="false" aria-controls="collapseExample"
+                                                           style="font-size: 16px;"></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
-              </div>
-            </div>
 
-            <div class="card-body">
-              <div class="container">
-
-                <div class="row mb-4">
-                  <div class="col-sm-4">
-                    <i class="icon icofont-location-pin"></i><a class="detail">{{ i.location|title }}</a>
-                  </div>
-                </div>
-
-                <div class="row mb-4">
-                  <div class="col-md-4 mb-2">
-                    <div class="heading">
-                      <i class="icon icofont-money"></i><a>Stipend</a>
-                    </div>
-                    {% if i.stipend != None %}
-                    <a class="detail">₹ {{ i.stipend }}/ Month</a>
-                    {% else %}
-                    <a class="detail">Unpaid</a>
-                    {% endif %}
-                  </div>
-
-                  {% if i.exp_req %}
-                  <div class="col-md-4 mb-2">
-                    <div class="heading">
-                      <i class="icon icofont-briefcase"></i><a>Exp Required</a>
-                    </div>
-                    <a class="detail">{{ i.exp_req }} Years</a>
-                  </div>
-                  {% endif %}
-                </div>
-
-                <div class="row mb-4">
-                  <div class="col-md-4 mb-2">
-                    <div class="heading">
-                      <i class="icon icofont-calendar"></i><a>Apply By</a>
-                    </div>
-                    <a class="detail">{{ i.last_date }}</a>
-                  </div>
-
-                  <div class="col-md-4 mb-2">
-                    <div class="heading">
-                      <i class="icon icofont-briefcase"></i><a>Join Date</a>
-                    </div>
-                    {% if i.join_date > timezone.now %}
-                    <a class="detail">{{ i.join_date }}</a>
-                    {% else %}
-                    <a class="detail">Immediately</a>
-                    {% endif %}
-                  </div>
-
-                  {% if i.tenure %}
-                  <div class="col-md-4 mb-2">
-                    <div class="heading">
-                      <i class="icon icofont-clock-time"></i><a>Tenure</a>
-                    </div>
-                    <a class="detail">{{ i.tenure }} Months</a>
-                  </div>
-                  {% endif %}
-                </div>
-                
-                {% if i.desc %}
-                <div class="row mb-4">
-                  <div class="col">
-                    <div class="heading">
-                      <i class="icon icofont-notepad"></i><a>Description</a>
-                    </div>
-                    <div id="more">
-                      <p class="detail colapse" id="collapseExample{{ forloop.counter }}" aria-exapanded="false">{{ i.desc}}</p>
-                      <a role="button" class="collapsed" data-toggle="collapse" href="#collapseExample{{ forloop.counter }}" aria-expanded="false" aria-controls="collapseExample" style="font-size: 16px;"></a>
-                    </div> 
-                  </div>
-                </div>
-                {% endif %}
-
-                <div class="row mb-4">  
-                  <div class="col-sm-4">
-                    <p>Link  &ensp; &ensp; <a target="_blank" href={{i.link}}>{{ i.link }}</a></p>
-                  </div>
-                </div>
-
-                <div class="row mb-4">
-                  <div class="col-sm-4">
-                    <div class="type">
-                      {{ i.type }}
-                    </div>
-                  </div>
-                </div>
-                
-                {% if request.user.is_superuser %}
-                  <a href="{% url 'jobs:del1' i.id %}" class="btn btn-danger" role="button">Delete</a>
-                {% endif %}
-              </div>
-            </div>
-          </div>
-        </div>
-        {% endfor %}
-      </div>
-        {% else %}
-          <h3 align='center'>No posts yet</h3>
-        {% endif %}
-      
-        {% if ls2.has_other_pages %}
-        <ul class="pagination" style="justify-content: center;">
-          {% if ls2.has_previous %}
-            <li class="m-1"><a href="?page={{ ls2.previous_page_number }}">&laquo;</a></li>
-          {% else %}
-            <li class="disabled m-1"><span>&laquo;</span></li>
-          {% endif %}
-          {% for i in ls2.paginator.page_range %}
-            {% if ls2.number == i %}
-              <li class="active m-1"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
             {% else %}
-              <li class="m-1"><a href="?page={{ i }}">{{ i }}</a></li>
+                <div class="row col">
+                    <span class="mx-auto mt-2 h3">No job posts :(</span>
+                </div>
             {% endif %}
-          {% endfor %}
-          {% if ls2.has_next %}
-            <li class="m-1"><a href="?page={{ ls2.next_page_number }}">&raquo;</a></li>
-          {% else %}
-            <li class="disabled m-1"><span>&raquo;</span></li>
-          {% endif %}
-        </ul>
-      {% endif %}
-      
-    </div>
 
-</div>
 
+            {% if ls2.has_other_pages %}
+                <ul class="pagination" style="justify-content: center;">
+                    {% if ls2.has_previous %}
+                        <li class="m-1"><a href="?page={{ ls2.previous_page_number }}">&laquo;</a></li>
+                    {% else %}
+                        <li class="disabled m-1"><span>&laquo;</span></li>
+                    {% endif %}
+                    {% for i in ls2.paginator.page_range %}
+                        {% if ls2.number == i %}
+                            <li class="active m-1"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                        {% else %}
+                            <li class="m-1"><a href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if ls2.has_next %}
+                        <li class="m-1"><a href="?page={{ ls2.next_page_number }}">&raquo;</a></li>
+                    {% else %}
+                        <li class="disabled m-1"><span>&raquo;</span></li>
+                    {% endif %}
+                </ul>
+            {% endif %}
+
+        </div>
+    </section>
+
+
+    {% include 'globals/footer.html' %}
 {% endblock %}
