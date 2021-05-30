@@ -32,7 +32,7 @@ urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += [
     path('', views.index, name='home'),
-    path('admin/', admin.site.urls),    
+    path('admin/', admin.site.urls),
     path('login/', views.LoginFormView.as_view(), name='login'),
     #path('account/reset_password/', views.ResetPasswordRequestView.as_view(), name="reset_password"),
     path('logout/', LogoutView.as_view(), name='logout'),
@@ -56,6 +56,7 @@ urlpatterns += [
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('awards/', include('applications.awards.urls')),
     path('chapter/', include('applications.chapter.urls')),
+    path('jobs/', include('applications.job_posting.urls')),
     re_path(r'favicon.ico', favicon_view)
     #path('', views.index, name='home'),
 ]
