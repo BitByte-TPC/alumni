@@ -23,7 +23,8 @@ def batch(request, year):
     programmes = Profile.objects.values_list('programme', flat=True).distinct()
     data = {}
     for row in programmes:
-        result = Profile.objects.filter(batch=year, programme=row).values('branch').annotate(count=Count('branch'))
+        # todo: change mail_sent to verify
+        result = Profile.objects.filter(batch=year, programme=row, mail_sent=True).values('branch').annotate(count=Count('branch'))
         data[row] = {}
         for item in result:
             data[row][item['branch']] = item['count']
@@ -33,7 +34,8 @@ def batch(request, year):
 
 
 def branch(request, programme, year, branch):
-    alumni = Profile.objects.filter(programme=programme, batch=year, branch=branch)
+    # todo: change mail_sent to verify
+    alumni = Profile.objects.filter(programme=programme, batch=year, branch=branch, mail_sent=True)
     # print(alumni)
     return render(request, "members/branch.html", {'data': alumni, 'batch': year, 'branch': branch})
 

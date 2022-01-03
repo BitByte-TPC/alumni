@@ -1,13 +1,17 @@
 import os
 from mailjet_rest import Client
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.tokens import default_token_generator
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import EmailMultiAlternatives
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.template import loader
+from django.utils.html import strip_tags
+from django.template.loader import render_to_string
 
 
-def send_verification_email(user, name, email, yoa, yop, prog, spec, reg_no, roll):
+def send_verification_email_old(user, name, email, yoa, yop, prog, spec, reg_no, roll):
     c = {
         'uid': urlsafe_base64_encode(force_bytes(user.pk)),
         'user': user,
@@ -56,7 +60,7 @@ def send_verification_email(user, name, email, yoa, yop, prog, spec, reg_no, rol
                     "branch": spec,
                     "reg_no": reg_no,
                     "roll_no": roll,
-                    "pass": loader.render_to_string(url_template_name, c)
+                    "pass": render_to_string(url_template_name, c)
                 }
             }
         ]

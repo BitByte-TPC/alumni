@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'applications.blog',
     'applications.events_news',
     'applications.job_posting',
+    'applications.adminportal',
     'applications.members',
     'applications.news',
     'applications.geolocation',
@@ -133,13 +134,6 @@ CKEDITOR_CONFIGS = {
 
 TEMPUS_DOMINUS_LOCALIZE = True
 
-EMAIL_USE_TLS = True
-# EMAIL_HOST = 'in-v3.mailjet.com'
-# EMAIL_HOST_USER = 'Student Alumni Cell (SAC), IIITDMJ'
-# EMAIL_HOST_PASSWORD = os.environ.get('PASSWD')
-EMAIL_PORT = 587
-
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # CELERY STUFF
 BROKER_URL = 'redis://localhost:6379'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379'

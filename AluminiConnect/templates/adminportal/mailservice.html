@@ -1,0 +1,129 @@
+{% extends 'globals/base.html' %}
+{% load static %}
+
+{% block title %}
+    Mail Service
+{% endblock %}
+
+{% block body %}
+    {% include 'globals/navbar.html' %}
+    <div class="p-0 m-0 masthead-bg w-100 parallax shadow-sm" style="min-height:150px !important; height:150px !important;"></div>
+
+    <header class="masthead text-center text-white d-flex" style="height:0; min-height:150px; margin-top: 59px">
+        <div class="container my-auto">
+            <div class="row">
+                <div class="col-lg-8 mx-auto align-middle">
+                <h1 class="text-uppercase m-0">
+                    <strong>ADMIN PORTAL</strong>
+                </h1>
+                </div>
+            </div>
+        </div>
+    </header>
+      
+    <section id="services" class="bg-primary p-1">
+        <div class="container my-auto">
+            <div class="row">
+                <div class="col-12 mx-auto align-middle text-center">
+                    <a href="{% url 'adminportal:index' %}" class="btn btn-light" tabindex="-1" role="button" aria-disabled="true">Dashboard</a>
+                    <a href="{% url 'adminportal:mailservice' %}" class="btn btn-outline-light disabled" tabindex="-1" role="button" aria-disabled="true">Mailing Service</a>
+                    <a href="{% url 'adminportal:registrations' %}" class="btn btn-light" tabindex="-1" role="button" aria-disabled="true">Registrations</a>
+                    <a href="/admin/" class="btn btn-light" tabindex="-1" role="button" aria-disabled="true">Database</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <div class="container px-5 px-sm-2 my-5">
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'error' %}
+                    <div class="alert alert-danger" role="alert">{{ message }}</div>
+                {% else %}
+                    <div class="alert alert-success" role="alert">{{ message }}</div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
+        <form method="post" class="mt-4" onsubmit="return confirm('Are you sure want to send the email?');">
+            {% csrf_token %}
+            <div class="row justify-content-center">
+                <div class="col-sm-6 col-lg-3 mb-3">
+                    <label for="template">Template</label>
+                    <select name="template_id" class="form-control" id="template" required>
+                        {% for template in email_templates %}
+                        <option value="{{ template.template_id }}">{{ template.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-sm-6 col-lg-3 mb-3">
+                    <label for="programme">Programme</label>
+                    <select name="programme" class="form-control" id="programme">
+                        <option value="">All</option>
+                        {% for programme in programmes %}
+                        <option value="{{ programme }}">{{ programme }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-sm-6 col-lg-3 mb-3">
+                    <label for="batch">Batch</label>
+                    <select name="batch" class="form-control" id="batch">
+                        <option value="">All</option>
+                        {% for batch in batches %}
+                        <option value="{{ batch }}">{{ batch }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-sm-6 col-lg-3 mb-3">
+                    <label for="branch">Branch</label>
+                    <select name="branch" class="form-control" id="branch">
+                        <option value="">All</option>
+                        {% for branch in branches %}
+                        <option value="{{ branch }}">{{ branch }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="row justify-content-center mt-3">
+                <button type="submit" class="col-6 col-sm-4 col-lg-3 btn btn-primary">Send Email</button>
+            </div>
+            <div class="row justify-content-center text-center my-3 mx-sm-4">
+                Note: Sending email to a lot of people might take some time. Please have patience.
+            </div>
+        </form>
+
+        <div class="row justify-content-center mt-5">
+            <h2 class="text-center mb-4">Email History</h2>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Date & Time</th>
+                            <th>Template</th>
+                            <th>Programme</th>
+                            <th>Batch</th>
+                            <th>Branch</th>
+                            <th>Recipients</th>
+                            <th>Delivered</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for hist in email_history %}
+                        <tr>
+                            <td>{{ hist.timestamp }}</td>
+                            <td>{{ hist.email_template }}</td>
+                            <td>{{ hist.programme }}</td>
+                            <td>{{ hist.batch }}</td>
+                            <td>{{ hist.branch }}</td>
+                            <td>{{ hist.total_recipients }}</td>
+                            <td>{{ hist.total_delivered }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    {% include 'globals/footer.html' %}
+{% endblock %}

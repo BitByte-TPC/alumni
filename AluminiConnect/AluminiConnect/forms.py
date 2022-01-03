@@ -7,27 +7,6 @@ from crispy_forms.layout import Layout, Submit, Row, Column, Div, Field
 from crispy_forms.bootstrap import InlineRadios
 
 
-class UserRegistrationForm(forms.Form):
-    username = forms.CharField(
-        required=True,
-        label='Roll No',
-        max_length=8,
-    )
-    email = forms.CharField(
-        required=True,
-        label='Email Addresss',
-        max_length=32,
-    )
-
-    password = forms.CharField(
-        required=True,
-        label='Passsword',
-        max_length=32,
-        min_length=8,
-        widget=forms.PasswordInput(),
-    )
-
-
 class RegisterForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

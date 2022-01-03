@@ -6,7 +6,7 @@ from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from model_utils import FieldTracker
 from time import strftime
-from .funcs import send_verification_email
+# from .funcs import send_verification_email
 
 
 class Constants:
@@ -89,10 +89,11 @@ class Profile(models.Model):
     website = models.URLField(null=True, blank=True)
     profile_picture = models.ImageField(null=True, upload_to=upload_photo)
     is_verified = models.BooleanField(default=True)
-    date_of_joining = models.DateField(null=True, blank=True)
+    date_of_joining = models.DateField(null=True, blank=True, default=datetime.date.today)
     reg_no = models.BigIntegerField(null=True, default=0, editable=False)
     mail_sent = models.BooleanField(default=False)
-    mail_sent_tracker = FieldTracker(fields=['mail_sent'])
+    verify = models.BooleanField(null=True)
+    mail_sent_tracker = FieldTracker(fields=['verify'])
 
     def __str__(self):
         return self.name
@@ -100,9 +101,7 @@ class Profile(models.Model):
 
 @receiver(post_save, sender=Profile)
 def check(sender, instance, created, update_fields, **kwargs):
-    if instance.mail_sent_tracker.has_changed('mail_sent') and instance.mail_sent_tracker.previous(
-            'mail_sent') == False:  # Alumni Verified
-        print("Mail Sent to {}".format(instance.name),
-              send_verification_email(instance.user, instance.name, instance.email, instance.year_of_admission,
-                                      instance.batch.batch, instance.programme, instance.branch, instance.reg_no,
-                                      instance.roll_no))
+    return
+    # if instance.mail_sent_tracker.has_changed('verify') and instance.mail_sent_tracker.previous(
+    #         'verify') == False:  # Alumni Verified
+    #     send_verification_email(instance)

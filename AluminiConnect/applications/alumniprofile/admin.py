@@ -8,7 +8,7 @@ import csv
 
 class ProfileAdmin(admin.ModelAdmin):
     list_display = (
-        'user', 'reg_no', 'is_verified', 'mail_sent', 'name', 'sex', 'roll_no', 'email', 'batch', 'programme', 'branch',
+        'user', 'reg_no', 'is_verified', 'mail_sent', 'verify', 'name', 'sex', 'roll_no', 'email', 'batch', 'programme', 'branch',
         'date_of_birth',
         'working_status', 'city', 'current_position', 'current_organisation', 'date_of_joining', 'past_experience',
         'current_course',
@@ -18,11 +18,11 @@ class ProfileAdmin(admin.ModelAdmin):
     actions = ['download_csv']
 
     def save_model(self, request, obj, form, change):  # Doesn't detect PUBLIC_KEY Errors
-        if 'mail_sent' in form.changed_data:
-            if obj.mail_sent == True:
-                messages.add_message(request, messages.INFO, "Verification Mail Sent to {}".format(obj.name))
-            else:
-                messages.error(request, "Error : Mail not sent to {}".format(obj.name))
+        # if 'verify' in form.changed_data:
+        #     if obj.verify == True:
+        #         messages.add_message(request, messages.INFO, "Verification Mail Sent to {}".format(obj.name))
+        #     else:
+        #         messages.error(request, "Error : Mail not sent to {}".format(obj.name))
         super(ProfileAdmin, self).save_model(request, obj, form, change)
 
     def download_csv(self, request, queryset):
