@@ -66,6 +66,14 @@ def gallery(request):
     return render(request, "AluminiConnect/gallery.html")
 
 
+def job_posting(request):
+    return render(request, "AluminiConnect/job_posting.html")
+
+
+# def jobboard(request):
+#     return render(request, "env/Lib/site-packages/gallery.html")
+
+
 def register(request):
     check = False
     l = None
@@ -116,6 +124,7 @@ def new_register(request):
             profile.state = request.POST['state']
             profile.city = request.POST['city']
             password = User.objects.make_random_password(length=10)
+            # password = '12345678'
             user = User.objects.create_user(
                 username=str(form.cleaned_data.get('roll_no')),
                 first_name=first_name,
