@@ -17,7 +17,7 @@ EMAIL_HOST_PASSWORD = 'your-password'
 EMAIL_PORT = 587
 
 DEFAULT_FROM_EMAIL = "Student Alumni Cell IIITDMJ <your-email@gmail.com>"
-BCC_EMAIL_ID = "bcc-email@gmail.com"
+BCC_EMAILS = ["bcc-email1@gmail.com", "bcc-email2@gmail.com"]
 
 if DEBUG:
     STATICFILES_DIRS = (os.path.join(BASE_DIR, '..', 'static/'),)

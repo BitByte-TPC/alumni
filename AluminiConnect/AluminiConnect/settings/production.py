@@ -16,7 +16,7 @@ EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 EMAIL_PORT = os.environ.get("EMAIL_PORT", cast=int)
 
 DEFAULT_FROM_EMAIL = os.environ.get("SENDER_EMAIL")
-BCC_EMAIL_ID = os.environ.get("BCC_EMAIL_ID")
+BCC_EMAILS = os.environ.get("BCC_EMAILS")
 
 
 STATIC_ROOT = os.path.join(BASE_DIR, '..', 'static/')

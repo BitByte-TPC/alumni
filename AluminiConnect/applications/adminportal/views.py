@@ -48,7 +48,7 @@ def get_rendered_emails(from_email, email_template, recipients):
             plain_message,
             from_email,
             [profile.email],
-            [settings.BCC_EMAIL_ID],
+            settings.BCC_EMAILS,
         )
         email.attach_alternative(html_message, "text/html")
         messages.append(email)
@@ -91,7 +91,7 @@ def send_verification_email(request, profile):
         plain_message,
         from_email,
         to,
-        [settings.BCC_EMAIL_ID],
+        settings.BCC_EMAILS,
     )
     email.attach_alternative(html_message, "text/html")
 
