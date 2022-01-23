@@ -73,7 +73,7 @@ def send_verification_email(request, profile):
 
     subject = 'SAC IIITDMJ Portal Registration Successful!'
 
-    html_message = render_to_string('registration/account_verification_email.html', {
+    html_message = render_to_string('registration/account_verification_email_old.html', {
         "name" : profile.name,
         "email" : profile.email,
         "from" : profile.year_of_admission,
