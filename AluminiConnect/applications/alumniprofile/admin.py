@@ -16,6 +16,7 @@ class ProfileAdmin(admin.ModelAdmin):
     ordering = [('-user__date_joined'), ]
     search_fields = ['name', '^roll_no', '^year_of_admission', '^reg_no', '^programme', '^branch', '^city']
     actions = ['download_csv']
+    list_filter = ('batch__batch', 'programme', 'branch',)
 
     def save_model(self, request, obj, form, change):  # Doesn't detect PUBLIC_KEY Errors
         # if 'verify' in form.changed_data:
