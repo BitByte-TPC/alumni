@@ -30,7 +30,7 @@ from itertools import chain
 # Create your views here.
 
 class LoginFormView(SuccessMessageMixin, LoginView):
-    template_name = 'AluminiConnect/login.html'
+    template_name = 'AlumniConnect/login.html'
     redirect_authenticated_user = True
     # success_url = '/'
     success_message = "Logged in successfully!"
@@ -50,24 +50,24 @@ def index(request):
     # messages.success(request, 'Your password was successfully updated!')
     events_to_display = list(chain(events, events_completed))[:3]
     albums_list = Album.objects.order_by('-created').annotate(images_count=Count('albumimage'))[:3]
-    return render(request, "AluminiConnect/index.html",
+    return render(request, "AlumniConnect/index.html",
                   {'name': sname, 'events': events_to_display, 'news': news, 'albums': albums_list})
 
 
 def alumniBody(request):
-    return render(request, "AluminiConnect/alumnibody.html")
+    return render(request, "AlumniConnect/alumnibody.html")
 
 
 def alumniCard(request):
-    return render(request, "AluminiConnect/alumnicard.html")
+    return render(request, "AlumniConnect/alumnicard.html")
 
 
 def gallery(request):
-    return render(request, "AluminiConnect/gallery.html")
+    return render(request, "AlumniConnect/gallery.html")
 
 
 def job_posting(request):
-    return render(request, "AluminiConnect/job_posting.html")
+    return render(request, "AlumniConnect/job_posting.html")
 
 
 # def jobboard(request):
@@ -91,7 +91,7 @@ def register(request):
 
     else:
         form = RegisterForm()
-    return render(request, 'AluminiConnect/registration.html', {'form': form, 'check': check, 'l': l})
+    return render(request, 'AlumniConnect/registration.html', {'form': form, 'check': check, 'l': l})
 
 
 def reg_no_gen(degree_, spec_, year):
@@ -138,10 +138,10 @@ def new_register(request):
             mappt = addPoints({'city': str(request.POST['city']), 'state': str(request.POST['state']),
                                'country': str(request.POST['country'])})
             print('Adding Map Point Status: ' + str(mappt))
-            return render(request, 'AluminiConnect/confirm_email.html')
+            return render(request, 'AlumniConnect/confirm_email.html')
     else:
         form = NewRegister()
-    return render(request, 'AluminiConnect/profileedit.html', {'form': form, 'edit': False})
+    return render(request, 'AlumniConnect/profileedit.html', {'form': form, 'edit': False})
 
 
 @login_required
@@ -157,7 +157,7 @@ def profileedit(request, id):
         else:
             print("here")
             form = ProfileEdit(instance=profile)
-        return render(request, 'AluminiConnect/profileedit.html',
+        return render(request, 'AlumniConnect/profileedit.html',
                       {'form': form, 'C': profile.country, 's': profile.state, 'c': profile.city, 'edit': True})
     else:
         return HttpResponseRedirect('/')
@@ -196,4 +196,4 @@ def change_password(request):
             messages.error(request, 'Please correct the error below.')
     else:
         form = PasswordChangeForm(request.user)
-    return render(request, 'AluminiConnect/change_password.html', {'form': form})
+    return render(request, 'AlumniConnect/change_password.html', {'form': form})
