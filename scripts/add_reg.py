@@ -1,5 +1,5 @@
 from applications.alumniprofile.models import Profile
-from AluminiConnect.views import reg_no_gen,convert_int
+from AlumniConnect.views import reg_no_gen,convert_int
 
 print(Profile.objects.all().order_by('user__date_joined'))
 

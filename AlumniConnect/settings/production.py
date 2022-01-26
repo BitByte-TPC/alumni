@@ -1,6 +1,6 @@
 import ast
 
-from AluminiConnect.settings.common import *
+from AlumniConnect.settings.common import *
 
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY_ALUMNI")
 
