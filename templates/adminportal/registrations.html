@@ -80,7 +80,7 @@
                                     Contacts: {{ profile.email }} {{ profile.mobile1 }}<br>
                                     Programme: {{ profile.programme }} in {{ profile.branch }} ({{ profile.year_of_admission }}-{{ profile.batch }})<br>
                                 </p>
-                                <p class="card-text"><small class="text-muted">Joined on {{ profile.date_of_joining }}</small></p>
+                                <p class="card-text"><small class="text-muted">Joined on {{ profile.user.date_joined }}</small></p>
                                 <form method="POST" action="{% url 'adminportal:registrations' %}">
                                     {% csrf_token %}
                                     <input type="hidden" name="id" value="{{profile.roll_no}}"/>
