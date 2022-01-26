@@ -1,5 +1,5 @@
 """
-Django settings for AluminiConnect project.
+Django settings for AlumniConnect project.
 """
 
 import os
@@ -49,7 +49,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'AluminiConnect.urls'
+ROOT_URLCONF = 'AlumniConnect.urls'
 
 TEMPLATES = [
     {
@@ -68,7 +68,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'AluminiConnect.wsgi.application'
+WSGI_APPLICATION = 'AlumniConnect.wsgi.application'
 
 # Database
 
