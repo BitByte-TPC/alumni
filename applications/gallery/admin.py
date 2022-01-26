@@ -1,10 +1,10 @@
 import os
 import uuid
 import zipfile
-import AluminiConnect.settings
 from datetime import datetime
 from zipfile import ZipFile
 
+from django.conf import settings
 from django.contrib import admin
 from django.core.files.base import ContentFile
 
@@ -43,7 +43,7 @@ class AlbumModelAdmin(admin.ModelAdmin):
                     filename = '{0}{1}.jpg'.format(album.slug, str(uuid.uuid4())[-13:])
                     img.image.save(filename, contentfile)
                 
-                    filepath = '{0}/Albums/{1}'.format(AluminiConnect.settings.MEDIA_ROOT, filename)
+                    filepath = '{0}/Albums/{1}'.format(settings.MEDIA_ROOT, filename)
                     with Image.open(filepath) as i:
                         img.width, img.height = i.size
 

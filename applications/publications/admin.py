@@ -1,7 +1,6 @@
 import os
 import uuid
 import zipfile
-import AluminiConnect.settings
 from datetime import datetime
 from zipfile import ZipFile
 
