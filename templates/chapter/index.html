@@ -40,7 +40,7 @@ Chapters
                 <img src="{{ item.wall_picture.url }}" class="card-img-top" alt="{{item.name}}"
                     style="object-fit:cover; max-width:350px; max-height:245px; height:245px;">
                 {% else %}
-                <img src="/static/AluminiConnect/img/coll3.jpeg" class="card-img-top" alt="..."
+                <img src="{% static 'AlumniConnect/img/coll3.jpeg' %}" class="card-img-top" alt="..."
                     style="object-fit:cover; max-width:350px; max-height:245px; height:245px;">
                 {% endif %}
                 <div class="card-body text-center">

@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block css %}
-<link rel="stylesheet" href="{% static "chapter/chapter.css" %}" />
+<link rel="stylesheet" href="{% static 'chapter/chapter.css' %}" />
 <link rel="stylesheet" href="{% static 'external/photoswipe/photoswipe.css' %}" />
 <link rel="stylesheet" href="{% static 'external/photoswipe/default-skin/default-skin.css' %}" />
 {% endblock %}
@@ -18,7 +18,7 @@
   {% if chapter.wall_picture %}
   <img class="image" src="{{ chapter.wall_picture.url }}" alt="Alt text" />
   {% else %}
-  <img class="image" src="/static/AluminiConnect/img/coll3.jpeg" alt="Alt text" />
+  <img class="image" src="{% static 'AlumniConnect/img/coll3.jpeg' %}" alt="Alt text" />
   {% endif %}
 
   <div class="text text-center">
@@ -38,7 +38,7 @@
         <img src="{{ item.pic }}" class="card-img-top" alt="{{item.name}}"
           style="object-fit:cover; max-width:350px; max-height:245px; height:245px;">
         {% else %}
-        <img src="/static/AluminiConnect/img/coll3.jpeg" class="card-img-top" alt="..."
+        <img src="{% static 'AlumniConnect/img/coll3.jpeg' %}" class="card-img-top" alt="..."
           style="object-fit:cover; max-width:350px; max-height:245px; height:245px;">
         {% endif %}
         <div class="card-body text-center">
@@ -93,7 +93,7 @@
           {% if item.event.picture %}
           <img src="{{item.event.picture.url}}" class="card-img" alt="...">
           {% else %}
-          <img src="/static/AluminiConnect/img/coll3.jpeg" class="card-img" alt="...">
+          <img src="{% static 'AlumniConnect/img/coll3.jpeg' %}" class="card-img" alt="...">
           {% endif %}
         </div>
         <div class="col-md-8">
@@ -138,7 +138,7 @@
       {% if item.album.thumb.url %}
       <img class="card-img-top" src="{{ item.album.thumb.url }}" alt="{{ item.album.title|striptags }}">
       {% else %}
-      <img class="card-img-top" src="/static/AluminiConnect/img/album.png" alt="Album">
+      <img class="card-img-top" src="{% static 'AlumniConnect/img/album.png' %}" alt="Album">
       {% endif %}
       <div class="card-body">
         <h5 class="card-title border-bottom">{{ item.album.title|safe }}</h5>
