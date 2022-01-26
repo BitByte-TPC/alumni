@@ -126,6 +126,7 @@ def registrations_index(request):
 
             if 'approve' in request.POST:
                 send_verification_email(request, profile)
+                profile.mail_sent = True
                 profile.verify = True
                 messages.add_message(request, messages.SUCCESS, "Registration Success, Mail sent to {}".format(profile.name))
 
