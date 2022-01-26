@@ -19,7 +19,6 @@
   * Activate the env: `$ source env/bin/activate` (for linux) `> ./env/Scripts/activate` (for Windows PowerShell)
   * Install the requirements: `$ pip install -r requirements.txt`  
     **Note:** If some requirement causes some error, remove the version from that requirement (ex. convert `anyjson==0.3.3` to `anyjson`) and run the above command again.
-  * Change directory to AluminiConnect `$ cd AluminiConnect`
   * Make migrations `$ python manage.py makemigrations`
   * Migrate the changes to the database `$ python manage.py migrate`
   * Run the server `$ python manage.py runserver`
