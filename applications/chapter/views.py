@@ -3,7 +3,7 @@ from datetime import datetime
 from zipfile import ZipFile
 from PIL import Image
 
-import AluminiConnect.settings
+from django.conf import settings
 from django.core.files.base import ContentFile
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
@@ -54,7 +54,7 @@ def chapter(request, id):
     res = 'GET Request'
     if request.method == 'POST':
         if not request.user.is_authenticated:
-            return redirect('%s?next=%s' % (AluminiConnect.settings.LOGIN_URL, request.path))
+            return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
         if 'chapter' in request.POST:
             res = chapter_edit(request, id)
         elif 'event' in request.POST:
@@ -142,7 +142,7 @@ def album_add(request, id):
                     filename = '{0}{1}.jpg'.format(album.slug, str(uuid.uuid4())[-13:])
                     img.image.save(filename, contentfile)
 
-                    filepath = '{0}/Albums/{1}'.format(AluminiConnect.settings.MEDIA_ROOT, filename)
+                    filepath = '{0}/Albums/{1}'.format(settings.MEDIA_ROOT, filename)
                     with Image.open(filepath) as i:
                         img.width, img.height = i.size
 
