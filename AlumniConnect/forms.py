@@ -261,7 +261,7 @@ class NewRegister(forms.ModelForm):
         self.fields['date_of_birth'].label = 'Date of Birth'
         self.fields['year_of_admission'].label = 'Year of Admission'
         self.fields['alternate_email'].label = 'Alternate Email'
-        # self.fields['checkbox_terms'].label = 'I abide by the Terms and Conditions of the SAC'
+        # self.fields['checkbox_terms'].label = 'I abide by the Terms and Conditions of the Alumni Cell'
         self.fields[
             'checkbox_update'].label = 'I will update my information at regular intervals and will engage in the Alumni network actively.'
         self.helper = FormHelper()
