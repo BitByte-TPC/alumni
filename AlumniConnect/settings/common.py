@@ -150,7 +150,7 @@ ANYMAIL = {
 }
 MAILJET_API_URL = "https://api.mailjet.com/v3.1"
 EMAIL_BACKEND = "anymail.backends.mailjet.EmailBackend"  # or sendgrid.EmailBackend, or...
-DEFAULT_FROM_EMAIL = "Student Alumni Cell IIITDMJ <alumni@iiitdmj.ac.in>"  # if you don't already have this in settings
+DEFAULT_FROM_EMAIL = "Alumni Cell IIITDMJ <alumni@iiitdmj.ac.in>"  # if you don't already have this in settings
 SERVER_EMAIL = os.environ.get("MJ_SENDER_EMAIL", "")  # ditto (default from-email for Django errors)
 
 STATICFILES_FINDERS = (
