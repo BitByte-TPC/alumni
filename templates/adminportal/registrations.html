@@ -75,11 +75,16 @@
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
-                                <h5 class="card-title">{{ profile.name }} ({{ profile.roll_no }})</h5>
-                                <p class="card-text m-0">
-                                    Contacts: {{ profile.email }} {{ profile.mobile1 }}<br>
-                                    Programme: {{ profile.programme }} in {{ profile.branch }} ({{ profile.year_of_admission }}-{{ profile.batch }})<br>
-                                </p>
+                                <h5 class="card-title">
+                                    <b>{{ profile.name }}</b> ({{ profile.roll_no }})
+                                    <a class="fab fa-linkedin" href="{{ profile.linkedin }}" target="_blank"></a>
+                                    {% if profile.facebook %}<a class="fab fa-facebook-square"></a>{% endif %}
+                                </h5>
+                                <div class="card-text mb-2">
+                                    <p class="mb-1">Contacts: {{ profile.email }}, {{ profile.mobile1 }}</p>
+                                    <p class="mb-1">Programme: {{ profile.programme }} in {{ profile.branch }} ({{ profile.year_of_admission }}-{{ profile.batch }})</p>
+                                    <p class="mb-1"><u>Alumni Registration Number:</u> {{ profile.reg_no }}</p>
+                                </div>
                                 <p class="card-text"><small class="text-muted">Joined on {{ profile.user.date_joined }}</small></p>
                                 <form method="POST" action="{% url 'adminportal:registrations' %}">
                                     {% csrf_token %}
