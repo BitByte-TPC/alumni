@@ -16,7 +16,7 @@ EMAIL_HOST_USER = 'your-email@gmail.com'
 EMAIL_HOST_PASSWORD = 'your-password'
 EMAIL_PORT = 587
 
-DEFAULT_FROM_EMAIL = "Student Alumni Cell IIITDMJ <your-email@gmail.com>"
+DEFAULT_FROM_EMAIL = "Alumni Cell IIITDMJ <your-email@gmail.com>"
 BCC_EMAILS = ["bcc-email1@gmail.com", "bcc-email2@gmail.com"]
 
 if DEBUG:
