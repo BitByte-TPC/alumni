@@ -29,7 +29,7 @@ def send_verification_email_old(user, name, email, yoa, yop, prog, spec, reg_no,
             {
                 "From": {
                     "Email": sender_email,
-                    "Name": "Alumni Cell, IIITDMJ"
+                    "Name": "Alumni Cell IIITDMJ"
                 },
                 "To": [
                     {
@@ -45,7 +45,7 @@ def send_verification_email_old(user, name, email, yoa, yop, prog, spec, reg_no,
                 ],
                 "TemplateID": 821551,
                 "TemplateLanguage": True,
-                "Subject": "Alumni Connect IIITDMJ Registration Successful!",
+                "Subject": "Alumni Connect Portal - IIITDMJ Registration Successful!",
                 "TemplateErrorDeliver": True,
                 "TemplateErrorReporting": {
                     "Email": sender_email,
@@ -79,7 +79,7 @@ def send_birthday_wish(name, email):
             {
                 "From": {
                     "Email": sender_email,
-                    "Name": "Alumni Cell, IIITDMJ"
+                    "Name": "Alumni Cell IIITDMJ"
                 },
                 "To": [
                     {
@@ -95,7 +95,7 @@ def send_birthday_wish(name, email):
                 ],
                 "TemplateID": 820446,
                 "TemplateLanguage": True,
-                "Subject": "Alumni Cell, IIITDMJ Wishes you a Very Happy Birthday!",
+                "Subject": "Alumni Cell IIITDMJ Wishes you a Very Happy Birthday!",
                 "TemplateErrorDeliver": True,
                 "TemplateErrorReporting": {
                     "Email": sender_email,

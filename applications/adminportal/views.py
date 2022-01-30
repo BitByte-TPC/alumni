@@ -71,7 +71,7 @@ def send_verification_email(request, profile):
     from_email = settings.DEFAULT_FROM_EMAIL
     to = [profile.email]
 
-    subject = 'Alumni Connect Registration Successful!'
+    subject = 'Alumni Connect Portal - IIITDMJ Registration Successful!'
 
     html_message = render_to_string('registration/account_verification_email_old.html', {
         "name" : profile.name,
