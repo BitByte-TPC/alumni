@@ -141,7 +141,7 @@ def registrations_index(request):
 
         return redirect('adminportal:registrations')
 
-    unregistered = Profile.objects.all().filter(verify=None).filter(mail_sent=False)
+    unregistered = Profile.objects.filter(verify=None).filter(mail_sent=False).order_by('-user__date_joined')
 
     context = {
         'pending': unregistered
