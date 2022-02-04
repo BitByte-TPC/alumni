@@ -4,7 +4,7 @@
 <nav class="navbar navbar-expand-lg navbar-light fixed-top navbar-shrink" id="mainNav">
         <div class="container">
         <a class="navbar-brand js-scroll-trigger" href="{% url 'home' %}">
-            <img src="{% static 'AlumniConnect/img/logo-min.png' %}" class="h-100" style="max-height:30px">
+            <img src="{% static 'AluminiConnect/img/logo-min.png' %}" class="h-100" style="max-height:30px">
             Alumni Connect
         </a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,7 +79,7 @@
                 <a class="nav-link js-scroll-trigger" href="{% url 'login' %}">Login</a>
             </li>
             <li class="nav-item">
-                <a class="btn btn-dark btn-xl js-scroll-trigger text-white" style="padding: .5rem 1rem;" href="{% url 'new_register' %}">Register</a>
+                <a class="btn btn-dark btn-xl js-scroll-trigger text-white" style="padding: .5rem 1rem;" href="{% url 'signup' %}">Sign Up</a>
             </li>
             {% else %}
             <li class="nav-item">
@@ -89,7 +89,11 @@
                 {% if user.is_superuser %}
                 <a class="btn btn-dark btn-xl js-scroll-trigger text-white" style="padding: .5rem 1rem;" href="{% url 'adminportal:index' %}">Admin</a>
                 {% else %}
-                <a class="btn btn-dark btn-xl js-scroll-trigger text-white" style="padding: .5rem 1rem;" href="{% url 'profile:profile' username=user.username %}">Profile</a>
+                {% if user.first_name %}
+                <a class="btn btn-success btn-xl js-scroll-trigger text-white" style="padding: .5rem 1rem;" href="{% url 'profile:profile' username=user.username %}">Profile</a>
+                {% else %}
+                <a class="btn btn-warning btn-xl js-scroll-trigger text-white" style="padding: .5rem 1rem;" href="{% url 'profile_completion'%}">Incomplete</a>
+                {% endif %}
                 {% endif %}
             </li>
             {% endif %}
