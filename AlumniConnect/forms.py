@@ -55,9 +55,9 @@ class Alumni_NewRegister(forms.ModelForm):
         self.fields['mobile2'].label = "Alternate Mobile No."
         self.fields['batch'].label = 'Year of Passing'
         self.fields['sex'].label = 'Gender'
-        self.fields['phone_no'].label = 'Phone No.'
         self.fields['date_of_birth'].label = 'Date of Birth'
         self.fields['year_of_admission'].label = 'Year of Admission'
+        self.fields['alternate_email'].label = 'Alternate Email'
         # self.fields['checkbox_terms'].label = 'I abide by the Terms and Conditions of the SAC'
         self.fields[
             'checkbox_update'].label = 'I will update my information at regular intervals and will engage in the Alumni network actively.'
@@ -74,7 +74,7 @@ class Alumni_NewRegister(forms.ModelForm):
                 css_class='form-row my-3',
             ),
             Div(
-                Field('email', css_class="form-control", wrapper_class='col-md-5'),
+                Field('alternate_email', css_class="form-control", wrapper_class='col-md-5'),
                 css_class='form-row my-3',
             ),
             Div(
@@ -137,7 +137,7 @@ class Alumni_NewRegister(forms.ModelForm):
         )
 
     def clean(self):
-        super(Alumini_NewRegister, self).clean()  # if necessary
+        super(Alumni_NewRegister, self).clean()  # if necessary
         del self._errors['country']
         del self._errors['city']
         del self._errors['state']
@@ -151,8 +151,6 @@ class Alumni_NewRegister(forms.ModelForm):
             'country',
             'state',
             'year_of_admission',
-            'alternate_email',
-            'phone_no',
             'mobile1',
             'mobile2',
             'facebook',
@@ -161,8 +159,7 @@ class Alumni_NewRegister(forms.ModelForm):
             'fathers_name',
             'spouse_name',
             'sex',
-            'email',
-            'roll_no',
+            'alternate_email',
             'date_of_birth',
             'date_of_joining',
             'working_status',
@@ -171,7 +168,6 @@ class Alumni_NewRegister(forms.ModelForm):
             'batch',
             'current_address',
             'permanent_address',
-            'phone_no',
             'current_position',
             'current_organisation',
             'past_experience',
@@ -237,6 +233,7 @@ class Student_NewRegister(forms.ModelForm):
         self.fields['sex'].label = 'Gender'
         self.fields['date_of_birth'].label = 'Date of Birth'
         self.fields['year_of_admission'].label = 'Year of Admission'
+        self.fields['alternate_email'].label = 'Alternate Email'
         # self.fields['checkbox_terms'].label = 'I abide by the Terms and Conditions of the SAC'
         self.fields[
             'checkbox_update'].label = 'I will update my information at regular intervals and will engage in the Alumni network actively.'
@@ -249,7 +246,7 @@ class Student_NewRegister(forms.ModelForm):
                 css_class='form-row my-3',
             ),
             Div(
-                Field('email', css_class="form-control",wrapper_class='col-md-5'),
+                Field('alternate_email', css_class="form-control",wrapper_class='col-md-5'),
                 Field('sex', css_class="custom-select",wrapper_class="col-md-5"),
                 css_class='form-row my-3',
             ),
@@ -332,7 +329,7 @@ class Student_NewRegister(forms.ModelForm):
             'mobile2',
             'facebook',
             'instagram',
-            'name',
+            'alternate_email',
             'fathers_name',
             'sex',
             'email',
@@ -742,7 +739,7 @@ class SignUp(UserCreationForm):
         label='Enter password', widget=forms.PasswordInput(attrs={'placeholder': 'Enter your password'}))
     password2 = forms.CharField(
         label='Confirm password', widget=forms.PasswordInput(attrs={'placeholder': 'Reenter your password'}))
-    user_type = forms.ChoiceField(choices=(('A', 'Alumini'), ('S', 'Student')))
+    user_type = forms.ChoiceField(choices=(('A', 'Alumni'), ('S', 'Student')))
 
     def clean_email(self):
         email = self.cleaned_data['email'].lower()
