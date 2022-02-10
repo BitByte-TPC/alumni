@@ -175,7 +175,8 @@ class Alumni_NewRegister(forms.ModelForm):
             'current_university',
             'linkedin',
             'website',
-            'profile_picture']
+            'profile_picture',
+            'checkbox_update']
 
         widgets = {
             'working_status': forms.RadioSelect(choices=Constants.WORKING_STATUS),
@@ -321,6 +322,7 @@ class Student_NewRegister(forms.ModelForm):
         model = Profile
 
         fields = [
+            'name',
             'city',
             'country',
             'state',
@@ -332,12 +334,12 @@ class Student_NewRegister(forms.ModelForm):
             'alternate_email',
             'fathers_name',
             'sex',
-            'email',
             'date_of_birth',
             'branch',
             'programme',
             'batch',
             'current_address',
+            'checkbox_update',
             'permanent_address',
             'linkedin',
             'website',
