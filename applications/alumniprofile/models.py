@@ -63,7 +63,7 @@ def upload_photo(instance, filename):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     roll_no = models.CharField(primary_key=True,max_length=8)
-    email = models.EmailField(default="")
+    email = models.EmailField(unique=True,default="")
     alternate_email = models.EmailField(null=True)
     year_of_admission = models.IntegerField(null=True, choices=Constants.YEAR_OF_ADDMISSION)
     batch = models.ForeignKey(Batch, on_delete=models.CASCADE)

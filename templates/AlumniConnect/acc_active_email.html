@@ -1,7 +1,12 @@
 {% autoescape off %}
-Hi {{ l.name }},
-Please click on the link to confirm your registration,
-http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
-
-<h3>Your current default Passwords is your Roll No. It is HIGHLY RECOMMENDED to change it after activating your account.</h3>
+Hi {{ user }},<br>
+<br>
+Your account has successfully created. Please click below link to activate your account...<br>
+Username : {{ user }}<br>
+<br>
+http://{{ domain }}{% url 'activate' uidb64=uid token=token %}<br>
+<br>
+<br>
+Regards,<br>
+SAC
 {% endautoescape %}

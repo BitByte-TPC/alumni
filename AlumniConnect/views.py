@@ -14,17 +14,24 @@ from django.core.mail import EmailMessage
 from django.db.models import Count
 from django.contrib.auth.views import LoginView
 from django.contrib.messages.views import SuccessMessageMixin
-
-from .forms import RegisterForm, ProfileEdit, NewRegister
+from django.conf import settings
+from django.template.loader import render_to_string
+from django.urls import reverse
+from django.utils.encoding import force_bytes
+from django.utils.html import strip_tags
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from .forms import RegisterForm, ProfileEdit, Alumni_NewRegister, Student_NewRegister, SignUp
 from .token import account_activation_token
 from applications.events_news.models import Event, Attendees
-from applications.alumniprofile.models import Profile, Constants
+from applications.alumniprofile.models import Batch, Profile, Constants
 from applications.news.models import News
 from applications.gallery.models import Album
 from applications.geolocation.views import addPoints
 import datetime
 from django.utils import timezone
 from itertools import chain
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import send_mail
 
 
 # Create your views here.
@@ -49,7 +56,8 @@ def index(request):
     news = News.objects.filter().order_by('-date')
     # messages.success(request, 'Your password was successfully updated!')
     events_to_display = list(chain(events, events_completed))[:3]
-    albums_list = Album.objects.order_by('-created').annotate(images_count=Count('albumimage'))[:3]
+    albums_list = Album.objects.order_by(
+        '-created').annotate(images_count=Count('albumimage'))[:3]
     return render(request, "AlumniConnect/index.html",
                   {'name': sname, 'events': events_to_display, 'news': news, 'albums': albums_list})
 
@@ -84,7 +92,8 @@ def register(request):
             batch = form.cleaned_data.get('batch')
             branch = form.cleaned_data.get('branch')
             programme = form.cleaned_data.get('programme')
-            l = Profile.objects.filter(batch=batch, programme=programme, branch=branch)
+            l = Profile.objects.filter(
+                batch=batch, programme=programme, branch=branch)
             print('Testing output\n')
             print(l)
             check = True
@@ -95,9 +104,12 @@ def register(request):
 
 
 def reg_no_gen(degree_, spec_, year):
-    degree = {"B.Tech": "1", "B.Des": '2', "M.Tech": '3', "M.Des": '4', "PhD": '5'}
-    spec = {"NA": '00', "CSE": "01", "ECE": "02", "ME": "03", "MT": "04", "NS": "05", "DS": "06"}
-    last_reg_no = Profile.objects.filter(year_of_admission=year).order_by('user__date_joined').last()
+    degree = {"B.Tech": "1", "B.Des": '2',
+              "M.Tech": '3', "M.Des": '4', "PhD": '5'}
+    spec = {"NA": '00', "CSE": "01", "ECE": "02",
+            "ME": "03", "MT": "04", "NS": "05", "DS": "06", "SM": "07"} # Added SM Branch
+    last_reg_no = Profile.objects.filter(
+        year_of_admission=year).order_by('user__date_joined').last()
     # print(last_reg_no)
     new_reg_no = (int(str(last_reg_no.reg_no)[-4:]) + 1) if last_reg_no else 1
     return degree[degree_] + spec[spec_] + str(year)[2:] + str(convert_int(new_reg_no, 4))
@@ -107,41 +119,51 @@ def convert_int(number, decimals):
     return str(number).zfill(decimals)
 
 
-def new_register(request):
+def signup(request):
     if request.method == 'POST':
-        form = NewRegister(request.POST, request.FILES)
-        # print (request.POST)
+        form = SignUp(request.POST)
         if form.is_valid():
-            try:
-                first_name, last_name = request.POST['name'].split(' ', 1)
-            except:
-                first_name = request.POST['name']
-                last_name = ""
-            # print (form.cleaned_data.get('date_of_joining'))
-            profile = form.save(commit=False)
-            profile.reg_no = reg_no_gen(profile.programme, profile.branch, profile.year_of_admission)
-            profile.country = request.POST['country']
-            profile.state = request.POST['state']
-            profile.city = request.POST['city']
-            password = User.objects.make_random_password(length=10)
-            # password = '12345678'
-            user = User.objects.create_user(
-                username=str(form.cleaned_data.get('roll_no')),
-                first_name=first_name,
-                last_name=last_name,
-                email=str(form.cleaned_data.get('email')),
-                password=password,
-                is_active=True
+
+            # CREATING THE USER FROM THE MODEL FORM DATA
+            user = form.save(commit=False)
+            user.username = form.cleaned_data.get('username')
+            user.email = str(form.cleaned_data.get('email'))
+            user.is_active = False
+            user.save()
+            # THEN CREATING THE PROFILE INSTANCE AND SAVING THE USER AND USER_TYPE
+            profile = Profile.objects.create(
+                roll_no=form.cleaned_data.get('username'),
+                email=form.cleaned_data.get('email'),
+                user_type=form.cleaned_data.get('user_type'),
+                batch = Batch(2009),
+                user=user,
             )
-            profile.user = user
             profile.save()
-            mappt = addPoints({'city': str(request.POST['city']), 'state': str(request.POST['state']),
-                               'country': str(request.POST['country'])})
-            print('Adding Map Point Status: ' + str(mappt))
+            # Send Account Activation Email
+            current_site = get_current_site(request)
+
+            from_email = settings.DEFAULT_FROM_EMAIL
+            to = [user.email]
+            subject = '[noreply] SAC Account Activation'
+            html_message = render_to_string('AlumniConnect/acc_active_email.html', {
+                'user': user,
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': account_activation_token.make_token(user),
+            })
+            plain_message = strip_tags(html_message)
+            send_mail(
+                subject, plain_message, from_email, to,
+                fail_silently=False, html_message=html_message,
+            )
+            messages.success(
+                request, f'Your account has been created! You are now able to log in')
             return render(request, 'AlumniConnect/confirm_email.html')
+
+            # return HttpResponseRedirect('/')
     else:
-        form = NewRegister()
-    return render(request, 'AlumniConnect/profileedit.html', {'form': form, 'edit': False})
+        form = SignUp()
+    return render(request, 'AlumniConnect/signup.html', {'form': form})
 
 
 @login_required
@@ -163,21 +185,65 @@ def profileedit(request, id):
         return HttpResponseRedirect('/')
 
 
+@login_required
+def profile_completion(request):
+    profile = Profile.objects.get(roll_no=request.user.username)
+    if request.method == 'POST':
+        if profile.user_type == 'A':
+            form = Alumni_NewRegister(
+                request.POST, request.FILES, instance=profile)
+        else:
+            form = Student_NewRegister(
+                request.POST, request.FILES, instance=profile)
+        # print (request.POST)
+        if form.is_valid():
+            try:
+                first_name, last_name = request.POST['name'].split(' ', 1)
+            except:
+                first_name = request.POST['name']
+                last_name = ""
+            # print (form.cleaned_data.get('date_of_joining'))
+            profile = form.save(commit=False)
+            profile.reg_no = reg_no_gen(
+                profile.programme, profile.branch, profile.year_of_admission)
+            profile.country = request.POST['country']
+            profile.state = request.POST['state']
+            profile.city = request.POST['city']
+            profile.user.first_name = first_name
+            profile.user.last_name = last_name
+            request.user.first_name = first_name
+            request.user.last_name = last_name
+            request.user.is_active = False
+            profile.save()
+            request.user.save()
+            mappt = addPoints({'city': str(request.POST['city']), 'state': str(request.POST['state']),
+                               'country': str(request.POST['country'])})
+            print('Adding Map Point Status: ' + str(mappt))
+            return HttpResponseRedirect('/')
+    else:
+        user_type = 'Alumni' if profile.user_type == 'A' else 'Student'
+        if profile.user_type == 'A':
+            form = Alumni_NewRegister()
+        else:
+            form = Student_NewRegister()
+    return render(request, 'AlumniConnect/profileedit.html', {'form': form, 'edit': False})
+
+
 def activate(request, uidb64, token):
     print('inside activate')
     try:
         uid = urlsafe_base64_decode(uidb64)
         print(uid)
-        u = User.objects.get(username=uid)
+        u = User.objects.get(pk=uid)
         print(u)
     except(TypeError, ValueError, OverflowError):
         u = None
-    if u is not None and account_activation_token.check_token(u, token):
+    if u is not None and account_activation_token.check_token(u, token) and not u.first_name:
         u.is_active = True
         u.save()
-        login(request, u)
+        # login(request, u)
         # return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
-        return HttpResponseRedirect('/password/')
+        return HttpResponseRedirect('/profilecompletion/')
     else:
         return HttpResponse('Activation link is invalid!')
     return redirect('/')
@@ -190,7 +256,8 @@ def change_password(request):
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user)  # Important!
-            messages.success(request, 'Your password was successfully updated!')
+            messages.success(
+                request, 'Your password was successfully updated!')
             return redirect('home')
         else:
             messages.error(request, 'Please correct the error below.')

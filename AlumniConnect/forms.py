@@ -746,6 +746,8 @@ class SignUp(UserCreationForm):
     def clean_email(self):
         email = self.cleaned_data['email'].lower()
         r = User.objects.filter(email=email)
+        if r:
+            raise ValidationError('Account with this email id already exists.')
         if re.findall("iiitdmj.ac.in$", email):
             raise ValidationError(
                 "Institute email id is not accepted.Kindly enter your personal email id.")
