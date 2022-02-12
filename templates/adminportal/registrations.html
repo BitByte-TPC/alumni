@@ -67,7 +67,7 @@
                                     <b><a href="{% url 'admin:alumniprofile_profile_change' profile.roll_no %}" target="_blank">{{ profile.name }}</a></b> 
                                     ({{ profile.roll_no }})
                                     <a class="fab fa-linkedin" href="{{ profile.linkedin }}" target="_blank"></a>
-                                    {% if profile.facebook %}<a class="fab fa-facebook-square"></a>{% endif %}
+                                    {% if profile.facebook %}<a class="fab fa-facebook-square" href="{{ profile.facebook }}" target="_blank"></a>{% endif %}
                                 </h5>
                                 <div class="card-text mb-2">
                                     <p class="mb-1">Contacts: {{ profile.email }}, {{ profile.mobile1 }}</p>
