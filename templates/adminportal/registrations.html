@@ -64,7 +64,8 @@
                         <div class="col-md-8">
                             <div class="card-body">
                                 <h5 class="card-title">
-                                    <b>{{ profile.name }}</b> ({{ profile.roll_no }})
+                                    <b><a href="{% url 'admin:alumniprofile_profile_change' profile.roll_no %}" target="_blank">{{ profile.name }}</a></b> 
+                                    ({{ profile.roll_no }})
                                     <a class="fab fa-linkedin" href="{{ profile.linkedin }}" target="_blank"></a>
                                     {% if profile.facebook %}<a class="fab fa-facebook-square"></a>{% endif %}
                                 </h5>
