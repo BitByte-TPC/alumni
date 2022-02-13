@@ -65,10 +65,7 @@ class ProfileEdit(forms.ModelForm):
     website = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Website'}), required=False)
     facebook = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Facebook URL'}), required=False)
     instagram = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Instagram Username'}), required=False)
-    custom_city = forms.CharField(widget=forms.TextInput(
-        attrs={'id': 'city_input', 'class': 'cityInput', 'name': 'city', 'placeholder': 'Enter city name'}), required=False)
-    checkbox_city = forms.BooleanField(widget=forms.CheckboxInput(
-        attrs={'onchange': 'enterCity()'}), required=False)
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['fathers_name'].label = "Father/Mother's Name"
@@ -222,36 +219,13 @@ class ProfileEdit(forms.ModelForm):
 
 
 class NewRegister(forms.ModelForm):
-    date_of_birth = forms.DateField(
-        widget=forms.TextInput(
-            attrs={'type': 'date'}
-        ),
-    )
-    date_of_joining = forms.DateField(
-        widget=forms.TextInput(
-            attrs={'type': 'date'}
-        ),
-        required=False,
-    )
-    current_address = forms.CharField(
-        widget=forms.Textarea(
-            attrs={'rows': 3, 'placeholder': 'Enter Address'}
-        ),
-        max_length=4000,
-    )
-    permanent_address = forms.CharField(
-        widget=forms.Textarea(
-            attrs={'rows': 3, 'placeholder': 'Enter Permanent Address', }
-        ),
-        max_length=4000,
-        required=False,
-    )
     country = forms.ChoiceField(widget=forms.Select(
         attrs={'id': 'countryId', 'class': 'countries order-alpha presel-IN custom-select', 'name': 'country'}))
     state = forms.ChoiceField(
         widget=forms.Select(attrs={'id': 'stateId', 'class': 'states order-alpha custom-select', 'name': 'state'}))
     city = forms.ChoiceField(
         widget=forms.Select(attrs={'id': 'cityId', 'class': 'cities order-alpha custom-select', 'name': 'city'}))
+    
     linkedin = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Linkedin URL'}))
     website = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Website'}), required=False)
     facebook = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Facebook URL'}), required=False)
@@ -275,8 +249,7 @@ class NewRegister(forms.ModelForm):
         self.fields['roll_no'].label = 'Roll No.'
         self.fields['date_of_birth'].label = 'Date of Birth'
         self.fields['year_of_admission'].label = 'Year of Admission'
-        self.fields['email'].label = 'Personal Email (gmail, yahoo, etc.)'
-        self.fields['alternate_email'].label = 'Official Email'
+        self.fields['alternate_email'].label = 'Alternate Email'
         self.fields['custom_city'].label = 'City'
         # self.fields['checkbox_terms'].label = 'I abide by the Terms and Conditions of the Alumni Cell'
         self.fields[
@@ -368,6 +341,22 @@ class NewRegister(forms.ModelForm):
         del self._errors['city']
         del self._errors['state']
         return self.cleaned_data
+        
+    def clean_roll_no(self):
+        roll_no = self.cleaned_data.get('roll_no').lower()
+        email = self.cleaned_data.get('email')
+        user = User.objects.filter(username=roll_no)
+        user2 = User.objects.filter(email=email)
+        if user or user2:
+            raise forms.ValidationError(
+                'Profile with this roll number or email-id already exists.'
+            )
+        match = re.search('20[0-9A-Za-z]+', roll_no)
+        if(match == None):
+            raise forms.ValidationError(
+                'Please enter your institute roll number.'
+            )
+        return roll_no
 
     class Meta:
         model = Profile
@@ -378,7 +367,6 @@ class NewRegister(forms.ModelForm):
             'state',
             'year_of_admission',
             'alternate_email',
-            'phone_no',
             'mobile1',
             'mobile2',
             'facebook',
@@ -397,7 +385,6 @@ class NewRegister(forms.ModelForm):
             'batch',
             'current_address',
             'permanent_address',
-            'phone_no',
             'current_position',
             'current_organisation',
             'past_experience',
