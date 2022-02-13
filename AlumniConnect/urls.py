@@ -22,7 +22,7 @@ from django.views.generic import TemplateView
 from django.views.generic.base import RedirectView
 
 from os import listdir
-from .  import views
+from . import views
 
 
 favicon_view = RedirectView.as_view(url='/static/favicon.ico', permanent=True)
@@ -37,13 +37,16 @@ urlpatterns += [
     #path('account/reset_password/', views.ResetPasswordRequestView.as_view(), name="reset_password"),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('register/', views.register, name='register'),
-    path('newregister/', views.new_register, name='new_register'),
-    re_path(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', views.activate, name='activate'),
-    path('confirm/', TemplateView.as_view(template_name='AlumniConnect/confirm_email.html'), name = 'confirm'),
-    path('success/', TemplateView.as_view(template_name='AlumniConnect/account_success.html'), name = 'success'),
+    path('signup/', views.signup, name='signup'),
+    # path('newregister/', views.new_register, name='new_register'),
+    re_path(
+        r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', views.activate, name='activate'),
+    path('confirm/', TemplateView.as_view(template_name='AlumniConnect/confirm_email.html'), name='confirm'),
+    path('success/', TemplateView.as_view(template_name='AlumniConnect/account_success.html'), name='success'),
     re_path('^', include('django.contrib.auth.urls')),
     path('password/', views.change_password, name='change_password'),
-    re_path(r'^profileedit/(?P<id>[0-9]+)/$', views.profileedit, name='profileedit'),
+    re_path(r'^profileedit/(?P<id>[0-9]+)/$',
+            views.profileedit, name='profileedit'),
     path('profile/', include('applications.alumniprofile.urls')),
     path('members/', include('applications.members.urls')),
     path('events/', include('applications.events_news.urls')),
@@ -63,13 +66,12 @@ urlpatterns += [
 ]
 
 if settings.DEBUG:
-    
 
     import debug_toolbar
     urlpatterns = [
         path('__debug__/', include(debug_toolbar.urls)),
     ] + urlpatterns
-    
+
 admin.site.site_header = "IIITDMJ Alumni Association"
 admin.site.site_title = "Alumni Association"
 admin.site.index_title = "Alumni Association Admin"

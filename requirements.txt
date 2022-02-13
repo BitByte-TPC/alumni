@@ -1,5 +1,5 @@
 amqp==2.5.2
-anyjson==0.3.3
+anyjson
 astroid==2.1.0
 beautifulsoup4==4.6.0
 billiard==3.6.1.0

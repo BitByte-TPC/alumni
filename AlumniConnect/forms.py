@@ -1,10 +1,14 @@
 import datetime
+from logging import PlaceHolder
 from django import forms
 from applications.alumniprofile.models import Profile, Constants, Batch
 from django.contrib.auth.models import User
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit, Row, Column, Div, Field
 from crispy_forms.bootstrap import InlineRadios
+from django.contrib.auth.forms import UserCreationForm
+import re
+from django.core.exceptions import ValidationError
 
 
 class RegisterForm(forms.ModelForm):
@@ -58,10 +62,14 @@ class ProfileEdit(forms.ModelForm):
         widget=forms.Select(attrs={'id': 'stateId', 'class': 'states order-alpha custom-select', 'name': 'state'}))
     city = forms.CharField(
         widget=forms.Select(attrs={'id': 'cityId', 'class': 'cities order-alpha custom-selects', 'name': 'city'}))
-    linkedin = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Linkedin URL'}))
-    website = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Website'}), required=False)
-    facebook = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Facebook URL'}), required=False)
-    instagram = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Instagram Username'}), required=False)
+    linkedin = forms.URLField(widget=forms.TextInput(
+        attrs={'placeholder': 'Linkedin URL'}))
+    website = forms.URLField(widget=forms.TextInput(
+        attrs={'placeholder': 'Website'}), required=False)
+    facebook = forms.URLField(widget=forms.TextInput(
+        attrs={'placeholder': 'Facebook URL'}), required=False)
+    instagram = forms.CharField(widget=forms.TextInput(
+        attrs={'placeholder': 'Instagram Username'}), required=False)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -79,40 +87,56 @@ class ProfileEdit(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Div(
-                Field('roll_no', css_class="form-control", wrapper_class='col-md-4'),
-                Field('name', css_class="form-control", wrapper_class='col-md-4'),
-                Field('sex', css_class="custom-select", wrapper_class="col-md-4"),
+                Field('roll_no', css_class="form-control",
+                      wrapper_class='col-md-4'),
+                Field('name', css_class="form-control",
+                      wrapper_class='col-md-4'),
+                Field('sex', css_class="custom-select",
+                      wrapper_class="col-md-4"),
                 css_class='form-row',
             ),
             Div(
-                Field('fathers_name', css_class="form-control", wrapper_class='col-md-6'),
-                Field('husbands_name', css_class="form-control", wrapper_class='col-md-6'),
+                Field('fathers_name', css_class="form-control",
+                      wrapper_class='col-md-6'),
+                Field('husbands_name', css_class="form-control",
+                      wrapper_class='col-md-6'),
                 css_class='form-row',
             ),
             Div(
-                Field('date_of_birth', css_class="form-control", wrapper_class='col-md-4'),
-                Field('year_of_admission', css_class="custom-select", wrapper_class='col-md-4'),
-                Field('batch', css_class="custom-select", wrapper_class="col-md-4"),
+                Field('date_of_birth', css_class="form-control",
+                      wrapper_class='col-md-4'),
+                Field('year_of_admission', css_class="custom-select",
+                      wrapper_class='col-md-4'),
+                Field('batch', css_class="custom-select",
+                      wrapper_class="col-md-4"),
                 css_class='form-row',
             ),
             Div(
-                Field('branch', css_class="custom-select", wrapper_class="col-md-6"),
-                Field('programme', css_class="custom-select", wrapper_class="col-md-6"),
+                Field('branch', css_class="custom-select",
+                      wrapper_class="col-md-6"),
+                Field('programme', css_class="custom-select",
+                      wrapper_class="col-md-6"),
                 css_class='form-row',
             ),
             Div(
-                Field('mobile1', css_class="form-control", wrapper_class='col-md-4'),
-                Field('mobile2', css_class="form-control", wrapper_class='col-md-4'),
-                Field('phone_no', css_class="form-control", wrapper_class="col-md-4"),
+                Field('mobile1', css_class="form-control",
+                      wrapper_class='col-md-4'),
+                Field('mobile2', css_class="form-control",
+                      wrapper_class='col-md-4'),
+                Field('phone_no', css_class="form-control",
+                      wrapper_class="col-md-4"),
                 css_class='form-row',
             ),
             Div(
-                Field('email', css_class="form-control", wrapper_class='col-md-6'),
-                Field('alternate_email', css_class="form-control", wrapper_class='col-md-6'),
+                Field('email', css_class="form-control",
+                      wrapper_class='col-md-6'),
+                Field('alternate_email', css_class="form-control",
+                      wrapper_class='col-md-6'),
                 css_class='form-row',
             ),
             Div(
-                Field('current_address', css_class="form-control", wrapper_class='col-md'),
+                Field('current_address', css_class="form-control",
+                      wrapper_class='col-md'),
                 css_class='form-row',
             ),
             Div(
@@ -122,30 +146,41 @@ class ProfileEdit(forms.ModelForm):
                 css_class='form-row',
             ),
             Div(
-                Field('permanent_address', css_class="form-control", wrapper_class='col-md'),
+                Field('permanent_address', css_class="form-control",
+                      wrapper_class='col-md'),
                 css_class='form-row',
             ),
             InlineRadios('working_status'),
             Div(
-                Field('current_position', css_class="form-control", wrapper_class='col-md-6 col-lg-4'),
-                Field('current_organisation', css_class="form-control", wrapper_class='col-md-6 col-lg-4'),
-                Field('date_of_joining', css_class="form-control", wrapper_class='col-md-6 col-lg-4'),
-                Field('past_experience', css_class="form-control", wrapper_class="col-md-6 col-lg-4"),
+                Field('current_position', css_class="form-control",
+                      wrapper_class='col-md-6 col-lg-4'),
+                Field('current_organisation', css_class="form-control",
+                      wrapper_class='col-md-6 col-lg-4'),
+                Field('date_of_joining', css_class="form-control",
+                      wrapper_class='col-md-6 col-lg-4'),
+                Field('past_experience', css_class="form-control",
+                      wrapper_class="col-md-6 col-lg-4"),
                 css_class='form-row',
             ),
             Div(
-                Field('current_course', css_class="form-control", wrapper_class='col-md-6 col-lg-4'),
-                Field('current_university', css_class="form-control", wrapper_class='col-md-6 col-lg-4'),
+                Field('current_course', css_class="form-control",
+                      wrapper_class='col-md-6 col-lg-4'),
+                Field('current_university', css_class="form-control",
+                      wrapper_class='col-md-6 col-lg-4'),
                 css_class='form-row',
             ),
             Div(
-                Field('linkedin', css_class="form-control", wrapper_class='col-md-6'),
-                Field('website', css_class="form-control", wrapper_class='col-md-6'),
+                Field('linkedin', css_class="form-control",
+                      wrapper_class='col-md-6'),
+                Field('website', css_class="form-control",
+                      wrapper_class='col-md-6'),
                 css_class='form-row',
             ),
             Div(
-                Field('facebook', css_class="form-control", wrapper_class='col-md-6'),
-                Field('instagram', css_class="form-control", wrapper_class='col-md-6'),
+                Field('facebook', css_class="form-control",
+                      wrapper_class='col-md-6'),
+                Field('instagram', css_class="form-control",
+                      wrapper_class='col-md-6'),
                 css_class='form-row',
             ),
             Field('profile_picture', css_class="w-100"),
@@ -241,11 +276,15 @@ class NewRegister(forms.ModelForm):
         widget=forms.Select(attrs={'id': 'stateId', 'class': 'states order-alpha custom-select', 'name': 'state'}))
     city = forms.ChoiceField(
         widget=forms.Select(attrs={'id': 'cityId', 'class': 'cities order-alpha custom-select', 'name': 'city'}))
-    linkedin = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Linkedin URL'}))
-    website = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Website'}), required=False)
-    facebook = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Facebook URL'}), required=False)
+    linkedin = forms.URLField(widget=forms.TextInput(
+        attrs={'placeholder': 'Linkedin URL'}))
+    website = forms.URLField(widget=forms.TextInput(
+        attrs={'placeholder': 'Website'}), required=False)
+    facebook = forms.URLField(widget=forms.TextInput(
+        attrs={'placeholder': 'Facebook URL'}), required=False)
     # checkbox_terms = forms.BooleanField(required=True)
-    instagram = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Instagram Username'}), required=False)
+    instagram = forms.CharField(widget=forms.TextInput(
+        attrs={'placeholder': 'Instagram Username'}), required=False)
     checkbox_update = forms.BooleanField(required=True)
 
     def __init__(self, *args, **kwargs):
@@ -267,40 +306,56 @@ class NewRegister(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Div(
-                Field('roll_no', css_class="form-control", wrapper_class='col-md-4'),
-                Field('name', css_class="form-control", wrapper_class='col-md-4'),
-                Field('sex', css_class="custom-select", wrapper_class="col-md-4"),
+                Field('roll_no', css_class="form-control",
+                      wrapper_class='col-md-4'),
+                Field('name', css_class="form-control",
+                      wrapper_class='col-md-4'),
+                Field('sex', css_class="custom-select",
+                      wrapper_class="col-md-4"),
                 css_class='form-row',
             ),
             Div(
-                Field('fathers_name', css_class="form-control", wrapper_class='col-md-6'),
-                Field('husbands_name', css_class="form-control", wrapper_class='col-md-6'),
+                Field('fathers_name', css_class="form-control",
+                      wrapper_class='col-md-6'),
+                Field('husbands_name', css_class="form-control",
+                      wrapper_class='col-md-6'),
                 css_class='form-row',
             ),
             Div(
-                Field('date_of_birth', css_class="form-control", wrapper_class='col-md-4'),
-                Field('year_of_admission', css_class="custom-select", wrapper_class='col-md-4'),
-                Field('batch', css_class="custom-select", wrapper_class="col-md-4"),
+                Field('date_of_birth', css_class="form-control",
+                      wrapper_class='col-md-4'),
+                Field('year_of_admission', css_class="custom-select",
+                      wrapper_class='col-md-4'),
+                Field('batch', css_class="custom-select",
+                      wrapper_class="col-md-4"),
                 css_class='form-row',
             ),
             Div(
-                Field('branch', css_class="custom-select", wrapper_class="col-md-6"),
-                Field('programme', css_class="custom-select", wrapper_class="col-md-6"),
+                Field('branch', css_class="custom-select",
+                      wrapper_class="col-md-6"),
+                Field('programme', css_class="custom-select",
+                      wrapper_class="col-md-6"),
                 css_class='form-row',
             ),
             Div(
-                Field('mobile1', css_class="form-control", wrapper_class='col-md-4'),
-                Field('mobile2', css_class="form-control", wrapper_class='col-md-4'),
-                Field('phone_no', css_class="form-control", wrapper_class="col-md-4"),
+                Field('mobile1', css_class="form-control",
+                      wrapper_class='col-md-4'),
+                Field('mobile2', css_class="form-control",
+                      wrapper_class='col-md-4'),
+                Field('phone_no', css_class="form-control",
+                      wrapper_class="col-md-4"),
                 css_class='form-row',
             ),
             Div(
-                Field('email', css_class="form-control", wrapper_class='col-md-6'),
-                Field('alternate_email', css_class="form-control", wrapper_class='col-md-6'),
+                Field('email', css_class="form-control",
+                      wrapper_class='col-md-6'),
+                Field('alternate_email', css_class="form-control",
+                      wrapper_class='col-md-6'),
                 css_class='form-row',
             ),
             Div(
-                Field('current_address', css_class="form-control", wrapper_class='col-md'),
+                Field('current_address', css_class="form-control",
+                      wrapper_class='col-md'),
                 css_class='form-row',
             ),
             Div(
@@ -310,30 +365,41 @@ class NewRegister(forms.ModelForm):
                 css_class='form-row',
             ),
             Div(
-                Field('permanent_address', css_class="form-control", wrapper_class='col-md'),
+                Field('permanent_address', css_class="form-control",
+                      wrapper_class='col-md'),
                 css_class='form-row',
             ),
             InlineRadios('working_status'),
             Div(
-                Field('current_position', css_class="form-control", wrapper_class='col-md-6 col-lg-4'),
-                Field('current_organisation', css_class="form-control", wrapper_class='col-md-6 col-lg-4'),
-                Field('date_of_joining', css_class="form-control", wrapper_class='col-md-6 col-lg-4'),
-                Field('past_experience', css_class="form-control", wrapper_class="col-md-6 col-lg-4"),
+                Field('current_position', css_class="form-control",
+                      wrapper_class='col-md-6 col-lg-4'),
+                Field('current_organisation', css_class="form-control",
+                      wrapper_class='col-md-6 col-lg-4'),
+                Field('date_of_joining', css_class="form-control",
+                      wrapper_class='col-md-6 col-lg-4'),
+                Field('past_experience', css_class="form-control",
+                      wrapper_class="col-md-6 col-lg-4"),
                 css_class='form-row',
             ),
             Div(
-                Field('current_course', css_class="form-control", wrapper_class='col-md-6 col-lg-4'),
-                Field('current_university', css_class="form-control", wrapper_class='col-md-6 col-lg-4'),
+                Field('current_course', css_class="form-control",
+                      wrapper_class='col-md-6 col-lg-4'),
+                Field('current_university', css_class="form-control",
+                      wrapper_class='col-md-6 col-lg-4'),
                 css_class='form-row',
             ),
             Div(
-                Field('linkedin', css_class="form-control", wrapper_class='col-md-6'),
-                Field('website', css_class="form-control", wrapper_class='col-md-6'),
+                Field('linkedin', css_class="form-control",
+                      wrapper_class='col-md-6'),
+                Field('website', css_class="form-control",
+                      wrapper_class='col-md-6'),
                 css_class='form-row',
             ),
             Div(
-                Field('facebook', css_class="form-control", wrapper_class='col-md-6'),
-                Field('instagram', css_class="form-control", wrapper_class='col-md-6'),
+                Field('facebook', css_class="form-control",
+                      wrapper_class='col-md-6'),
+                Field('instagram', css_class="form-control",
+                      wrapper_class='col-md-6'),
                 css_class='form-row',
             ),
             Field('profile_picture', css_class="w-100"),
@@ -390,6 +456,41 @@ class NewRegister(forms.ModelForm):
         widgets = {
             'working_status': forms.RadioSelect(choices=Constants.WORKING_STATUS),
         }
+
+
+class SignUp(UserCreationForm):
+    username = forms.CharField(
+        label='Enter Username', min_length=4, max_length=150, widget=forms.TextInput(attrs={'placeholder': 'Enter your roll number'}))
+    email = forms.EmailField(label='Enter email', widget=forms.EmailInput(
+        attrs={'placeholder': 'Enter your email'}))
+    password1 = forms.CharField(
+        label='Enter password', widget=forms.PasswordInput(attrs={'placeholder': 'Enter your password'}))
+    password2 = forms.CharField(
+        label='Confirm password', widget=forms.PasswordInput(attrs={'placeholder': 'Reenter your password'}))
+    user_type = forms.ChoiceField(choices=(('A', 'Alumini'), ('S', 'Student')))
+
+    def clean_email(self):
+        email = self.cleaned_data['email'].lower()
+        r = User.objects.filter(email=email)
+        if re.findall("iiitdmj.ac.in$", email):
+            raise ValidationError(
+                "Institute email id is not accepted.Kindly enter your personal email id.")
+        return email
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username').lower()
+        r = User.objects.filter(username=username)
+        match = re.search('20\w\w\w\d\d\d', username)
+        match2 = re.search('20\d\d\d\d\d', username)
+        if(match == match2 == None):
+            raise ValidationError(
+                'Please enter your institute roll number.'
+            )
+        return username
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2', 'user_type']
 
 
 class PasswordResetRequestForm(forms.Form):

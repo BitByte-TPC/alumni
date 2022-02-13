@@ -94,3 +94,5 @@ dump.rdb
 celerybeat-schedule
 
 .idea/
+
+Pipfile

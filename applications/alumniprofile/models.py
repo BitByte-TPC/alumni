@@ -1,15 +1,22 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
-import datetime, os
+import datetime
+import os
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from model_utils import FieldTracker
 from time import strftime
+
 # from .funcs import send_verification_email
 
 
 class Constants:
+    USER_TYPE = (
+        ('S', 'Student'),
+        ('A', 'Alumni')
+    )
+
     SEX_CHOICES = (
         ('M', 'Male'),
         ('F', 'Female'),
@@ -40,7 +47,8 @@ class Constants:
         ('Is Self Employed', 'Is Self Employed')
     )
 
-    YEAR_OF_ADDMISSION = tuple((n, str(n)) for n in range(2005, datetime.datetime.now().year))
+    YEAR_OF_ADDMISSION = tuple((n, str(n))
+                               for n in range(2005, datetime.datetime.now().year))
 
 
 class Batch(models.Model):
@@ -60,40 +68,54 @@ class Profile(models.Model):
     roll_no = models.IntegerField(primary_key=True)
     email = models.EmailField(null=False, default="")
     alternate_email = models.EmailField(null=True, blank=True)
-    year_of_admission = models.IntegerField(null=True, choices=Constants.YEAR_OF_ADDMISSION)
+    year_of_admission = models.IntegerField(
+        null=True, choices=Constants.YEAR_OF_ADDMISSION)
     batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
     name = models.CharField(max_length=1000, default="", null=False)
     fathers_name = models.CharField(max_length=1000, default="")
-    husbands_name = models.CharField(null=True, blank=True, max_length=1000, default="")
-    programme = models.CharField(max_length=1000, choices=Constants.PROG_CHOICES, null=False)
-    branch = models.CharField(choices=Constants.BRANCH, max_length=1000, null=False)
-    sex = models.CharField(max_length=2, choices=Constants.SEX_CHOICES, default='M')
+    husbands_name = models.CharField(
+        null=True, blank=True, max_length=1000, default="")
+    programme = models.CharField(
+        max_length=1000, choices=Constants.PROG_CHOICES, null=False)
+    branch = models.CharField(choices=Constants.BRANCH,
+                              max_length=1000, null=False)
+    sex = models.CharField(
+        max_length=2, choices=Constants.SEX_CHOICES, default='M')
     date_of_birth = models.DateField(default=datetime.date(1970, 1, 1))
     current_address = models.TextField(max_length=1000, default="")
-    permanent_address = models.TextField(max_length=1000, blank=True, null=True)
+    permanent_address = models.TextField(
+        max_length=1000, blank=True, null=True)
     mobile1 = models.BigIntegerField(null=True)
     mobile2 = models.BigIntegerField(null=True, blank=True)
     phone_no = models.BigIntegerField(null=True, blank=True)
-    working_status = models.CharField(max_length=1000, choices=Constants.WORKING_STATUS, default='1', null=False)
+    working_status = models.CharField(
+        max_length=1000, choices=Constants.WORKING_STATUS, default='1', null=False)
     current_position = models.CharField(max_length=1000, null=True, blank=True)
-    current_organisation = models.CharField(max_length=1000, null=True, blank=True)
+    current_organisation = models.CharField(
+        max_length=1000, null=True, blank=True)
     past_experience = models.IntegerField(null=True, blank=True)
     current_course = models.CharField(null=True, blank=True, max_length=1000)
-    current_university = models.CharField(null=True, blank=True, max_length=1000)
+    current_university = models.CharField(
+        null=True, blank=True, max_length=1000)
     city = models.CharField(null=True, max_length=1000, blank=True)
     country = models.CharField(null=True, max_length=1000, blank=True)
     state = models.CharField(null=True, max_length=1000, blank=True)
-    facebook = models.URLField(null=True, blank=True, default="www.facebook.com")
-    linkedin = models.URLField(null=True, blank=True, default="www.linkedin.com")
+    facebook = models.URLField(
+        null=True, blank=True, default="www.facebook.com")
+    linkedin = models.URLField(
+        null=True, blank=True, default="www.linkedin.com")
     instagram = models.CharField(null=True, blank=True, max_length=1000)
     website = models.URLField(null=True, blank=True)
     profile_picture = models.ImageField(null=True, upload_to=upload_photo)
     is_verified = models.BooleanField(default=True)
-    date_of_joining = models.DateField(null=True, blank=True, default=datetime.date.today)
+    date_of_joining = models.DateField(
+        null=True, blank=True, default=datetime.date.today)
     reg_no = models.BigIntegerField(null=True, default=0, editable=False)
     mail_sent = models.BooleanField(default=False)
     verify = models.BooleanField(null=True)
     mail_sent_tracker = FieldTracker(fields=['verify'])
+    user_type = models.CharField(
+        max_length=2, choices=Constants.USER_TYPE, default='A')
 
     def __str__(self):
         return self.name
