@@ -10,6 +10,10 @@ from time import strftime
 
 
 class Constants:
+    USER_TYPE = (
+        ('S','Student'),
+        ('A','Alumni')
+    )
     SEX_CHOICES = (
         ('M', 'Male'),
         ('F', 'Female'),
@@ -28,6 +32,7 @@ class Constants:
         ('CSE', 'Computer Science and Engineering'),
         ('ECE', 'Electronics and Communication Engineering'),
         ('ME', 'Mechanical Engineering'),
+        ('SM', 'Smart Manufacturing'),
         ('NS', 'Natural Sciences'),
         ('MT', 'Mechatronics'),
         ('DS', 'Design'),
@@ -41,11 +46,11 @@ class Constants:
     )
 
     YEAR_OF_ADDMISSION = tuple((n, str(n)) for n in range(2005, datetime.datetime.now().year))
-
+    
 
 class Batch(models.Model):
+    # batch = models.IntegerField(primary_key=True,choices=Constants.BATCH_OF,default=2009)
     batch = models.IntegerField(primary_key=True)
-
     def __str__(self):
         return str(self.batch)
 
@@ -57,16 +62,16 @@ def upload_photo(instance, filename):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    roll_no = models.IntegerField(primary_key=True)
-    email = models.EmailField(null=False, default="")
-    alternate_email = models.EmailField(null=True, blank=True)
+    roll_no = models.CharField(primary_key=True,max_length=8)
+    email = models.EmailField(default="")
+    alternate_email = models.EmailField(null=True)
     year_of_admission = models.IntegerField(null=True, choices=Constants.YEAR_OF_ADDMISSION)
     batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
-    name = models.CharField(max_length=1000, default="", null=False)
+    name = models.CharField(max_length=1000, default="", null=True)
     fathers_name = models.CharField(max_length=1000, default="")
-    husbands_name = models.CharField(null=True, blank=True, max_length=1000, default="")
-    programme = models.CharField(max_length=1000, choices=Constants.PROG_CHOICES, null=False)
-    branch = models.CharField(choices=Constants.BRANCH, max_length=1000, null=False)
+    spouse_name = models.CharField(null=True, blank=True, max_length=1000, default="")
+    programme = models.CharField(max_length=1000, choices=Constants.PROG_CHOICES)
+    branch = models.CharField(choices=Constants.BRANCH, max_length=1000)
     sex = models.CharField(max_length=2, choices=Constants.SEX_CHOICES, default='M')
     date_of_birth = models.DateField(default=datetime.date(1970, 1, 1))
     current_address = models.TextField(max_length=1000, default="")
@@ -74,7 +79,7 @@ class Profile(models.Model):
     mobile1 = models.BigIntegerField(null=True)
     mobile2 = models.BigIntegerField(null=True, blank=True)
     phone_no = models.BigIntegerField(null=True, blank=True)
-    working_status = models.CharField(max_length=1000, choices=Constants.WORKING_STATUS, default='1', null=False)
+    working_status = models.CharField(max_length=1000, choices=Constants.WORKING_STATUS, default='1')
     current_position = models.CharField(max_length=1000, null=True, blank=True)
     current_organisation = models.CharField(max_length=1000, null=True, blank=True)
     past_experience = models.IntegerField(null=True, blank=True)
@@ -94,7 +99,7 @@ class Profile(models.Model):
     mail_sent = models.BooleanField(default=False)
     verify = models.BooleanField(null=True)
     mail_sent_tracker = FieldTracker(fields=['verify'])
-
+    user_type = models.CharField(max_length=2, choices=Constants.USER_TYPE, default='A')
     def __str__(self):
         return self.name
 
