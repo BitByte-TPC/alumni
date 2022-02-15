@@ -6,7 +6,7 @@ from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from model_utils import FieldTracker
 from time import strftime
-# from .funcs import send_verification_email
+from applications.adminportal.mail_helper import send_verification_email
 
 
 class Constants:
@@ -91,7 +91,7 @@ class Profile(models.Model):
     is_verified = models.BooleanField(default=True)
     date_of_joining = models.DateField(null=True, blank=True, default=datetime.date.today)
     reg_no = models.BigIntegerField(null=True, default=0, editable=False)
-    mail_sent = models.BooleanField(default=False)
+    mail_sent = models.BooleanField(default=False)  # To be used to track if the email was actually sent.
     verify = models.BooleanField(null=True)
     mail_sent_tracker = FieldTracker(fields=['verify'])
 
@@ -101,7 +101,15 @@ class Profile(models.Model):
 
 @receiver(post_save, sender=Profile)
 def check(sender, instance, created, update_fields, **kwargs):
-    return
-    # if instance.mail_sent_tracker.has_changed('verify') and instance.mail_sent_tracker.previous(
-    #         'verify') == False:  # Alumni Verified
-    #     send_verification_email(instance)
+    if instance.mail_sent_tracker.has_changed('verify') and instance.mail_sent_tracker.previous(
+            'verify') != True:  # Alumni Verified
+        mail_sent = send_verification_email("alumni.iiitdmj.ac.in", True, instance)
+
+        # Can use either of below methods.
+        # Though, the bottom one is preferred.
+        # sender.objects.filter(roll_no=instance.roll_no).update(mail_sent=mail_sent)
+
+        post_save.disconnect(check, Profile)
+        instance.mail_sent = mail_sent
+        instance.save()
+        post_save.connect(check, Profile)
