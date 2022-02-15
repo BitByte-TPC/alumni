@@ -72,7 +72,7 @@ def registrations_index(request):
         try:
             profile = Profile.objects.get(roll_no=request.POST.get('id'))
             if profile.verify is not None:
-                raise RuntimeError("Invalid Verification request for {}".format(profile.roll_no))
+                raise RuntimeError("Invalid verification request for roll no. {}.".format(profile.roll_no))
 
             if 'approve' in request.POST:
                 profile.verify = True
@@ -92,9 +92,9 @@ def registrations_index(request):
                 profile.save()
                 messages.add_message(request, messages.SUCCESS, "Registration Declined for {}".format(profile.name))
 
-        except Exception:
-            print(Exception)
-            messages.add_message(request, messages.ERROR, "Something went wrong, contact the admins.")
+        except Exception as err:
+            print(err)
+            messages.add_message(request, messages.ERROR, err)
 
         return redirect('adminportal:registrations')
 
