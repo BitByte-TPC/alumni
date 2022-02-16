@@ -1,5 +1,4 @@
 """AlumniConnect URL Configuration
-
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.11/topics/http/urls/
 Examples:
@@ -37,13 +36,15 @@ urlpatterns += [
     #path('account/reset_password/', views.ResetPasswordRequestView.as_view(), name="reset_password"),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('register/', views.register, name='register'),
-    path('newregister/', views.new_register, name='new_register'),
+    path('profilecompletion/',views.profile_completion, name='profile_completion'),
+    # path('newregister/', views.new_register, name='new_register'),
+    path('signup/', views.signup, name='signup'),
     re_path(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', views.activate, name='activate'),
     path('confirm/', TemplateView.as_view(template_name='AlumniConnect/confirm_email.html'), name = 'confirm'),
     path('success/', TemplateView.as_view(template_name='AlumniConnect/account_success.html'), name = 'success'),
     re_path('^', include('django.contrib.auth.urls')),
     path('password/', views.change_password, name='change_password'),
-    re_path(r'^profileedit/(?P<id>[0-9]+)/$', views.profileedit, name='profileedit'),
+    re_path(r'^profileedit/(?P<id>[0-9A-Za-z]+)/$', views.profileedit, name='profileedit'),
     path('profile/', include('applications.alumniprofile.urls')),
     path('members/', include('applications.members.urls')),
     path('events/', include('applications.events_news.urls')),
