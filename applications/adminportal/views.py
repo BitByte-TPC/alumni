@@ -128,12 +128,13 @@ def registrations_index(request):
                 send_verification_email(request, profile)
                 profile.mail_sent = True
                 profile.verify = True
+                profile.user.is_active = True
                 messages.add_message(request, messages.SUCCESS, "Registration Success, Mail sent to {}".format(profile.name))
 
             elif 'decline' in request.POST:
                 profile.verify = False
                 messages.add_message(request, messages.SUCCESS, "Registration Declined for {}".format(profile.name))
-
+            profile.user.save()
             profile.save()
         except Exception:
             print(Exception)

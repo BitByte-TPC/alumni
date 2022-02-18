@@ -20,7 +20,7 @@ from django.urls import reverse
 from django.utils.encoding import force_bytes
 from django.utils.html import strip_tags
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from .forms import RegisterForm, ProfileEdit, Alumni_NewRegister, Student_NewRegister, SignUp
+from .forms import RegisterForm, ProfileEdit, ProfileNewRegister, SignUp
 from .token import account_activation_token
 from applications.events_news.models import Event, Attendees
 from applications.alumniprofile.models import Batch, Profile, Constants
@@ -125,23 +125,21 @@ def signup(request):
         if form.is_valid():
 
             # CREATING THE USER FROM THE MODEL FORM DATA
-            user = form.save(commit=False)
-            user.username = form.cleaned_data.get('username')
-            user.email = str(form.cleaned_data.get('email'))
+            user = form.save()
             user.is_active = False
             user.save()
-            # THEN CREATING THE PROFILE INSTANCE AND SAVING THE USER AND USER_TYPE
+            # THEN CREATING THE PROFILE INSTANCE AND SAVING THE USER AND user_role
             profile = Profile.objects.create(
                 roll_no=form.cleaned_data.get('username'),
                 email=form.cleaned_data.get('email'),
-                user_type=form.cleaned_data.get('user_type'),
+                user_role=form.cleaned_data.get('user_role'),
                 batch = Batch(2009),
                 user=user,
             )
             profile.save()
+
             # Send Account Activation Email
             current_site = get_current_site(request)
-
             from_email = settings.DEFAULT_FROM_EMAIL
             to = [user.email]
             subject = '[noreply] SAC Account Activation'
@@ -157,13 +155,14 @@ def signup(request):
                 fail_silently=False, html_message=html_message,
             )
             messages.success(
-                request, f'Your account has been created! You are now able to log in')
+                request, f'Your account has been created! Complete your profile to log in')
             return render(request, 'AlumniConnect/confirm_email.html')
 
+        return render(request, 'AlumniConnect/signup.html', {'form': form})
             # return HttpResponseRedirect('/')
     else:
         form = SignUp()
-    return render(request, 'AlumniConnect/signup.html', {'form': form})
+        return render(request, 'AlumniConnect/signup.html',{'form':form})
 
 
 @login_required
@@ -188,13 +187,13 @@ def profileedit(request, id):
 @login_required
 def profile_completion(request):
     profile = Profile.objects.get(roll_no=request.user.username)
+    if profile.name:
+        return HttpResponseRedirect('/')
     if request.method == 'POST':
-        if profile.user_type == 'A':
-            form = Alumni_NewRegister(
-                request.POST, request.FILES, instance=profile)
-        else:
-            form = Student_NewRegister(
-                request.POST, request.FILES, instance=profile)
+        
+        form = ProfileNewRegister(
+            request.POST, request.FILES, instance=profile)
+        
         # print (request.POST)
         if form.is_valid():
             try:
@@ -209,25 +208,23 @@ def profile_completion(request):
             profile.country = request.POST['country']
             profile.state = request.POST['state']
             profile.city = request.POST['city']
-            profile.user.first_name = first_name
-            profile.user.last_name = last_name
+            profile.batch = Batch(request.POST['batch'])
             request.user.first_name = first_name
             request.user.last_name = last_name
             request.user.is_active = False
-            profile.save()
             request.user.save()
+            profile.save()
+            
             mappt = addPoints({'city': str(request.POST['city']), 'state': str(request.POST['state']),
                                'country': str(request.POST['country'])})
             print('Adding Map Point Status: ' + str(mappt))
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/confirmprofile/')
     else:
-        user_type = 'Alumni' if profile.user_type == 'A' else 'Student'
-        if profile.user_type == 'A':
-            form = Alumni_NewRegister()
-        else:
-            form = Student_NewRegister()
-    return render(request, 'AlumniConnect/profileedit.html', {'form': form, 'edit': False})
+        form = ProfileNewRegister()
 
+    batches = list(Batch.objects.all().order_by('batch'))
+    context = {'form': form, 'edit': False, 'programmes': Constants.PROG_CHOICES, 'user_role': profile.user_role,'branches': Constants.BRANCH, 'batch_year': batches, 'year_of_admission': Constants.YEAR_OF_ADDMISSION}
+    return render(request, 'AlumniConnect/profileedit.html', context)
 
 def activate(request, uidb64, token):
     print('inside activate')
@@ -241,7 +238,7 @@ def activate(request, uidb64, token):
     if u is not None and account_activation_token.check_token(u, token) and not u.first_name:
         u.is_active = True
         u.save()
-        # login(request, u)
+        login(request, u)
         # return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
         return HttpResponseRedirect('/profilecompletion/')
     else:

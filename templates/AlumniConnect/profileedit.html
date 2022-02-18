@@ -31,58 +31,74 @@ Alumni Connect
   window.onload = load;
 </script>
 <script type="text/javascript">
-  document.getElementById('div_id_current_position').style.display = 'none';
-  document.getElementById('div_id_current_organisation').style.display = 'none';
-  document.getElementById('div_id_date_of_joining').style.display = 'none';
-  document.getElementById('div_id_past_experience').style.display = 'none';
-  document.getElementById('div_id_current_course').style.display = 'none';
-  document.getElementById('div_id_current_university').style.display = 'none';
-  $('#id_id_working_status_0_1').prop('required', true);
-  $('#countryId').prop('required', true);
-  $('#stateId').prop('required', true);
-  $('#cityId').prop('required', true);
-  $('#id_id_working_status_0_1').click(function () {
-    document.getElementById('div_id_current_position').style.display = 'block';
-    document.getElementById('div_id_current_organisation').style.display = 'block';
-    document.getElementById('div_id_date_of_joining').style.display = 'block';
-    document.getElementById('div_id_past_experience').style.display = 'block';
-    document.getElementById('div_id_current_university').style.display = 'none';
-    document.getElementById('div_id_current_course').style.display = 'none';
-    $('#id_current_position').prop('required', true);
-    $('#id_current_organisation').prop('required', true);
-    $('#id_date_of_joining').prop('required', true);
-    $('#id_past_experience').prop('required', true);
-    $('#id_current_course').prop('required', false);
-    $('#id_current_university').prop('required', false);
+  $('#profile-picture').change(function() {
+  var i = $(this).prev('label').clone();
+  var file = $('#profile-picture')[0].files[0].name;
+  $(this).prev('label').text(file);
+  });
+  $('#cur_pos').hide();
+  $('#cur_org').hide();
+  $('#date_of_joining').hide();
+  $('#past_experience').hide();
+  $('#cur_course').hide();
+  $('#cur_uni').hide();
+  $('#status1').click(function () {
+    $('#cur_pos').show();
+    $('#cur_org').show();
+    $('#date_of_joining').show();
+    $('#past_experience').show();
+    $('#cur_uni').hide();
+    $('#cur_course').hide();
+    $('#cur_position').prop('required', true);
+    $('#cur_organisation').prop('required', true);
+    $('#date_of_join').prop('required', true);
+    $('#past_exp').prop('required', true);
+    $('#cur_course').prop('required', false);
+    $('#cur_university').prop('required', false);
   })
-  $('#id_id_working_status_0_2').click(function () {
-    document.getElementById('div_id_current_position').style.display = 'none';
-    document.getElementById('div_id_current_organisation').style.display = 'none';
-    document.getElementById('div_id_past_experience').style.display = 'none';
-    document.getElementById('div_id_date_of_joining').style.display = 'none';
-    document.getElementById('div_id_current_course').style.display = 'block';
-    document.getElementById('div_id_current_university').style.display = 'block';
-    $('#id_current_position').prop('required', false);
-    $('#id_current_organisation').prop('required', false);
-    $('#id_date_of_joining').prop('required', false);
-    $('#id_past_experience').prop('required', false);
-    $('#id_current_course').prop('required', true);
-    $('#id_current_university').prop('required', true);
+  $('#status2').click(function () {
+    $('#cur_pos').hide();
+    $('#cur_org').hide();
+    $('#past_experience').hide();
+    $('#date_of_joining').hide();
+    $('#cur_course').show();
+    $('#cur_uni').show();
+    $('#cur_position').prop('required', false);
+    $('#cur_organisation').prop('required', false);
+    $('#date_of_join').prop('required', false);
+    $('#past_exp').prop('required', false);
+    $('#cur_course').prop('required', true);
+    $('#cur_university').prop('required', true);
   })
-  $('#id_id_working_status_0_3').click(function () {
-    document.getElementById('div_id_current_position').style.display = 'block';
-    document.getElementById('div_id_current_organisation').style.display = 'block';
-    document.getElementById('div_id_date_of_joining').style.display = 'none';
-    document.getElementById('div_id_past_experience').style.display = 'none';
-    document.getElementById('div_id_current_course').style.display = 'none';
-    document.getElementById('div_id_current_university').style.display = 'none';
-    $('#id_current_position').prop('required', true);
-    $('#id_current_organisation').prop('required', true);
-    $('#id_date_of_joining').prop('required', false);
-    $('#id_past_experience').prop('required', false);
-    $('#id_current_course').prop('required', false);
-    $('#id_current_university').prop('required', false);
-  })
+  $('#status3').click(function () {
+    $('#cur_pos').show();
+    $('#cur_org').show();
+    $('#date_of_joining').hide();
+    $('#past_experience').hide();
+    $('#cur_course').hide();
+    $('#cur_uni').hide();
+    $('#cur_position').prop('required', true);
+    $('#cur_organisation').prop('required', true);
+    $('#date_of_join').prop('required', false);
+    $('#past_exp').prop('required', false);
+    $('#cur_course').prop('required', false);
+    $('#cur_university').prop('required', false);
+  }) 
+  $('#status4').click(function () {
+    $('#cur_pos').hide();
+    $('#cur_org').hide();
+    $('#date_of_joining').hide();
+    $('#past_experience').hide();
+    $('#cur_course').hide();
+    $('#cur_uni').hide();
+    $('#cur_position').prop('required', false);
+    $('#cur_organisation').prop('required', false);
+    $('#date_of_join').prop('required', false);
+    $('#past_exp').prop('required', false);
+    $('#cur_course').prop('required', false);
+    $('#cur_university').prop('required', false);
+  }) 
+
 </script>
 
 {% endblock %}
@@ -130,7 +146,11 @@ Alumni Connect
           <div class="row text-left mx-auto p-2 p-sm-4 col-lg-12">
             <form method="POST" role="form" enctype="multipart/form-data" style="width:100%">
               {% csrf_token %}
-              {% crispy form %}
+              {% if edit %}
+                {% crispy form %}
+              {% else %}
+                {% include 'alumniprofile/profile_form.html' %}
+              {% endif %}
               <input type="hidden" name="next" value="{{ request.path }}">
             </form>
           </div>
