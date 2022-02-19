@@ -18,6 +18,33 @@ class ProfileAdmin(admin.ModelAdmin):
     actions = ['download_csv']
     list_filter = ('batch__batch', 'programme', 'branch',)
 
+    fieldsets = (
+        (None, {
+            'fields': ('user', 'role')
+        }),
+        ('Institute Details', {
+            'fields': ('roll_no', 'year_of_admission', 'batch', 'programme', 'branch')
+        }),
+        ('Personal Details', {
+            'fields': (
+                'name', 'sex', 'date_of_birth', 'email', 'alternate_email', 'fathers_name', 'spouse_name', 'mobile1',
+                'mobile2', 'phone_no', 'current_address', 'permanent_address', 'city', 'state', 'country', 'profile_picture',
+            )
+        }),
+        ('Experience & Higher Studies', {
+            'fields': (
+                'working_status', 'current_position', 'current_organisation', 'date_of_joining', 'past_experience',
+                'current_course', 'current_university',
+            )
+        }),
+        ('Social', {
+            'fields': ('linkedin', 'facebook', 'instagram', 'website')
+        }),
+        ('User verification', {
+            'fields': ('is_verified', 'verify', 'mail_sent')
+        }),
+    )
+
     def save_model(self, request, obj, form, change):  # Doesn't detect PUBLIC_KEY Errors
         # if 'verify' in form.changed_data:
         #     if obj.verify == True:

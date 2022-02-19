@@ -65,12 +65,15 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     role = models.CharField(max_length=2, choices=Constants.ROLE_CHOICES, default='A')
 
-    # College Details
+    # Institute Details
     roll_no = models.CharField(primary_key=True, max_length=15)
     year_of_admission = models.IntegerField(null=True, choices=Constants.YEAR_OF_ADDMISSION)
     batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
     programme = models.CharField(max_length=1000, choices=Constants.PROG_CHOICES, null=False)
     branch = models.CharField(choices=Constants.BRANCH, max_length=1000, null=False)
+
+    # Alumni Specific
+    reg_no = models.BigIntegerField(null=True, default=0, editable=False)
 
     # Personal Details
     name = models.CharField(max_length=1000, default="", null=False)
@@ -90,9 +93,6 @@ class Profile(models.Model):
     country = models.CharField(null=True, max_length=1000, blank=True)
     profile_picture = models.ImageField(null=True, upload_to=upload_photo)
 
-    # Alumni Specific
-    reg_no = models.BigIntegerField(null=True, default=0, editable=False)
-
     # Experience & Higher Studies (for Alumni)
     working_status = models.CharField(max_length=1000, choices=Constants.WORKING_STATUS, blank=True)
     current_position = models.CharField(max_length=1000, null=True, blank=True)
@@ -103,8 +103,8 @@ class Profile(models.Model):
     current_university = models.CharField(null=True, blank=True, max_length=1000)
 
     # Social
-    facebook = models.URLField(null=True, blank=True, default="www.facebook.com")
     linkedin = models.URLField(null=True, blank=True, default="www.linkedin.com")
+    facebook = models.URLField(null=True, blank=True, default="www.facebook.com")
     instagram = models.CharField(null=True, blank=True, max_length=1000)
     website = models.URLField(null=True, blank=True)
     
