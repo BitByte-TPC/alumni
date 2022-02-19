@@ -65,12 +65,19 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     role = models.CharField(max_length=2, choices=Constants.ROLE_CHOICES, default='A')
 
+    # College Details
+    roll_no = models.CharField(primary_key=True, max_length=15)
+    year_of_admission = models.IntegerField(null=True, choices=Constants.YEAR_OF_ADDMISSION)
+    batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
+    programme = models.CharField(max_length=1000, choices=Constants.PROG_CHOICES, null=False)
+    branch = models.CharField(choices=Constants.BRANCH, max_length=1000, null=False)
+
     # Personal Details
     name = models.CharField(max_length=1000, default="", null=False)
     sex = models.CharField(max_length=2, choices=Constants.SEX_CHOICES, default='M')
     date_of_birth = models.DateField(default=datetime.date(1970, 1, 1))
-    email = models.EmailField(null=False, default="")
-    alternate_email = models.EmailField(null=True, blank=True)
+    email = models.EmailField()
+    alternate_email = models.EmailField(blank=True)
     fathers_name = models.CharField(max_length=1000, default="")
     husbands_name = models.CharField(null=True, blank=True, max_length=1000, default="")
     mobile1 = models.BigIntegerField(null=True)
@@ -82,13 +89,6 @@ class Profile(models.Model):
     state = models.CharField(null=True, max_length=1000, blank=True)
     country = models.CharField(null=True, max_length=1000, blank=True)
     profile_picture = models.ImageField(null=True, upload_to=upload_photo)
-
-    # College Details
-    roll_no = models.IntegerField(primary_key=True)
-    year_of_admission = models.IntegerField(null=True, choices=Constants.YEAR_OF_ADDMISSION)
-    batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
-    programme = models.CharField(max_length=1000, choices=Constants.PROG_CHOICES, null=False)
-    branch = models.CharField(choices=Constants.BRANCH, max_length=1000, null=False)
 
     # Alumni Specific
     reg_no = models.BigIntegerField(null=True, default=0, editable=False)
