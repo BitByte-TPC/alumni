@@ -66,7 +66,7 @@ class ProfileEdit(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['fathers_name'].label = "Father/Mother's Name"
-        self.fields['husbands_name'].label = "Husband's Name"
+        self.fields['spouse_name'].label = "Spouse's Name"
         self.fields['mobile1'].label = "Mobile No."
         self.fields['mobile2'].label = "Alternate Mobile No."
         self.fields['batch'].label = 'Year of Passing'
@@ -86,7 +86,7 @@ class ProfileEdit(forms.ModelForm):
             ),
             Div(
                 Field('fathers_name', css_class="form-control", wrapper_class='col-md-6'),
-                Field('husbands_name', css_class="form-control", wrapper_class='col-md-6'),
+                Field('spouse_name', css_class="form-control", wrapper_class='col-md-6'),
                 css_class='form-row',
             ),
             Div(
@@ -176,7 +176,7 @@ class ProfileEdit(forms.ModelForm):
             'instagram',
             'name',
             'fathers_name',
-            'husbands_name',
+            'spouse_name',
             'sex',
             'email',
             'roll_no',
@@ -251,7 +251,7 @@ class NewRegister(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['fathers_name'].label = "Father/Mother's Name"
-        self.fields['husbands_name'].label = "Husband's Name"
+        self.fields['spouse_name'].label = "Spouse's Name"
         self.fields['mobile1'].label = "Mobile No."
         self.fields['mobile2'].label = "Alternate Mobile No."
         self.fields['batch'].label = 'Year of Passing'
@@ -274,7 +274,7 @@ class NewRegister(forms.ModelForm):
             ),
             Div(
                 Field('fathers_name', css_class="form-control", wrapper_class='col-md-6'),
-                Field('husbands_name', css_class="form-control", wrapper_class='col-md-6'),
+                Field('spouse_name', css_class="form-control", wrapper_class='col-md-6'),
                 css_class='form-row',
             ),
             Div(
@@ -365,7 +365,7 @@ class NewRegister(forms.ModelForm):
             'instagram',
             'name',
             'fathers_name',
-            'husbands_name',
+            'spouse_name',
             'sex',
             'email',
             'roll_no',

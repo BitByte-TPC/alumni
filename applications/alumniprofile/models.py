@@ -79,7 +79,7 @@ class Profile(models.Model):
     email = models.EmailField()
     alternate_email = models.EmailField(blank=True)
     fathers_name = models.CharField(max_length=1000, default="")
-    husbands_name = models.CharField(null=True, blank=True, max_length=1000, default="")
+    spouse_name = models.CharField(null=True, blank=True, max_length=1000, default="")
     mobile1 = models.BigIntegerField(null=True)
     mobile2 = models.BigIntegerField(null=True, blank=True)
     phone_no = models.BigIntegerField(null=True, blank=True)
