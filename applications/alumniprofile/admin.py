@@ -8,7 +8,7 @@ import csv
 
 class ProfileAdmin(admin.ModelAdmin):
     list_display = (
-        'user', 'reg_no', 'is_verified', 'mail_sent', 'verify', 'name', 'sex', 'roll_no', 'email', 'batch', 'programme', 'branch',
+        'user', 'reg_no', 'verify', 'mail_sent', 'name', 'sex', 'roll_no', 'email', 'batch', 'programme', 'branch',
         'date_of_birth',
         'working_status', 'city', 'current_position', 'current_organisation', 'date_of_joining', 'past_experience',
         'current_course',
@@ -41,7 +41,7 @@ class ProfileAdmin(admin.ModelAdmin):
             'fields': ('linkedin', 'facebook', 'instagram', 'website')
         }),
         ('User verification', {
-            'fields': ('is_verified', 'verify', 'mail_sent')
+            'fields': ('verify', 'mail_sent')
         }),
     )
 

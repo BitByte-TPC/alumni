@@ -109,7 +109,6 @@ class Profile(models.Model):
     website = models.URLField(null=True, blank=True)
     
     # User verification
-    is_verified = models.BooleanField(default=True)
     mail_sent = models.BooleanField(default=False)  # To be used to track if the email was actually sent.
     verify = models.BooleanField(null=True)
     mail_sent_tracker = FieldTracker(fields=['verify'])
