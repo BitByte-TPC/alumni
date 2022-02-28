@@ -1,5 +1,5 @@
 from django.contrib import admin, messages
-from .models import Profile, Constants, Batch
+from .models import Profile, Constants, Batch, Previous_Experience
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.core.exceptions import PermissionDenied
@@ -87,3 +87,4 @@ admin.site.unregister(User)
 admin.site.register(User, CustomUserAdmin)
 admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Batch, BatchAdmin)
+admin.site.register(Previous_Experience)

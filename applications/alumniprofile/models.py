@@ -131,3 +131,11 @@ def check(sender, instance, created, update_fields, **kwargs):
         instance.mail_sent = mail_sent
         instance.save()
         post_save.connect(check, Profile)
+
+class Previous_Experience(models.Model):
+    alumni = models.ForeignKey(Profile, on_delete = models.CASCADE)
+    prev_role = models.CharField(max_length = 100)
+    prev_branch = models.CharField(null = True, max_length = 1000)
+    prev_organisation = models.CharField(max_length = 1000)
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField()
