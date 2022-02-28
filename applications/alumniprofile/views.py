@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from .models import Profile
+from .models import Profile, Previous_Experience
 from datetime import datetime
 
 try:
@@ -16,9 +16,20 @@ except ImportError:
 # @login_required
 def profile(request, username):
     user = Profile.objects.get(user__username=username)
+    experiences = Previous_Experience.objects.filter(alumni = username)
+
     user.roll_no = str(user.roll_no)
-    print(vars(user))
-    return render(request, "alumniprofile/profile.html", vars(user))
+    user = vars(user)
+
+    temp = list()
+
+    for i in experiences.values():
+        temp.append(i)
+
+    user.update({'experiences': temp})
+
+    print(user)
+    return render(request, "alumniprofile/profile.html", user)
 
 
 def index(request):
@@ -51,3 +62,18 @@ def edit(request):
         form = editProfile()
         return render(request, "alumniprofile/edit.html", {'form': form, 'user' : user })
 '''
+
+def add_experience(request):
+    alumni = Profile.objects.get(user__username = request.user)
+
+    if request.method == "POST":
+        prev_role = request.POST.get('prev_role')
+        prev_branch = request.POST.get('prev_branch')
+        prev_organisation = request.POST.get('prev_org')
+        start_date = request.POST.get('join_date')
+        end_date = request.POST.get('end_date')
+
+        experience = Previous_Experience(alumni = alumni, prev_role = prev_role, prev_branch = prev_branch, prev_organisation = prev_organisation, start_date = start_date, end_date = end_date)
+        experience.save()
+
+    return render(request, "alumniprofile/profile.html", vars(alumni))
