@@ -1,0 +1,212 @@
+{% load static %}
+
+
+<div class="form-check px-2">
+	<label for="job_exp" class="form-check-inline">
+		<input type="radio" class="form-check-input" name="working_status" id="job_exp" value="Job Experience" required="">
+		Job Experience
+	</label>
+	
+	<label for="self_employment" class="form-check-inline">
+		<input type="radio" class="form-check-input" name="working_status" id="self_employment" value="Self Employed">
+		Self Employed
+	</label>
+
+	<label for="higher_studies" class="form-check-inline">
+		<input type="radio" class="form-check-input" name="working_status" id="higher_studies" value="Higher Studies">
+		Higher Studies
+	</label>
+</div>
+
+<form action="/profile/experience" method="POST">
+	{% csrf_token %}
+
+	<!-- Form for Previous Job Experience -->
+	<div class="form-row px-2" id="prevJobForm" style="display: none;">
+		<div class="row">
+			<div id="prev_role" class="form-group col-md-6" style="display: block;">
+				<label for="prev_role" class="col-form-label ">
+					Role
+				</label>
+				<div class="">
+					<input type="text" name="prev_role" maxlength="1000" class="form-control textinput" id="prev_role" required="">
+				</div> 
+			</div>
+
+			<div id="prev_branch" class="form-group col-md-6" style="display: block;">
+				<label for="prev_branch" class="col-form-label ">
+					Divison
+				</label>
+				<div class="">
+					<input type="text" name="prev_branch" maxlength="1000" class="form-control textinput" id="prev_branch" required="">
+				</div> 
+			</div>
+
+			<div id="prev_org" class="form-group col-md-6" style="display: block;">
+				<label for="prev_org" class="col-form-label ">
+					Organisation
+				</label>
+				<div class="">
+					<input type="text" name="prev_org" maxlength="1000" class="form-control textinput" id="prev_org" required="">
+				</div> 
+			</div>
+		</div>
+
+	    <div class="row">
+	        <div id="join_date" class="form-group col-md-6" style="display: block;">
+				<label for="join_date" class="col-form-label ">
+	                Joining Date
+	            </label>
+	            <div class="">
+	            	<input type="date" name="join_date" maxlength="1000" class="form-control" id="join_date" required="">
+	            </div> 
+	       	</div>
+
+	       	<div id="end_date" class="form-group col-md-6" style="display: block;">
+	       		<label for="end_date" class="col-form-label ">
+	                Last Date
+	            </label>
+	            <div class="">
+	            	<input type="date" name="end_date" maxlength="1000" class="form-control" id="end_date" required="">
+	            </div> 
+	        </div>
+	    </div>
+    </div>
+
+    <!-- form for self employed -->
+	<div class="form-row px-2" id="selfEmployedForm" style="display: none;">
+	 	<div class="row">
+	 		<div id="prev_role" class="form-group col-md-6" style="display: block;">
+	 			<label for="prev_role" class="col-form-label ">
+	 				Role
+	 			</label>
+	 			<div class="">
+	 				<input type="text" name="prev_role" maxlength="1000" class="form-control textinput" id="prev_role" required="">
+	 			</div> 
+	 		</div>
+
+	 		<div id="prev_branch" class="form-group col-md-6" style="display: block;">
+	 			<label for="prev_branch" class="col-form-label ">
+	 				Sector
+	 			</label>
+	 			<div class="">
+	 				<input type="text" name="prev_branch" maxlength="1000" class="form-control textinput" id="prev_branch" required="">
+	 			</div> 
+	 		</div>
+
+	 		<div id="prev_org" class="form-group col-md-6" style="display: block;">
+	 			<label for="prev_org" class="col-form-label ">
+	 				Company Name
+	 			</label>
+	 			<div class="">
+	 				<input type="text" name="prev_org" maxlength="1000" class="form-control textinput" id="prev_org" required="">
+	 			</div> 
+	 		</div>
+	 	</div>
+
+	 	<div class="row">
+	        <div id="join_date" class="form-group col-md-6" style="display: block;">
+				<label for="join_date" class="col-form-label ">
+	                Joining Date
+	            </label>
+	            <div class="">
+	            	<input type="date" name="join_date" maxlength="1000" class="form-control" id="join_date" required="">
+	            </div> 
+	       	</div>
+
+	       	<div id="end_date" class="form-group col-md-6" style="display: block;">
+	       		<label for="end_date" class="col-form-label ">
+	                Last Date
+	            </label>
+	            <div class="">
+	            	<input type="date" name="end_date" maxlength="1000" class="form-control" id="end_date" required="">
+	            </div> 
+	        </div>
+	    </div>
+    </div>
+
+	<!-- Form for Higher Studies -->
+	<div class="form-row px-2" id="prevStudiesForm" style="display: none;">
+		<div class="row">
+			<div id="prev_role" class="form-group col-md-6" style="display: block;">
+				<label for="prev_role" class="col-form-label ">
+					Programme
+				</label>
+				<div class="">
+					<input type="text" name="prev_role" maxlength="1000" class="form-control textinput textInput form-control" id="prev_role" required="">
+				</div> 
+			</div>
+
+			<div id="prev_branch" class="form-group col-md-6" style="display: block;">
+				<label for="prev_branch" class="col-form-label ">
+					Course
+				</label>
+				<div class="">
+					<input type="text" name="prev_branch" maxlength="1000" class="form-control textinput textInput form-control" id="prev_branch" required="">
+				</div> 
+			</div>
+
+			<div id="prev_branch" class="form-group col-md-6" style="display: block;">
+				<label for="prev_branch" class="col-form-label ">
+					University
+				</label>
+				<div class="">
+					<input type="text" name="prev_branch" maxlength="1000" class="form-control textinput textInput form-control" id="prev_branch" required="">
+				</div> 
+			</div>
+		</div>
+
+		<div class="row">
+	        <div id="join_date" class="form-group col-md-6" style="display: block;">
+				<label for="join_date" class="col-form-label ">
+	                Joining Date
+	            </label>
+	            <div class="">
+	            	<input type="date" name="join_date" maxlength="1000" class="form-control" id="join_date" required="">
+	            </div> 
+	       	</div>
+
+	       	<div id="end_date" class="form-group col-md-6" style="display: block;">
+	       		<label for="end_date" class="col-form-label ">
+	                Last Date
+	            </label>
+	            <div class="">
+	            	<input type="date" name="end_date" maxlength="1000" class="form-control" id="end_date" required="">
+	            </div> 
+	        </div>
+	    </div>
+	</div>
+	
+
+	<button class="btn btn-primary">Add</button>
+</form>
+
+{% block script %}
+<script type="text/javascript">
+	let jobbtn = document.querySelector('#job_exp');
+	let selfemployedbtn = document.querySelector('#self_employment');
+	let higherstudiesbtn = document.querySelector('#higher_studies');
+	let jobexpform = document.querySelector('#prevJobForm');
+	let selfemployedform = document.querySelector('#selfEmployedForm');
+	let prevStudiesform = document.querySelector('#prevStudiesForm');
+
+	jobbtn.addEventListener('click',()=>{
+		jobexpform.style.display = 'block';
+		selfemployedform.style.display = 'none';
+		prevStudiesform.style.display = 'none';
+	});
+	selfemployedbtn.addEventListener('click',()=> {
+		console.log('chirag');
+		jobexpform.style.display = 'none';
+		selfemployedform.style.display = 'block';
+		prevStudiesform.style.display = 'none';
+	});
+	higherstudiesbtn.addEventListener('click',()=> {
+		console.log('chirag');
+		jobexpform.style.display = 'none';
+		selfemployedform.style.display = 'none';
+		prevStudiesform.style.display = 'block';
+	});
+
+</script>
+{% endblock %}

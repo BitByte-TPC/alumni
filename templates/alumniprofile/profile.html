@@ -195,6 +195,24 @@
                         </div>
                     </div>
 
+                    {% if user.is_authenticated and user.username == roll_no %}
+                        {% for experience in experiences %}
+                        <div class="card-body p-4">    
+                            <h3 class="font-open-sans">
+                                {{ experience.prev_organisation }}
+                            </h3>
+                            <h5>{{ experience.prev_role }}</h5>
+                            <h3>{{ experience.prev_branch }}</h3>
+
+                        </div>
+                        {% endfor %}
+
+                        <div class="card-body">
+                            <div id="jobForm" style="display: none">{% include 'alumniProfile/previousExp_form.html' %}</div>
+                            <button class="btn btn-primary top-0 end-0" onclick="showForm()">Add previous experience</button>                            
+                        </div>
+                    {% endif %}
+
                     <!--   Publications  -->
                     {% comment %}
                     <div class="card m-2 shadow-sm">
@@ -221,4 +239,20 @@
     </section> 
     {% include 'globals/footer.html' %} 
 {% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+    function showForm(){
+            var form = document.getElementById("jobForm");
+
+            if(form.style.display === "none"){
+                form.style.display = "block"
+            }
+            else{
+                form.style.display = "none"
+            }
+        }
+</script>
+{% endblock %}
+
 </html>
