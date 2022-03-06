@@ -9,10 +9,9 @@ import csv
 class ProfileAdmin(admin.ModelAdmin):
     list_display = (
         'user', 'reg_no', 'verify', 'mail_sent', 'name', 'sex', 'roll_no', 'email', 'batch', 'programme', 'branch',
-        'updated_at', 'date_of_birth',
-        'working_status', 'city', 'current_position', 'current_organisation', 'date_of_joining', 'past_experience',
-        'current_course',
-        'current_university')
+        'updated_at', 'date_of_birth', 'working_status', 'city', 'current_position', 'current_organisation',
+        'date_of_joining', 'past_experience', 'current_course', 'current_university',
+    )
     ordering = [('-user__date_joined'), ]
     search_fields = ['name', '^roll_no', '^year_of_admission', '^reg_no', '^programme', '^branch', '^city']
     actions = ['download_csv']
@@ -44,7 +43,6 @@ class ProfileAdmin(admin.ModelAdmin):
             'fields': ('verify', 'mail_sent')
         }),
     )
-
     readonly_fields = ('updated_at',)
 
     def save_model(self, request, obj, form, change):  # Doesn't detect PUBLIC_KEY Errors
