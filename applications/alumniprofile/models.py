@@ -113,6 +113,9 @@ class Profile(models.Model):
     verify = models.BooleanField(null=True)
     mail_sent_tracker = FieldTracker(fields=['verify'])
 
+    # Last edit
+    updated_at = models.DateTimeField(auto_now=True, null=True)
+
     def __str__(self):
         return self.name
 
