@@ -1,3 +1,4 @@
+from asyncio import constants
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
@@ -44,6 +45,15 @@ class Constants:
         ('Is Working', 'Is Working'),
         ('Is Pursuing Higher Studies', 'Is Pursuing Higher Studies'),
         ('Is Self Employed', 'Is Self Employed')
+    )
+
+    EMPLOYMENT_TYPE = (
+        ('ft', 'Full-time'),
+        ('pt', 'Part-time'),
+        ('se', 'Self-employed'),
+        ('fr', 'Freelance'),
+        ('in', 'Internship'),
+        ('tr', 'Trainee'),
     )
 
     YEAR_OF_ADDMISSION = tuple((n, str(n)) for n in range(2005, datetime.datetime.now().year))
@@ -134,3 +144,11 @@ def check(sender, instance, created, update_fields, **kwargs):
         instance.mail_sent = mail_sent
         instance.save()
         post_save.connect(check, Profile)
+
+class PastExperience(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    position = models.CharField(max_length=1000)
+    emp_type = models.CharField(max_length=10, choices=Constants.EMPLOYMENT_TYPE)
+    organisation = models.CharField(verbose_name='Company/Org name', max_length=1000)
+    start_date = models.DateField()
+    end_date = models.DateField(blank=True, null=True)

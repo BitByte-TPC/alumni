@@ -2,15 +2,16 @@
 {% load static %}
 {% load thumbnail %}
 
-{% block title %} 
+{% block title %}
     {{ name }}
 {% endblock %}
 
 {% block body %}
-  <!-- <body id="page-top" class="font-open-sans" style="background-color: #eaedf5"> -->
+    <!-- <body id="page-top" class="font-open-sans" style="background-color: #eaedf5"> -->
     {% include 'globals/navbar.html' %}
 
-    <div class="p-0 m-0 masthead-bg w-100 parallax shadow-sm" style="min-height:250px !important; height:270px !important; background-position-y: 270px;"></div>
+    <div class="p-0 m-0 masthead-bg w-100 parallax shadow-sm"
+        style="min-height:250px !important; height:270px !important; background-position-y: 270px;"></div>
     <div style="height:150px; min-height:150px;"></div>
 
     <section class="bg-transparent" id="events" style="padding:3rem 0 5rem;">
@@ -24,16 +25,13 @@
                             <div class="row">
                                 <div class="col-lg-12 text-center">
                                     {% if profile_picture %}
-                                    <img src="{% thumbnail profile_picture 200x200 crop %}" 
-                                        alt="DP" class="img-fluid rounded-circle m-2"
-                                        style="object-fit:cover; object-position:50% 0%; height:200px; 
-                                         width:200px; max-width:200px;max-height:200px;"
-                                    />
+                                    <img src="{% thumbnail profile_picture 200x200 crop %}" alt="DP"
+                                        class="img-fluid rounded-circle m-2" style="object-fit:cover; object-position:50% 0%; height:200px; 
+                                            width:200px; max-width:200px;max-height:200px;" />
                                     {% else %}
-                                    <img src="{% static 'AlumniConnect/img/user.png' %}" 
-                                        alt="DP" class="img-fluid rounded-circle m-2"
-                                        style="height:200px;width:200px; max-width:200px;max-height:200px;"
-                                    />
+                                    <img src="{% static 'AlumniConnect/img/user.png' %}" alt="DP"
+                                        class="img-fluid rounded-circle m-2"
+                                        style="height:200px;width:200px; max-width:200px;max-height:200px;" />
                                     {% endif %}
                                 </div>
                             </div>
@@ -44,19 +42,22 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-12 text-center font-open-sans">
-                                    <h4><span class="badge badge-pill badge-primary">{{programme}}. {{year_of_admission}} - {{batch_id}}, {{branch}}</span></h4>
+                                    <h4><span class="badge badge-pill badge-primary">{{programme}}. {{year_of_admission}} -
+                                            {{batch_id}}, {{branch}}</span></h4>
                                 </div>
                             </div>
-                            
+
                             <br>
+
                             {% if user.is_authenticated and user.username == roll_no %}
-                            
                             <div class="row">
-                                <a href="{% url 'profileedit' id=user.username %}" class="col-lg-6 btn btn-outline-primary btn-sm">Edit Profile</a>
-                                <a href="{% url 'change_password' %}" class="col-lg-6 btn btn-outline-primary btn-sm">Change Password</a>
+                                <a href="{% url 'profileedit' id=user.username %}"
+                                    class="col-lg-6 btn btn-outline-primary btn-sm">Edit Profile</a>
+                                <a href="{% url 'change_password' %}" class="col-lg-6 btn btn-outline-primary btn-sm">Change
+                                    Password</a>
                             </div>
-                            
                             {% endif %}
+
                         </div>
                     </div>
                     {% if user.is_authenticated and user.username == roll_no %} <!-- CHANGE PERMISSIONS HERE LATER -->
@@ -86,75 +87,75 @@
                             {% endif %}
                             {% if phone_no %}
                             <p class="m-2 font-weight-normal font-open-sans  mb-3">
-                                    <i class="fas fa-phone-square "></i>
-                                    &nbsp;{{ phone_no }}
+                                <i class="fas fa-phone-square "></i>
+                                &nbsp;{{ phone_no }}
                             </p>
                             {% endif %}
-                            
+
                         </div>
-                        
+
                     </div>
                     {% endif %}
                     <!-- Expertise 
-                    <div class="card m-2 shadow-sm">
-                            <div class="card-header font-open-sans">
-                                Expertise
-                            </div>
-                            <div class="card-body">
-                                <p class="m-2 font-weight-normal font-open-sans mb-3">
-                                    <i class="fas fa-bolt"></i>
-                                    &nbsp;Skills : 
-                                </p>
-                            </div>
-                    </div>
-                    -->
+                        <div class="card m-2 shadow-sm">
+                                <div class="card-header font-open-sans">
+                                    Expertise
+                                </div>
+                                <div class="card-body">
+                                    <p class="m-2 font-weight-normal font-open-sans mb-3">
+                                        <i class="fas fa-bolt"></i>
+                                        &nbsp;Skills :
+                                    </p>
+                                </div>
+                        </div>
+                        -->
 
                     <!-- Basic Info -->
                     <div class="card m-2 shadow-sm">
-                            <div class="card-header font-open-sans">
-                                Basic Info
-                            </div>
-                            <div class="card-body">
-                                {% if user.is_authenticated and user.username == roll_no %}
-                                    <p class="m-2 font-weight-normal font-open-sans mb-3" title="Alumni Registration Number">
-                                        <i class="fas fa-user"></i>
-                                        &nbsp;Alumni Reg. No. : <b>{{ reg_no }}</b>
-                                    </p>
-                                {% endif %}                                
-                                <p class="m-2 font-weight-normal font-open-sans mb-3">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    &nbsp;{{ city }}, {{ state }}, {{ country }}
-                                </p>
-                                {% comment %}
-                                <p class="m-2 font-weight-normal font-open-sans mb-3">
-                                        <i class="fas fa-birthday-cake"></i>
-                                        &nbsp;{{ date_of_birth|date:"d F, o" }}
-                                    </p>
-                                {% endcomment %}
-                                <p class="m-2 font-weight-normal font-open-sans mb-3">
-                                        <i class="fas fa-venus-mars"></i>
-                                        &nbsp;{{ sex }}
-                                    </p>
-                                <h4>
-                                    {% if linkedin %}
-                                    <a href="{{ linkedin }}"><i class="fab fa-linkedin"></i></a>&nbsp;
-                                    {% endif %}
-                                    {% if facebook %}
-                                    <a href="{{ facebook }}" ><i class="fab fa-facebook"></i></a>&nbsp;
-                                    {% endif %}
-                                    {% if instagram %}    
-                                    <a href="https://www.instagram.com/{{ instagram }}"><i class="fab fa-instagram"></i></a>
-                                    {% endif %} 
-                                    {% if website %}    
-                                    <a href="{{ website }}"><i class="fas fa-globe"></i></a>
-                                    {% endif %}
-                                </h4>
-                            </div>
-                            <!-- 
-                            <div class="card-footer">
-                                    <small class="font-open-sans">Last Visit on {{ user.last_login }}</small>
-                                </div>
-                            -->
+                        <div class="card-header font-open-sans">
+                            Basic Info
+                        </div>
+                        <div class="card-body">
+                            {% if user.is_authenticated and user.username == roll_no %}
+                            <p class="m-2 font-weight-normal font-open-sans mb-3" title="Alumni Registration Number">
+                                <i class="fas fa-user"></i>
+                                &nbsp;Alumni Reg. No. : <b>{{ reg_no }}</b>
+                            </p>
+                            {% endif %}
+                            <p class="m-2 font-weight-normal font-open-sans mb-3">
+                                <i class="fas fa-map-marker-alt"></i>
+                                &nbsp;{{ city }}, {{ state }}, {{ country }}
+                            </p>
+                            {% comment %}
+                            <p class="m-2 font-weight-normal font-open-sans mb-3">
+                                <i class="fas fa-birthday-cake"></i>
+                                &nbsp;{{ date_of_birth|date:"d F, o" }}
+                            </p>
+                            {% endcomment %}
+                            <p class="m-2 font-weight-normal font-open-sans mb-3">
+                                <i class="fas fa-venus-mars"></i>
+                                &nbsp;{{ sex }}
+                            </p>
+                            <h4>
+                                {% if linkedin %}
+                                <a href="{{ linkedin }}"><i class="fab fa-linkedin"></i></a>&nbsp;
+                                {% endif %}
+                                {% if facebook %}
+                                <a href="{{ facebook }}"><i class="fab fa-facebook"></i></a>&nbsp;
+                                {% endif %}
+                                {% if instagram %}
+                                <a href="https://www.instagram.com/{{ instagram }}"><i class="fab fa-instagram"></i></a>
+                                {% endif %}
+                                {% if website %}
+                                <a href="{{ website }}"><i class="fas fa-globe"></i></a>
+                                {% endif %}
+                            </h4>
+                        </div>
+                        <!-- 
+                                <div class="card-footer">
+                                        <small class="font-open-sans">Last Visit on {{ user.last_login }}</small>
+                                    </div>
+                                -->
                     </div>
 
 
@@ -163,62 +164,166 @@
 
                     <!--   EDUCATION  -->
                     <div class="card m-2 shadow-sm">
-                        <div class="card-header font-open-sans">
-                            Education
+                        <div class="card-body py-2" style="background-color: #f7f7f7;">
+                            <h6 class="m-1" style="font-weight: 600;">Education</h6>
                         </div>
-                        <div class="card-body p-4 font-open-sans">
-                            {% if current_course %} 
-                            <h3>{{current_university}}</h3>
-                            <h5>{{current_course}}
-                            </h5><hr>   
+                        <ul class="list-group list-group-flush py-3">
+                            
+                            {% if current_course %}
+                            <li class="list-group-item ml-3 mt-2 p-0">
+                                <div class="row mb-2" style="align-items:center">
+                                    <div class="col-2" style="/*width: 60px; height: 60px;*/">
+                                        <img src="{% static 'AlumniConnect/img/random_imgs/img5.jpg' %}" alt="" class="img-fluid m-0 rounded">
+                                    </div>
+                                    <div class="col-auto text-wrap">
+                                        <h3>{{current_university}}</h3>
+                                        <h5>{{current_course}}
+                                        </h5>
+                                    </div>
+                                </div>
+                            </li>
                             {% endif %}
-                            <h3>PDPM IIITDM Jabalpur</h3>
-                            <h5>{{ programme }}, {{ year_of_admission }} - {{ batch_id }}, {{ branch }}
-                            </h5>
-                        </div>
+                            
+                            <li class="list-group-item ml-3 mt-2 p-0">
+                                <div class="row mb-2" style="align-items:center">
+                                    <div class="col-2" style="/*width: 60px; height: 60px;*/">
+                                        <img src="{% static 'AlumniConnect/img/logo-min.png' %}" alt="" class="img-fluid m-0 rounded">
+                                    </div>
+                                    <div class="col-auto text-wrap">
+                                        <h3>PDPM IIITDM Jabalpur</h3>
+                                        <h5>{{ programme }}, {{ year_of_admission }} - {{ batch_id }}, {{ branch }}
+                                        </h5>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
 
-                    <!--   Work Ex  -->
+                    <!--   Work Experience  -->
+                    {% if current_organisation %}
                     <div class="card m-2 shadow-sm">
-                        <div class="card-header font-open-sans">
-                            Work Experience
+                        <div class="card-body py-2" style="background-color: #f7f7f7;">
+                            <h6 class="m-1" style="font-weight: 600;">Current Experience</h6>
                         </div>
-                        <div class="card-body p-4">    
-                            <h3 class="font-open-sans">
-                                {% if current_organisation %}
-                                {{ current_organisation }}
-                                {% else %}
-                                None
-                                {% endif %}
-                            </h3>
-                            <h5>{{current_position}}</h5>
-                        </div>
+
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item ml-3">
+                                <div class="row mb-2">
+                                    <div style="width: 50px; height: 50px; overflow:hidden; align-self: center;">
+                                        <img src="{% static 'AlumniConnect\img\random_imgs\img2.jpg' %}" alt=""
+                                            class="img-fluid m-0 rounded">
+                                    </div>
+                                    <div class="col-auto text-wrap">
+                                        <h4 class="mb-1" style="font-weight: 600;">{{current_position}}</h4>
+                                        <h5 class="font-open-sans mb-1" style="font-weight: 500;">
+                                            {{ current_organisation }}
+                                        </h5>
+                                        <h6 class="text-muted fw-lighter mb-1">{{ date_of_joining | date:'M, Y' }} - Present</h6>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
+                    {% endif %}
 
-                    <!--   Publications  -->
-                    {% comment %}
+                    <!-- Previous Experience -->
+                    {% if current_experiences or experiences %}
                     <div class="card m-2 shadow-sm">
-                            <div class="card-header font-open-sans">
-                                Publications
-                            </div>
-                            <div class="card-body p-4">    
-                                <h3 class="font-open-sans">
-                                    {% if current_organisation %}
-                                    {{ current_organisation }}
-                                    {% else %}
-                                    None
-                                    {% endif %}
-                                </h3>
-                                <small class="font-open-sans">{{current_position}}</small>
-                            </div>
+                        <div class="card-body py-2" style="background-color: #f7f7f7;">
+                            <h6 class="m-1" style="font-weight: 600;">Past Experience</h6>
                         </div>
-                    {% endcomment %}
 
+                        <ul class="list-group list-group-flush">
+                            {% for experience in current_experiences %}
+                            <li class="list-group-item ml-3">
+                                <div class="row mb-2">
+                                    <div style="width: 50px; height: 50px; overflow:hidden; align-self: center;">
+                                        <img src="{% static 'AlumniConnect\img\random_imgs\img3.jpg' %}" alt=""
+                                            class="img-fluid m-0 rounded">
+                                    </div>
+                                    <div class="col-auto text-wrap">
+                                        <h5 class="mb-1" style="font-weight: 600;">{{ experience.position }}</h5>
+                                        <h6 class="font-open-sans mb-1" style="font-weight: 500;">{{ experience.organisation }} - {{ experience.get_emp_type_display }} </h6>
+                                        <h6 class="text-muted fw-lighter mb-1">{{ experience.start_date | date:'M, Y' }} - Present</h6>
+                                    </div>
+                                </div>
+                            </li>
+                            {% endfor %}
+                            {% for experience in experiences %}
+                            <li class="list-group-item ml-3">
+                                <div class="row mb-2">
+                                    <div style="width: 50px; height: 50px; overflow:hidden; align-self: center;">
+                                        <img src="{% static 'AlumniConnect\img\random_imgs\img3.jpg' %}" alt=""
+                                            class="img-fluid m-0 rounded">
+                                    </div>
+                                    <div class="col-auto text-wrap">
+                                        <h5 class="mb-1" style="font-weight: 600;">{{ experience.position }}</h5>
+                                        <h6 class="font-open-sans mb-1" style="font-weight: 500;">{{ experience.organisation }} - {{ experience.get_emp_type_display }} </h6>
+                                        <h6 class="text-muted fw-lighter mb-1">{{ experience.start_date | date:'M, Y' }} - {{ experience.end_date | date:'M, Y' }}</h6>
+                                    </div>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
 
+                    {% if user.is_authenticated and user.username == roll_no %}
+                    <div class="card-body">
+                        <div id="jobForm" style="display: none">
+                            {% include 'alumniProfile/previous_exp_form.html' %}
+                        </div>
+                        <button id="addExpButton" class="btn btn-primary top-0 end-0 mt-2" onclick="showForm()">Add Experience</button>
+                    </div>
+                    {% endif %}
                 </div>
+
+                <!--   Publications  -->
+                {% comment %}
+                <div class="card m-2 shadow-sm">
+                    <div class="card-header font-open-sans">
+                        Publications
+                    </div>
+                    <div class="card-body p-4">
+                        <h3 class="font-open-sans">
+                            {% if current_organisation %}
+                            {{ current_organisation }}
+                            {% else %}
+                            None
+                            {% endif %}
+                        </h3>
+                        <small class="font-open-sans">{{current_position}}</small>
+                    </div>
+                </div>
+                {% endcomment %}
+
+
             </div>
         </div>
-    </section> 
-    {% include 'globals/footer.html' %} 
+    </section>
+    {% include 'globals/footer.html' %}
 {% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+    function showForm() {
+        var form = document.getElementById("jobForm");
+        var addExpButton = document.getElementById("addExpButton");
+
+        if (form.style.display === "none") {
+            form.style.display = "block";
+            addExpButton.classList.remove("btn-primary");
+            addExpButton.classList.add("btn-danger");
+            addExpButton.innerHTML = "Cancel";
+        }
+        else {
+            form.style.display = "none";
+            addExpButton.classList.add("btn-primary");
+            addExpButton.classList.remove("btn-danger");
+            addExpButton.innerHTML = "Add Experience";
+        }
+    }
+</script>
+{% endblock %}
+
 </html>

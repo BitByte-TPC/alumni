@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from .models import Profile
+from .models import Constants, Profile, PastExperience
 from datetime import datetime
 
 try:
@@ -15,10 +15,20 @@ except ImportError:
 
 # @login_required
 def profile(request, username):
-    user = Profile.objects.get(user__username=username)
-    user.roll_no = str(user.roll_no)
-    print(vars(user))
-    return render(request, "alumniprofile/profile.html", vars(user))
+    profile = Profile.objects.get(user__username=username)
+    current_experiences = PastExperience.objects.filter(profile=profile, end_date=None).order_by('-start_date')
+    experiences = PastExperience.objects.filter(profile=profile, end_date__isnull=False).order_by('-end_date', '-start_date')
+
+    profile.roll_no = str(profile.roll_no)
+    profile = vars(profile)
+
+    profile.update({
+        'current_experiences': current_experiences,
+        'experiences': experiences,
+        'EMPLOYMENT_TYPE': Constants.EMPLOYMENT_TYPE,
+    })
+
+    return render(request, "alumniprofile/profile.html", profile)
 
 
 def index(request):
@@ -51,3 +61,17 @@ def edit(request):
         form = editProfile()
         return render(request, "alumniprofile/edit.html", {'form': form, 'user' : user })
 '''
+
+def add_experience(request):
+    profile = Profile.objects.get(user=request.user)
+
+    if request.method == "POST":
+        position = request.POST.get('position')
+        emp_type = request.POST.get('emp_type')
+        organisation = request.POST.get('organisation')
+        start_date = request.POST.get('start_date')
+        end_date = request.POST.get('end_date') or None
+
+        PastExperience.objects.create(profile=profile, position=position, emp_type=emp_type, organisation=organisation, start_date=start_date, end_date=end_date)
+
+    return redirect('profile:profile', request.user.username)

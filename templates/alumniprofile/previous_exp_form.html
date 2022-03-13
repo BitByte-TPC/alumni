@@ -1,0 +1,79 @@
+{% load static %}
+
+<form action="{% url 'profile:add_experience' %}" method="POST">
+  {% csrf_token %}
+  <h4>Add Experience</h4>
+  <!-- Form for Previous Job Experience -->
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="position" class="col-form-label">
+        Position
+      </label>
+      <input type="text" name="position" maxlength="1000" class="form-control textinput" id="position"
+        required>
+    </div>
+
+    <div class="form-group col-md-6">
+      <label for="emp_type" class="col-form-label">
+        Employment Type
+      </label>
+      <select name="emp_type" id="emp_type" class="custom-select" required>
+        {% for value, display in EMPLOYMENT_TYPE %}
+        <option value="{{ value }}">{{ display }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="form-group col-md-6">
+      <label for="organisation" class="col-form-label ">
+        Company/Org name
+      </label>
+      <input type="text" name="organisation" maxlength="1000" class="form-control textinput" id="organisation"
+        required="">
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-check ml-2 mb-2">
+      <input class="form-check-input" type="checkbox" id="current_role" name="current_role" value="yes" onchange="toggleEndDate()">
+      <label class="form-check-label" for="current_role">I am currently working in this role.</label>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="start_date" class="col-form-label ">
+        Start Date
+      </label>
+      <input type="date" name="start_date" maxlength="1000" class="form-control" id="start_date"
+        required>
+    </div>
+
+    <div id="end_date_div" class="form-group col-md-6">
+      <label for="end_date" class="col-form-label">
+        End Date
+      </label>
+      <input type="date" name="end_date" maxlength="1000" class="form-control" id="end_date" required>
+    </div>
+  </div>
+  <button type="submit" name="submit" value="submit" class="btn btn-primary">Add</button>
+</form>
+
+
+{% block script %}
+<script type="text/javascript">
+  function toggleEndDate() {
+    var current_role = document.getElementById("current_role");
+    var end_date_div = document.getElementById("end_date_div");
+    var end_date = document.getElementById("end_date");
+
+    if (current_role.checked) {
+      end_date_div.style.display = "none";
+      end_date.removeAttribute("required");
+    } else {
+      end_date_div.style.display = "block";
+      end_date.setAttribute("required", "required");
+    }
+  }
+</script>
+{% endblock %}
