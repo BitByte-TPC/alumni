@@ -40,8 +40,8 @@ def branch(request, programme, year, branch):
     return render(request, "members/branch.html", {'data': alumni, 'batch': year, 'branch': branch})
 
 
-def sacbody(request):
-    return render(request, "members/sacbody.html")
+def alumnibody(request):
+    return render(request, "members/alumnibody.html")
 
 
 @login_required

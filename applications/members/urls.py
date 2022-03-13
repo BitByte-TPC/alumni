@@ -11,7 +11,7 @@ extrapatterns = [
 ]
 urlpatterns = [
     re_path(r'^(?P<year>[0-9]{4})/', include(extrapatterns)),
-    path('sacbody/', views.sacbody, name="sacbody"),
+    path('alumnibody/', views.alumnibody, name="alumnibody"),
     path('search/', views.search, name='search'),
     path('autosearch/', views.autoSearch, name='autosearch'),
     path('mapsearch/', views.mapSearch, name='mapsearch'),
