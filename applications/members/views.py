@@ -1,6 +1,6 @@
 import json
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.db.models import Count, Q
 from django.http import JsonResponse
 from django.contrib.auth.models import User
@@ -39,9 +39,11 @@ def branch(request, programme, year, branch):
     # print(alumni)
     return render(request, "members/branch.html", {'data': alumni, 'batch': year, 'branch': branch})
 
-
 def sacbody(request):
-    return render(request, "members/sacbody.html")
+    return redirect('members:alumnibody')
+
+def alumnibody(request):
+    return render(request, "members/alumnibody.html")
 
 
 @login_required
