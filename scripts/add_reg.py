@@ -15,7 +15,7 @@ print(Profile.objects.all().order_by('user__date_joined'))
 # def convert_int(number,decimals) :
 #     return str(number).zfill(decimals)
 for p in Profile.objects.all().order_by('user__date_joined'):
-    p.is_verified=True
+    # p.is_verified=True
     #p.save()
     p.reg_no = reg_no_gen(p.programme, p.branch, p.year_of_admission, p.user.date_joined)
     

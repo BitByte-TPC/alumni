@@ -8,15 +8,42 @@ import csv
 
 class ProfileAdmin(admin.ModelAdmin):
     list_display = (
-        'user', 'reg_no', 'is_verified', 'mail_sent', 'verify', 'name', 'sex', 'roll_no', 'email', 'batch', 'programme', 'branch',
-        'date_of_birth',
-        'working_status', 'city', 'current_position', 'current_organisation', 'date_of_joining', 'past_experience',
-        'current_course',
-        'current_university')
+        'user', 'reg_no', 'verify', 'mail_sent', 'name', 'sex', 'roll_no', 'email', 'batch', 'programme', 'branch',
+        'updated_at', 'date_of_birth', 'working_status', 'city', 'current_position', 'current_organisation',
+        'date_of_joining', 'past_experience', 'current_course', 'current_university',
+    )
     ordering = [('-user__date_joined'), ]
     search_fields = ['name', '^roll_no', '^year_of_admission', '^reg_no', '^programme', '^branch', '^city']
     actions = ['download_csv']
     list_filter = ('batch__batch', 'programme', 'branch',)
+
+    fieldsets = (
+        (None, {
+            'fields': ('user', 'role', 'updated_at')
+        }),
+        ('Institute Details', {
+            'fields': ('roll_no', 'year_of_admission', 'batch', 'programme', 'branch')
+        }),
+        ('Personal Details', {
+            'fields': (
+                'name', 'sex', 'date_of_birth', 'email', 'alternate_email', 'fathers_name', 'spouse_name', 'mobile1',
+                'mobile2', 'phone_no', 'current_address', 'permanent_address', 'city', 'state', 'country', 'profile_picture',
+            )
+        }),
+        ('Experience & Higher Studies', {
+            'fields': (
+                'working_status', 'current_position', 'current_organisation', 'date_of_joining', 'past_experience',
+                'current_course', 'current_university',
+            )
+        }),
+        ('Social', {
+            'fields': ('linkedin', 'facebook', 'instagram', 'website')
+        }),
+        ('User verification', {
+            'fields': ('verify', 'mail_sent')
+        }),
+    )
+    readonly_fields = ('updated_at',)
 
     def save_model(self, request, obj, form, change):  # Doesn't detect PUBLIC_KEY Errors
         # if 'verify' in form.changed_data:
