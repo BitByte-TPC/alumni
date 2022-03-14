@@ -1,5 +1,5 @@
 from django.contrib import admin, messages
-from .models import Profile, Constants, Batch, PastExperience
+from .models import Education, Profile, Constants, Batch, PastExperience
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.core.exceptions import PermissionDenied
@@ -10,7 +10,7 @@ class ProfileAdmin(admin.ModelAdmin):
     list_display = (
         'user', 'reg_no', 'verify', 'mail_sent', 'name', 'sex', 'roll_no', 'email', 'batch', 'programme', 'branch',
         'updated_at', 'date_of_birth', 'working_status', 'city', 'current_position', 'current_organisation',
-        'date_of_joining', 'past_experience', 'current_course', 'current_university',
+        'date_of_joining', 'past_experience', 'past_education','current_course', 'current_university',
     )
     ordering = [('-user__date_joined'), ]
     search_fields = ['name', '^roll_no', '^year_of_admission', '^reg_no', '^programme', '^branch', '^city']
@@ -33,7 +33,7 @@ class ProfileAdmin(admin.ModelAdmin):
         ('Experience & Higher Studies', {
             'fields': (
                 'working_status', 'current_position', 'current_organisation', 'date_of_joining', 'past_experience',
-                'current_course', 'current_university',
+                'past_education', 'current_course', 'current_university',
             )
         }),
         ('Social', {
@@ -88,3 +88,4 @@ admin.site.register(User, CustomUserAdmin)
 admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Batch, BatchAdmin)
 admin.site.register(PastExperience)
+admin.site.register(Education)

@@ -109,6 +109,7 @@ class Profile(models.Model):
     current_organisation = models.CharField(max_length=1000, null=True, blank=True)
     date_of_joining = models.DateField(null=True, blank=True, default=datetime.date.today)
     past_experience = models.IntegerField(null=True, blank=True)
+    past_education = models.IntegerField(null=True, blank=True)
     current_course = models.CharField(null=True, blank=True, max_length=1000)
     current_university = models.CharField(null=True, blank=True, max_length=1000)
 
@@ -152,3 +153,11 @@ class PastExperience(models.Model):
     organisation = models.CharField(verbose_name='Company/Org name', max_length=1000)
     start_date = models.DateField()
     end_date = models.DateField(blank=True, null=True)
+
+class Education(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    degree_type = models.CharField(max_length=150)
+    discipline = models.CharField(verbose_name='Discipline/Field', max_length=200)
+    institute = models.CharField(verbose_name='Institute Name', max_length=1000)
+    admission_year = models.DateField()
+    passing_year = models.DateField(blank=True, null=True)
