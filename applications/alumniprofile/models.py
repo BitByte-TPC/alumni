@@ -58,6 +58,10 @@ class Constants:
 
     YEAR_OF_ADDMISSION = tuple((n, str(n)) for n in range(2005, datetime.datetime.now().year))
 
+    ADMISSION_YEAR = tuple((n, str(n)) for n in range(1990, datetime.datetime.now().year))
+
+    PASSING_YEAR = tuple((n, str(n)) for n in range(1990, datetime.datetime.now().year))
+
 
 class Batch(models.Model):
     batch = models.IntegerField(primary_key=True)
@@ -156,8 +160,8 @@ class PastExperience(models.Model):
 
 class Education(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    degree_type = models.CharField(max_length=150)
+    degree = models.CharField(max_length=150)
     discipline = models.CharField(verbose_name='Discipline/Field', max_length=200)
     institute = models.CharField(verbose_name='Institute Name', max_length=1000)
-    admission_year = models.DateField()
-    passing_year = models.DateField(blank=True, null=True)
+    admission_year = models.IntegerField(null=True)
+    passing_year = models.IntegerField(null=True, blank=True)

@@ -202,7 +202,7 @@
                     {% if current_education or education %}
                     <div class="card m-2 shadow-sm">
                         <div class="card-body py-2" style="background-color: #f7f7f7;">
-                            <h6 class="m-1" style="font-weight: 600;">Past Education</h6>
+                            <h6 class="m-1" style="font-weight: 600;">Other Academic Qualifications</h6>
                         </div>
 
                         <ul class="list-group list-group-flush">
@@ -210,13 +210,13 @@
                             <li class="list-group-item ml-3">
                                 <div class="row mb-2">
                                     <div style="width: 50px; height: 50px; overflow:hidden; align-self: center;">
-                                        <img src="{% static 'AlumniConnect\img\random_imgs\img3.jpg' %}" alt=""
+                                        <img src="{% static 'AlumniConnect\img\random_imgs\img2.jpg' %}" alt=""
                                             class="img-fluid m-0 rounded">
                                     </div>
                                     <div class="col-auto text-wrap">
-                                        <h5 class="mb-1" style="font-weight: 600;">{{ edu.institution }}</h5>
-                                        <h6 class="font-open-sans mb-1" style="font-weight: 500;">{{ edu.degree_type }} - {{ edu.discipline }} </h6>
-                                        <h6 class="text-muted fw-lighter mb-1">{{ edu.admission_year | date:'M, Y' }} - Present</h6>
+                                        <h5 class="mb-1" style="font-weight: 600;">{{ edu.institute }}</h5>
+                                        <h6 class="font-open-sans mb-1" style="font-weight: 500;">{{ edu.degree }} - {{ edu.discipline }} </h6>
+                                        <h6 class="text-muted fw-lighter mb-1">{{ edu.admission_year }} - Present</h6>
                                     </div>
                                 </div>
                             </li>
@@ -225,13 +225,13 @@
                             <li class="list-group-item ml-3">
                                 <div class="row mb-2">
                                     <div style="width: 50px; height: 50px; overflow:hidden; align-self: center;">
-                                        <img src="{% static 'AlumniConnect\img\random_imgs\img3.jpg' %}" alt=""
+                                        <img src="{% static 'AlumniConnect\img\random_imgs\img2.jpg' %}" alt=""
                                             class="img-fluid m-0 rounded">
                                     </div>
                                     <div class="col-auto text-wrap">
-                                        <h5 class="mb-1" style="font-weight: 600;">{{ edu.institution }}</h5>
-                                        <h6 class="font-open-sans mb-1" style="font-weight: 500;">{{ edu.degree_type }} - {{ edu.discipline }} </h6>
-                                        <h6 class="text-muted fw-lighter mb-1">{{ edu.admission_year | date:'M, Y' }} - {{ edu.passing_year | date:'M, Y' }}</h6>
+                                        <h5 class="mb-1" style="font-weight: 600;">{{ edu.institute }}</h5>
+                                        <h6 class="font-open-sans mb-1" style="font-weight: 500;">{{ edu.degree }} - {{ edu.discipline }} </h6>
+                                        <h6 class="text-muted fw-lighter mb-1">{{ edu.admission_year }} - {{ edu.passing_year }}</h6>
                                     </div>
                                 </div>
                             </li>
@@ -239,7 +239,16 @@
                         </ul>
                     </div>
                     {% endif %}
-                    
+
+                    {% if user.is_authenticated and user.username == roll_no %}
+                    <div class="card-body">
+                        <div id="EduForm" style="display: none">
+                            {% include 'alumniProfile/previous_edu_form.html' %}
+                        </div>
+                        <button id="addEduButton" class="btn btn-primary top-0 end-0 mt-2" onclick="showEduForm()">Add Qualifications</button>
+                    </div>
+                    {% endif %}
+
                     <!--   Work Experience  -->
                     {% if current_organisation %}
                     <div class="card m-2 shadow-sm">
@@ -315,12 +324,6 @@
                             {% include 'alumniProfile/previous_exp_form.html' %}
                         </div>
                         <button id="addExpButton" class="btn btn-primary top-0 end-0 mt-2" onclick="showForm()">Add Experience</button>
-                    </div>
-                    <div class="card-body">
-                        <div id="EduForm" style="display: none">
-                            {% include 'alumniProfile/previous_edu_form.html' %}
-                        </div>
-                        <button id="addEduButton" class="btn btn-primary top-0 end-0 mt-2" onclick="showEduForm()">Add Education</button>
                     </div>
                     {% endif %}
                 </div>

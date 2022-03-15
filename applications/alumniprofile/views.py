@@ -37,6 +37,8 @@ def profile(request, username):
     profile.update({
         'current_education': current_education,
         'education': education,
+        'ADMISSION_YEAR': Constants.ADMISSION_YEAR,
+        'PASSING_YEAR': Constants.PASSING_YEAR,
     })
 
     return render(request, "alumniprofile/profile.html", profile)
@@ -91,12 +93,12 @@ def add_education(request):
     profile = Profile.objects.get(user=request.user)
 
     if request.method == "POST":
-        degree_type = request.POST.get('degree_type')
+        degree = request.POST.get('degree')
         discipline =request.POST.get('discipline')
         institute =request.POST.get('institute')
         admission_year =request.POST.get('admission_year')
         passing_year =request.POST.get('passing_year') or None
 
-        Education.objects.create(profile=profile, degree_type=degree_type, discipline=discipline, institute=institute, admission_year=admission_year, passing_year=passing_year)
+        Education.objects.create(profile=profile, degree=degree, discipline=discipline, institute=institute, admission_year=admission_year, passing_year=passing_year)
 
     return redirect('profile:profile', request.user.username)

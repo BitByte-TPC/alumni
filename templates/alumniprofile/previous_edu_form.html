@@ -6,10 +6,10 @@
   <!-- Form for Previous Academic Qualifications -->
   <div class="form-row">
     <div class="form-group col-md-6">
-      <label for="degree_type" class="col-form-label">
+      <label for="degree" class="col-form-label">
         Degree
       </label>
-      <input type="text" palceholder="M.Tech/MS" name="degree_type" maxlength="150" class="form-control textinput" id="degree_type"
+      <input type="text" palceholder="M.Tech/MS" name="degree" maxlength="150" class="form-control textinput" id="degree"
         required>
     </div>
 
@@ -40,17 +40,24 @@
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="admission_year" class="col-form-label ">
-        Admission Date
+        Admission Year
       </label>
-      <input type="date" name="admission_year" maxlength="1000" class="form-control" id="admission_year"
-        required>
+      <select name="admission_year" id="admission_year" class="custom-select" required>
+        {% for year, display in ADMISSION_YEAR %}
+        <option value="{{ year }}">{{ display }}</option>
+        {% endfor %}
+      </select>
     </div>
 
     <div id="passing_year_div" class="form-group col-md-6">
       <label for="passing_year" class="col-form-label">
-        Passing Date
+        Passing Year
       </label>
-      <input type="date" name="passing_year" maxlength="1000" class="form-control" id="passing_year" required>
+      <select name="passing_year" id="passing_year" class="custom-select" required>
+        {% for year, display in PASSING_YEAR %}
+        <option value="{{ year }}">{{ display }}</option>
+        {% endfor %}
+      </select>
     </div>
   </div>
   <button type="submit" name="submit" value="submit" class="btn btn-primary">Add</button>
@@ -66,6 +73,7 @@
 
     if (current_edu.checked) {
       passing_year_div.style.display = "none";
+      passing_year.selectedIndex = -1;
       passing_year.removeAttribute("required");
     } else {
       passing_year_div.style.display = "block";

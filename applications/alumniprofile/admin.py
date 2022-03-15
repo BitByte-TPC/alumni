@@ -10,7 +10,7 @@ class ProfileAdmin(admin.ModelAdmin):
     list_display = (
         'user', 'reg_no', 'verify', 'mail_sent', 'name', 'sex', 'roll_no', 'email', 'batch', 'programme', 'branch',
         'updated_at', 'date_of_birth', 'working_status', 'city', 'current_position', 'current_organisation',
-        'date_of_joining', 'past_experience', 'past_education','current_course', 'current_university',
+        'date_of_joining', 'past_experience', 'current_course', 'current_university',
     )
     ordering = [('-user__date_joined'), ]
     search_fields = ['name', '^roll_no', '^year_of_admission', '^reg_no', '^programme', '^branch', '^city']
@@ -33,7 +33,7 @@ class ProfileAdmin(admin.ModelAdmin):
         ('Experience & Higher Studies', {
             'fields': (
                 'working_status', 'current_position', 'current_organisation', 'date_of_joining', 'past_experience',
-                'past_education', 'current_course', 'current_university',
+                'current_course', 'current_university',
             )
         }),
         ('Social', {
