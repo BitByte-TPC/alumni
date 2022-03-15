@@ -3,21 +3,21 @@
 <form action="{% url 'profile:add_education' %}" method="POST">
   {% csrf_token %}
   <h4>Add Education</h4>
-  <!-- Form for Previous Academic Qualifications -->
+  <!-- Form for Academic Qualifications -->
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="degree" class="col-form-label">
         Degree
       </label>
-      <input type="text" palceholder="M.Tech/MS" name="degree" maxlength="150" class="form-control textinput" id="degree"
-        required>
+      <input type="text" placeholder="M.Tech" name="degree" maxlength="200" class="form-control textinput" id="degree"
+      required>
     </div>
 
     <div class="form-group col-md-6">
       <label for="discipline" class="col-form-label">
         Discipline/Field
       </label>
-      <input type="text" name="discipline" maxlength="200" class="form-control textinput" id="discipline"
+      <input type="text" placeholder="CSE" name="discipline" maxlength="200" class="form-control textinput" id="discipline"
       required>
     </div>
 
@@ -43,6 +43,7 @@
         Admission Year
       </label>
       <select name="admission_year" id="admission_year" class="custom-select" required>
+        <option value="none" selected disabled hidden>Select Admission Year</option>
         {% for year, display in ADMISSION_YEAR %}
         <option value="{{ year }}">{{ display }}</option>
         {% endfor %}
@@ -54,6 +55,7 @@
         Passing Year
       </label>
       <select name="passing_year" id="passing_year" class="custom-select" required>
+        <option value="none" selected disabled hidden>Select Passing Year</option>
         {% for year, display in PASSING_YEAR %}
         <option value="{{ year }}">{{ display }}</option>
         {% endfor %}

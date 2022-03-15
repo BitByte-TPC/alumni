@@ -58,9 +58,9 @@ class Constants:
 
     YEAR_OF_ADDMISSION = tuple((n, str(n)) for n in range(2005, datetime.datetime.now().year))
 
-    ADMISSION_YEAR = tuple((n, str(n)) for n in range(1990, datetime.datetime.now().year))
+    ADMISSION_YEAR = tuple((n, str(n)) for n in range(1990, datetime.datetime.now().year + 1))
 
-    PASSING_YEAR = tuple((n, str(n)) for n in range(1990, datetime.datetime.now().year))
+    PASSING_YEAR = tuple((n, str(n)) for n in range(1990, datetime.datetime.now().year + 1))
 
 
 class Batch(models.Model):
