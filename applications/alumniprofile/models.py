@@ -56,8 +56,10 @@ class Constants:
         ('tr', 'Trainee'),
     )
 
+    # For IIIT Jabalpur
     YEAR_OF_ADDMISSION = tuple((n, str(n)) for n in range(2005, datetime.datetime.now().year))
 
+    # For Education (other than IIIT Jabalpur)
     ADMISSION_YEAR = tuple((n, str(n)) for n in range(1990, datetime.datetime.now().year + 1))
 
     PASSING_YEAR = tuple((n, str(n)) for n in range(1990, datetime.datetime.now().year + 1))
@@ -113,7 +115,6 @@ class Profile(models.Model):
     current_organisation = models.CharField(max_length=1000, null=True, blank=True)
     date_of_joining = models.DateField(null=True, blank=True, default=datetime.date.today)
     past_experience = models.IntegerField(null=True, blank=True)
-    past_education = models.IntegerField(null=True, blank=True)
     current_course = models.CharField(null=True, blank=True, max_length=1000)
     current_university = models.CharField(null=True, blank=True, max_length=1000)
 

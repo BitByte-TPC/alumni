@@ -24,16 +24,14 @@ def profile(request, username):
     profile.roll_no = str(profile.roll_no)
     profile = vars(profile)
 
-    # if current_experiences or experiences:
-
+    # Add experience
     profile.update({
         'current_experiences': current_experiences,
         'experiences': experiences,
         'EMPLOYMENT_TYPE': Constants.EMPLOYMENT_TYPE,
     })
     
-    # if current_education or education:
-
+    # Add education
     profile.update({
         'current_education': current_education,
         'education': education,

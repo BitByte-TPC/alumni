@@ -165,7 +165,7 @@
                     <!--   EDUCATION  -->
                     <div class="card m-2 shadow-sm">
                         <div class="card-body py-2" style="background-color: #f7f7f7;">
-                            <h6 class="m-1" style="font-weight: 600;">Education</h6>
+                            <h6 class="m-1" style="font-weight: 600;">This Institute</h6>
                         </div>
                         <ul class="list-group list-group-flush py-3">
                             
@@ -202,7 +202,7 @@
                     {% if current_education or education %}
                     <div class="card m-2 shadow-sm">
                         <div class="card-body py-2" style="background-color: #f7f7f7;">
-                            <h6 class="m-1" style="font-weight: 600;">Other Academic Qualifications</h6>
+                            <h6 class="m-1" style="font-weight: 600;">Other Education</h6>
                         </div>
 
                         <ul class="list-group list-group-flush">
@@ -216,7 +216,9 @@
                                     <div class="col-auto text-wrap">
                                         <h5 class="mb-1" style="font-weight: 600;">{{ edu.institute }}</h5>
                                         <h6 class="font-open-sans mb-1" style="font-weight: 500;">{{ edu.degree }} - {{ edu.discipline }} </h6>
+                                        {% if edu.admission_year %}
                                         <h6 class="text-muted fw-lighter mb-1">{{ edu.admission_year }} - Present</h6>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </li>
@@ -245,7 +247,7 @@
                         <div id="EduForm" style="display: none">
                             {% include 'alumniProfile/previous_edu_form.html' %}
                         </div>
-                        <button id="addEduButton" class="btn btn-primary top-0 end-0 mt-2" onclick="showEduForm()">Add Qualifications</button>
+                        <button id="addEduButton" class="btn btn-primary top-0 end-0 mt-2" onclick="showEduForm()">Add Education</button>
                     </div>
                     {% endif %}
 
