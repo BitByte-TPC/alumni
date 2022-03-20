@@ -56,7 +56,13 @@ class Constants:
         ('tr', 'Trainee'),
     )
 
+    # For IIIT Jabalpur
     YEAR_OF_ADDMISSION = tuple((n, str(n)) for n in range(2005, datetime.datetime.now().year))
+
+    # For Education (other than IIIT Jabalpur)
+    ADMISSION_YEAR = tuple((n, str(n)) for n in range(1990, datetime.datetime.now().year + 1))
+
+    PASSING_YEAR = tuple((n, str(n)) for n in range(1990, datetime.datetime.now().year + 1))
 
 
 class Batch(models.Model):
@@ -152,3 +158,11 @@ class PastExperience(models.Model):
     organisation = models.CharField(verbose_name='Company/Org name', max_length=1000)
     start_date = models.DateField()
     end_date = models.DateField(blank=True, null=True)
+
+class Education(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    degree = models.CharField(max_length=150)
+    discipline = models.CharField(verbose_name='Discipline/Field', max_length=200)
+    institute = models.CharField(verbose_name='Institute Name', max_length=1000)
+    admission_year = models.IntegerField(null=True)
+    passing_year = models.IntegerField(null=True, blank=True)
