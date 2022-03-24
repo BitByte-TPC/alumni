@@ -1,0 +1,86 @@
+{% load static %}
+
+<form action="{% url 'profile:add_education' %}" method="POST">
+  {% csrf_token %}
+  <h4>Add Education</h4>
+  <!-- Form for Academic Qualifications -->
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="degree" class="col-form-label">
+        Degree
+      </label>
+      <input type="text" placeholder="M.Tech" name="degree" maxlength="200" class="form-control textinput" id="degree"
+      required>
+    </div>
+
+    <div class="form-group col-md-6">
+      <label for="discipline" class="col-form-label">
+        Discipline/Field
+      </label>
+      <input type="text" placeholder="CSE" name="discipline" maxlength="200" class="form-control textinput" id="discipline"
+      required>
+    </div>
+
+    <div class="form-group col-md-6">
+      <label for="institute" class="col-form-label ">
+        Institute Name
+      </label>
+      <input type="text" name="institute" maxlength="1000" class="form-control textinput" id="institute"
+        required="">
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-check ml-2 mb-2">
+      <input class="form-check-input" type="checkbox" id="current_edu" name="current_edu" value="yes" onchange="togglePassingDate()">
+      <label class="form-check-label" for="current_edu">I am currently pursuing this course.</label>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="admission_year" class="col-form-label ">
+        Admission Year
+      </label>
+      <select name="admission_year" id="admission_year" class="custom-select" required>
+        <option value="none" selected disabled hidden>Select Admission Year</option>
+        {% for year, display in ADMISSION_YEAR %}
+        <option value="{{ year }}">{{ display }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div id="passing_year_div" class="form-group col-md-6">
+      <label for="passing_year" class="col-form-label">
+        Passing Year
+      </label>
+      <select name="passing_year" id="passing_year" class="custom-select" required>
+        <option value="none" selected disabled hidden>Select Passing Year</option>
+        {% for year, display in PASSING_YEAR %}
+        <option value="{{ year }}">{{ display }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+  <button type="submit" name="submit" value="submit" class="btn btn-primary">Add</button>
+</form>
+
+
+{% block script %}
+<script type="text/javascript">
+  function togglePassingDate() {
+    var current_edu = document.getElementById("current_edu");
+    var passing_year_div = document.getElementById("passing_year_div");
+    var passing_year = document.getElementById("passing_year");
+
+    if (current_edu.checked) {
+      passing_year_div.style.display = "none";
+      passing_year.selectedIndex = -1;
+      passing_year.removeAttribute("required");
+    } else {
+      passing_year_div.style.display = "block";
+      passing_year.setAttribute("required", "required");
+    }
+  }
+</script>
+{% endblock %}
