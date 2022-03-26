@@ -76,6 +76,15 @@ def upload_photo(instance, filename):
     name, extension = os.path.splitext(filename)
     return 'Profile_Pictures/' + str(instance.roll_no) + ".jpg"
 
+# For academic qualifications(EDUCATION2)
+
+
+class Degree(models.Model):
+    degree = models.CharField(primary_key=True, max_length=500)
+
+    def __str__(self):
+        return str(self.degree)
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -151,6 +160,7 @@ def check(sender, instance, created, update_fields, **kwargs):
         instance.save()
         post_save.connect(check, Profile)
 
+
 class PastExperience(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     position = models.CharField(max_length=1000)
@@ -159,9 +169,10 @@ class PastExperience(models.Model):
     start_date = models.DateField()
     end_date = models.DateField(blank=True, null=True)
 
+
 class Education(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    degree = models.CharField(max_length=150)
+    degree = models.ForeignKey(Degree, on_delete=models.CASCADE)
     discipline = models.CharField(verbose_name='Discipline/Field', max_length=200)
     institute = models.CharField(verbose_name='Institute Name', max_length=1000)
     admission_year = models.IntegerField(null=True)

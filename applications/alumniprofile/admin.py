@@ -1,5 +1,5 @@
 from django.contrib import admin, messages
-from .models import Education, Profile, Constants, Batch, PastExperience
+from .models import Degree, Education, Profile, Constants, Batch, PastExperience
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.core.exceptions import PermissionDenied
@@ -89,3 +89,4 @@ admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Batch, BatchAdmin)
 admin.site.register(PastExperience)
 admin.site.register(Education)
+admin.site.register(Degree)
