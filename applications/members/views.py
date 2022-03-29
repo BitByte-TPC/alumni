@@ -11,7 +11,7 @@ from applications.alumniprofile.models import Profile
 # Create your views here.
 
 def index(request):
-    counts = Profile.objects.values('batch').order_by('-batch').annotate(count=Count('batch'))
+    counts = Profile.objects.filter(verify=True).values('batch').order_by('-batch').annotate(count=Count('batch'))
     # print(len(counts))
     total = 0
     for batch, count in counts.values_list('batch', 'count'):
@@ -24,7 +24,7 @@ def batch(request, year):
     data = {}
     for row in programmes:
         # todo: change mail_sent to verify
-        result = Profile.objects.filter(batch=year, programme=row, mail_sent=True).values('branch').annotate(count=Count('branch'))
+        result = Profile.objects.filter(batch=year, programme=row, verify=True).values('branch').annotate(count=Count('branch'))
         data[row] = {}
         for item in result:
             data[row][item['branch']] = item['count']
@@ -35,7 +35,7 @@ def batch(request, year):
 
 def branch(request, programme, year, branch):
     # todo: change mail_sent to verify
-    alumni = Profile.objects.filter(programme=programme, batch=year, branch=branch, mail_sent=True)
+    alumni = Profile.objects.filter(programme=programme, batch=year, branch=branch, verify=True)
     # print(alumni)
     return render(request, "members/branch.html", {'data': alumni, 'batch': year, 'branch': branch})
 

@@ -245,7 +245,7 @@
                     {% if user.is_authenticated and user.username == roll_no %}
                     <div class="card-body">
                         <div id="EduForm" style="display: none">
-                            {% include 'alumniProfile/previous_edu_form.html' %}
+                            {% include 'alumniprofile/previous_edu_form.html' %}
                         </div>
                         <button id="addEduButton" class="btn btn-primary top-0 end-0 mt-2" onclick="showEduForm()">Add Education</button>
                     </div>
@@ -323,7 +323,7 @@
                     {% if user.is_authenticated and user.username == roll_no %}
                     <div class="card-body">
                         <div id="jobForm" style="display: none">
-                            {% include 'alumniProfile/previous_exp_form.html' %}
+                            {% include 'alumniprofile/previous_exp_form.html' %}
                         </div>
                         <button id="addExpButton" class="btn btn-primary top-0 end-0 mt-2" onclick="showForm()">Add Experience</button>
                     </div>
