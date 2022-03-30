@@ -93,11 +93,10 @@ def add_education(request):
 
     if request.method == "POST":
 
-        # degree
-        d = Degree(degree=request.POST.get('degree'))
-        if not Degree.objects.filter(degree=d).exists():
-            d.save()
-        degree=d
+        deg = Degree(degree=request.POST.get('degree'))
+        if not Degree.objects.filter(degree=deg).exists():
+            deg.save()
+        degree=deg
         discipline =request.POST.get('discipline')
         institute =request.POST.get('institute')
         admission_year =request.POST.get('admission_year')

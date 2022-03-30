@@ -172,7 +172,7 @@ class PastExperience(models.Model):
 
 class Education(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    degree = models.ForeignKey(Degree, on_delete=models.CASCADE)
+    degree = models.ForeignKey(Degree, on_delete=models.SET_NULL,null=True)
     discipline = models.CharField(verbose_name='Discipline/Field', max_length=200)
     institute = models.CharField(verbose_name='Institute Name', max_length=1000)
     admission_year = models.IntegerField(null=True)
