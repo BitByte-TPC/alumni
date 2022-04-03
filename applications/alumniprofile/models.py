@@ -76,15 +76,6 @@ def upload_photo(instance, filename):
     name, extension = os.path.splitext(filename)
     return 'Profile_Pictures/' + str(instance.roll_no) + ".jpg"
 
-# For academic qualifications(EDUCATION2)
-
-
-class Degree(models.Model):
-    degree = models.CharField(primary_key=True, max_length=500)
-
-    def __str__(self):
-        return str(self.degree)
-
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -170,10 +161,21 @@ class PastExperience(models.Model):
     end_date = models.DateField(blank=True, null=True)
 
 
+class Degree(models.Model):
+    """For Education model."""
+    degree = models.CharField(primary_key=True, max_length=500)
+
+    def __str__(self):
+        return str(self.degree)
+
+
 class Education(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    degree = models.ForeignKey(Degree, on_delete=models.SET_NULL,null=True)
+    degree = models.ForeignKey(Degree, on_delete=models.SET_NULL, null=True)
     discipline = models.CharField(verbose_name='Discipline/Field', max_length=200)
     institute = models.CharField(verbose_name='Institute Name', max_length=1000)
     admission_year = models.IntegerField(null=True)
     passing_year = models.IntegerField(null=True, blank=True)
+
+    def __str__(self):
+        return f'{self.profile.name} - {self.institute}'

@@ -39,7 +39,7 @@ def profile(request, username):
         'PASSING_YEAR': Constants.PASSING_YEAR,
         'DEGREE': list(Degree.objects.all().order_by('degree')),
     })
-    
+
     return render(request, "alumniprofile/profile.html", profile)
 
 
@@ -92,11 +92,11 @@ def add_education(request):
     profile = Profile.objects.get(user=request.user)
 
     if request.method == "POST":
-
-        deg = Degree(degree=request.POST.get('degree'))
-        if not Degree.objects.filter(degree=deg).exists():
-            deg.save()
-        degree=deg
+        degree_val = request.POST.get('degree')
+        degree = Degree.objects.filter(degree=degree_val).first()
+        if not degree:
+            degree = Degree(degree=degree_val)
+            degree.save()
         discipline =request.POST.get('discipline')
         institute =request.POST.get('institute')
         admission_year =request.POST.get('admission_year')

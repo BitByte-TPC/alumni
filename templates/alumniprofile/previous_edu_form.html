@@ -10,12 +10,12 @@
         Degree
       </label>
       <input type="text" placeholder="Enter Your Degree" name="degree" maxlength="200" class="form-control textinput" id="degree_input" style="display: none;">
-    <select name="degree" id="degree_select" class="custom-select">
-      <option value="" selected disabled hidden>Select Degree</option>
-      {% for d in DEGREE %}
-        <option value="{{d}}">{{d}}</option>
-      {% endfor %}
-    </select>
+      <select name="degree" id="degree_select" class="custom-select">
+        <option value="" selected disabled hidden>Select Degree</option>
+        {% for deg in DEGREE %}
+          <option value="{{ deg }}">{{ deg }}</option>
+        {% endfor %}
+      </select>
     </div>
     
     <div class="form-group col-md-6">
@@ -26,10 +26,11 @@
       required>
     </div>
 
+    <!-- This field is related to Degree field above -->
     <div class="form-group col-md-12">
       <div class="form-check ml-1">
-        <input type="checkbox" id="other_degree" class="form-check-input" onchange="addDegree()">
-        <label style="font-weight: lighter;">Select if degree not listed</label>
+        <input class="form-check-input" type="checkbox" id="other_degree" onchange="toggleDegreeField()">
+        <label class="form-check-label" for="other_degree" style="font-weight: lighter;">Select if degree not listed</label>
       </div>
     </div>
 
@@ -55,7 +56,7 @@
         Admission Year
       </label>
       <select name="admission_year" id="admission_year" class="custom-select" required>
-        <option value="{{batch_id}}" selected >{{batch_id}}</option>
+        <option value="none" selected disabled hidden>Select Admission Year</option>
         {% for year, display in ADMISSION_YEAR %}
         <option value="{{ year }}">{{ display }}</option>
         {% endfor %}
@@ -66,7 +67,7 @@
       <label for="passing_year" class="col-form-label">
         Passing Year
       </label>
-     . <select name="passing_year" id="passing_year" class="custom-select" required>
+      <select name="passing_year" id="passing_year" class="custom-select" required>
         <option value="none" selected disabled hidden>Select Passing Year</option>
         {% for year, display in PASSING_YEAR %}
         <option value="{{ year }}">{{ display }}</option>
@@ -81,7 +82,7 @@
 {% block script %}
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script type="text/javascript">
-  function addDegree() {
+  function toggleDegreeField() {
     var other_degree = document.getElementById("other_degree");
     var degree_input = document.getElementById("degree_input");
     var degree_select = document.getElementById("degree_select");
