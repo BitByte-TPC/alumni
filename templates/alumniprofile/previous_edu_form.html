@@ -16,21 +16,19 @@
         <option value="{{d}}">{{d}}</option>
       {% endfor %}
     </select>
+
+    <div class="form-check ml-1 mt-1">
+      <input type="checkbox" id="other_degree" class="form-check-input" onchange="addDegree()">
+      <label style="font-weight: lighter;">Select if degree not listed</label>
     </div>
-    
+    </div>
+
     <div class="form-group col-md-6">
       <label for="discipline" class="col-form-label">
         Discipline/Field
       </label>
-      <input type="text" placeholder="CSE" name="discipline" maxlength="200" class="form-control textinput" id="discipline"
+      <input type="text" placeholder="Enter discipline" name="discipline" maxlength="200" class="form-control textinput" id="discipline"
       required>
-    </div>
-
-    <div class="form-group col-md-12">
-      <div class="form-check ml-1">
-        <input type="checkbox" id="other_degree" class="form-check-input" onchange="addDegree()">
-        <label style="font-weight: lighter;">Select if degree not listed</label>
-      </div>
     </div>
 
     <div class="form-group col-md-6">
@@ -91,6 +89,7 @@
       degree_select.style.display = "none";
       degree_input.style.display = "block";
       degree_input.setAttribute("required", "required");
+      degree_select.selectedIndex = -1;
     }
     else {
       degree_input.removeAttribute("required");
