@@ -18,7 +18,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from .forms import RegisterForm, ProfileEdit, NewRegister
 from .token import account_activation_token
 from applications.events_news.models import Event, Attendees
-from applications.alumniprofile.models import Profile, Constants
+from applications.alumniprofile.models import Batch, Profile, Constants
 from applications.news.models import News
 from applications.gallery.models import Album
 from applications.geolocation.views import addPoints
@@ -108,6 +108,7 @@ def convert_int(number, decimals):
 
 
 def new_register(request):
+    batches = list(Batch.objects.all().order_by('batch'))
     if request.method == 'POST':
         form = NewRegister(request.POST, request.FILES)
         # print (request.POST)
@@ -139,9 +140,19 @@ def new_register(request):
                                'country': str(request.POST['country'])})
             print('Adding Map Point Status: ' + str(mappt))
             return render(request, 'AlumniConnect/confirm_email.html')
+
+        else:
+            context = {'form':form, 'edit': False, 'programmes': Constants.PROG_CHOICES, 'branches': Constants.BRANCH, 'batch_year': batches, 'admission_year': Constants.YEAR_OF_ADDMISSION}            
+            context.update(form.cleaned_data)
+            for i in list(context.keys()):
+                if context[i] == None:
+                    context[i] = ""
+            return render(request,'AlumniConnect/profileedit.html',context)
+
     else:
         form = NewRegister()
-    return render(request, 'AlumniConnect/profileedit.html', {'form': form, 'edit': False})
+    context = {'form': form, 'edit': False, 'programmes': Constants.PROG_CHOICES, 'branches': Constants.BRANCH, 'batch_year': batches, 'admission_year': Constants.YEAR_OF_ADDMISSION,}
+    return render(request, 'AlumniConnect/profileedit.html',context)
 
 
 @login_required
@@ -157,8 +168,8 @@ def profileedit(request, id):
         else:
             print("here")
             form = ProfileEdit(instance=profile)
-        return render(request, 'AlumniConnect/profileedit.html',
-                      {'form': form, 'C': profile.country, 's': profile.state, 'c': profile.city, 'edit': True})
+            context = {'form': form, 'C': profile.country, 's': profile.state, 'c': profile.city, 'edit': True}
+            return render(request, 'AlumniConnect/profileedit.html', context)
     else:
         return HttpResponseRedirect('/')
 
