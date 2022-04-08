@@ -1,87 +1,308 @@
 {% load static %}
 
+{% block css %}
+<style>
+    .footer {
+        background-image: url("{% static 'AlumniConnect\img\random_imgs\image-removebg (1).png' %}");
+        background-size: 45rem;
+        background-color: #212529;
+        background-repeat: no-repeat;
+        background-position: right;
+        background-blend-mode:soft-light;
+    }
+
+    #contact {
+        padding: 0;
+        margin-top: 10px;
+        overflow: hidden;
+        background-color: #212529;
+    }
+
+    .icon {
+        background-color: blueviolet;
+        height: 32px;
+        width: 32px;
+        padding: 10px;
+        margin: 10px;
+    }
+
+    .margin {
+        margin: 7px;
+    }
+
+    #side-logo {
+        opacity: 0.2;
+    }
+
+    .no-decoration {
+        text-decoration: none;
+        color: azure;
+    }
+
+    .no-decoration:hover {
+        text-decoration: solid;
+        color: #007bff;
+    }
+    i{
+        color: white;
+    }
+</style>
+{% endblock %}
+
 <!-- Footer -->
-<section id="contact" class="text-white bg-dark p-4">
-    <div class="container">
+<section id="contact" class="text-white ">
+    <!-- <div class="container">
         <div class="row font-open-sans">
 
             <div class="col-lg-4 text-white text-left">
-            <h6 class="title text-uppercase border-bottom p-3" style="padding-left:0px !important">About</h6>
-            <br>
-            <ul class="list-unstyled">
-                <li><a href="http://www.iiitdmj.ac.in/" target="_blank">IIITDMJ Home</a></li>
-                <li><a href="{% url 'members:sacbody' %}" target="_blank">Alumni Cell IIITDMJ</a></li>    
-                <li><a href="http://faculty.iiitdmj.ac.in/" target="_blank">Faculty</a></li>
-                <li><a href="http://pbi.iiitdmj.ac.in/" target="_blank">PBI</a></li>
-                <li><a href="http://site.iiitdmj.ac.in/download/IIIT%20Act%2030_of_2014.pdf" target="_blank">IIIT Act</a></li>
-                <li><a href="http://www.iiitdmj.ac.in/maps_direction.php" target="_blank">Maps &amp; Directions</a></li>
-            </ul>
+                <h6 class="title text-uppercase border-bottom p-3" style="padding-left:0px !important">About</h6>
+                <br>
+                <ul class="list-unstyled">
+                    <li><a href="http://www.iiitdmj.ac.in/" target="_blank">IIITDMJ Home</a></li>
+                    <li><a href="{% url 'members:sacbody' %}" target="_blank">Alumni Cell IIITDMJ</a></li>
+                    <li><a href="http://faculty.iiitdmj.ac.in/" target="_blank">Faculty</a></li>
+                    <li><a href="http://pbi.iiitdmj.ac.in/" target="_blank">PBI</a></li>
+                    <li><a href="http://site.iiitdmj.ac.in/download/IIIT%20Act%2030_of_2014.pdf" target="_blank">IIIT
+                            Act</a></li>
+                    <li><a href="http://www.iiitdmj.ac.in/maps_direction.php" target="_blank">Maps &amp; Directions</a>
+                    </li>
+                </ul>
             </div>
             <div class="col-lg-4 text-white text-left">
-            <h6 class="title text-uppercase border-bottom p-3" style="padding-left:0px !important">Important Links</h6>
-            <br>
-            <ul class="list-unstyled">
-                <li><a href="https://www.facebook.com/iiitdm.jbp/" target="_blank">IIITDMJ [Facebook]</a></li>
-                <li><a href="https://www.linkedin.com/school/indian-institute-of-information-technology-design-and-manufacturing-jabalpur/" target="_blank">IIITDMJ [LinkedIn]</a></li>
-                <li><a href="https://twitter.com/iiitdm" target="_blank">IIITDMJ [Twitter]</a></li>
-                <li><a href="https://www.facebook.com/groups/iiitdmj/" target="_blank">IIITDMJ Alumni [Facebook]</a></li>
-                <li><a href="https://www.facebook.com/iiitdmplacement/" target="_blank">Placement Cell [Facebook]</a></li>
-                <li><a href="https://www.linkedin.com/in/placementiiitdmj/" target="_blank">Placement Cell [LinkedIn]</a></li>
-                
-            </ul>
-            </div>
-            
-            <div class="col-lg-4 text-white text-left font-open-sans">
-            <h6 class="title text-uppercase border-bottom p-3" style="padding-left:0px !important">Contact Us</h6>
-            <br>
-            <div>
-                <div>
-                    <b>
-                    Prof. Puneet Tandon<br>Prof. In-Charge, Alumni Cell
-                    </b>
-                </div>
-                <div class="icon-detail">
-                    <i class="fas fa-phone-square"></i>
-                    +91 9425324240 (Phone)
-                </div>
-                <div class="icon-detail">
-                    <i class="fas fa-phone-square"></i>
-                    +91 761 2794411 (Office)
-                </div>
-            </div>
-            <div class="mt-3 pt-1">
-                <div>
-                    <b>
-                    Mr. Omvir Singh Bhadauria<br>Assistant Registrar
-                    </b>
-                </div>
-                <div class="icon-detail">
-                    <i class="fas fa-phone-square"></i>
-                    +91 761 2794143 (Office)
-                </div>
+                <h6 class="title text-uppercase border-bottom p-3" style="padding-left:0px !important">Important Links
+                </h6>
+                <br>
+                <ul class="list-unstyled">
+                    <li><a href="https://www.facebook.com/iiitdm.jbp/" target="_blank">IIITDMJ [Facebook]</a></li>
+                    <li><a href="https://www.linkedin.com/school/indian-institute-of-information-technology-design-and-manufacturing-jabalpur/"
+                            target="_blank">IIITDMJ [LinkedIn]</a></li>
+                    <li><a href="https://twitter.com/iiitdm" target="_blank">IIITDMJ [Twitter]</a></li>
+                    <li><a href="https://www.facebook.com/groups/iiitdmj/" target="_blank">IIITDMJ Alumni [Facebook]</a>
+                    </li>
+                    <li><a href="https://www.facebook.com/iiitdmplacement/" target="_blank">Placement Cell
+                            [Facebook]</a></li>
+                    <li><a href="https://www.linkedin.com/in/placementiiitdmj/" target="_blank">Placement Cell
+                            [LinkedIn]</a></li>
+
+                </ul>
             </div>
 
-            <div class="mt-3 pt-1">
-                <span>
-                    PDPM Indian Institute of Information Technology Design & Manufacturing Jabalpur, Airport Rd, Khamaria, Dumna,
+            <div class="col-lg-4 text-white text-left font-open-sans">
+                <h6 class="title text-uppercase border-bottom p-3" style="padding-left:0px !important">Contact Us</h6>
+                <br>
+                <div>
+                    <div>
+                        <b>
+                            Prof. Puneet Tandon<br>Prof. In-Charge, Alumni Cell
+                        </b>
+                    </div>
+                    <div class="icon-detail">
+                        <i class="fas fa-phone-square fa-rotate-90"></i>
+                        +91 9425324240 (Phone)
+                    </div>
+                    <div class="icon-detail">
+                        <i class="fas fa-phone-square fa-rotate-90"></i>
+                        +91 761 2794411 (Office)
+                    </div>
+                </div>
+                <div class="mt-3 pt-1">
+                    <div>
+                        <b>
+                            Mr. Omvir Singh Bhadauria<br>Assistant Registrar
+                        </b>
+                    </div>
+                    <div class="icon-detail">
+                        <i class="fas fa-phone-square fa-rotate-90"></i>
+                        +91 761 2794143 (Office)
+                    </div>
+                </div>
+
+                <div class="mt-3 pt-1">
+                    <span>
+                        PDPM Indian Institute of Information Technology Design & Manufacturing Jabalpur, Airport Rd,
+                        Khamaria, Dumna,
+                        Madhya Pradesh 482005
+                    </span>
+                </div>
+                <div class="mt-3 pt-1">
+                    <span class="icon-detail">
+                        <i class="far fa-envelope"></i>
+                        <a class="text-white" href="mailto:alumni@iiitdmj.ac.in">alumni@iiitdmj.ac.in</a>
+                    </span>
+                </div>
+                <div>
+                    <span class="icon-detail">
+                        <i class="fas fa-link"></i>
+                        <a class="text-white" href="https://www.iiitdmj.ac.in"
+                            target="_blank">https://www.iiitdmj.ac.in/</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+    </div> -->
+    <!-- footer -->
+    <!-- name card -->
+    <!-- <div class="conatainer-md text-light py-5" style="background-color: #3636a8;">
+        <div class="row gx-3 m-5 justify-content-start">
+            <div class="conatainer col-md-4 py-4 bg-light text-dark rounded" style="font-size: 500;">
+                <div class="col-1"></div>
+                <div class="row">
+                    <div class="col-3">
+                        <img src="{% static 'AlumniConnect\img\logo-min.png' %}" class="ml-3" alt="logo">
+                    </div>
+                    <div class="col">
+                        Indian Institute of Information and Technology, Desing and Manufacturing Jabalpur
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- social media hadles -->
+    <!-- <div class="row gx-3">
+            <div class="col-4">
+            </div>
+            <div class="col">
+                <div class="row">
+                    <div class="icon rounded-2 "></div>
+                    <div class="icon rounded-2"></div>
+                    <div class="icon rounded-2"></div>
+                    <div class="icon rounded-2"></div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row gx-3 m-5 justify-content-start">            
+        <!-- address -->
+    <!-- <div class="col-md-3 mr-5">
+                <div class="">
+                    <h4>Address</h4>
+                    PDPM Indian Institute of Information Technology Design & Manufacturing Jabalpur,
+                    Airport Rd,
+                    Khamaria, Dumna,
                     Madhya Pradesh 482005
-                </span>
+                </div>
             </div>
-            <div class="mt-3 pt-1">
-                <span class="icon-detail">
-                    <i class="far fa-envelope"></i>
-                    <a class="text-white" href="mailto:alumni@iiitdmj.ac.in">alumni@iiitdmj.ac.in</a>
-                </span>
+            <!-- imporatant links -->
+    <!-- <div class="col-md-2 no-decoration ml-5">
+                <h4>Important links</h4>
+                <div><a href="#" >link are here</a></div>
+                <div><a href="#">link are here</a></div>
+                <div><a href="#">link are here</a></div>
+
             </div>
-            <div>
-                <span class="icon-detail">
-                    <i class="fas fa-link"></i>
-                    <a class="text-white" href="https://www.iiitdmj.ac.in" target="_blank">https://www.iiitdmj.ac.in/</a>
-                </span>
+            <!-- important links-2 -->
+    <!-- <div class="col-md-2 no-decoration">
+                <h4>Important links</h4>
+                <div><a href="#" >link are here</a></div>
+                <div><a href="#">link are here</a></div>
+                <div><a href="#">link are here</a></div>
+
             </div>
+            <div class="col-md-3 align-item-end justify-content-end">
+                <img src="{% static 'AlumniConnect\img\logo\alumb1.png' %}" id="side-logo" alt="">
             </div>
+        </div>
+    </div> -->
+
+    <!-- footer2 -->
+
+    <div class="footer container-fluid p-3 m-3">
+        <div class="row">
+            <div class="col-lg-4 col-md-8 col-sm-10 col-10 mx-3">
+                <div class="row bg-light text-dark rounded p-2">
+                    <div class=" col-lg-3 col-md-3 col-sm-3 col-4">
+                        <img src="{% static 'AlumniConnect\img\logo-min.png' %}" alt="">
+                    </div>
+                    <div class="-xs-10 col-lg-9 col-md-9 col-sm-8 col-8 ">
+                        Indian Institute of Information and Technology, Desing and Manufacturing Jabalpur
+                    </div>
+                </div>
+                <div class="row justify-content-end mb-5">
+                    <a href="https://www.facebook.com/iiitdm.jbp/" target="_blank" class="margin">
+                        <i class="fab fa-facebook fa-2x" style="color: white;"></i>
+                    </a>
+
+                    <a href="https://www.linkedin.com/school/indian-institute-of-information-technology-design-and-manufacturing-jabalpur/" target="_blank" class="margin">
+                        <i class="fab fa-linkedin fa-2x"  style="color: white;"></i>
+                    </a>
+                    <a href="https://twitter.com/iiitdmjbp" target="_blank" class="margin">
+                        <i class="fab fa-twitter fa-2x" style="color: white;"></i>
+                    </a>
+                    
+                    <a href="https://www.iiitdmj.ac.in/" target="_blank" class="margin">
+                        <i class="fas fa-globe fa-2x " style="color: white;"></i>
+                    </a>
+                </div>
             </div>
 
         </div>
+        <div class="row p-3">
+            <div class="col-md-3 my-2">
+                <h4 class="mb-3 border-bottom">Address</h4>
+                <div>
+                    PDPM Indian Institute of Information Technology Design & Manufacturing Jabalpur,
+                    Airport Rd,
+                    Khamaria, Dumna,
+                    Madhya Pradesh 482005
+                </div>
+                <div class="mt-2">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3667.815842743628!2d80.02239941480383!3d23.17692048487516!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3981a94397365dd3%3A0x5f9aeb812c2678c9!2sIIITDM%20Jabalpur!5e0!3m2!1sen!2sin!4v1649348570857!5m2!1sen!2sin" style="border:0;width:20em;height:10em;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+            <div class="col-1"></div>
+            <div class="col-md-2 my-2">
+                <h4 class="mb-3 border-bottom">Important Links</h4>
+                <div>
+                    <a href="#" class="no-decoration">IIITDMJ Alumni <i class="fab fa-facebook " style="color: white;"></i></a>
+                </div>
+                <div>
+                    <a href="#" class="no-decoration">Placement Cell &nbsp;&nbsp;&nbsp;<i class="fab fa-facebook " style="color: white;"></i></a>
+                </div>
+                <div>
+                    <a href="#" class="no-decoration">Placement Cell &nbsp;&nbsp;&nbsp;<i class="fab fa-linkedin " style="color: white;"></i></a>
+                </div>
+            </div>
+            <div class="col-1"></div>
+            <div class="col-md-2 my-2">
+                <h4 class="mb-3 border-bottom">Contact Us</h4>
+                <div>
+                    <div>
+                        <b>
+                            Prof. Puneet Tandon<br>Prof. In-Charge, Alumni Cell
+                        </b>
+                    </div>
+                    <div class="icon-detail">
+                        <i class="fas fa-phone-square fa-rotate-90"></i>
+                        +91 9425324240 (Phone)
+                    </div>
+                    <div class="icon-detail">
+                        <i class="fas fa-phone-square fa-rotate-90"></i>
+                        +91 761 2794411 (Office)
+                    </div>
+                </div>
+                <div class="mt-3 pt-1">
+                    <div>
+                        <b>
+                            Mr. Omvir Singh Bhadauria<br>Assistant Registrar
+                        </b>
+                    </div>
+                    <div class="icon-detail">
+                        <i class="fas fa-phone-square fa-rotate-90"></i>
+                        +91 761 2794143 (Office)
+                    </div>
+                </div>
+                <div class="mt-3 pt-1">
+                    <span class="icon-detail">
+                        <i class="far fa-envelope"></i>
+                        <a class="text-white" href="mailto:alumni@iiitdmj.ac.in">alumni@iiitdmj.ac.in</a>
+                    </span>
+                </div>
+                
+            </div>
+            <!-- <div class="col-md-2" >
+                <img src="{% static 'AlumniConnect\img\logo\alumb1.png' %}" id="side-logo" alt="">
+            </div> -->
+        </div>
     </div>
+
 </section>
