@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from .models import Constants, Education, Profile, PastExperience
+from .models import Constants, Degree, Education, Profile, PastExperience
 from datetime import datetime
 
 try:
@@ -37,6 +37,7 @@ def profile(request, username):
         'education': education,
         'ADMISSION_YEAR': Constants.ADMISSION_YEAR,
         'PASSING_YEAR': Constants.PASSING_YEAR,
+        'DEGREE': list(Degree.objects.all().order_by('degree')),
     })
 
     return render(request, "alumniprofile/profile.html", profile)
@@ -91,7 +92,14 @@ def add_education(request):
     profile = Profile.objects.get(user=request.user)
 
     if request.method == "POST":
-        degree = request.POST.get('degree')
+        degree_val = request.POST.get('degree_select')
+        if request.POST.get('degree_not_listed'):
+            degree_val = request.POST.get('degree_input')
+
+        degree = Degree.objects.filter(degree=degree_val).first()
+        if not degree:
+            degree = Degree(degree=degree_val)
+            degree.save()
         discipline =request.POST.get('discipline')
         institute =request.POST.get('institute')
         admission_year =request.POST.get('admission_year')
