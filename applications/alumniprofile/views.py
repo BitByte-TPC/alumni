@@ -92,7 +92,10 @@ def add_education(request):
     profile = Profile.objects.get(user=request.user)
 
     if request.method == "POST":
-        degree_val = request.POST.get('degree')
+        degree_val = request.POST.get('degree_select')
+        if request.POST.get('degree_not_listed'):
+            degree_val = request.POST.get('degree_input')
+
         degree = Degree.objects.filter(degree=degree_val).first()
         if not degree:
             degree = Degree(degree=degree_val)
