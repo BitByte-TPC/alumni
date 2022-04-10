@@ -1,6 +1,20 @@
 {% extends 'globals/base.html' %}
 
 {% load static %}
+
+{% block css%}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<style>
+  .custom_img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+  }
+</style>
+{% endblock %}
+
 {% block body %}
     
   {% include 'globals/navbar.html' %}
@@ -67,6 +81,31 @@
                 </div>
             </a>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="message" class="p-0 m-auto">
+      <div class="jumbotron p-4">
+        <div class="message p-3">
+          <h5 class="lead text-center text-sm" style="font-weight: 400; font-family: Roboto, sans-serif; line-height: 1.2;">
+            Dear torch-bearers of IIITDMJ:
+            <br><br>
+            Life at IIITDMJ doesn’t end after you graduate; in fact, it continues, grows and thrives. 
+            As an alumnus of IIITDMJ, each one of you is the brand ambassador of your alma mater. 
+            Your brilliance in the professional paths you have chosen to follow as well as a responsible citizen 
+            of this country (and/or globe), and moreover as a good human being articulates the pride of our institute. 
+            The magnificent examples set by you continue to inspire students to achieve even greater milestones.
+            <br><br>
+            Looking forward to more meaningful interactions with you to take the Institute to greater heights 
+            with the sky as the limit...
+          </h5>
+        </div>
+        <div class="text-center" style="margin-top: 1rem; font-family: Roboto, sans-serif">
+          <p><img class="img-fluid custom_img" src="{% static 'AlumniConnect/img/people/PTandon2.jpg' %}" alt="Puneet Tandon"
+              style="object-fit:cover; object-position:50% 0%;"></p>
+          <h5>Prof. Puneet Tandon</h5>
+          <h6>Prof. In-Charge, Alumni Cell</h6>
         </div>
       </div>
     </section>
