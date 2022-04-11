@@ -28,12 +28,41 @@ class RegisterForm(forms.ModelForm):
 
 
 class ProfileEdit(forms.ModelForm):
+    date_of_birth = forms.DateField(
+        widget=forms.TextInput(
+            attrs={'type': 'date'}
+        ),
+        required=True,
+    )
+    date_of_joining = forms.DateField(
+        widget=forms.TextInput(
+            attrs={'type': 'date'}
+        ),
+        required=False,
+    )
+    current_address = forms.CharField(
+        widget=forms.Textarea(
+            attrs={'rows': 3, 'placeholder': 'Enter Address'}
+        ),
+        max_length=4000,
+    )
+    permanent_address = forms.CharField(
+        widget=forms.Textarea(
+            attrs={'rows': 3, 'placeholder': 'Enter Permanent Address', }
+        ),
+        max_length=4000,
+        required=False,
+    )
     country = forms.CharField(widget=forms.Select(
         attrs={'id': 'countryId', 'class': 'countries order-alpha custom-select', 'name': 'country'}))
     state = forms.CharField(
         widget=forms.Select(attrs={'id': 'stateId', 'class': 'states order-alpha custom-select', 'name': 'state'}))
     city = forms.CharField(
         widget=forms.Select(attrs={'id': 'cityId', 'class': 'cities order-alpha custom-selects', 'name': 'city'}))
+    linkedin = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Linkedin URL'}))
+    website = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Website'}), required=False)
+    facebook = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Facebook URL'}), required=False)
+    instagram = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Instagram Username'}), required=False)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -124,13 +153,13 @@ class ProfileEdit(forms.ModelForm):
             # 'profile_picture',
             Submit('submit', 'Save Changes'),
         )
-    # def clean(self):
+        # def clean(self):
+
     #     super(ProfileEdit, self).clean() #if necessary
     #     del self._errors['country']
     #     del self._errors['city']
     #     del self._errors['state']
     #     return self.cleaned_data
- 
 
     class Meta:
         model = Profile

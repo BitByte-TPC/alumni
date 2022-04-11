@@ -31,6 +31,7 @@ Alumni Connect
   }
   window.onload = load;
 </script>
+{% if edit %}
 <script type="text/javascript">
 // --------------------------------- FOR MODEL FORM -----------------------------
   document.getElementById('div_id_current_position').style.display = 'none';
@@ -87,9 +88,12 @@ Alumni Connect
     $('#id_current_course').prop('required', false);
     $('#id_current_university').prop('required', false);
   })
+</script>
 
+{% else %}
+
+<script type="text/javascript">
 // --------------------------------- FOR TEMPLATE FORM -----------------------------
-
   $('#profile-picture').change(function() {
   var i = $(this).prev('label').clone();
   var file = $('#profile-picture')[0].files[0].name;
@@ -157,9 +161,9 @@ Alumni Connect
     $('#cur_course').prop('required', false);
     $('#cur_university').prop('required', false);
   }) 
-
 </script>
 
+{% endif %}
 {% endblock %}
 
 {% block body %}
