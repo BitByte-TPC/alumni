@@ -39,6 +39,7 @@ Alumni Connect
     if (city_checkbox.checked) {
       city_selection.removeAttribute("required");
       $('#city_input').attr('name','city');
+      $('#cityId').attr('name','custom_city')
       $('#div_id_city').hide();
       $('#div_id_custom_city').show();
       city_input.setAttribute("required", "required");
@@ -47,6 +48,7 @@ Alumni Connect
     else {
       city_input.removeAttribute("required");
       $('#city_input').attr('name','custom_city');
+      $('#cityId').attr('name','city')
       $('#div_id_custom_city').hide();
       $('#div_id_city').show();
       city_selection.setAttribute("required", "required");
