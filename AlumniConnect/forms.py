@@ -255,6 +255,10 @@ class NewRegister(forms.ModelForm):
     # checkbox_terms = forms.BooleanField(required=True)
     instagram = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Instagram Username'}), required=False)
     checkbox_update = forms.BooleanField(required=True)
+    custom_city = forms.CharField(widget=forms.TextInput(
+        attrs={'id': 'city_input', 'class': 'cityInput', 'name': 'city', 'placeholder': 'Enter city name'}), required=False)
+    checkbox_city = forms.BooleanField(widget=forms.CheckboxInput(
+        attrs={'onchange': 'enterCity()'}), required=False)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
