@@ -81,6 +81,7 @@ class ProfileEdit(forms.ModelForm):
         self.fields['alternate_email'].label = 'Alternate Email'
         self.fields['custom_city'].label = 'City'
         self.fields['checkbox_city'].label = 'Can\'t find your city'
+
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Div(
@@ -254,6 +255,10 @@ class NewRegister(forms.ModelForm):
     # checkbox_terms = forms.BooleanField(required=True)
     instagram = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Instagram Username'}), required=False)
     checkbox_update = forms.BooleanField(required=True)
+    custom_city = forms.CharField(widget=forms.TextInput(
+        attrs={'id': 'city_input', 'class': 'cityInput', 'name': 'city', 'placeholder': 'Enter city name'}), required=False)
+    checkbox_city = forms.BooleanField(widget=forms.CheckboxInput(
+        attrs={'onchange': 'enterCity()'}), required=False)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -268,9 +273,11 @@ class NewRegister(forms.ModelForm):
         self.fields['date_of_birth'].label = 'Date of Birth'
         self.fields['year_of_admission'].label = 'Year of Admission'
         self.fields['alternate_email'].label = 'Alternate Email'
+        self.fields['custom_city'].label = 'City'
         # self.fields['checkbox_terms'].label = 'I abide by the Terms and Conditions of the Alumni Cell'
         self.fields[
             'checkbox_update'].label = 'I will update my information at regular intervals and will engage in the Alumni network actively.'
+        self.fields['checkbox_city'].label = 'Can\'t find your city'
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Div(
@@ -314,6 +321,8 @@ class NewRegister(forms.ModelForm):
                 Field('country', wrapper_class="col-md-4"),
                 Field('state', wrapper_class="col-md-4"),
                 Field('city', wrapper_class="col-md-4"),
+                Field('custom_city', wrapper_class='col-md-4'),
+                'checkbox_city',
                 css_class='form-row',
             ),
             Div(
