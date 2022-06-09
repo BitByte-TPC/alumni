@@ -30,6 +30,29 @@ Alumni Connect
     $('#div_id_custom_city').hide();
   }
   window.onload = load;
+  function enterCity() {
+    var city_checkbox = document.getElementById("id_checkbox_city");
+    var city_input = document.getElementById("city_input");
+    var city_selection = document.getElementById("cityId");
+
+    if (city_checkbox.checked) {
+      city_selection.removeAttribute("required");
+      $('#city_input').attr('name','city');
+      $('#cityId').attr('name','custom_city')
+      $('#div_id_city').hide();
+      $('#div_id_custom_city').show();
+      city_input.setAttribute("required", "required");
+      city_selection.selectedIndex = -1;
+    }
+    else {
+      city_input.removeAttribute("required");
+      $('#city_input').attr('name','custom_city');
+      $('#cityId').attr('name','city')
+      $('#div_id_custom_city').hide();
+      $('#div_id_city').show();
+      city_selection.setAttribute("required", "required");
+    }
+  }
 </script>
 {% if edit %}
 <script type="text/javascript">
