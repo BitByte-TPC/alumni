@@ -73,7 +73,6 @@ def job_posting(request):
 #     return render(request, "env/Lib/site-packages/gallery.html")
 
 
-
 def signup(request):
     if request.user.is_authenticated:
         return redirect('home')
@@ -101,6 +100,7 @@ def signup(request):
     return render(request, "AlumniConnect/signup.html", {'form': form})
 
 
+@login_required
 def register(request):
     check = False
     l = None
@@ -135,7 +135,8 @@ def convert_int(number, decimals):
 
 
 def new_register(request):
-    batches = list(Batch.objects.all().order_by('batch'))
+    form_not_valid = False
+
     if request.method == 'POST':
         form = NewRegister(request.POST, request.FILES)
         # print (request.POST)
@@ -167,19 +168,27 @@ def new_register(request):
                                'country': str(request.POST['country'])})
             print('Adding Map Point Status: ' + str(mappt))
             return render(request, 'AlumniConnect/confirm_email.html')
-
         else:
-            context = {'form':form, 'edit': False, 'programmes': Constants.PROG_CHOICES, 'branches': Constants.BRANCH, 'batch_year': batches, 'admission_year': Constants.YEAR_OF_ADDMISSION}            
-            context.update(form.cleaned_data)
-            for i in list(context.keys()):
-                if context[i] == None:
-                    context[i] = ""
-            return render(request,'AlumniConnect/profileedit.html',context)
-
+            form_not_valid = True
     else:
         form = NewRegister()
-    context = {'form': form, 'edit': False, 'programmes': Constants.PROG_CHOICES, 'branches': Constants.BRANCH, 'batch_year': batches, 'admission_year': Constants.YEAR_OF_ADDMISSION,}
-    return render(request, 'AlumniConnect/profileedit.html',context)
+
+    batches = Batch.objects.all().order_by('batch').values_list('batch', flat=True)
+    context = {
+        'form': form,
+        'edit': False,
+        'programmes': Constants.PROG_CHOICES,
+        'branches': Constants.BRANCH,
+        'batches': batches,
+        'admission_year': Constants.YEAR_OF_ADDMISSION,
+    }
+    if form_not_valid:
+        context.update(form.cleaned_data)
+        for i in list(context.keys()):
+            if context[i] is None:
+                context[i] = ""
+
+    return render(request, 'AlumniConnect/profileedit.html', context)
 
 
 @login_required

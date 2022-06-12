@@ -173,10 +173,33 @@ Alumni Connect
 
 <script type="text/javascript">
 // --------------------------------- FOR TEMPLATE FORM -----------------------------
+  function toggleCityInput() {
+    var city_checkbox = document.getElementById("cityCheckbox");
+    var city_input = document.getElementById("cityInput");
+    var city_select = document.getElementById("cityId");
+    if (city_checkbox.checked) {
+      city_select.removeAttribute("required");
+      // $('#city_input').attr('name','city');
+      // $('#cityId').attr('name','custom_city')
+      $('#cityInputWrapper').hide();
+      $('#citySelectWrapper').show();
+      city_input.setAttribute("required", "required");
+      city_select.selectedIndex = -1;
+    }
+    else {
+      city_input.removeAttribute("required");
+      // $('#city_input').attr('name','custom_city');
+      // $('#cityId').attr('name','city')
+      $('#citySelectWrapper').hide();
+      $('#cityInputWrapper').show();
+      city_select.setAttribute("required", "required");
+    }
+  }
+
   $('#profile-picture').change(function() {
-  var i = $(this).prev('label').clone();
-  var file = $('#profile-picture')[0].files[0].name;
-  $(this).prev('label').text(file);
+    var i = $(this).prev('label').clone();
+    var file = $('#profile-picture')[0].files[0].name;
+    $(this).prev('label').text(file);
   });
   $('#cur_pos').hide();
   $('#cur_org').hide();
