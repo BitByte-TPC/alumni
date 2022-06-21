@@ -14,18 +14,20 @@ from django.core.mail import EmailMessage
 from django.db.models import Count
 from django.contrib.auth.views import LoginView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.db.models import Q
+from django.contrib.auth.password_validation import validate_password
 
 from .forms import RegisterForm, ProfileEdit, NewRegister
 from .token import account_activation_token
 from applications.events_news.models import Event, Attendees
-from applications.alumniprofile.models import Profile, Constants
+from applications.alumniprofile.models import Profile, Constants,Batch
 from applications.news.models import News
 from applications.gallery.models import Album
 from applications.geolocation.views import addPoints
 import datetime
 from django.utils import timezone
 from itertools import chain
-
+import re
 
 # Create your views here.
 
@@ -72,6 +74,79 @@ def job_posting(request):
 
 # def jobboard(request):
 #     return render(request, "env/Lib/site-packages/gallery.html")
+
+def isValidRoll(roll_no) -> bool:
+    ''' checks if roll no. is valid institution roll no. or not'''
+    # Regex matching institution's roll no
+    x = re.search("([12][0-9])(([A-Za-z]{3,5})|(\d{2}))(\d{3})", roll_no)
+    if x == None:
+        return False
+    return True
+
+def checkEmail(email) -> bool:
+    '''Returns True if given email is Institution email '''
+    if re.search("iiitdmj.ac.in$", email):
+        return True
+    return False
+
+
+def signup(request):
+    if request.user.is_authenticated:
+        return redirect('home')
+    
+    if request.method == "POST":
+        email = request.POST['email']
+        roll_no = request.POST['roll_no']
+        password = request.POST['password']
+        confirm_password = request.POST['confirm_password']
+        role = request.POST['role']
+        
+        
+        context = {
+            "email":email,
+            "roll_no":roll_no
+        }
+        
+        
+        # check if user with such email or roll no. already exists
+        check_profile = Profile.objects.filter(Q(user__email=email) | Q(roll_no=roll_no) )
+        if check_profile.exists():
+            context["error_message"] = "User with this 'Email' or 'Roll no.' already exists"
+            return render(request, "AlumniConnect/signup.html",context)
+
+
+        # check if Email is College email or personal
+        if checkEmail(email) == True:
+            context["error_message"] = "Institute email id is not accepted.Kindly enter your personal email id."
+            return render(request, "AlumniConnect/signup.html",context)
+            
+
+        # check if Roll No. is a valid Roll No. or not
+        if isValidRoll(roll_no)==False:
+            context['error_message'] = "Roll no. is not a valid Institution roll no."
+            return render(request, "AlumniConnect/signup.html",context)
+        
+              
+        # check if password and confirm_passord are same or not
+        if password != confirm_password:
+            context['error_message'] = "password does not match"
+            return render(request, "AlumniConnect/signup.html", context)
+        
+        
+        user = User(email = email,username=roll_no,is_active=False)
+        user.set_password(password) 
+        user.save()
+        
+        
+        # for now making default batch value as 2009 
+        profile = Profile(user = user,role =role,roll_no = roll_no,batch = Batch(2009)) 
+        profile.save()  
+        
+        return HttpResponse("Sign Up successfully done")
+        
+    
+    
+    return render(request,"AlumniConnect/signup.html")
 
 
 def register(request):

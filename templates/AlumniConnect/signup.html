@@ -1,0 +1,89 @@
+{% extends 'globals/base.html' %}
+{% load static %}
+
+
+{% block title %}
+ Sign Up
+{% endblock title %}
+
+{% block body %}
+{% include 'globals/navbar.html' %}
+
+<div class="p-0 m-0 masthead-bg w-100 h-100 parallax"  style="min-height:300px !important; height:300px !important; background-position-y: 300px;"></div>
+
+<header class="masthead text-center text-white d-flex" style="height:0px; min-height:300px;">
+  <div class="container my-auto" style="margin-bottom:50px !important;">
+    <div class="row">
+      <div class="col-lg-2 mx-auto align-middle">
+        <h2 class="text-uppercase">
+          <a href="{% url 'home' %}"><img src="{% static 'AlumniConnect/img/logo/alumb1.png' %}" style="width: 4em; height: auto;"></a>
+        </h2>
+      </div>
+      <div class="col-lg-8 mx-auto align-middle">
+        <h1 class="text-uppercase mt-4">
+          <strong>ALUMNI CONNECT</strong>
+        </h1>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="services" class="bg-primary p-1">
+</section>
+
+<div class="bg-white">
+    <div class="login-container container text-left p-2 mx-auto">
+        <div class="alert alert-primary m-4 text-center" role="alert" >
+            Already have account ? Login
+            <h5 class="pt-2 m-0">
+                <a class="d-inline-block" href="{% url 'login' %}">
+                    <span class="badge badge-pill badge-primary p-2">Login! &nbsp;<i class="fas fa-external-link-alt"></i></span>
+                </a>
+            </h5>
+        </div>
+        <div class="card shadow m-4 bg-light">
+            <div class="col-lg-12 mx-auto">
+                <div class="row text-center">
+                    <div class="col-lg-12 text-primary pt-4 mt-4">
+                        <h2>SIGN UP</h2>
+                        <hr class="mb-4">
+                    </div>
+                </div>
+                <div class="row text-center mb-4 py-4 justify-content-center">
+                    <div class="col-sm-11 col-md-10 col-lg-9">
+                        <form method="post">
+                            {% csrf_token %}
+                            <h1 style="margin-bottom: 20px;">Create Account</h1>
+                
+                            <div class="radio-input">
+                                <input type="radio" name="role" id="radio-input1" value="S" checked />
+                                <label for="radio-input1" class="radio-input-label1" style="margin-right: 20px;">Student</label>
+                                <input type="radio" name="role" id="radio-input2" value="A" />
+                                <label for="radio-input2">Alumni</label>
+                            </div>
+
+                              <input type="email" class="form-control" name="email" id="email" placeholder="Email" value="{{email}}" required/>
+                               </br>
+                              <input type="text" class="form-control" name="roll_no" id="roll_no" placeholder="Roll No." value="{{roll_no}}" required/>
+                               </br>
+                              <input type="password" class="form-control" name="password" id="password" placeholder="Password" required/>
+                               </br>
+                              <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="Confirm Password" required/>
+                               <br />
+                              <button class="btn btn-primary" type='submit' name='submit' value='sign_up'>Sign Up</button>
+                        </form>
+                      </br>
+                        {% if error_message%}
+                        <div class="alert alert-danger" role="alert">
+                          <p>{{error_message}}</p>
+                        </div>
+                        {%endif%}
+                    </div>
+                </div>
+            </div>
+        </div>
+  </div>
+</div>
+{% include 'globals/footer.html' %}
+
+{% endblock body %}
