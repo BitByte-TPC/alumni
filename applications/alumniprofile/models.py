@@ -84,7 +84,7 @@ class Profile(models.Model):
     # Institute Details
     roll_no = models.CharField(primary_key=True, max_length=15)
     year_of_admission = models.IntegerField(null=True, choices=Constants.YEAR_OF_ADDMISSION)
-    batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
+    batch = models.ForeignKey(Batch, on_delete=models.CASCADE, null=True)
     programme = models.CharField(max_length=1000, choices=Constants.PROG_CHOICES, null=False)
     branch = models.CharField(choices=Constants.BRANCH, max_length=1000, null=False)
 

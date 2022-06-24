@@ -55,16 +55,23 @@
                             {% csrf_token %}
                             <h1 style="margin-bottom: 20px;">Create Account</h1>
                 
-                            <div class="radio-input">
-                                <input type="radio" name="role" id="radio-input1" value="S" checked />
-                                <label for="radio-input1" class="radio-input-label1" style="margin-right: 20px;">Student</label>
-                                <input type="radio" name="role" id="radio-input2" value="A" />
-                                <label for="radio-input2">Alumni</label>
+                            <div class="form-group my-4 row">
+                              <div class="col-5">
+                              <label for="role_select" class="requiredField mt-2 text-left d-block">
+                                Registering as<span class="asteriskField">*</span>
+                              </label>
+                            </div>
+                              <div class="col">
+                                <select name="role" class="select form-control" id="role_select">
+                                  <option value="A">Alumni</option>
+                                  <option value="S">Student</option>
+                                </select>
+                              </div>
                             </div>
 
-                              <input type="email" class="form-control" name="email" id="email" placeholder="Email" value="{{email}}" required/>
+                              <input type="email" class="form-control" name="email" id="email" placeholder="Email" {% if form.email.value %}value="{{form.email.value}}"{%endif%} required/>
                                </br>
-                              <input type="text" class="form-control" name="roll_no" id="roll_no" placeholder="Roll No." value="{{roll_no}}" required/>
+                              <input type="text" class="form-control" name="username" id="username" placeholder="Roll No." {%if form.username.value %} value="{{form.username.value}}"{%endif%} required/>
                                </br>
                               <input type="password" class="form-control" name="password" id="password" placeholder="Password" required/>
                                </br>
@@ -73,10 +80,14 @@
                               <button class="btn btn-primary" type='submit' name='submit' value='sign_up'>Sign Up</button>
                         </form>
                       </br>
-                        {% if error_message%}
-                        <div class="alert alert-danger" role="alert">
-                          <p>{{error_message}}</p>
-                        </div>
+                        {% if form.errors%}
+                          {% for field in form %}
+                            {% if field.errors%}
+                              <div class="alert alert-danger" role="alert">
+                                  {{ field.errors }}
+                              </div>
+                            {% endif%}
+                          {% endfor %}
                         {%endif%}
                     </div>
                 </div>

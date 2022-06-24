@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit, Row, Column, Div, Field
 from crispy_forms.bootstrap import InlineRadios
+from django.core.exceptions import ValidationError
+import re
 
 
 class RegisterForm(forms.ModelForm):
@@ -411,3 +413,52 @@ class NewRegister(forms.ModelForm):
 class PasswordResetRequestForm(forms.Form):
     roll_no = forms.IntegerField(label=("Roll No."))
     email = forms.CharField(label=("Email"), max_length=254)
+
+
+class SignupForm(forms.ModelForm):
+    role = forms.ChoiceField(choices=(('A', 'Alumni'), ('S', 'Student')))
+    confirm_password = forms.CharField(widget=forms.PasswordInput())
+    class Meta:
+        model = User
+        fields = ['username','email','password']
+    
+    def clean_username(self):
+        # username is Roll No. #
+        username_value = self.cleaned_data['username']
+        
+        # Regex matching institution's roll no
+        x = re.search("([12][0-9])(([A-Za-z]{3,5})|(\d{2}))(\d{3})", username_value)
+        if x == None or not(len(username_value)>=7 and len(username_value)<=8):
+            raise ValidationError(
+                'Please Enter valid Institution Roll No. '
+            )
+            
+            
+        # check if this username i.e roll_no already exists of not
+        usr = User.objects.filter(username = username_value)
+        if usr.exists():
+            raise ValidationError(
+                'User with this Roll No. already exists'
+            )
+        
+        return username_value
+        
+    def clean_email(self):
+        email = self.cleaned_data['email'].lower()
+        
+        if re.search("iiitdmj.ac.in$", email):
+            raise ValidationError(
+                'Institute email id is not accepted. Kindly enter your personal email id.'
+                )
+        return email
+    
+    def clean(self):
+        cleaned_data = super(SignupForm, self).clean()
+        password = cleaned_data.get("password")
+        confirm_password = cleaned_data.get("confirm_password")
+
+        if password != confirm_password:
+            self.add_error('password','Above two passwords does not match')
+        
+        
+    
