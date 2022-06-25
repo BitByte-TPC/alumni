@@ -14,13 +14,11 @@ from django.core.mail import EmailMessage
 from django.db.models import Count
 from django.contrib.auth.views import LoginView
 from django.contrib.messages.views import SuccessMessageMixin
-from django.db.models import Q
-from django.contrib.auth.password_validation import validate_password
 
-from .forms import RegisterForm, ProfileEdit, NewRegister,SignupForm
+from .forms import RegisterForm, ProfileEdit, NewRegister, SignupForm
 from .token import account_activation_token
 from applications.events_news.models import Event, Attendees
-from applications.alumniprofile.models import Profile, Constants,Batch
+from applications.alumniprofile.models import Profile, Constants
 from applications.news.models import News
 from applications.gallery.models import Album
 from applications.geolocation.views import addPoints
@@ -92,16 +90,15 @@ def signup(request):
             user.save()
             
             # now making profile for user
-            profile = Profile(user = user,role = role,roll_no = roll_no)
+            profile = Profile(user=user, roll_no=roll_no, role=role)
             profile.save()
             
             return HttpResponse("Sign Up successfully done")
         else:
-            return render(request,"AlumniConnect/signup.html",{'form':form})
-        
-    else:
-        form = SignupForm()
-    return render(request,"AlumniConnect/signup.html",{'form':form})
+            return render(request, "AlumniConnect/signup.html", {'form': form})
+
+    form = SignupForm()
+    return render(request, "AlumniConnect/signup.html", {'form': form})
 
 
 def register(request):

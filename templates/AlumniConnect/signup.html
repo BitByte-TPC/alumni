@@ -6,6 +6,18 @@
  Sign Up
 {% endblock title %}
 
+{% block css %}
+<style>
+    .errorlist {
+        padding-left: 0;
+        list-style: none;
+        color: #dc3545;
+        text-align: left;
+        margin-bottom: 0;
+    }
+</style>
+{% endblock css %}
+
 {% block body %}
 {% include 'globals/navbar.html' %}
 
@@ -51,44 +63,49 @@
                 </div>
                 <div class="row text-center mb-4 py-4 justify-content-center">
                     <div class="col-sm-11 col-md-10 col-lg-9">
-                        <form method="post">
-                            {% csrf_token %}
-                            <h1 style="margin-bottom: 20px;">Create Account</h1>
-                
-                            <div class="form-group my-4 row">
-                              <div class="col-5">
-                              <label for="role_select" class="requiredField mt-2 text-left d-block">
-                                Registering as<span class="asteriskField">*</span>
-                              </label>
-                            </div>
-                              <div class="col">
-                                <select name="role" class="select form-control" id="role_select">
-                                  <option value="A">Alumni</option>
-                                  <option value="S">Student</option>
-                                </select>
-                              </div>
-                            </div>
+                        <!-- Form errors -->
+                        {% if form.non_field_errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ form.non_field_errors }}
+                        </div>
+                        {% endif %}
 
-                              <input type="email" class="form-control" name="email" id="email" placeholder="Email" {% if form.email.value %}value="{{form.email.value}}"{%endif%} required/>
-                               </br>
-                              <input type="text" class="form-control" name="username" id="username" placeholder="Roll No." {%if form.username.value %} value="{{form.username.value}}"{%endif%} required/>
-                               </br>
-                              <input type="password" class="form-control" name="password" id="password" placeholder="Password" required/>
-                               </br>
-                              <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="Confirm Password" required/>
-                               <br />
-                              <button class="btn btn-primary" type='submit' name='submit' value='sign_up'>Sign Up</button>
+                        <form method="POST" class="font-open-sans">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label class="d-block text-left" for="signup-uname">Roll No.</label>
+                                <input id="signup-uname" type="text" name="username" class="form-control"
+                                placeholder="Enter your roll no." aria-label="Username" aria-describedby="button-addon2"
+                                {% if form.username.value %}value="{{ form.username.value }}"{%endif%} required>
+                                {{ form.username.errors }}
+                            </div>
+                            <div class="form-group">
+                                <label class="d-block text-left" for="signup-email">Email</label>
+                                <input id="signup-email" type="email" name="email" class="form-control"
+                                placeholder="Personal email address" aria-label="Email" aria-describedby="button-addon2"
+                                {% if form.email.value %}value="{{ form.email.value }}"{%endif%} required>
+                                {{ form.email.errors }}
+                            </div>
+                            <div class="form-group">
+                                <label class="d-block text-left" for="signin-password">Password</label>
+                                <input id="signin-password" type="password" name="password" class="form-control" placeholder="Password"
+                                aria-label="Password" aria-describedby="button-addon2" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="d-block text-left" for="signin-confirm-password">Confirm Password</label>
+                                <input id="signin-confirm-password" type="password" name="confirm_password" class="form-control"
+                                placeholder="Confirm Password" aria-label="Password" aria-describedby="button-addon2" required>
+                                {{ form.confirm_password.errors }}
+                            </div>
+                            <div class="form-group">
+                                <label class="d-block text-left" for="signup-role">Registering as</label>
+                                <select id="singup-role" name="role" class="custom-select">
+                                    <option value="A">Alumni</option>
+                                    <option value="S" {% if form.role.value == 'S' %}selected{%endif%}>Student</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-primary px-5 py-2" type="submit" value="login" name="submit">Sign In</button>
                         </form>
-                      </br>
-                        {% if form.errors%}
-                          {% for field in form %}
-                            {% if field.errors%}
-                              <div class="alert alert-danger" role="alert">
-                                  {{ field.errors }}
-                              </div>
-                            {% endif%}
-                          {% endfor %}
-                        {%endif%}
                     </div>
                 </div>
             </div>
