@@ -37,6 +37,7 @@ urlpatterns += [
     #path('account/reset_password/', views.ResetPasswordRequestView.as_view(), name="reset_password"),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('signup/',views.signup, name = "signup"),
+    path('complete_profile/',views.complete_profile,name = "complete_profile"),
     path('register/', views.register, name='register'),
     path('newregister/', views.new_register, name='new_register'),
     re_path(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', views.activate, name='activate'),

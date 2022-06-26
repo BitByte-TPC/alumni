@@ -14,6 +14,9 @@ from django.core.mail import EmailMessage
 from django.db.models import Count
 from django.contrib.auth.views import LoginView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.conf import settings
+from django.utils.html import strip_tags
+from django.core.mail import send_mail
 
 from .forms import RegisterForm, ProfileEdit, NewRegister, SignupForm
 from .token import account_activation_token
@@ -85,20 +88,48 @@ def signup(request):
             roll_no = request.POST['username'] # username and roll_no are same
             
             # user created using form
-            user = form.save()
-            user.is_active = False 
-            user.save()
+            user = User.objects.create_user(
+                username = form.cleaned_data.get('username'),
+                password = form.cleaned_data.get('password'),
+                email = form.cleaned_data.get('email'),
+                is_active = False
+                )
             
             # now making profile for user
             profile = Profile(user=user, roll_no=roll_no, role=role)
             profile.save()
             
-            return HttpResponse("Sign Up successfully done")
+             # sending mail for activation
+            current_site = get_current_site(request)
+            from_email = settings.DEFAULT_FROM_EMAIL
+            to = [user.email]
+            subject = "[noreply] SAC Account Activation"
+            html_message = render_to_string('AlumniConnect/account_activation_email.html', {
+                'user':user,
+                'domain':current_site,
+                'uid':urlsafe_base64_encode(force_bytes(user.pk)),
+                'token':account_activation_token.make_token(user)
+            })
+            plain_message = strip_tags(html_message)
+            send_mail(
+                subject = subject,
+                message = plain_message,
+                from_email = from_email,
+                recipient_list=to,
+                html_message = html_message,
+                fail_silently=False,
+            )
+
+            return render(request,"AlumniConnect/confirm_email.html")
         else:
             return render(request, "AlumniConnect/signup.html", {'form': form})
 
     form = SignupForm()
     return render(request, "AlumniConnect/signup.html", {'form': form})
+
+
+def complete_profile(request):
+    return HttpResponse('User need to complete profile')
 
 
 def register(request):
@@ -195,7 +226,7 @@ def activate(request, uidb64, token):
     try:
         uid = urlsafe_base64_decode(uidb64)
         print(uid)
-        u = User.objects.get(username=uid)
+        u = User.objects.get(pk=uid)
         print(u)
     except(TypeError, ValueError, OverflowError):
         u = None
@@ -204,7 +235,8 @@ def activate(request, uidb64, token):
         u.save()
         login(request, u)
         # return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
-        return HttpResponseRedirect('/password/')
+        messages.success(request, "Account Activated Successfully!")
+        return HttpResponseRedirect('/complete_profile/')
     else:
         return HttpResponse('Activation link is invalid!')
     return redirect('/')
