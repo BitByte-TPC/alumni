@@ -18,10 +18,10 @@ from django.conf import settings
 from django.utils.html import strip_tags
 from django.core.mail import send_mail
 
-from .forms import RegisterForm, ProfileEdit, NewRegister, SignupForm
+from .forms import CompleteProfileForm, RegisterForm, ProfileEdit, NewRegister, SignupForm
 from .token import account_activation_token
 from applications.events_news.models import Event, Attendees
-from applications.alumniprofile.models import Profile, Constants
+from applications.alumniprofile.models import Profile, Constants, Batch
 from applications.news.models import News
 from applications.gallery.models import Album
 from applications.geolocation.views import addPoints
@@ -129,7 +129,56 @@ def signup(request):
 
 
 def complete_profile(request):
-    return HttpResponse('User need to complete profile')
+    
+    user = request.user
+
+    try:
+        profile = Profile.objects.get(user = user)
+    except:
+        # admin does not have any profile
+        return redirect('home')
+    
+    
+    #creating context for form
+    batches = list(Batch.objects.all().order_by('batch'))
+    context = {'edit': False, 'programmes': Constants.PROG_CHOICES,'branches': Constants.BRANCH, 'batches': batches, 'admission_years': Constants.YEAR_OF_ADDMISSION,'user_roll_no':user.username,'user_email':user.email}
+    
+    
+    if request.method == "POST":
+        
+        # adding reg_no in post data
+        reg_no = reg_no_gen(request.POST['programme'], request.POST['branch'], request.POST['year_of_admission'])
+       
+       
+        POST_DATA_COPY = request.POST.copy()
+        # POST_DATA_COPY.update({'reg_no':reg_no})   this thing will not work here as reg_no is set as non editable so it can not be edited using modelForm
+        form = CompleteProfileForm(POST_DATA_COPY,request.FILES,instance = profile)
+        
+        if form.is_valid():
+            try:
+                first_name,last_name = request.POST['name'].split(' ',1)
+            except:
+                first_name,last_name = request.POST['name'],""
+            
+            # updating user fields
+            user.first_name = first_name
+            user.last_name = last_name
+            user.is_active = False # user will get activated after admin's verification
+            user.save()
+            
+            #saving profile
+            profile = form.save()
+            profile.reg_no = reg_no #setting registeration number 
+            profile.save()
+            return HttpResponse("Profile Completion done")
+        
+        else:
+            # this case will be handled when complete_profile and editprofile will be merged
+            return HttpResponse('Form have errors.')
+    else:
+        form = CompleteProfileForm()
+        return render(request,"AlumniConnect/profileedit.html",context = context)
+                        
 
 
 def register(request):
@@ -154,7 +203,7 @@ def register(request):
 
 def reg_no_gen(degree_, spec_, year):
     degree = {"B.Tech": "1", "B.Des": '2', "M.Tech": '3', "M.Des": '4', "PhD": '5'}
-    spec = {"NA": '00', "CSE": "01", "ECE": "02", "ME": "03", "MT": "04", "NS": "05", "DS": "06"}
+    spec = {"NA": '00', "CSE": "01", "ECE": "02", "ME": "03", "MT": "04", "NS": "05", "DS": "06","SM": "07"}
     last_reg_no = Profile.objects.filter(year_of_admission=year).order_by('user__date_joined').last()
     # print(last_reg_no)
     new_reg_no = (int(str(last_reg_no.reg_no)[-4:]) + 1) if last_reg_no else 1

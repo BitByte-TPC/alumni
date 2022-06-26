@@ -55,6 +55,7 @@ Alumni Connect
     }
   }
 </script>
+{% if edit %}
 <script type="text/javascript">
   document.getElementById('div_id_current_position').style.display = 'none';
   document.getElementById('div_id_current_organisation').style.display = 'none';
@@ -111,7 +112,101 @@ Alumni Connect
     $('#id_current_university').prop('required', false);
   })
 </script>
-
+{% else %}
+<script type="text/javascript">
+  // --------------------------------- FOR PROFILE COMPLETION FORM -----------------------------
+    function toggleCityInput() {
+      var city_checkbox = document.getElementById("cityCheckbox");
+      var city_input = document.getElementById("cityInput");
+      var city_select = document.getElementById("cityId");
+      if (city_checkbox.checked) {
+        city_select.removeAttribute("required");
+        // $('#city_input').attr('name','city');
+        // $('#cityId').attr('name','custom_city')
+        $('#cityInputWrapper').show();
+        $('#citySelectWrapper').hide();
+        city_input.setAttribute("required", "required");
+        city_select.selectedIndex = -1;
+      }
+      else {
+        city_input.removeAttribute("required");
+        // $('#city_input').attr('name','custom_city');
+        // $('#cityId').attr('name','city')
+        $('#citySelectWrapper').show();
+        $('#cityInputWrapper').hide();
+        city_select.setAttribute("required", "required");
+      }
+    }
+  
+    $('#profile-picture').change(function() {
+      var i = $(this).prev('label').clone();
+      var file = $('#profile-picture')[0].files[0].name;
+      $(this).prev('label').text(file);
+    });
+    $('#cur_pos').hide();
+    $('#cur_org').hide();
+    $('#date_of_joining').hide();
+    $('#past_experience').hide();
+    $('#cur_course').hide();
+    $('#cur_uni').hide();
+    $('#status1').click(function () {
+      $('#cur_pos').show();
+      $('#cur_org').show();
+      $('#date_of_joining').show();
+      $('#past_experience').show();
+      $('#cur_uni').hide();
+      $('#cur_course').hide();
+      $('#cur_position').prop('required', true);
+      $('#cur_organisation').prop('required', true);
+      $('#date_of_join').prop('required', true);
+      $('#past_exp').prop('required', true);
+      $('#cur_course').prop('required', false);
+      $('#cur_university').prop('required', false);
+    })
+    $('#status2').click(function () {
+      $('#cur_pos').hide();
+      $('#cur_org').hide();
+      $('#past_experience').hide();
+      $('#date_of_joining').hide();
+      $('#cur_course').show();
+      $('#cur_uni').show();
+      $('#cur_position').prop('required', false);
+      $('#cur_organisation').prop('required', false);
+      $('#date_of_join').prop('required', false);
+      $('#past_exp').prop('required', false);
+      $('#cur_course').prop('required', true);
+      $('#cur_university').prop('required', true);
+    })
+    $('#status3').click(function () {
+      $('#cur_pos').show();
+      $('#cur_org').show();
+      $('#date_of_joining').hide();
+      $('#past_experience').hide();
+      $('#cur_course').hide();
+      $('#cur_uni').hide();
+      $('#cur_position').prop('required', true);
+      $('#cur_organisation').prop('required', true);
+      $('#date_of_join').prop('required', false);
+      $('#past_exp').prop('required', false);
+      $('#cur_course').prop('required', false);
+      $('#cur_university').prop('required', false);
+    }) 
+    $('#status4').click(function () {
+      $('#cur_pos').hide();
+      $('#cur_org').hide();
+      $('#date_of_joining').hide();
+      $('#past_experience').hide();
+      $('#cur_course').hide();
+      $('#cur_uni').hide();
+      $('#cur_position').prop('required', false);
+      $('#cur_organisation').prop('required', false);
+      $('#date_of_join').prop('required', false);
+      $('#past_exp').prop('required', false);
+      $('#cur_course').prop('required', false);
+      $('#cur_university').prop('required', false);
+    }) 
+  </script>
+{% endif %}
 {% endblock %}
 
 {% block body %}
@@ -139,6 +234,19 @@ Alumni Connect
 <section id="services" class="bg-primary p-1">
 </section>
 
+{% if form.errors %}
+    {% for field in form %}
+          {% for error in field.errors %}
+            <div class="alert alert-danger alert-dismissible fade show my-0" role="alert">
+                    {{error|escape}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+          {% endfor %}
+    {% endfor %}
+{% endif %}
+
 <div class="bg-white">
   <div class="container text-left p-2 mx-auto">
     <div class="card shadow m-4 bg-light">
@@ -148,18 +256,22 @@ Alumni Connect
             {% if edit %}
             <h2>Edit Profile</h2>
             {% else %}
-            <h2>Registration Form</h2>
+            <h2>Profile Completion Form</h2>
             {% endif %}
             <hr>
           </div>
         </div>
         <div class="container text-center p-2 mx-auto">
           <div class="row text-left mx-auto p-2 p-sm-4 col-lg-12">
+            {% if edit %}
             <form method="POST" role="form" enctype="multipart/form-data" style="width:100%">
               {% csrf_token %}
               {% crispy form %}
               <input type="hidden" name="next" value="{{ request.path }}">
             </form>
+            {% else %}
+            {% include 'AlumniConnect/profile_form.html'%}
+            {% endif %}
           </div>
         </div>
       </div>
