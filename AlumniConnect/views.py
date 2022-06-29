@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django import forms
 from django.contrib import messages
 from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth import authenticate, login, update_session_auth_hash
+from django.contrib.auth import authenticate, login, update_session_auth_hash,logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
@@ -170,7 +170,12 @@ def complete_profile(request):
             profile = form.save()
             profile.reg_no = reg_no #setting registeration number 
             profile.save()
-            return HttpResponse("Profile Completion done")
+            
+            
+            # now this profile will be on admins portal,
+            # we are making user logout, as once admin approve this profile this user will become active and will be able to login.
+            logout(request)
+            return render(request,'AlumniConnect/profile_completion.html')
         
         else:
             # this case will be handled when complete_profile and editprofile will be merged
