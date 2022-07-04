@@ -17,7 +17,6 @@ from datetime import date
 from applications.alumniprofile.models import Profile
 from .models import EmailTemplate, EmailHistory
 
-
 ALLOWED_RECIPIENTS_PER_DAY = 500
 
 

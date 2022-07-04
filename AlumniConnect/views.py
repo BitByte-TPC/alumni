@@ -28,6 +28,7 @@ from applications.geolocation.views import addPoints
 import datetime
 from django.utils import timezone
 from itertools import chain
+from AlumniConnect.decorators import custom_login_required
 
 # Create your views here.
 
@@ -163,7 +164,6 @@ def complete_profile(request):
             # updating user fields
             user.first_name = first_name
             user.last_name = last_name
-            user.is_active = False # user will get activated after admin's verification
             user.save()
             
             #saving profile
@@ -256,7 +256,7 @@ def new_register(request):
     return render(request, 'AlumniConnect/profileedit.html', {'form': form, 'edit': False})
 
 
-@login_required
+@custom_login_required
 def profileedit(request, id):
     if request.user.username == id:
         profile = Profile.objects.get(roll_no=id)
@@ -296,7 +296,7 @@ def activate(request, uidb64, token):
     return redirect('/')
 
 
-@login_required
+@custom_login_required
 def change_password(request):
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
