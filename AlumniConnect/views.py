@@ -14,6 +14,7 @@ from django.core.mail import EmailMessage
 from django.db.models import Count
 from django.contrib.auth.views import LoginView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.forms import AuthenticationForm
 from django.conf import settings
 from django.utils.html import strip_tags
 from django.core.mail import send_mail
@@ -37,6 +38,39 @@ class LoginFormView(SuccessMessageMixin, LoginView):
     redirect_authenticated_user = True
     # success_url = '/'
     success_message = "Logged in successfully!"
+
+def my_login(request):
+    """
+     Login user only if user is also verified by admin
+    """
+    # checking if user is already logged in
+    if request.user and request.user.is_authenticated:
+        return redirect('home')
+    
+    if request.method == 'POST':
+        form = AuthenticationForm(request,data = request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            user = User.objects.get(username = username)
+            
+            # if user is admin no need to check other thing
+            if user.is_staff:
+                login(request,user)
+                return redirect('home')
+            
+            
+            # checking if user's profile is verified by admin or not
+            if user.profile.verify:
+                login(request,user)
+                return redirect('home')
+            else:
+                messages.error(request,"Profile either not completed or not verified by admin, can't login")
+                return redirect('home')
+        else:
+            return render(request,'AlumniConnect/login.html',{'form':form})
+        
+    form = AuthenticationForm()
+    return render(request,'AlumniConnect/login.html',{'form':form})
 
 
 def index(request):

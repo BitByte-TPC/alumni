@@ -33,7 +33,7 @@ urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += [
     path('', views.index, name='home'),
     path('admin/', admin.site.urls),
-    path('login/', views.LoginFormView.as_view(), name='login'),
+    path('login/', views.my_login, name='login'),
     #path('account/reset_password/', views.ResetPasswordRequestView.as_view(), name="reset_password"),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('signup/',views.signup, name = "signup"),
