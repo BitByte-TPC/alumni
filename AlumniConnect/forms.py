@@ -56,9 +56,9 @@ class ProfileEdit(forms.ModelForm):
         required=False,
     )
     country = forms.CharField(widget=forms.Select(
-        attrs={'id': 'countryId', 'class': 'countries order-alpha custom-select', 'name': 'country'}))
+        attrs={'id': 'countryId', 'class': 'countries order-alpha custom-select', 'name': 'country', 'onchange': 'addState()'}))
     state = forms.CharField(
-        widget=forms.Select(attrs={'id': 'stateId', 'class': 'states order-alpha custom-select', 'name': 'state'}))
+        widget=forms.Select(attrs={'id': 'stateId', 'class': 'states order-alpha custom-select', 'name': 'state', 'onchange': 'addCity()'}))
     city = forms.CharField(
         widget=forms.Select(attrs={'id': 'cityId', 'class': 'cities order-alpha custom-selects', 'name': 'city'}))
     linkedin = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Linkedin URL'}))

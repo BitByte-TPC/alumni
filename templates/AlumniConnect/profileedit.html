@@ -9,10 +9,18 @@ Alumni Connect
 
 {% block javascript %}
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="//geodata.solutions/includes/countrystatecity.js"></script>
+{% comment %} <script src="//geodata.solutions/includes/countrystatecity.js"></script> {% endcomment %}
 <script type="text/javascript">
+
   function load() {
-    console.log("inside");
+    $.get('https://countriesnow.space/api/v0.1/countries/',function (data, textStatus, jqXHR) {
+      $.each(data.data,function(i,country){
+        $('#countryId').append($(`<option></option>`)
+        .attr("value", country.country)
+        .text(country.country));
+
+      });
+  });
     $('#countryId')
       .append($("<option></option>")
         .attr("value", '{{C}}')
@@ -54,6 +62,54 @@ Alumni Connect
       city_selection.setAttribute("required", "required");
     }
   }
+  $('#countryId').on('change', function() {
+    const cur=this.value;
+    $('#stateId').empty();
+    $('#stateId')
+    .append($("<option></option>")
+      .attr("value", '')
+      .text('Loading state list...'));
+    $.ajax({
+      type: 'POST',
+      url:'https://countriesnow.space/api/v0.1/countries/states',
+      data: {country:cur},
+      success: function(data) {
+        $('#stateId').empty();
+        $.each(data.data.states,function(i,state){
+          $('#stateId').append($(`<option></option>`)
+          .attr("value", state.name)
+          .text(state.name));
+  
+        });
+      }
+  });
+  });
+  $('#stateId').on('change', function() {
+    const curState=this.value;
+    const curCountry=$('#countryId').val();
+    console.log(curCountry,curState);
+    $('#cityId').empty();
+    $('#cityId')
+    .append($("<option></option>")
+      .attr("value", '')
+      .text('Loading city list...'));
+    $.ajax({
+      type: 'POST',
+      url:'https://countriesnow.space/api/v0.1/countries/state/cities',
+      data: {country:curCountry,state:curState},
+      success: function(data) {
+        $('#cityId').empty(); 
+        $.each(data.data,function(i,city){
+          console.log(city)
+          $('#cityId').append($(`<option></option>`)
+          .attr("value", city)
+          .text(city));
+  
+        });
+      }
+  });
+  });
+ 
 </script>
 <script type="text/javascript">
   document.getElementById('div_id_current_position').style.display = 'none';
