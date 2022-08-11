@@ -33,7 +33,7 @@
         </div>
 
         <div class="container text-left mt-5 pt-4 shadow-lg rounded">
-            <form name="new_post" action="{% url 'jobs:post' %}" method="POST">{% csrf_token %}
+            <form name="new_post" action="{% url 'jobs:add_opportunity' %}" method="POST">{% csrf_token %}
 
                 <div class="row m-4">
                     <div class="col text-center">

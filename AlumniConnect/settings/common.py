@@ -26,7 +26,7 @@ INSTALLED_APPS = [
     'applications.awards',
     'applications.blog',
     'applications.events_news',
-    'applications.job_posting',
+    'applications.jobs',
     'applications.adminportal',
     'applications.members',
     'applications.news',

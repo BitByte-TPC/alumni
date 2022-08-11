@@ -6,62 +6,14 @@
 {% endblock %}
 
 {% block css %}
-    <style type="text/css">
-
-        .icon {
-            color: #324b7e !important;
-            margin-right: 8px !important;
-        }
-
-        .heading {
-            color: rgba(0, 0, 0, 0.5) !important;
-            margin-bottom: 7px;
-            font-size: 13px;
-        }
-
-        .detail {
-            color: rgb(0, 0, 0);
-            font-size: 15px;
-        }
-
-        .type {
-            padding: 4px 7px;
-            width: max-content;
-            background-color: #324b7e;
-            border-radius: 15px;
-            color: rgb(255, 255, 255);
-        }
-
-        #more p {
-            margin-bottom: 4px;
-            white-space: pre-wrap;
-        }
-
-        #more .colapse:not(.show) {
-            display: block;
-            height: 1.5rem;
-            overflow: hidden;
-        }
-
-        #more .colapse.collapsing {
-            height: 1.5rem;
-        }
-
-        #more a.collapsed::after {
-            content: 'Read More';
-        }
-
-        #more a:not(.collapsed)::after {
-            content: 'Read Less';
-        }
-
-    </style>
+<link rel="stylesheet" href="{% static 'jobs/job_home.css' %}" />
 {% endblock %}
 
 {% block body %}
     {% include 'globals/navbar.html' %}
     {% include 'globals/theme.html' with heading='Jobs' %}
 
+    <!-- search section -->
     <section class="bg-light" style="padding:0 !important;">
         <div class="container text-left mx-auto bg-light" style="padding:0 !important;">
             <div class="row w-100 mx-auto bg-primary rounded-bottom">
@@ -114,7 +66,7 @@
                         {% endif %}
                     </div>
 
-                    <a href="{% url 'jobs:post' %}" class="btn btn-dark btn-outline-primary mb-2 text-white">
+                    <a href="{% url 'jobs:add_opportunity' %}" class="btn btn-dark btn-outline-primary mb-2 text-white">
                         <i class="fa fa-plus-square mr-2" style="color:inherit !important" aria-hidden="true"></i>
                         Want to add an opportunity?
                     </a>
@@ -124,7 +76,7 @@
         </div>
     </section>
 
-
+    <!-- job opportunity list -->
     <section class="bg-light" style="padding:2rem 0 2rem;">
         <div class="container text-left mx-auto bg-light" style="padding-top:0 !important">
 
@@ -140,23 +92,23 @@
 
             {% if ls1 %}
                 <div class="row">
-                    {% for i,j in ls1 %}
+                    {% for job,j in ls1 %}
                         <div class="col-lg-6 px-5">
                             <div class="card mb-5 shadow-lg">
                                 <div class="card-header bg-primary font-open-sans">
                                     <div class="row">
 
                                         <div class="col mx-auto text-left">
-                                            <a style="color:white; font-size: 25px">{{ i.position|title }}</a><br>
-                                            <a style="color: rgba(255, 255, 255, 0.7); font-size: 18px;">{{ i.company|title }}</a>
+                                            <a style="color:white; font-size: 25px">{{ job.job_role|title }}</a><br>
+                                            <a style="color: rgba(255, 255, 255, 0.7); font-size: 18px;">{{ job.org_name|title }}</a>
                                         </div>
 
                                         <div class="col-4 mx-auto text-right">
-                                            <a href="{{ i.link }}" class="btn btn-light">
+                                            <a href="{{ job.link }}" class="btn btn-light">
                                                 Apply <i class="fa fa-link"></i>
                                             </a>
                                             {% if request.user.is_superuser %}
-                                                <a href="{% url 'jobs:del1' i.id %}" class="btn btn-danger mt-1"
+                                                <a href="{% url 'jobs:delete_job' job.id %}" class="btn btn-danger mt-1"
                                                    role="button">Remove <i class="fa fa-trash-alt text-white"></i></a>
                                             {% endif %}
                                         </div>
@@ -170,7 +122,7 @@
                                         <div class="row mb-4">
                                             <div class="col">
                                                 <i class="fa fa-map-marker-alt" aria-hidden="true"></i>
-                                                <a class="detail">{{ i.type }} in {{ i.location|title }}</a>
+                                                <a class="detail">{{ job.type }} in {{ job.location|title }}</a>
                                             </div>
                                         </div>
 
@@ -179,19 +131,19 @@
                                                 <div class="heading">
                                                     <i class="fa fa-money-bill" aria-hidden="true"></i><a>Stipend</a>
                                                 </div>
-                                                {% if i.stipend != None %}
-                                                    <a class="detail">₹ {{ i.stipend }}/ Month</a>
+                                                {% if job.stipend != None %}
+                                                    <a class="detail">₹ {{ job.stipend }}/ Month</a>
                                                 {% else %}
                                                     <a class="detail">Unknown</a>
                                                 {% endif %}
                                             </div>
 
-                                            {% if i.exp_req %}
+                                            {% if job.exp_req %}
                                                 <div class="col-md-4 mb-2">
                                                     <div class="heading">
                                                         <i class="fa fa-briefcase"></i><a>Exp Required</a>
                                                     </div>
-                                                    <a class="detail">{{ i.exp_req }} Years</a>
+                                                    <a class="detail">{{ job.exp_req }} Years</a>
                                                 </div>
                                             {% endif %}
                                         </div>
@@ -201,31 +153,31 @@
                                                 <div class="heading">
                                                     <i class="fa fa-calendar"></i><a>Apply By</a>
                                                 </div>
-                                                <a class="detail">{{ i.last_date }}</a>
+                                                <a class="detail">{{ job.last_date }}</a>
                                             </div>
 
                                             <div class="col-md-4 mb-2">
                                                 <div class="heading">
                                                     <i class="fa fa-calendar"></i><a>Join Date</a>
                                                 </div>
-                                                {% if i.join_date %}
-                                                    <a class="detail">{{ i.join_date }}</a>
+                                                {% if job.join_date %}
+                                                    <a class="detail">{{ job.join_date }}</a>
                                                 {% else %}
                                                     <a class="detail">Immediately</a>
                                                 {% endif %}
                                             </div>
 
-                                            {% if i.tenure %}
+                                            {% if job.tenure %}
                                                 <div class="col-md-4 mb-2">
                                                     <div class="heading">
                                                         <i class="fa fa-calendar"></i><a>Tenure</a>
                                                     </div>
-                                                    <a class="detail">{{ i.tenure }} Months</a>
+                                                    <a class="detail">{{ job.tenure }} Months</a>
                                                 </div>
                                             {% endif %}
                                         </div>
 
-                                        {% if i.desc %}
+                                        {% if job.desc %}
                                             <div class="row mb-4">
                                                 <div class="col">
                                                     <div class="heading">
@@ -234,7 +186,7 @@
                                                     <div id="more">
                                                         <p class="detail colapse"
                                                            id="collapseExample{{ forloop.counter }}"
-                                                           aria-exapanded="false">{{ i.desc }}</p>
+                                                           aria-exapanded="false">{{ job.desc }}</p>
                                                         <a role="button" class="collapsed" data-toggle="collapse"
                                                            href="#collapseExample{{ forloop.counter }}"
                                                            aria-expanded="false" aria-controls="collapseExample"

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Posting
+from .models import Job
 from datetime import date
 from django.contrib import messages
 from django.shortcuts import redirect
@@ -15,32 +15,35 @@ def is_superuser(user):
 
 @login_required
 def index(request):
-    posts = Posting.objects.all().filter(active=True).order_by('-posting_date')
-    total = len(posts)
+    posts = Job.objects.all().filter(active=True).order_by('-posting_date') #Opportunity
+    total = len(posts) #total_job_opp
     page = request.GET.get('page', 1)
     if posts:
         paginator = Paginator(posts, 10)
         try:
-            ls2 = paginator.page(page)
+            # ls2 = current page
+            ls2 = paginator.page(page) #current_page
         except PageNotAnInteger:
             ls2 = paginator.page(1)
         except EmptyPage:
             ls2 = paginator.page(paginator.num_pages)
         if request.user.is_superuser:
-            ls = []
+            # ls = list of person
+            ls = [] 
             for i in posts:
                 ls.append(i.person)
+            # ls1 paired list of ls2 and ls
             ls1 = zip(ls2, ls)
-            return render(request, "job_posting/home.html", {'ls1': ls1, 'ls2': ls2, 'total': total})
+            return render(request, "jobs/job_home.html", {'ls1': ls1, 'ls2': ls2, 'total': total})
         else:
             ls = []
             for i in posts:
                 ls.append(i.person)
             ls1 = zip(ls2, ls)
-            return render(request, "job_posting/home.html", {'ls1': ls1, 'ls2': ls2, 'total': total})
+            return render(request, "jobs/job_home.html", {'ls1': ls1, 'ls2': ls2, 'total': total})
     else:
         ls1 = []
-        return render(request, "job_posting/home.html", {'ls1': ls1, 'total': total})
+        return render(request, "jobs/job_home.html", {'ls1': ls1, 'total': total})
 
 
 @login_required
@@ -51,11 +54,11 @@ def filter(request):
     type = request.POST.get('type')
 
     if position != 'all' and type != 'all':
-        posts = Posting.objects.filter(position=position, type=type, active=True).order_by('-posting_date')
+        posts = Job.objects.filter(position=position, type=type, active=True).order_by('-posting_date')
     elif position != 'all' and type == 'all':
-        posts = Posting.objects.filter(position=position, active=True).order_by('-posting_date')
+        posts = Job.objects.filter(position=position, active=True).order_by('-posting_date')
     elif position == 'all' and type != 'all':
-        posts = Posting.objects.filter(type=type, active=True).order_by('-posting_date')
+        posts = Job.objects.filter(type=type, active=True).order_by('-posting_date')
     else:
         return redirect('jobs:index', permanent=True)
 
@@ -63,26 +66,28 @@ def filter(request):
         messages.success(request, "Found " + str(posts.count()) + " posts matching your query!")
         paginator = Paginator(posts, 10)
         try:
+            # ls2 = current page
             ls2 = paginator.page(page)
         except PageNotAnInteger:
             ls2 = paginator.page(1)
         except EmptyPage:
             ls2 = paginator.page(paginator.num_pages)
-
+        # ls = list of persons
         ls = []
         for i in posts:
             ls.append(i.person)
+            # ls1 paired list of ls2 and ls
             ls1 = zip(ls2, ls)
-        return render(request, "job_posting/home.html", {'ls1': ls1, 'ls2': ls2, 'viewname': viewname})
+        return render(request, "jobs/job_home.html", {'ls1': ls1, 'ls2': ls2, 'viewname': viewname})
 
     else:
         ls1 = []
         messages.error(request, "No posts matching your current requirements.")
-        return render(request, "job_posting/home.html", {'ls1': ls1, 'viewname': viewname})
+        return render(request, "jobs/job_home.html", {'ls1': ls1, 'viewname': viewname})
 
 
 @login_required
-def post(request):
+def add_opportunity(request):
     if request.method == 'POST':
         try:
             type = request.POST.get('type')
@@ -101,10 +106,9 @@ def post(request):
             join_date = request.POST.get('join_date') if request.POST.get('join_date') else None
             person = User.objects.get(username=str(request.user))
 
-            insert = Posting.objects.create(type=type, position=position, company=company, location=location, desc=desc,
-                                            stipend=stipend, exp_req=exp_req, last_date=last_date, join_date=join_date,
-                                            tenure=tenure, link=link, posting_date=date.today(),
-                                            person=person, active=True)
+            insert = Job.objects.create(type=type, job_role=position, org_name=company, location=location, job_desc=desc,
+                                        stipend=stipend, exp_req=exp_req, last_date=last_date, join_date=join_date,
+                                        tenure=tenure, link=link, posting_date=date.today(), person=person, active=True)
             messages.success(request, "Job opportunity added successfully!")
 
         except Exception as e:
@@ -113,7 +117,7 @@ def post(request):
 
         return redirect('jobs:index', permanent=True)
 
-    return render(request, "job_posting/post.html")
+    return render(request, "jobs/add_opportunity.html")
 
 
 @login_required
@@ -121,9 +125,9 @@ def post(request):
     is_superuser, redirect_field_name=None,
     login_url=reverse_lazy('home')
 )
-def del1(request, i_id=None):
+def delete_job(request, i_id=None):
     if i_id:
-        job_post = Posting.objects.get(id=i_id)
+        job_post = Job.objects.get(id=i_id)
         job_post.active = False
         job_post.save()
         messages.success(request, "Job opportunity removed successfully!")
