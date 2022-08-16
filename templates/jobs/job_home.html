@@ -90,9 +90,9 @@
             {% endfor %}
 
 
-            {% if ls1 %}
+            {% if job_list %}
                 <div class="row">
-                    {% for job,j in ls1 %}
+                    {% for job, person in job_list %}
                         <div class="col-lg-6 px-5">
                             <div class="card mb-5 shadow-lg">
                                 <div class="card-header bg-primary font-open-sans">
@@ -210,22 +210,22 @@
             {% endif %}
 
 
-            {% if ls2.has_other_pages %}
+            {% if current_page.has_other_pages %}
                 <ul class="pagination" style="justify-content: center;">
-                    {% if ls2.has_previous %}
-                        <li class="m-1"><a href="?page={{ ls2.previous_page_number }}">&laquo;</a></li>
+                    {% if current_page.has_previous %}
+                        <li class="m-1"><a href="?page={{ current_page.previous_page_number }}">&laquo;</a></li>
                     {% else %}
                         <li class="disabled m-1"><span>&laquo;</span></li>
                     {% endif %}
-                    {% for i in ls2.paginator.page_range %}
-                        {% if ls2.number == i %}
+                    {% for i in current_page.paginator.page_range %}
+                        {% if current_page.number == i %}
                             <li class="active m-1"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
                         {% else %}
                             <li class="m-1"><a href="?page={{ i }}">{{ i }}</a></li>
                         {% endif %}
                     {% endfor %}
-                    {% if ls2.has_next %}
-                        <li class="m-1"><a href="?page={{ ls2.next_page_number }}">&raquo;</a></li>
+                    {% if current_page.has_next %}
+                        <li class="m-1"><a href="?page={{ current_page.next_page_number }}">&raquo;</a></li>
                     {% else %}
                         <li class="disabled m-1"><span>&raquo;</span></li>
                     {% endif %}
