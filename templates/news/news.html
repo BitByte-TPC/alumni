@@ -1,0 +1,71 @@
+{% extends 'globals/base.html' %}
+{% load static %}
+
+{% block title %}
+    News
+{% endblock %}
+
+{% block body %}
+    {% include 'globals/navbar.html' %}
+    <div class="p-0 m-0 masthead-bg w-100 parallax shadow-sm" style="min-height:250px !important; height:270px !important; background-position-y: 270px"></div>
+    <div style="height:150px; min-height:150px;"></div>
+    
+    <div class="events-container container text-left p-2 mx-auto">
+        <div class="card shadow-lg bg-light m-4">
+            <div class="row no-gutters p-3">
+                <div class="col-auto mx-auto text-center">
+                    <div class="p-1 pb-3 pb-lg-1">
+                        {% if picture %}
+                        <img src="{{ picture.url }}" alt="" height= 200px width= 200px>
+                        {% else %}
+                        <img src="{% static 'AlumniConnect/img/news.jpg' %}" alt="" height= 200px width= 200px>
+                        {% endif %}
+                    </div>
+                    <!-- Social Sharing -->
+                    <div class="dropdown d-inline-block mx-auto">
+                        <button class="btn btn-primary btn-sm px-4 py-2 mt-2 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Share
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <!-- Dropdown menu links -->
+                            <a href="https://www.facebook.com/sharer.php?u={{ request.build_absolute_uri }}" target="_blank" title="Facebook Share" class="dropdown-item" >Facebook</a>
+    
+                            <a href="https://twitter.com/share?text={{ title|striptags|urlencode }}&url={{ request.build_absolute_uri }}" target="_blank" title="Twitter Share" class="dropdown-item"  >Twitter</a>
+    
+                            <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}" target="_blank" title="LinkedIn Share"  class="dropdown-item" >LinkedIn</a>
+    
+                            <a href="https://api.whatsapp.com/send?text={{ request.build_absolute_uri }}" target="_blank"   title="Whatsapp Share" class="dropdown-item" >Whatsapp</a>
+    
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="card-block px-2">
+                        <h2 class="card-title">{{title|safe}}</h2>
+                        <!-- <p class="m-2 font-weight-normal mb-3"> -->
+                        <p class="m-2 font-weight-normal mb-3">
+                            <span class="d-inline-block pb-2 pb-md-0">
+                                <i class="fas fa-table"></i>
+                                {{ date|date:"d F, o" }}
+                                &nbsp;
+                            </span>
+                            <span class="d-inline-block">
+                                <i class="fas fa-user"></i>&nbsp;
+                                {{ by}}
+                            </span>
+                        </p>
+                        <p>{{description|safe}}</p>
+                        <br>
+                    </div>
+                    <div class="w-100"></div>
+                </div>
+            </div>
+            <!-- Footer 
+                <div class="card-footer w-100 text-muted">
+                    Footer stating cats are CUTE little animals
+                </div>
+            -->
+        </div>
+    </div>
+{% include 'globals/footer.html' %}
+{% endblock %}

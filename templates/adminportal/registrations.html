@@ -1,0 +1,96 @@
+{% extends 'globals/base.html' %}
+{% load static %}
+
+{% block title %}
+    Mail Service
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#search").autocomplete({
+            source: "/adminportal/approve_registration/",
+            minLength: 3,
+            open: function () {
+                setTimeout(function () {
+                    $('.ui-autocomplete').css('z-index', 99).css('max-height', '200px').css(
+                        'overflow-y', 'auto').css('overflow-x', 'hidden')
+                }, 0);
+            }
+        });
+    });
+</script>
+{% endblock %}
+
+{% block body %}
+    {% include 'globals/navbar.html' %}
+    {% include 'adminportal/masthead.html' %}
+      
+    <section id="services" class="bg-primary p-1">
+        <div class="container my-auto">
+            <div class="row">
+                <div class="col-12 mx-auto align-middle text-center">
+                    <a href="{% url 'adminportal:index' %}" class="btn btn-light" tabindex="-1" role="button" aria-disabled="true">Dashboard</a>
+                    <a href="{% url 'adminportal:mailservice' %}" class="btn btn-light" tabindex="-1" role="button" aria-disabled="true">Mailing Service</a>
+                    <a href="{% url 'adminportal:registrations' %}" class="btn btn-outline-light disabled" tabindex="-1" role="button" aria-disabled="true">Registrations</a>
+                    <a href="/admin/" class="btn btn-light" tabindex="-1" role="button" aria-disabled="true">Database</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <div class="container px-5 px-sm-2 my-5">
+        <div class="row">
+            <div class="col-12">
+
+                {% if messages %}
+                    {% for message in messages %}
+                        {% if message.tags == 'error' %}
+                            <div class="alert alert-danger" role="alert">{{ message }}</div>
+                        {% else %}
+                            <div class="alert alert-success" role="alert">{{ message }}</div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+
+                <h3>Pending Registrations ({{ pending|length }})</h3>
+
+                {% for profile in pending %}
+                <div class="card mb-3">
+                    <div class="row no-gutters">
+                        <div class="col-md-3">
+                            <img class="img-thumbnail" src="{{ profile.profile_picture.url }}" alt="Profile Picture" style="max-height:220px">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <b><a href="{% url 'admin:alumniprofile_profile_change' profile.roll_no %}" target="_blank">{{ profile.name }}</a></b> 
+                                    ({{ profile.roll_no }})
+                                    <a class="fab fa-linkedin" href="{{ profile.linkedin }}" target="_blank"></a>
+                                    {% if profile.facebook %}<a class="fab fa-facebook-square" href="{{ profile.facebook }}" target="_blank"></a>{% endif %}
+                                </h5>
+                                <div class="card-text mb-2">
+                                    <p class="mb-1">Contacts: {{ profile.email }}, {{ profile.mobile1 }}</p>
+                                    <p class="mb-1">Programme: {{ profile.programme }} in {{ profile.branch }} ({{ profile.year_of_admission }}-{{ profile.batch }})</p>
+                                    <p class="mb-1"><u>Alumni Registration Number:</u> {{ profile.reg_no }}</p>
+                                </div>
+                                <p class="card-text"><small class="text-muted">Joined on {{ profile.user.date_joined }}</small></p>
+                                <form method="POST" action="{% url 'adminportal:registrations' %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="id" value="{{profile.roll_no}}"/>
+                                    <button class="btn btn-success" type="submit" name="approve">Approve & Send Mail</button>
+                                    <button class="btn btn-danger" type="submit" name="decline">Decline</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+
+
+    {% include 'globals/footer.html' %}
+{% endblock %}

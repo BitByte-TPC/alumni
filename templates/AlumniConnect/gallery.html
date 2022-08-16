@@ -1,0 +1,100 @@
+{% extends 'globals/base.html' %}
+{% load static %}
+
+{% block title %} 
+  Gallery
+{% endblock %}
+
+{% block body %}
+{% include 'globals/navbar.html' %}
+    <div class=" p-0 m-0 masthead-bg w-100 h-100 parallax" style="background-position-y: -25rem"></div>
+
+    <header class="masthead text-center text-white d-flex" style="height:0px;min-height:300px">
+      <div class="container my-auto" style="margin-bottom:50px !important;">
+        <div class="row">
+          <div class="col-lg-8 mx-auto align-middle">
+            <h1 class="text-uppercase mt-4">
+              <strong>GALLERY</strong>
+            </h1>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section id="services" class="bg-primary p-1">
+    </section>
+
+    <section class="bg-white" id="about">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-left p-2 mx-auto">
+            <div class="row">
+
+                <div class="col-lg-3 col-md-4 col-sm-6 p-2">
+                  <a href="" >
+                    <div class="card w-100 shadow-sm p-2" style="max-width: 24rem;">
+                      <img src="{% static 'AlumniConnect/img/coll.jpg' %}" class="card-img-top" alt="">
+                      <div class="card-body font-open-sans">
+                        <h5 class="card-title font-weight-normal">Name of some event</h5>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 p-2">
+                  <a href="" >
+                    <div class="card w-100 shadow-sm p-2" style="max-width: 24rem;">
+                      <img src="{% static 'AlumniConnect/img/coll.jpg' %}" class="card-img-top" alt="">
+                      <div class="card-body font-open-sans">
+                        <h5 class="card-title font-weight-normal">Name of some event</h5>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 p-2">
+                  <a href="" >
+                    <div class="card w-100 shadow-sm p-2" style="max-width: 24rem;">
+                      <img src="{% static 'AlumniConnect/img/coll.jpg' %}" class="card-img-top" alt="">
+                      <div class="card-body font-open-sans">
+                        <h5 class="card-title font-weight-normal">Name of some event</h5>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 p-2">
+                  <a href="" >
+                    <div class="card w-100 shadow-sm p-2" style="max-width: 24rem;">
+                      <img src="{% static 'AlumniConnect/img/coll.jpg' %}" class="card-img-top" alt="">
+                      <div class="card-body font-open-sans">
+                        <h5 class="card-title font-weight-normal">Name of some event</h5>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 p-2">
+                  <a href="" >
+                    <div class="card w-100 shadow-sm p-2" style="max-width: 24rem;">
+                      <img src="{% static 'AlumniConnect/img/coll.jpg' %}" class="card-img-top" alt="">
+                      <div class="card-body font-open-sans">
+                        <h5 class="card-title font-weight-normal">Name of some event</h5>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 p-2">
+                  <a href="" >
+                    <div class="card w-100 shadow-sm p-2" style="max-width: 24rem;">
+                      <img src="{% static 'AlumniConnect/img/coll.jpg' %}" class="card-img-top" alt="">
+                      <div class="card-body font-open-sans">
+                        <h5 class="card-title font-weight-normal">Name of some event</h5>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    {% include 'globals/footer.html' %}
+{% endblock %}

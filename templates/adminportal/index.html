@@ -1,0 +1,33 @@
+{% extends 'globals/base.html' %}
+{% load static %}
+
+{% block title %}
+    Mail Service
+{% endblock %}
+
+{% block body %}
+    {% include 'globals/navbar.html' %}
+    {% include 'adminportal/masthead.html' %}
+      
+    <section id="services" class="bg-primary p-1">
+        <div class="container my-auto">
+            <div class="row">
+                <div class="col-12 mx-auto align-middle text-center">
+                    <a href="{% url 'adminportal:index' %}" class="btn btn-outline-light disabled" tabindex="-1" role="button" aria-disabled="true">Dashboard</a>
+<!--                    <a href="#" class="btn btn-light" tabindex="-1" role="button" aria-disabled="true">Alumni Card</a>-->
+<!--                    <a href="#" class="btn btn-light" tabindex="-1" role="button" aria-disabled="true">Mail Templates</a>-->
+                    <a href="{% url 'adminportal:mailservice' %}" class="btn btn-light" tabindex="-1" role="button" aria-disabled="true">Mailing Service</a>
+                    <a href="{% url 'adminportal:registrations' %}" class="btn btn-light" tabindex="-1" role="button" aria-disabled="true">Registrations</a>
+<!--                    <a href="#" class="btn btn-light" tabindex="-1" role="button" aria-disabled="true">Error Logs</a>-->
+                    <a href="/admin/" class="btn btn-light" tabindex="-1" role="button" aria-disabled="true">Database</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <div class="container px-5 px-sm-2 my-5">
+        Dashboard page to be updated... :)
+    </div>
+
+    {% include 'globals/footer.html' %}
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends 'globals/base.html' %}
+{% load static %}
+
+{% block title %}
+YearBook
+{% endblock %}
+
+{% block body %}
+{% include 'globals/navbar.html' %}
+
+<div class=" p-0 m-0 masthead-bg w-100 parallax shadow-sm"
+    style="min-height:250px !important;height:270px !important;background-position-y: -400px">
+
+</div>
+
+<div style="height:170px;min-height: 150px;">
+</div>
+
+<section class="bg-transparent" style="padding-top:3rem">
+    <div class="container text-left p-2 mx-auto bg-light">
+
+        <div class="row w-100">
+            <div class="col text-center">
+                <h2 class="font-open-sans"><span class="badge btn-block badge-primary"> Search Result
+                    </span></h2>
+            </div>
+            <div class="search-container" style="margin:6px;">
+                <form method="GET" action="{% url 'members:search' %}">
+                    <input type="text" placeholder="Search.." name="search" value={{val}}>
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+        </div>
+
+        <div class="row p-4">
+            {% for item in data %}
+            <div class="col-lg-3 p-2">
+                    <span class="border border-primary">
+                        <div class="card-body">
+                            <p class="text-center card-title">
+                                <a href="{% url 'profile:profile' item.roll_no %}">
+                                    {% if item.profile_picture %}
+                                    
+                                    <img  src="{% thumbnail item.profile_picture  200x200 crop %}" class=" img-fluid " alt="">
+                                    {% else %}
+                                    <img src="{% static 'AlumniConnect/img/user.png' %}" class="card-img-top img-fluid"
+                                        alt="" height="200px" width="200px">
+                                    {% endif %}
+
+                            </p>
+                            <p class="card-title font-open-sans font-weight-bold">{{item.name}}</a></p>
+                            <p class="font-italic card-text font-open-sans"><i class="fas fa-map-marker-alt"></i>
+                                {{item.city}}</p>
+
+                            <h4 class="text-center card-text">
+
+                                {% if item.facebook %}<a href="{{item.facebook}}" target="_blank"><i
+                                        class="fab fa-facebook-square"></i></a>{% endif %}
+                                {% if item.linkedin %}<a href="{{item.linkedin}}" target="_blank"><i
+                                        class="fab fa-linkedin"></i></a>{% endif %}
+                                {% if item.instagram %}<a href="https://www.instagram.com/{{item.instagram}}" target="_blank"><i
+                                        class="fab fa-instagram"></i></a>{% endif %}
+                                {% if item.website %}<a href="{{item.website}}" target="_blank"><i
+                                        class="fas fa-link"></i></a>{% endif %}
+
+                            </h4>
+
+
+                        </div>
+
+
+                </div>
+                </span>
+
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% include 'globals/footer.html' %}
+{% endblock %}

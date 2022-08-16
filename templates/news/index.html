@@ -1,0 +1,71 @@
+{% extends 'globals/base.html' %}
+{% load static %}
+
+{% block title %}
+    News
+{% endblock %}
+
+{% block body %}
+    {% include 'globals/navbar.html' %}
+    <div class="p-0 m-0 masthead-bg w-100 parallax shadow-sm" style="min-height:300px !important; height:300px !important; background-position-y: 300px"></div>
+    <!-- <div style="height:150px; min-height:150px;"></div> -->
+
+    <header class="masthead text-center text-white d-flex" style="height:0px; min-height:300px;">
+        <div class="container my-auto" style="margin-bottom:50px !important;">
+            <div class="row">
+                <div class="col-lg-8 mx-auto align-middle">
+                <h1 class="text-uppercase mt-4">
+                    <strong>NEWS</strong>
+                </h1>
+                </div>
+            </div>
+        </div>
+    </header>
+      
+    <section id="services" class="bg-primary p-1">
+    </section>
+    
+    <div class="events-container container text-left p-2 mx-auto my-4">
+        {% for item in news %}
+            <div class="card shadow-lg bg-light m-4">
+                <div class="row no-gutters p-3">
+                    <div class="col-auto mx-auto p-1 pb-3 pb-lg-1">
+                        {% if item.picture %}
+                        <img src="{{ item.picture.url }}" alt="" height= 200px width= 200px>
+                        {% else %}
+                        <img src="{% static 'AlumniConnect/img/news.jpg' %}" alt="" height= 200px width= 200px>
+                        {% endif %}
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="card-block px-2">
+                            <h2 class="card-title m-0 pb-0 pb-lg-3">{{item.title|safe}}</h2>
+                            <!-- <p class="m-2 font-weight-normal mb-3"> -->
+                            <p class="font-weight-normal mx-2 mb-3">
+                                <span class="d-inline-block pb-2">
+                                    <i class="fas fa-table"></i>
+                                    {{ item.date|date:"d F, o" }}
+                                </span>
+                                <br>
+                                <span class="d-inline-block pb-3">
+                                    <i class="fas fa-user"></i>&nbsp;
+                                    {{ item.by }}
+                                </span>
+                            </p>  
+                            <a href="{% url 'news:news' id=item.news_id %}" class="btn btn-primary btn-sm card-link px-4 py-2">View</a>
+                        </div>
+                        <div class="card-footer text-center m-n3">
+                            <a href="{% url 'news:news' id=item.news_id %}" class="btn btn-primary btn-sm card-link px-4 py-2">View</a>
+                        </div>
+                        <div class="w-100"></div>
+                    </div>
+                </div>
+                <!-- Footer 
+                    <div class="card-footer w-100 text-muted">
+                        Footer stating cats are CUTE little animals
+                    </div>
+                -->
+            </div>
+            {% endfor %}
+        </div>
+    {% include 'globals/footer.html' %}
+{% endblock %}

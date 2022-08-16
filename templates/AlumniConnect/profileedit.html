@@ -1,0 +1,283 @@
+{% extends 'globals/base.html' %}
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block title %}
+Alumni Connect
+{% endblock %}
+
+{% block javascript %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="//geodata.solutions/includes/countrystatecity.js"></script>
+<script type="text/javascript">
+  function load() {
+    console.log("inside");
+    $('#countryId')
+      .append($("<option></option>")
+        .attr("value", '{{C}}')
+        .text('{{C}}'));
+
+    $('#stateId')
+      .append($("<option></option>")
+        .attr("value", '{{s}}')
+        .text('{{s}}'));
+
+    $('#cityId')
+      .append($("<option></option>")
+        .attr("value", '{{c}}')
+        .text('{{c}}'));
+    $('#div_id_custom_city').hide();
+  }
+  window.onload = load;
+  function enterCity() {
+    var city_checkbox = document.getElementById("id_checkbox_city");
+    var city_input = document.getElementById("city_input");
+    var city_selection = document.getElementById("cityId");
+
+    if (city_checkbox.checked) {
+      city_selection.removeAttribute("required");
+      $('#city_input').attr('name','city');
+      $('#cityId').attr('name','custom_city')
+      $('#div_id_city').hide();
+      $('#div_id_custom_city').show();
+      city_input.setAttribute("required", "required");
+      city_selection.selectedIndex = -1;
+    }
+    else {
+      city_input.removeAttribute("required");
+      $('#city_input').attr('name','custom_city');
+      $('#cityId').attr('name','city')
+      $('#div_id_custom_city').hide();
+      $('#div_id_city').show();
+      city_selection.setAttribute("required", "required");
+    }
+  }
+</script>
+{% if edit %}
+<script type="text/javascript">
+// --------------------------------- FOR MODEL FORM -----------------------------
+  document.getElementById('div_id_current_position').style.display = 'none';
+  document.getElementById('div_id_current_organisation').style.display = 'none';
+  document.getElementById('div_id_date_of_joining').style.display = 'none';
+  document.getElementById('div_id_past_experience').style.display = 'none';
+  document.getElementById('div_id_current_course').style.display = 'none';
+  document.getElementById('div_id_current_university').style.display = 'none';
+  document.querySelector("label[for='id_id_working_status_0_1']").style.display = 'none';
+  $('#id_id_working_status_0_1').removeAttr('checked');
+  $('#id_id_working_status_0_2').prop('required', true);
+  $('#countryId').prop('required', true);
+  $('#stateId').prop('required', true);
+  $('#cityId').prop('required', true);
+  $('#id_id_working_status_0_2').click(function () {
+    document.getElementById('div_id_current_position').style.display = 'block';
+    document.getElementById('div_id_current_organisation').style.display = 'block';
+    document.getElementById('div_id_date_of_joining').style.display = 'block';
+    document.getElementById('div_id_past_experience').style.display = 'block';
+    document.getElementById('div_id_current_university').style.display = 'none';
+    document.getElementById('div_id_current_course').style.display = 'none';
+    $('#id_current_position').prop('required', true);
+    $('#id_current_organisation').prop('required', true);
+    $('#id_date_of_joining').prop('required', true);
+    $('#id_past_experience').prop('required', true);
+    $('#id_current_course').prop('required', false);
+    $('#id_current_university').prop('required', false);
+  })
+  $('#id_id_working_status_0_3').click(function () {
+    document.getElementById('div_id_current_position').style.display = 'none';
+    document.getElementById('div_id_current_organisation').style.display = 'none';
+    document.getElementById('div_id_past_experience').style.display = 'none';
+    document.getElementById('div_id_date_of_joining').style.display = 'none';
+    document.getElementById('div_id_current_course').style.display = 'block';
+    document.getElementById('div_id_current_university').style.display = 'block';
+    $('#id_current_position').prop('required', false);
+    $('#id_current_organisation').prop('required', false);
+    $('#id_date_of_joining').prop('required', false);
+    $('#id_past_experience').prop('required', false);
+    $('#id_current_course').prop('required', true);
+    $('#id_current_university').prop('required', true);
+  })
+  $('#id_id_working_status_0_4').click(function () {
+    document.getElementById('div_id_current_position').style.display = 'block';
+    document.getElementById('div_id_current_organisation').style.display = 'block';
+    document.getElementById('div_id_date_of_joining').style.display = 'none';
+    document.getElementById('div_id_past_experience').style.display = 'none';
+    document.getElementById('div_id_current_course').style.display = 'none';
+    document.getElementById('div_id_current_university').style.display = 'none';
+    $('#id_current_position').prop('required', true);
+    $('#id_current_organisation').prop('required', true);
+    $('#id_date_of_joining').prop('required', false);
+    $('#id_past_experience').prop('required', false);
+    $('#id_current_course').prop('required', false);
+    $('#id_current_university').prop('required', false);
+  })
+</script>
+
+{% else %}
+
+<script type="text/javascript">
+// --------------------------------- FOR TEMPLATE FORM -----------------------------
+  function toggleCityInput() {
+    var city_checkbox = document.getElementById("cityCheckbox");
+    var city_input = document.getElementById("cityInput");
+    var city_select = document.getElementById("cityId");
+    if (city_checkbox.checked) {
+      city_select.removeAttribute("required");
+      // $('#city_input').attr('name','city');
+      // $('#cityId').attr('name','custom_city')
+      $('#cityInputWrapper').hide();
+      $('#citySelectWrapper').show();
+      city_input.setAttribute("required", "required");
+      city_select.selectedIndex = -1;
+    }
+    else {
+      city_input.removeAttribute("required");
+      // $('#city_input').attr('name','custom_city');
+      // $('#cityId').attr('name','city')
+      $('#citySelectWrapper').hide();
+      $('#cityInputWrapper').show();
+      city_select.setAttribute("required", "required");
+    }
+  }
+
+  $('#profile-picture').change(function() {
+    var i = $(this).prev('label').clone();
+    var file = $('#profile-picture')[0].files[0].name;
+    $(this).prev('label').text(file);
+  });
+  $('#cur_pos').hide();
+  $('#cur_org').hide();
+  $('#date_of_joining').hide();
+  $('#past_experience').hide();
+  $('#cur_course').hide();
+  $('#cur_uni').hide();
+  $('#status1').click(function () {
+    $('#cur_pos').show();
+    $('#cur_org').show();
+    $('#date_of_joining').show();
+    $('#past_experience').show();
+    $('#cur_uni').hide();
+    $('#cur_course').hide();
+    $('#cur_position').prop('required', true);
+    $('#cur_organisation').prop('required', true);
+    $('#date_of_join').prop('required', true);
+    $('#past_exp').prop('required', true);
+    $('#cur_course').prop('required', false);
+    $('#cur_university').prop('required', false);
+  })
+  $('#status2').click(function () {
+    $('#cur_pos').hide();
+    $('#cur_org').hide();
+    $('#past_experience').hide();
+    $('#date_of_joining').hide();
+    $('#cur_course').show();
+    $('#cur_uni').show();
+    $('#cur_position').prop('required', false);
+    $('#cur_organisation').prop('required', false);
+    $('#date_of_join').prop('required', false);
+    $('#past_exp').prop('required', false);
+    $('#cur_course').prop('required', true);
+    $('#cur_university').prop('required', true);
+  })
+  $('#status3').click(function () {
+    $('#cur_pos').show();
+    $('#cur_org').show();
+    $('#date_of_joining').hide();
+    $('#past_experience').hide();
+    $('#cur_course').hide();
+    $('#cur_uni').hide();
+    $('#cur_position').prop('required', true);
+    $('#cur_organisation').prop('required', true);
+    $('#date_of_join').prop('required', false);
+    $('#past_exp').prop('required', false);
+    $('#cur_course').prop('required', false);
+    $('#cur_university').prop('required', false);
+  }) 
+  $('#status4').click(function () {
+    $('#cur_pos').hide();
+    $('#cur_org').hide();
+    $('#date_of_joining').hide();
+    $('#past_experience').hide();
+    $('#cur_course').hide();
+    $('#cur_uni').hide();
+    $('#cur_position').prop('required', false);
+    $('#cur_organisation').prop('required', false);
+    $('#date_of_join').prop('required', false);
+    $('#past_exp').prop('required', false);
+    $('#cur_course').prop('required', false);
+    $('#cur_university').prop('required', false);
+  }) 
+</script>
+
+{% endif %}
+{% endblock %}
+
+{% block body %}
+{% include 'globals/navbar.html' %}
+<div class="p-0 m-0 masthead-bg w-100 h-100 parallax" style="min-height:300px !important; height:300px !important; background-position-y: 300px;"></div>
+
+<header class="masthead text-center text-white d-flex" style="height:0px; min-height:300px;">
+  <div class="container my-auto" style="margin-bottom:50px !important;">
+    <div class="row">
+      <div class="col-lg-2 mx-auto align-middle">
+        <h2 class="text-uppercase">
+          <a href="{% url 'home' %}"><img src="{% static 'AlumniConnect/img/logo/alumb1.png' %}" style="width: 4em; height: auto;"></a>
+        </h2>
+      </div>
+      <div class="col-lg-8 mx-auto align-middle">
+        <h1 class="text-uppercase mt-4">
+          <strong>ALUMNI CONNECT</strong>
+        </h1>
+      </div>
+    </div>
+  </div>
+</header>
+</div>
+
+<section id="services" class="bg-primary p-1">
+</section>
+{% if form.errors %}
+    {% for field in form %}
+          {% for error in field.errors %}
+            <div class="alert alert-danger alert-dismissible fade show my-0" role="alert">
+                    {{error|escape}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+          {% endfor %}
+    {% endfor %}
+{% endif %}
+<div class="bg-white">
+  <div class="container text-left p-2 mx-auto">
+    <div class="card shadow m-4 bg-light">
+      <div class="col-lg-12 mx-auto text-left mx-auto">
+        <div class="row text-center">
+          <div class="col-lg-12 text-primary" style="padding-top: 3rem;">
+            {% if edit %}
+            <h2>Edit Profile</h2>
+            {% else %}
+            <h2>Registration Form</h2>
+            {% endif %}
+            <hr>
+          </div>
+        </div>
+        <div class="container text-center p-2 mx-auto">
+          <div class="row text-left mx-auto p-2 p-sm-4 col-sm-12 col-md-12 col-lg-12">
+            <form method="POST" role="form" enctype="multipart/form-data" style="width:100%">
+              {% csrf_token %}
+              {% if edit %}
+              {% crispy form %}
+              {% else %}
+              {% include 'AlumniConnect/registration_form.html' %}
+              {% endif %}
+              <input type="hidden" name="next" value="{{ request.path }}">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% include 'globals/footer.html' %}
+{% endblock %}
