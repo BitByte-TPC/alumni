@@ -15,7 +15,7 @@ from django.db.models import Count
 from django.contrib.auth.views import LoginView
 from django.contrib.messages.views import SuccessMessageMixin
 
-from .forms import RegisterForm, ProfileEdit, NewRegister
+from .forms import RegisterForm, ProfileEdit, NewRegister, SignupForm
 from .token import account_activation_token
 from applications.events_news.models import Event, Attendees
 from applications.alumniprofile.models import Profile, Constants
@@ -25,7 +25,6 @@ from applications.geolocation.views import addPoints
 import datetime
 from django.utils import timezone
 from itertools import chain
-
 
 # Create your views here.
 
@@ -72,6 +71,34 @@ def job_posting(request):
 
 # def jobboard(request):
 #     return render(request, "env/Lib/site-packages/gallery.html")
+
+
+
+def signup(request):
+    if request.user.is_authenticated:
+        return redirect('home')
+    
+    if request.method == "POST":
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            role = request.POST['role']
+            roll_no = request.POST['username'] # username and roll_no are same
+            
+            # user created using form
+            user = form.save()
+            user.is_active = False 
+            user.save()
+            
+            # now making profile for user
+            profile = Profile(user=user, roll_no=roll_no, role=role)
+            profile.save()
+            
+            return HttpResponse("Sign Up successfully done")
+        else:
+            return render(request, "AlumniConnect/signup.html", {'form': form})
+
+    form = SignupForm()
+    return render(request, "AlumniConnect/signup.html", {'form': form})
 
 
 def register(request):

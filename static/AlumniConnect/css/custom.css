@@ -41,7 +41,7 @@
 /* Custom CSS for login.html */
 
 .login-container{
-    width: 40rem;
+    width: 45rem;
 }
 
 @media (max-width: 576px) {
@@ -55,6 +55,7 @@
         width: 100%;
     }
 }
+
 
 /* Custom CSS for Events Page */
 

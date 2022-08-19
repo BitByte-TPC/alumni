@@ -1,10 +1,13 @@
-import datetime
+import re
 from django import forms
 from applications.alumniprofile.models import Profile, Constants, Batch
 from django.contrib.auth.models import User
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit, Row, Column, Div, Field
 from crispy_forms.bootstrap import InlineRadios
+from django.core.exceptions import ValidationError
+
+from applications.alumniprofile.models import Constants
 
 
 class RegisterForm(forms.ModelForm):
@@ -53,16 +56,19 @@ class ProfileEdit(forms.ModelForm):
         required=False,
     )
     country = forms.CharField(widget=forms.Select(
-        attrs={'id': 'countryId', 'class': 'countries order-alpha custom-select', 'name': 'country'}))
+        attrs={'id': 'countryId', 'class': 'countries order-alpha custom-select', 'name': 'country', 'onchange': 'addState()'}))
     state = forms.CharField(
-        widget=forms.Select(attrs={'id': 'stateId', 'class': 'states order-alpha custom-select', 'name': 'state'}))
+        widget=forms.Select(attrs={'id': 'stateId', 'class': 'states order-alpha custom-select', 'name': 'state', 'onchange': 'addCity()'}))
     city = forms.CharField(
         widget=forms.Select(attrs={'id': 'cityId', 'class': 'cities order-alpha custom-selects', 'name': 'city'}))
     linkedin = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Linkedin URL'}))
     website = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Website'}), required=False)
     facebook = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Facebook URL'}), required=False)
     instagram = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Instagram Username'}), required=False)
-
+    custom_city = forms.CharField(widget=forms.TextInput(
+        attrs={'id': 'city_input', 'class': 'cityInput', 'name': 'city', 'placeholder': 'Enter city name'}), required=False)
+    checkbox_city = forms.BooleanField(widget=forms.CheckboxInput(
+        attrs={'onchange': 'enterCity()'}), required=False)
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['fathers_name'].label = "Father/Mother's Name"
@@ -76,6 +82,9 @@ class ProfileEdit(forms.ModelForm):
         self.fields['date_of_birth'].label = 'Date of Birth'
         self.fields['year_of_admission'].label = 'Year of Admission'
         self.fields['alternate_email'].label = 'Alternate Email'
+        self.fields['custom_city'].label = 'City'
+        self.fields['checkbox_city'].label = 'Can\'t find your city'
+
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Div(
@@ -119,6 +128,8 @@ class ProfileEdit(forms.ModelForm):
                 Field('country', wrapper_class="col-md-4"),
                 Field('state', wrapper_class="col-md-4"),
                 Field('city', wrapper_class="col-md-4"),
+                Field('custom_city', wrapper_class='col-md-4'),
+                'checkbox_city',
                 css_class='form-row',
             ),
             Div(
@@ -247,6 +258,10 @@ class NewRegister(forms.ModelForm):
     # checkbox_terms = forms.BooleanField(required=True)
     instagram = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Instagram Username'}), required=False)
     checkbox_update = forms.BooleanField(required=True)
+    custom_city = forms.CharField(widget=forms.TextInput(
+        attrs={'id': 'city_input', 'class': 'cityInput', 'name': 'city', 'placeholder': 'Enter city name'}), required=False)
+    checkbox_city = forms.BooleanField(widget=forms.CheckboxInput(
+        attrs={'onchange': 'enterCity()'}), required=False)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -261,9 +276,11 @@ class NewRegister(forms.ModelForm):
         self.fields['date_of_birth'].label = 'Date of Birth'
         self.fields['year_of_admission'].label = 'Year of Admission'
         self.fields['alternate_email'].label = 'Alternate Email'
+        self.fields['custom_city'].label = 'City'
         # self.fields['checkbox_terms'].label = 'I abide by the Terms and Conditions of the Alumni Cell'
         self.fields[
             'checkbox_update'].label = 'I will update my information at regular intervals and will engage in the Alumni network actively.'
+        self.fields['checkbox_city'].label = 'Can\'t find your city'
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Div(
@@ -307,6 +324,8 @@ class NewRegister(forms.ModelForm):
                 Field('country', wrapper_class="col-md-4"),
                 Field('state', wrapper_class="col-md-4"),
                 Field('city', wrapper_class="col-md-4"),
+                Field('custom_city', wrapper_class='col-md-4'),
+                'checkbox_city',
                 css_class='form-row',
             ),
             Div(
@@ -395,3 +414,54 @@ class NewRegister(forms.ModelForm):
 class PasswordResetRequestForm(forms.Form):
     roll_no = forms.IntegerField(label=("Roll No."))
     email = forms.CharField(label=("Email"), max_length=254)
+
+
+class SignupForm(forms.ModelForm):
+    role = forms.ChoiceField(choices=Constants.ROLE_CHOICES)
+    confirm_password = forms.CharField(widget=forms.PasswordInput())
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password']
+
+    def clean_username(self):
+        # username is Roll No. #
+        username_value = self.cleaned_data['username'].lower()
+
+        # Regex matching institution's roll no
+        x = re.search("^2[0-9][bmpid][cemdns][scem][0-2cmpdtoe]\d{2}[w]?$|^[0-2]\d[0-2]\d{4}$", username_value)
+        if x == None:
+            raise ValidationError(
+                'Please enter a valid roll no.'
+            )
+
+        # check if this username i.e roll_no already exists
+        user = User.objects.filter(username=username_value)
+        if user.exists():
+            raise ValidationError(
+                'User with entered roll no. already exists'
+            )
+
+        return username_value
+
+    def clean_email(self):
+        email = self.cleaned_data['email'].lower()
+
+        if re.search("iiitdmj.ac.in$", email):
+            raise ValidationError(
+                'Institute email id is not accepted. Please enter your personal email id'
+            )
+
+        return email
+
+    def clean_confirm_password(self):
+        # cleaned_data = super(SignupForm, self).clean()
+        password = self.cleaned_data.get("password")
+        confirm_password = self.cleaned_data.get("confirm_password")
+
+        if password != confirm_password:
+            raise ValidationError(
+                'Entered passwords do not match'
+            )
+
+        return confirm_password

@@ -1,27 +1,39 @@
 {% extends 'globals/base.html' %}
 {% load static %}
-{% load crispy_forms_tags %}
+
+
 {% block title %}
-AlumniConnect - Login
-{% endblock %}
+ Sign Up
+{% endblock title %}
+
+{% block css %}
+<style>
+    .errorlist {
+        padding-left: 0;
+        list-style: none;
+        color: #dc3545;
+        text-align: left;
+        margin-bottom: 0;
+    }
+</style>
+{% endblock css %}
 
 {% block body %}
 {% include 'globals/navbar.html' %}
-<div class="p-0 m-0 masthead-bg w-100 h-100 parallax"
-  style="min-height:300px !important; height:300px !important; background-position-y: 300px;"></div>
+
+<div class="p-0 m-0 masthead-bg w-100 h-100 parallax"  style="min-height:300px !important; height:300px !important; background-position-y: 300px;"></div>
 
 <header class="masthead text-center text-white d-flex" style="height:0px; min-height:300px;">
   <div class="container my-auto" style="margin-bottom:50px !important;">
     <div class="row">
       <div class="col-lg-2 mx-auto align-middle">
         <h2 class="text-uppercase">
-          <a href="{% url 'home' %}"><img src="{% static 'AluminiConnect/img/logo/alumb1.png' %}"
-              style="width: 4em; height: auto;"></a>
+          <a href="{% url 'home' %}"><img src="{% static 'AlumniConnect/img/logo/alumb1.png' %}" style="width: 4em; height: auto;"></a>
         </h2>
       </div>
       <div class="col-lg-8 mx-auto align-middle">
         <h1 class="text-uppercase mt-4">
-          <strong>STUDENT ALUMNI CELL</strong>
+          <strong>ALUMNI CONNECT</strong>
         </h1>
       </div>
     </div>
@@ -32,85 +44,74 @@ AlumniConnect - Login
 </section>
 
 <div class="bg-white">
-  <div class="login-container container text-left p-2 mx-auto">
-    <div class="card shadow m-4 bg-light">
-      <div class="col-lg-12 mx-auto">
-        <div class="row text-center">
-          <div class="col-lg-12 text-primary pt-4 mt-4">
-            <h2>SIGN UP</h2>
-            <hr class="mb-4">
-          </div>
+    <div class="login-container container text-left p-2 mx-auto">
+        <div class="alert alert-primary m-4 text-center" role="alert" >
+            Already have account ? Login
+            <h5 class="pt-2 m-0">
+                <a class="d-inline-block" href="{% url 'login' %}">
+                    <span class="badge badge-pill badge-primary p-2">Login! &nbsp;<i class="fas fa-external-link-alt"></i></span>
+                </a>
+            </h5>
         </div>
-        <div class="row text-center mb-4 py-4 justify-content-center">
-          <div class="col-sm-11 col-md-10 col-lg-9">
-            {% if form.errors %}
-              {% for field in form %}
-                {% for error in field.errors %}
-                  <div class="alert alert-danger">
-                    <strong>{{ error|escape }}</strong>
-                  </div>
-                {% endfor %}
-              {% endfor %}
-            {% endif %}
-            <form method="POST" style="width:100%">
-              {% csrf_token %}
-              <div id="div_id_username" class="form-group my-4">
-                <label for="id_username" class="requiredField text-left d-block">
-                  Enter Username<span class="asteriskField">*</span>
-                </label>
-                <div>
-                  <input type="text" name="username" placeholder="Enter your roll number" maxlength="150" minlength="4"
-                    autofocus="" class="textinput textInput form-control" required id="id_username">
+        <div class="card shadow m-4 bg-light">
+            <div class="col-lg-12 mx-auto">
+                <div class="row text-center">
+                    <div class="col-lg-12 text-primary pt-4 mt-4">
+                        <h2>SIGN UP</h2>
+                        <hr class="mb-4">
+                    </div>
                 </div>
-              </div>
-              <div id="div_id_email" class="form-group my-4">
-                <label for="id_email" class=" requiredField text-left d-block">
-                  Enter email<span class="asteriskField">*</span>
-                </label>
-                <div>
-                  <input type="email" name="email" placeholder="Enter your email" class="emailinput form-control"
-                    required id="id_email">
+                <div class="row text-center mb-4 py-4 justify-content-center">
+                    <div class="col-sm-11 col-md-10 col-lg-9">
+                        <!-- Form errors -->
+                        {% if form.non_field_errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ form.non_field_errors }}
+                        </div>
+                        {% endif %}
+
+                        <form method="POST" class="font-open-sans">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label class="d-block text-left" for="signup-uname">Roll No.</label>
+                                <input id="signup-uname" type="text" name="username" class="form-control"
+                                placeholder="Enter your roll no." aria-label="Username" aria-describedby="button-addon2"
+                                {% if form.username.value %}value="{{ form.username.value }}"{%endif%} required>
+                                {{ form.username.errors }}
+                            </div>
+                            <div class="form-group">
+                                <label class="d-block text-left" for="signup-email">Email</label>
+                                <input id="signup-email" type="email" name="email" class="form-control"
+                                placeholder="Personal email address" aria-label="Email" aria-describedby="button-addon2"
+                                {% if form.email.value %}value="{{ form.email.value }}"{%endif%} required>
+                                {{ form.email.errors }}
+                            </div>
+                            <div class="form-group">
+                                <label class="d-block text-left" for="signin-password">Password</label>
+                                <input id="signin-password" type="password" name="password" class="form-control" placeholder="Password"
+                                aria-label="Password" aria-describedby="button-addon2" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="d-block text-left" for="signin-confirm-password">Confirm Password</label>
+                                <input id="signin-confirm-password" type="password" name="confirm_password" class="form-control"
+                                placeholder="Confirm Password" aria-label="Password" aria-describedby="button-addon2" required>
+                                {{ form.confirm_password.errors }}
+                            </div>
+                            <div class="form-group">
+                                <label class="d-block text-left" for="signup-role">Registering as</label>
+                                <select id="singup-role" name="role" class="custom-select">
+                                    <option value="A">Alumni</option>
+                                    <option value="S" {% if form.role.value == 'S' %}selected{%endif%}>Student</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-primary px-5 py-2" type="submit" value="login" name="submit">Sign In</button>
+                        </form>
+                    </div>
                 </div>
-              </div>
-              <div id="div_id_password1" class="form-group my-4">
-                <label for="id_password1" class=" requiredField text-left d-block">
-                  Enter password<span class="asteriskField">*</span>
-                </label>
-                <div>
-                  <input type="password" name="password1" placeholder="Enter your password"
-                    class="textinput textInput form-control" required id="id_password1">
-                </div>
-              </div>
-              <div id="div_id_password2" class="form-group my-4">
-                <label for="id_password2" class=" requiredField text-left d-block">
-                  Confirm password<span class="asteriskField">*</span>
-                </label>
-                <div>
-                  <input type="password" name="password2" placeholder="Reenter your password"
-                    class="textinput textInput form-control" required id="id_password2">
-                </div>
-              </div>
-              <div id="div_id_user_type" class="form-group my-4">
-                <label for="id_user_type" class=" requiredField text-left d-block">
-                  User type<span class="asteriskField">*</span>
-                </label>
-                <div>
-                  <select name="user_type" class="select form-control" id="id_user_type">
-                    <option value="A">Alumni</option>
-                    <option value="S">Student</option>
-                  </select>
-                </div>
-              </div>
-              <button class="btn btn-primary px-5 py-2" type="submit" value="signup" name="submit">Sign Up</button>
-            </form>
-          </div>
+            </div>
         </div>
-      </div>
-    </div>
   </div>
 </div>
-<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-<link rel="stylesheet" type="text/css" href="{% static 'css/toastr.css' %}" media="all">
-<script type="text/javascript" src="{% static 'js/toastr.min.js' %}"></script>
 {% include 'globals/footer.html' %}
-{% endblock %}
+
+{% endblock body %}
