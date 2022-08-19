@@ -6,6 +6,7 @@ from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from applications.alumniprofile.models import Profile
+from AlumniConnect.decorators import custom_login_required
 
 
 # Create your views here.
@@ -46,7 +47,7 @@ def alumnibody(request):
     return render(request, "members/alumnibody.html")
 
 
-@login_required
+@custom_login_required
 def search(request):
     key = request.GET['search']
     profiles = Profile.objects.filter(name__icontains=key) | Profile.objects.filter(
@@ -94,7 +95,7 @@ def autoSearch(request):
     return JsonResponse(data, safe=False)
 
 
-@login_required
+@custom_login_required
 def mapSearch(request):
     key = request.GET['search']
     city = key.split(',', 1)[0]

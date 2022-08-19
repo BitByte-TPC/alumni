@@ -1,5 +1,4 @@
 {% extends 'globals/base.html' %}
-{% load crispy_forms_tags %}
 
 {% load static %}
 
@@ -37,11 +36,9 @@ Alumni Connect
          <div class="col-lg-12 mx-auto mx-auto">
             <div class="row text-left m-4 p-4">
                <p>
-                  Thank you for registering to <b>Alumni Connect IIITDMJ</b>. You will be receiving an activation email shortly.
-               </p>
-               <p>
-                  Please click on the activation link in the email to complete your registration process.
-                  After that you will be able to complete your profile.
+                  Thank you for completing your profile.</br>
+                  For now you are logged out and your profile is under review,</br>
+                  Once admin approve your profile, you will be able to access complete site.
                </p>
             </div>
          </div>
@@ -50,26 +47,3 @@ Alumni Connect
 </div>
 {% include 'globals/footer.html' %}
 {% endblock %}
-<!--<!DOCTYPE html>
-<html>
-
-<head>
-   <title>Confirm Email</title>
-   <meta http-equiv="refresh" content="2; url = {% url 'home' %}" />
-</head>
-
-<body>
-   <p>Please confirm your email address to complete registeration process. Redirecting...'</p>
-   <p>
-      We've emailed you instructions to complete your registeration process.You should receive them shortly.
-   </p>
-   <p>
-      If you don't receive an email, please make sure you've entered the address you registered with,and check your
-      spam folder.
-   </p>
-   <p>
-      Redirecting to homepage...
-   </p>
-</body>
-
-</html>-->

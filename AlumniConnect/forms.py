@@ -465,3 +465,38 @@ class SignupForm(forms.ModelForm):
             )
 
         return confirm_password
+
+
+class CompleteProfileForm(forms.ModelForm):
+    
+    class Meta:
+        model = Profile 
+        fields = '__all__'
+        exclude = ('user','role',)
+        
+        
+    def clean_roll_no(self):
+        roll_no = self.cleaned_data.get("roll_no")
+        user = self.instance.user
+        
+        
+        # check if user.username and roll_no are matching or not
+        if user.username != roll_no:
+            raise ValidationError(
+                'Entered roll no. do not match with your roll no.'
+            )
+        return roll_no 
+    
+    def clean_email(self):
+        email = self.cleaned_data.get("email")
+        user = self.instance.user
+        
+        # check if user.email and email are matching or not
+        if user.email != email:
+            raise ValidationError(
+                'Entered email do not match with your email'
+            )
+        
+        return email
+    
+    

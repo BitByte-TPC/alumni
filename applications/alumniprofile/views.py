@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from .models import Constants, Degree, Education, Profile, PastExperience
 from datetime import datetime
+from AlumniConnect.decorators import custom_login_required
 
 try:
     from collections.abc import defaultdict
@@ -13,7 +14,7 @@ except ImportError:
 #
 # Create your views here.
 
-# @login_required
+@custom_login_required
 def profile(request, username):
     profile = Profile.objects.get(user__username=username)
     current_experiences = PastExperience.objects.filter(profile=profile, end_date=None).order_by('-start_date')

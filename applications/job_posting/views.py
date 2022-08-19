@@ -7,13 +7,13 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
-
+from AlumniConnect.decorators import custom_login_required
 
 def is_superuser(user):
     return user.is_superuser
 
 
-@login_required
+@custom_login_required
 def index(request):
     posts = Posting.objects.all().filter(active=True).order_by('-posting_date')
     total = len(posts)
@@ -43,7 +43,7 @@ def index(request):
         return render(request, "job_posting/home.html", {'ls1': ls1, 'total': total})
 
 
-@login_required
+@custom_login_required
 def filter(request):
     viewname = "filter"
     position = request.POST.get('position')
@@ -81,7 +81,7 @@ def filter(request):
         return render(request, "job_posting/home.html", {'ls1': ls1, 'viewname': viewname})
 
 
-@login_required
+@custom_login_required
 def post(request):
     if request.method == 'POST':
         try:
