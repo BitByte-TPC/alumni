@@ -162,7 +162,7 @@ def signup(request):
     form = SignupForm()
     return render(request, "AlumniConnect/signup.html", {'form': form})
 
-
+@custom_login_required
 def complete_profile(request):
     
     user = request.user
@@ -173,7 +173,14 @@ def complete_profile(request):
         # admin does not have any profile
         return redirect('home')
     
-    
+    try:
+        # if profile is already completed then redirect to home
+        if profile.verify:
+            return redirect('home')
+    except:
+        pass
+
+
     #creating context for form
     batches = list(Batch.objects.all().order_by('batch'))
     context = {'edit': False, 'programmes': Constants.PROG_CHOICES,'branches': Constants.BRANCH, 'batches': batches, 'admission_years': Constants.YEAR_OF_ADDMISSION,'user_roll_no':user.username,'user_email':user.email}
@@ -252,7 +259,9 @@ def reg_no_gen(degree_, spec_, year):
 def convert_int(number, decimals):
     return str(number).zfill(decimals)
 
-
+"""
+    This function needs to be depricated in new signup workflow.
+"""
 def new_register(request):
     if request.method == 'POST':
         form = NewRegister(request.POST, request.FILES)
@@ -318,7 +327,7 @@ def activate(request, uidb64, token):
         print(u)
     except(TypeError, ValueError, OverflowError):
         u = None
-    if u is not None and account_activation_token.check_token(u, token):
+    if u and account_activation_token.check_token(u, token):
         u.is_active = True
         u.save()
         login(request, u)
