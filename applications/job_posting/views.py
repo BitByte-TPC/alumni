@@ -101,10 +101,24 @@ def post(request):
             join_date = request.POST.get('join_date') if request.POST.get('join_date') else None
             person = User.objects.get(username=str(request.user))
 
-            insert = Posting.objects.create(type=type, position=position, company=company, location=location, desc=desc,
-                                            stipend=stipend, exp_req=exp_req, last_date=last_date, join_date=join_date,
-                                            tenure=tenure, link=link, posting_date=date.today(),
-                                            person=person, active=True)
+            if position == "Other":
+                position = request.POST.get('jobrole')
+
+            Posting.objects.create(
+                type=type,
+                position=position,
+                company=company,
+                location=location,
+                desc=desc,
+                stipend=stipend,
+                exp_req=exp_req,
+                last_date=last_date,
+                join_date=join_date,
+                tenure=tenure,
+                link=link,
+                posting_date=date.today(),
+                person=person,
+                active=True )
             messages.success(request, "Job opportunity added successfully!")
 
         except Exception as e:

@@ -42,45 +42,50 @@
                 </div>
 
                 <div class="row m-4">
-                    <div class="mx-auto col-sm-5">
+                    <div class="mx-auto col-sm-6">
                         <label for="type">Type <span class="text-danger">*</span>:</label>
                         <select required class="form-control" name="type" id="type">
-                            <option disabled selected value> -- select an option --</option>
+                            <option disabled selected value> -- Select job type --</option>
                             <option value="Internship">Internship</option>
                             <option value="Full Time">Full Time</option>
                             <option value="Both">Both</option>
                         </select>
                     </div>
 
-                    <div class="mx-auto col-sm-5">
+                    <div class="mx-auto col-sm-6 mb-3">
                         <label for="position">Position <span class="text-danger">*</span>:</label>
-                        <select required class='form-control' name="position" id="position">
-                            <option disabled selected value> -- select an option --</option>
-                            <option value="Software Developer">Software Developer</option>
-                            <option value="Data Engineer">Data Engineer</option>
+                        <!-- <input type="text" list="positions" required class='form-control' name="position" id="position" /> -->
+                        <select required class='form-control' name="position" id="position" onchange="print_alert(this.value)">
+                            <option disabled selected value> -- Select job position --</option>
                             <option value="Android">Android</option>
-                            <option value="IoS">IoS</option>
-                            <option value="Software Engineer">Software Engineer</option>
-                            <option value="Data Analytics">Data Analytics</option>
-                            <option value="Data Science">Data Science</option>
-                            <option value="Machine Learning">Machine Learning</option>
+                            <option value="Blockchain">Blockchain</option>  
                             <option value="Business Development">Business Development</option>
-                            <option value="Research">Research</option>
-                            <option value="Blockchain">Blockchain</option>
-                            <option value="UI/UX Designer">UI/UX Designer</option>
+                            <option value="Data Analytics">Data Analytics</option>
+                            <option value="Data Engineer">Data Engineer</option>
+                            <option value="Data Science">Data Science</option>
+                            <option value="IoS">IoS</option>
+                            <option value="Machine Learning">Machine Learning</option>
                             <option value="Marketing and Sales">Marketing and Sales</option>
+                            <option value="Research">Research</option>
+                            <option value="Software Developer">Software Developer</option>
+                            <option value="Software Engineer">Software Engineer</option>
+                            <option value="UI/UX Designer">UI/UX Designer</option>
                             <option value="Other">Other</option>
                         </select>
+                    </div>
+                    <div class="ml-auto col-lg-6" >
+                        <label for="jobrole" id="joblabel" style="display: none;">Please specify the position <span class="text-danger">*</span>:</label>
+                        <input required class="form-control" type="text" name="jobrole" id="jobrole" style="display: none;" >
                     </div>
                 </div>
 
                 <div class="row m-4">
-                    <div class="mx-auto col-sm-5">
+                    <div class="mx-auto col-sm-6">
                         <label for="company">Company <span class="text-danger">*</span>:</label>
                         <input required class="form-control" type="text" name="company" id='company'>
                     </div>
 
-                    <div class="mx-auto col-sm-5">
+                    <div class="mx-auto col-sm-6">
                         <label for="location">Location <span class="text-danger">*</span>:</label>
                         <input required class="form-control" type="text" name="location" id='location'>
                     </div>
@@ -102,17 +107,23 @@
                 </div>
 
                 <div class="row m-4">
-                    <div class="mx-auto col-3">
+                    <div class="mx-auto col-lg-3 col-md-6">
                         <label for="stipend">Stipend <a class="detail">(Per Month)</a>:</label>
-                        <input class="form-control" type="number" name="stipend" id='stipend'>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" style="border-radius: 0.25rem 0 0 0.25rem;">₹</span>
+                            <input type="number" class="form-control" name="stipend" id='stipend' aria-label="Amount(to the nearest rupee)">
+                            <span class="input-group-text" style="border-radius: 0 0.25rem 0.25rem 0; background-color: transparent;">.00</span>
+                        </div>
+                        <!-- <label for="stipend">Stipend <a class="detail">(Per Month)</a>:</label>
+                        <input class="form-control" type="number" name="stipend" id='stipend'> -->
                     </div>
 
-                    <div class="mx-auto col-3">
+                    <div class="mx-auto col-lg-3 col-md-6">
                         <label for="tenure">Tenure <a class="detail">(In Months)</a>:</label>
                         <input class="form-control" type="number" name="tenure" id='tenure'>
                     </div>
 
-                    <div class="mx-auto col-3">
+                    <div class="mx-auto col-lg-3 col-md-6">
                         <label for="exp_req">Min. Experience <a class="detail">(In years)</a>:</label>
                         <input class="form-control" type="number" name="exp_req" id='exp_req'>
                     </div>
@@ -139,6 +150,37 @@
             </form>
         </div>
     </section>
+{% block javascript %}
+    <script type="text/javascript">
+        
+
+        function print_alert(val)
+        {
+            
+            var e = document.getElementsByName("position");
+            // var value = e.value;
+            // var text = e.options[e.selectedIndex].text;
+            // let val = e.selectedIndex;
+            document.getElementById("joblabel").style.display = 'none';
+            document.getElementById("jobrole").style.display = 'none';
+            document.getElementById("jobrole").required = false;
+
+            if(val == "Other")
+            {
+                document.getElementById("joblabel").style.display = 'block';
+                document.getElementById("jobrole").style.display = 'block';
+                document.getElementById("jobrole").required = true;
+            }
+            else
+            {
+                document.getElementById("joblabel").style.display = 'none';
+                document.getElementById("jobrole").style.display = 'none';
+                document.getElementById("jobrole").required = false;
+            }
+        }
+
+    </script>
+{% endblock javascript %}
 
 
     {% include 'globals/footer.html' %}
