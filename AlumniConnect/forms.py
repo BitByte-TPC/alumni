@@ -471,7 +471,7 @@ class CompleteProfileForm(forms.ModelForm):
     class Meta:
         model = Profile 
         fields = '__all__'
-        exclude = ('user','role',)
+        exclude = ('user',)
         
         
     def clean_roll_no(self):

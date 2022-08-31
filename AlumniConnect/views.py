@@ -209,7 +209,6 @@ def complete_profile(request):
             #saving profile
             profile = form.save()
             profile.reg_no = reg_no #setting registeration number 
-            profile.role = 'S' if profile.batch.isActive else 'A'
             profile.save()
             
             
