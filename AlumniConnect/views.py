@@ -175,7 +175,7 @@ def complete_profile(request):
     
     try:
         # if profile is already completed then redirect to home
-        if profile.verify or profile.reg_no is not None:
+        if profile.verify or profile.reg_no:
             return redirect('home')
     except:
         pass
@@ -325,8 +325,16 @@ def activate(request, uidb64, token):
         print(uid)
         u = User.objects.get(pk=uid)
         print(u)
+        profile = Profile.objects.get(user=u)
     except(TypeError, ValueError, OverflowError):
         u = None
+        profile = None
+    
+    # do not log in users with complete profiles
+    if profile and (profile.verify or profile.reg_no):
+        messages.warning(request, 'Please log in through password.')
+        return redirect('/')
+
     if u and account_activation_token.check_token(u, token):
         u.is_active = True
         u.save()
@@ -353,7 +361,7 @@ def resend_activation(request, uidb64, token):
         profile = None
     
     # if complete profile action is completed, but admin has not ver
-    if profile and (profile.verify or profile.reg_no is not None):
+    if profile and (profile.verify or profile.reg_no):
         messages.success(request, "You have already completed your profile!")
         return redirect('/')
 
