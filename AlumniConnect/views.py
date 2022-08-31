@@ -175,7 +175,7 @@ def complete_profile(request):
     
     try:
         # if profile is already completed then redirect to home
-        if profile.verify:
+        if profile.verify or profile.reg_no is not None:
             return redirect('home')
     except:
         pass
@@ -338,6 +338,58 @@ def activate(request, uidb64, token):
         return HttpResponse('Activation link is invalid!')
     return redirect('/')
 
+'''
+    Incase the user does not complete their profile while the link
+    is active they can generate a new link by providing the old link.
+'''
+def resend_activation(request, uidb64, token):
+    try:
+        uid = urlsafe_base64_decode(uidb64)
+        print(uid)
+        u = User.objects.get(pk=uid)
+        profile = Profile.objects.get(user = u)
+    except(TypeError, ValueError, OverflowError):
+        u = None
+        profile = None
+    
+    # if complete profile action is completed, but admin has not ver
+    if profile and (profile.verify or profile.reg_no is not None):
+        messages.success(request, "You have already completed your profile!")
+        return redirect('/')
+
+    # if user requests for a new link while the previous link is valid. 
+    if account_activation_token.check_token(u, token):
+        messages.success(request, "Link is currently active!")
+        return redirect('/')
+    
+    # make new activation link 
+    if u and profile and not account_activation_token.check_token(u, token):
+            
+            # re-sending mail for activation
+            current_site = get_current_site(request)
+            from_email = settings.DEFAULT_FROM_EMAIL
+            to = [u.email]
+            subject = "[noreply] SAC Account Activation"
+            html_message = render_to_string('AlumniConnect/account_activation_email.html', {
+                'user':u,
+                'domain':current_site,
+                'uid':urlsafe_base64_encode(force_bytes(u.pk)),
+                'token':account_activation_token.make_token(u)
+            })
+            plain_message = strip_tags(html_message)
+            send_mail(
+                subject = subject,
+                message = plain_message,
+                from_email = from_email,
+                recipient_list=to,
+                html_message = html_message,
+                fail_silently=False,
+            )
+            messages.success("Mail sent successfully.")
+            return render(request,"AlumniConnect/confirm_email.html")
+    else:
+        messages.error('Something went wrong.')
+        return redirect('/')
 
 @custom_login_required
 def change_password(request):
