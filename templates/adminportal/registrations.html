@@ -52,9 +52,14 @@
                         {% endif %}
                     {% endfor %}
                 {% endif %}
-
+                <div class='d-flex p-2 justify-content-between'> 
                 <h3>Pending Registrations ({{ pending|length }})</h3>
-
+                <div class='d-flex justify-content-between text-center gap-3 ' style='gap:1rem;'>
+                <a href="{% url 'adminportal:registrations' %}" class="btn btn-light" tabindex="-1" role="button" aria-disabled="true">All</a>
+                <a href="{% url 'adminportal:registrations' %}?q=students" class="btn btn-light" tabindex="-1" role="button" aria-disabled="true">Students</a>
+                <a href="{% url 'adminportal:registrations' %}?q=alumni" class="btn btn-light" tabindex="-1" role="button" aria-disabled="true">Alumni</a>
+                </div>    
+                </div>
                 {% for profile in pending %}
                 <div class="card mb-3">
                     <div class="row no-gutters">

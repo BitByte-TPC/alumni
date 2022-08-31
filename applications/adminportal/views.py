@@ -96,8 +96,14 @@ def registrations_index(request):
             messages.add_message(request, messages.ERROR, err)
 
         return redirect('adminportal:registrations')
+    query = request.GET.get('q', '')
 
     unregistered = Profile.objects.filter(verify=None).filter(mail_sent=False).order_by('-user__date_joined')
+    if query:
+        if query == 'students':
+            unregistered = unregistered.filter(batch__isActive=True)
+        elif query == 'alumni':
+            unregistered = unregistered.filter(batch__isActive=False)
 
     context = {
         'pending': unregistered
@@ -120,7 +126,7 @@ def mailservice_index(request):
         programme = request.POST['programme']
         batch = request.POST['batch']
         branch = request.POST['branch']
-
+        role = request.POST['role']
         template = EmailTemplate.objects.get(template_id=template_id)
         recipients = Profile.objects.all()
 
@@ -130,6 +136,11 @@ def mailservice_index(request):
             recipients = recipients.filter(batch__batch=batch)
         if branch:
             recipients = recipients.filter(branch=branch)
+        if role:
+            if role == 'A':
+                recipients = recipients.filter(batch__isActive=False)
+            elif role == 'S':
+                recipients = recipients.filter(batch__isActive=True)
 
         total_recipients = recipients.count()
         if total_recipients == 0:
