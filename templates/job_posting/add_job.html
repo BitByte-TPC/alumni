@@ -44,7 +44,7 @@
                 <div class="row m-4">
                     <div class="mx-auto col-sm-6">
                         <label for="type">Type <span class="text-danger">*</span>:</label>
-                        <select required class="form-control" name="type" id="type">
+                        <select required class="form-control" name="job_type" id="job_type">
                             <option disabled selected value> -- Select job type --</option>
                             <option value="Internship">Internship</option>
                             <option value="Full Time">Full Time</option>
@@ -55,8 +55,8 @@
                     <div class="mx-auto col-sm-6 mb-3">
                         <label for="position">Position <span class="text-danger">*</span>:</label>
                         <!-- <input type="text" list="positions" required class='form-control' name="position" id="position" /> -->
-                        <select required class='form-control' name="position" id="position" onchange="print_alert(this.value)">
-                            <option disabled selected value> -- Select job position --</option>
+                        <select required class='form-control' name="job_role" id="job_role" onchange="print_alert(this.value)">
+                            <option disabled selected value> -- Select job role --</option>
                             <option value="Android">Android</option>
                             <option value="Blockchain">Blockchain</option>  
                             <option value="Business Development">Business Development</option>
@@ -74,15 +74,15 @@
                         </select>
                     </div>
                     <div class="ml-auto col-lg-6" >
-                        <label for="jobrole" id="joblabel" style="display: none;">Please specify the position <span class="text-danger">*</span>:</label>
-                        <input required class="form-control" type="text" name="jobrole" id="jobrole" style="display: none;" >
+                        <label for="other_jobrole" id="joblabel" style="display: none;">Please specify the job role <span class="text-danger">*</span>:</label>
+                        <input required class="form-control" type="text" name="other_jobrole" id="other_jobrole" style="display: none;" >
                     </div>
                 </div>
 
                 <div class="row m-4">
                     <div class="mx-auto col-sm-6">
-                        <label for="company">Company <span class="text-danger">*</span>:</label>
-                        <input required class="form-control" type="text" name="company" id='company'>
+                        <label for="org_name">Company <span class="text-danger">*</span>:</label><!--organization-->
+                        <input required class="form-control" type="text" name="org_name" id='org_name'>
                     </div>
 
                     <div class="mx-auto col-sm-6">
@@ -100,8 +100,8 @@
 
                 <div class="row m-4">
                     <div class="mx-auto col-sm-10">
-                        <label for="desc">Job description:</label>
-                        <textarea class="form-control" rows="4" cols="50" name="desc" form="new_post" id='desc'>
+                        <label for="job_desc">Job description:</label>
+                        <textarea class="form-control" rows="4" cols="50" name="job_desc" form="new_post" id='job_desc'>
                         </textarea>
                     </div>
                 </div>
@@ -162,20 +162,20 @@
             // var text = e.options[e.selectedIndex].text;
             // let val = e.selectedIndex;
             document.getElementById("joblabel").style.display = 'none';
-            document.getElementById("jobrole").style.display = 'none';
-            document.getElementById("jobrole").required = false;
+            document.getElementById("other_jobrole").style.display = 'none';
+            document.getElementById("other_jobrole").required = false;
 
             if(val == "Other")
             {
                 document.getElementById("joblabel").style.display = 'block';
-                document.getElementById("jobrole").style.display = 'block';
+                document.getElementById("other_jobrole").style.display = 'block';
                 document.getElementById("jobrole").required = true;
             }
             else
             {
                 document.getElementById("joblabel").style.display = 'none';
-                document.getElementById("jobrole").style.display = 'none';
-                document.getElementById("jobrole").required = false;
+                document.getElementById("other_jobrole").style.display = 'none';
+                document.getElementById("other_jobrole").required = false;
             }
         }
 
