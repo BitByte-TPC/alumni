@@ -417,7 +417,6 @@ class PasswordResetRequestForm(forms.Form):
 
 
 class SignupForm(forms.ModelForm):
-    role = forms.ChoiceField(choices=Constants.ROLE_CHOICES)
     confirm_password = forms.CharField(widget=forms.PasswordInput())
 
     class Meta:
@@ -472,7 +471,7 @@ class CompleteProfileForm(forms.ModelForm):
     class Meta:
         model = Profile 
         fields = '__all__'
-        exclude = ('user','role',)
+        exclude = ('user',)
         
         
     def clean_roll_no(self):

@@ -12,7 +12,7 @@ def custom_login_required(function):
         user = request.user
         if not (user.is_authenticated):
             return HttpResponseRedirect('/')   # case when user is not logged in 
-        elif (not user.profile.verify) and ( user.is_authenticated == True):
+        elif (not user.profile.verify) and (user.is_authenticated == True) and (request.path != '/complete_profile/'):
             return HttpResponseRedirect('/complete_profile/')  # case when user is logged in but haven't completed profile as after completing profile only  user will be able to login
         else:
             return function(request,*args,**kwargs)

@@ -67,7 +67,7 @@ class Constants:
 
 class Batch(models.Model):
     batch = models.IntegerField(primary_key=True)
-
+    isActive = models.BooleanField(default=False)
     def __str__(self):
         return str(self.batch)
 
@@ -79,7 +79,6 @@ def upload_photo(instance, filename):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    role = models.CharField(max_length=2, choices=Constants.ROLE_CHOICES, default='A')
 
     # Institute Details
     roll_no = models.CharField(primary_key=True, max_length=15)

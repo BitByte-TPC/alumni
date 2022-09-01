@@ -119,7 +119,6 @@ def signup(request):
     if request.method == "POST":
         form = SignupForm(request.POST)
         if form.is_valid():
-            role = request.POST['role']
             roll_no = request.POST['username'] # username and roll_no are same
             
             # user created using form
@@ -131,7 +130,7 @@ def signup(request):
                 )
             
             # now making profile for user
-            profile = Profile(user=user, roll_no=roll_no, role=role)
+            profile = Profile(user=user, roll_no=roll_no)
             profile.save()
             
              # sending mail for activation
@@ -163,6 +162,7 @@ def signup(request):
     return render(request, "AlumniConnect/signup.html", {'form': form})
 
 
+@custom_login_required
 def complete_profile(request):
     
     user = request.user
@@ -172,6 +172,12 @@ def complete_profile(request):
     except:
         # admin does not have any profile
         return redirect('home')
+    try:
+        # if profile is already completed then redirect to home
+        if profile.verify:
+            return redirect('home')
+    except:
+        pass
     
     
     #creating context for form

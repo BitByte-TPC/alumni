@@ -9,7 +9,7 @@
     {% include 'globals/navbar.html' %}
     {% include 'adminportal/masthead.html' %}
       
-    <section id="services" class="bg-primary p-1">
+    <section id="services" class="bg-primary p-1"> 
         <div class="container my-auto">
             <div class="row">
                 <div class="col-12 mx-auto align-middle text-center">
@@ -69,6 +69,14 @@
                         {% for branch in branches %}
                         <option value="{{ branch }}">{{ branch }}</option>
                         {% endfor %}
+                    </select>
+                </div>
+                <div class="col-sm-6 col-lg-3 mb-3">
+                    <label for="role">User Role</label>
+                    <select name="role" class="form-control" id="branch">
+                        <option value="">All</option>
+                        <option value="A">Alumni</option>
+                        <option value="S">Student</option>
                     </select>
                 </div>
             </div>

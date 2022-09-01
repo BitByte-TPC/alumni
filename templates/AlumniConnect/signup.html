@@ -97,14 +97,7 @@
                                 placeholder="Confirm Password" aria-label="Password" aria-describedby="button-addon2" required>
                                 {{ form.confirm_password.errors }}
                             </div>
-                            <div class="form-group">
-                                <label class="d-block text-left" for="signup-role">Registering as</label>
-                                <select id="singup-role" name="role" class="custom-select">
-                                    <option value="A">Alumni</option>
-                                    <option value="S" {% if form.role.value == 'S' %}selected{%endif%}>Student</option>
-                                </select>
-                            </div>
-                            <button class="btn btn-primary px-5 py-2" type="submit" value="login" name="submit">Sign In</button>
+                            <button class="btn btn-primary px-5 py-2" type="submit" value="login" name="submit">Sign Up</button>
                         </form>
                     </div>
                 </div>
