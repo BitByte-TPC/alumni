@@ -359,6 +359,7 @@ def resend_activation(request, uidb64, token):
     except(TypeError, ValueError, OverflowError):
         u = None
         profile = None
+        return HttpResponse('Invalid link')
     
     # if complete profile action is completed, but admin has not ver
     if profile and (profile.verify or profile.reg_no):
