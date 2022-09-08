@@ -137,7 +137,21 @@ section .section-title {
     width: 120px;
     height: 120px;
     border-radius: 50%;
-}</style>
+}
+.constitution{
+    text-align:center;
+}
+.constitutionContainer{
+    width:800px;
+    height:500px;
+}
+@media (max-width: 768px) {
+    .constitutionContainer {
+        width: 90%;
+        height: 400px;
+    }
+}
+</style>
 {% endblock %}
 {% block body %}
   <!-- <body id="page-top" class="font-open-sans" style="background-color: #eaedf5"> -->
@@ -423,6 +437,11 @@ section .section-title {
         
             </div>
         </div>
+    </section>
+    <section id="constitution" class="constitution text-center p-3">
+        <h1 class="section-title text-center">IIITDMJ Alumni Constitution </h1>
+        <embed src="{% static 'AlumniConnect/assets/alumni_constitution.pdf' %}" width="800" height="500" class="constitutionContainer"
+        type="application/pdf">
     </section>
     {% include 'globals/footer.html' %} 
 {% endblock %}
