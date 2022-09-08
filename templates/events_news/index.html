@@ -7,7 +7,7 @@
     }
     .constitutionContainer{
         width:800px;
-        height:500px;
+        height:800px;
     }
     @media (max-width: 768px) {
         .constitutionContainer {
@@ -42,8 +42,7 @@
     </section>
     <section id="constitution" class="constitution text-center p-3">
         <h1 class="section-title text-center">Minutes of Meeting - Alumni Meet 2022 </h1>
-        <embed src="{% static 'AlumniConnect/assets/minutes_of_meeting_2022.pdf' %}" width="800" height="500" class="constitutionContainer"
-        type="application/pdf">
+        <iframe src="{% static 'AlumniConnect/assets/minutes_of_meeting_2022.pdf' %}" class="constitutionContainer"></iframe>
     </section>
     <div class="events-container container text-left p-2 mx-auto my-4">
         {% for item in events %}
