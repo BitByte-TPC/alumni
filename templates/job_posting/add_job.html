@@ -33,7 +33,7 @@
         </div>
 
         <div class="container text-left mt-5 pt-4 shadow-lg rounded">
-            <form name="new_post" action="{% url 'jobs:post' %}" method="POST">{% csrf_token %}
+            <form name="new_post" id="new_post" action="{% url 'jobs:post' %}" method="POST">{% csrf_token %}
 
                 <div class="row m-4">
                     <div class="col text-center">
@@ -42,8 +42,8 @@
                 </div>
 
                 <div class="row m-4">
-                    <div class="mx-auto col-sm-6">
-                        <label for="type">Type <span class="text-danger">*</span>:</label>
+                    <div class="mx-auto col-12 col-sm-6 mb-3" id="dropdown2">
+                        <label for="job_type">Job Type :</label>
                         <select required class="form-control" name="job_type" id="job_type">
                             <option disabled selected value> -- Select job type --</option>
                             <option value="Internship">Internship</option>
@@ -52,9 +52,8 @@
                         </select>
                     </div>
 
-                    <div class="mx-auto col-sm-6 mb-3">
-                        <label for="position">Position <span class="text-danger">*</span>:</label>
-                        <!-- <input type="text" list="positions" required class='form-control' name="position" id="position" /> -->
+                    <div class="mx-auto col-12 col-sm-6 mb-3" id="dropdown1">
+                        <label for="job_role">Job Role :</label>
                         <select required class='form-control' name="job_role" id="job_role" onchange="print_alert(this.value)">
                             <option disabled selected value> -- Select job role --</option>
                             <option value="Android">Android</option>
@@ -69,45 +68,44 @@
                             <option value="Research">Research</option>
                             <option value="Software Developer">Software Developer</option>
                             <option value="Software Engineer">Software Engineer</option>
-                            <option value="UI/UX Designer">UI/UX Designer</option>
+                            <option value="Ui/Ux Designer">UI/UX Designer</option>
                             <option value="Other">Other</option>
                         </select>
                     </div>
-                    <div class="ml-auto col-lg-6" >
-                        <label for="other_jobrole" id="joblabel" style="display: none;">Please specify the job role <span class="text-danger">*</span>:</label>
+                    <div class="ml-auto col-sm-4" >
+                        <label for="other_jobrole" id="joblabel" style="display: none;">Specify the job role :</label>
                         <input required class="form-control" type="text" name="other_jobrole" id="other_jobrole" style="display: none;" >
                     </div>
                 </div>
 
                 <div class="row m-4">
                     <div class="mx-auto col-sm-6">
-                        <label for="org_name">Company <span class="text-danger">*</span>:</label><!--organization-->
+                        <label for="org_name">Company :</label>
                         <input required class="form-control" type="text" name="org_name" id='org_name'>
                     </div>
 
                     <div class="mx-auto col-sm-6">
-                        <label for="location">Location <span class="text-danger">*</span>:</label>
+                        <label for="location">Location :</label>
                         <input required class="form-control" type="text" name="location" id='location'>
                     </div>
                 </div>
 
                 <div class="row m-4">
-                    <div class="mx-auto col-sm-10">
-                        <label for="link">Link to apply <span class="text-danger">*</span>:</label>
+                    <div class="mx-auto col-sm-12">
+                        <label for="link">Link to apply :</label>
                         <input required class="form-control" type=text name="link" id='link'>
                     </div>
                 </div>
 
                 <div class="row m-4">
-                    <div class="mx-auto col-sm-10">
-                        <label for="job_desc">Job description:</label>
-                        <textarea class="form-control" rows="4" cols="50" name="job_desc" form="new_post" id='job_desc'>
-                        </textarea>
+                    <div class="mx-auto col-sm-12">
+                        <label for="job_desc">Job description <a class="detail">(Optional)</a>:</label>
+                        <textarea class="form-control" rows="4" cols="50" name="job_desc" form="new_post" id='job_desc'></textarea>
                     </div>
                 </div>
 
-                <div class="row m-4">
-                    <div class="mx-auto col-lg-3 col-md-6">
+                <div class="row mx-4 my-2">
+                    <div class="mx-auto mb-2 col-lg-4 col-md-6">
                         <label for="stipend">Stipend <a class="detail">(Per Month)</a>:</label>
                         <div class="input-group mb-3">
                             <span class="input-group-text" style="border-radius: 0.25rem 0 0 0.25rem;">₹</span>
@@ -118,24 +116,24 @@
                         <input class="form-control" type="number" name="stipend" id='stipend'> -->
                     </div>
 
-                    <div class="mx-auto col-lg-3 col-md-6">
+                    <div class="mx-auto mb-2 col-lg-4 col-md-6">
                         <label for="tenure">Tenure <a class="detail">(In Months)</a>:</label>
                         <input class="form-control" type="number" name="tenure" id='tenure'>
                     </div>
 
-                    <div class="mx-auto col-lg-3 col-md-6">
+                    <div class="mx-auto mb-2 col-lg-4 col-md-6">
                         <label for="exp_req">Min. Experience <a class="detail">(In years)</a>:</label>
                         <input class="form-control" type="number" name="exp_req" id='exp_req'>
                     </div>
                 </div>
 
-                <div class="row m-4">
-                    <div class="mx-auto col-sm-5">
+                <div class="row mx-4 my-2">
+                    <div class="mx-auto mb-3 col-sm-6">
                         <label for="last_date">Last Date to apply:</label>
                         <input class="form-control" type="date" name="last_date" id='last_date'>
                     </div>
 
-                    <div class="mx-auto col-sm-5">
+                    <div class="mx-auto mb-3 col-sm-6">
                         <label for="join_date">Joining date:</label>
                         <input class="form-control" type="date" name="join_date" id='join_date'>
                     </div>
@@ -145,6 +143,7 @@
                     <div class="mx-auto text-center col-4">
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
+                    
                 </div>
 
             </form>
@@ -156,23 +155,22 @@
 
         function print_alert(val)
         {
-            
-            var e = document.getElementsByName("position");
-            // var value = e.value;
-            // var text = e.options[e.selectedIndex].text;
-            // let val = e.selectedIndex;
             document.getElementById("joblabel").style.display = 'none';
             document.getElementById("other_jobrole").style.display = 'none';
             document.getElementById("other_jobrole").required = false;
 
             if(val == "Other")
             {
+                document.getElementById("dropdown1").className = "mx-auto col-sm-4 mb-3";
+                document.getElementById("dropdown2").className = "mx-auto col-sm-4 mb-3";
                 document.getElementById("joblabel").style.display = 'block';
                 document.getElementById("other_jobrole").style.display = 'block';
-                document.getElementById("jobrole").required = true;
+                document.getElementById("other_jobrole").required = true;
             }
             else
             {
+                document.getElementById("dropdown1").className = "mx-auto col-12 col-sm-6 mb-3";
+                document.getElementById("dropdown2").className = "mx-auto col-12 col-sm-6 mb-3";
                 document.getElementById("joblabel").style.display = 'none';
                 document.getElementById("other_jobrole").style.display = 'none';
                 document.getElementById("other_jobrole").required = false;

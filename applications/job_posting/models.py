@@ -19,4 +19,4 @@ class Job(models.Model):
     active = models.BooleanField(null=False, default=True)
 
     def __str__(self):
-        return self.position + " at " + self.company
+        return self.job_role  + " at " + self.org_name

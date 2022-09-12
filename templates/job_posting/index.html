@@ -41,7 +41,7 @@
                                         <option value="Research">Research</option>
                                         <option value="Software Developer">Software Developer</option>
                                         <option value="Software Engineer">Software Engineer</option>
-                                        <option value="UI/UX Designer">UI/UX Designer</option>
+                                        <option value="Ui/Ux Designer">UI/UX Designer</option>
                                         <option value="Other">Other</option>
                                     </select>
 
@@ -98,8 +98,8 @@
                                     <div class="row">
 
                                         <div class="col mx-auto text-left">
-                                            <a style="color:white; font-size: 25px">{{ i.job_role|title }}</a><br>
-                                            <a style="color: rgba(255, 255, 255, 0.7); font-size: 18px;">{{ i.org_name|title }}</a>
+                                            <a style="color:white; font-size: 25px">{{ i.job_role }}</a><br>
+                                            <a style="color: rgba(255, 255, 255, 0.7); font-size: 18px;">{{ i.org_name }}</a>
                                         </div>
 
                                         <div class="col-4 mx-auto text-right">
@@ -121,7 +121,7 @@
                                         <div class="row mb-4">
                                             <div class="col">
                                                 <i class="fa fa-map-marker-alt" aria-hidden="true"></i>
-                                                <a class="detail">{{ i.job_type }} in {{ i.location|title }}</a>
+                                                <a class="detail">{{ i.job_type }} in {{ i.location }}</a>
                                             </div>
                                         </div>
 
@@ -133,7 +133,7 @@
                                                 {% if i.stipend != None %}
                                                     <a class="detail">₹ {{ i.stipend }}/ Month</a>
                                                 {% else %}
-                                                    <a class="detail">Unknown</a><!--not provided/performance based/flexible-->
+                                                    <a class="detail">Unknown</a>
                                                 {% endif %}
                                             </div>
 
@@ -169,7 +169,7 @@
                                             {% if i.tenure %}
                                                 <div class="col-md-4 mb-2">
                                                     <div class="heading">
-                                                        <i class="fa fa-calendar"></i><a>Tenure</a>
+                                                        <i class="fa fa-solid fa-clock"></i><a>Tenure</a>
                                                     </div>
                                                     <a class="detail">{{ i.tenure }} Months</a>
                                                 </div>
@@ -180,7 +180,7 @@
                                             <div class="row mb-4">
                                                 <div class="col">
                                                     <div class="heading">
-                                                        <i class="icon icofont-notepad"></i><a>Description</a>
+                                                        <i class="fas fa-book-open"></i><a>Description</a>
                                                     </div>
                                                     <div id="more">
                                                         <p class="detail colapse"

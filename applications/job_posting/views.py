@@ -53,15 +53,23 @@ def filter_jobs(request):
     page = request.GET.get('page', 1)
     job_type = request.POST.get('job_type')
 
+    jobs = Job.objects.filter(active=True).order_by('-posting_date')
+
+    if job_role != "all":
+        jobs = jobs.filter(job_role = job_role)
+    
+    if job_type != "all":
+        jobs = jobs.filter(job_type = job_type)
+
     #if user choose other in role here than no jobs will be shown :(
-    if job_role != 'all' and type != 'all':
-        jobs = Job.objects.filter(job_role=job_role, job_type=job_type, active=True).order_by('-posting_date')
-    elif job_role != 'all' and type == 'all':
-        jobs = Job.objects.filter(job_role=job_role, active=True).order_by('-posting_date')
-    elif job_role == 'all' and type != 'all':
-        jobs = Job.objects.filter(type=type, active=True).order_by('-posting_date')
-    else:
-        return redirect('jobs:index', permanent=True)
+    # if job_role != 'all' and type != 'all':
+    #     jobs = Job.objects.filter(job_role=job_role, job_type=job_type, active=True).order_by('-posting_date')
+    # elif job_role != 'all' and type == 'all':
+    #     jobs = Job.objects.filter(job_role=job_role, active=True).order_by('-posting_date')
+    # elif job_role == 'all' and type != 'all':
+    #     jobs = Job.objects.filter(type=type, active=True).order_by('-posting_date')
+    # else:
+    #     return redirect('jobs:index', permanent=True)
 
     if jobs:
         messages.success(request, "Found " + str(jobs.count()) + " jobs matching your query!")
@@ -108,6 +116,10 @@ def post_opportunity(request):
 
             if job_role == "Other":
                 job_role = request.POST.get('other_jobrole')
+            
+            job_role = job_role.title()
+            org_name = org_name.title()
+            location = location.title()
 
             Job.objects.create(
                 job_type=job_type,
