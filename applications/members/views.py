@@ -61,7 +61,7 @@ def search(request):
     if len(request.POST) > 1:
         if request.POST['search'] != '':
            key = request.POST['search']
-           profiles = Profile.objects.filter(name__icontains=key) | Profile.objects.filter(
+           profiles = profiles.filter(name__icontains=key) | Profile.objects.filter(
            roll_no__icontains=key) | Profile.objects.filter(reg_no__icontains=key)
 
         if request.POST['batch'] != '':
@@ -103,29 +103,29 @@ def search(request):
 
     return render(request, "members/index.html", context)
 
-# def autoSearch(request):
-#     if request.is_ajax():
-#         key = request.POST['term']
-#         search_qs = Profile.objects.filter(name__icontains=key) | Profile.objects.filter(
-#             roll_no__icontains=key) | Profile.objects.filter(reg_no__icontains=key)
-#         data = []
-#         for r in search_qs:
-#             data.append(r.name)
-#     else:
-#         data = 'fail'
-#     return JsonResponse(data, safe=False)
+def autoSearch(request):
+    if request.is_ajax():
+        key = request.POST['term']
+        search_qs = Profile.objects.filter(name__icontains=key) | Profile.objects.filter(
+            roll_no__icontains=key) | Profile.objects.filter(reg_no__icontains=key)
+        data = []
+        for r in search_qs:
+            data.append(r.name)
+    else:
+        data = 'fail'
+    return JsonResponse(data, safe=False)
 
 
-# @login_required
-# def mapSearch(request):
-#     if request.POST['search']:
-#        key = request.POST['search']
-#        city = key.split(',', 1)[0]
-#        profiles = Profile.objects.filter(city__icontains=city)
-#        profiles = profiles.order_by('name')
-#        context = {'profiles': profiles,
-#                'keyy': key,
-#                'zero': len(profiles),
-#                'map': True
-#                 }
-#     return render(request, "members/index.html", context)
+@login_required
+def mapSearch(request):
+    if request.POST['search']:
+       key = request.POST['search']
+       city = key.split(',', 1)[0]
+       profiles = Profile.objects.filter(city__icontains=city)
+       profiles = profiles.order_by('name')
+       context = {'profiles': profiles,
+               'keyy': key,
+               'zero': len(profiles),
+               'map': True
+                }
+    return render(request, "members/index.html", context)

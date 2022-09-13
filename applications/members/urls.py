@@ -16,7 +16,7 @@ urlpatterns = [
     # new link
     path('alumnibody/', views.alumnibody, name="alumnibody"),
     path('search/', views.search, name='search'),
-    # path('autosearch/', views.autoSearch, name='autosearch'),
-    # path('mapsearch/', views.mapSearch, name='mapsearch'),
+    path('autosearch/', views.autoSearch, name='autosearch'),
+    path('mapsearch/', views.mapSearch, name='mapsearch'),
     path('', views.index, name='index'),
 ]
