@@ -224,3 +224,6 @@ def change_password(request):
     else:
         form = PasswordChangeForm(request.user)
     return render(request, 'AlumniConnect/change_password.html', {'form': form})
+
+def constitution(request):
+    return render(request, 'AlumniConnect/constitution.html')

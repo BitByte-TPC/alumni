@@ -59,7 +59,8 @@ urlpatterns += [
     path('chapter/', include('applications.chapter.urls')),
     path('adminportal/', include('applications.adminportal.urls')),
     path('jobs/', include('applications.job_posting.urls')),
-    re_path(r'favicon.ico', favicon_view)
+    re_path(r'favicon.ico', favicon_view),
+    path('constitution/', views.constitution, name='constitution'),
     #path('', views.index, name='home'),
 ]
 
