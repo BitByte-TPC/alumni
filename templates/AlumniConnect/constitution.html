@@ -1,0 +1,49 @@
+{% extends 'globals/base.html' %}
+{% load static %}
+
+{% block title %}
+Alumni Constitution
+{% endblock %}
+
+{% block css %}
+<style>
+  .constitution{
+      text-align:center;
+  }
+  .constitutionContainer{
+      width:800px;
+      height:800px;
+  }
+  @media (max-width: 768px) {
+      .constitutionContainer {
+          width: 90%;
+          height: 400px;
+      }
+  }
+  </style>
+{% endblock %}
+
+{% block body %}
+
+{% include 'globals/navbar.html' %}
+
+<div class="p-0 m-0 masthead-bg w-100 h-100 parallax" style="min-height:300px !important; height:300px !important; background-position-y: 300px;"></div>
+
+    <header class="masthead text-center text-white d-flex" style="height:0px; min-height:300px;">
+      <div class="container my-auto" style="margin-bottom:50px !important;">
+        <div class="row">
+          <div class="col-lg-8 mx-auto align-middle">
+            <h1 class="text-uppercase mt-4 font-open-sans">
+              <strong>ALUMNI CONSTITUTION</strong>
+            </h1>
+          </div>
+        </div>
+      </div>
+    </header>
+<section id="constitution" class="constitution text-center p-3">
+    <iframe src="{% static 'AlumniConnect/assets/alumni_constitution.pdf' %}" class="constitutionContainer">
+    </iframe>
+</section>
+{% endblock %}
+
+{% include 'globals/footer.html' %}

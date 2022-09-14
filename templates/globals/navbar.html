@@ -49,30 +49,10 @@
                     <li><a class="dropdown-item" href="{% url 'publications:index' %}">Publications</a></li>
                     <li><a href="https://www.iiitdmj.ac.in/about_us.php" target="_blank" class="dropdown-item">IIIT Jabalpur</a></li>
                     <li><a href="{% url 'members:alumnibody' %}" class="dropdown-item">Alumni Body</a></li>
+                    <li><a href="{% url 'constitution' %}" class="dropdown-item">Alumni Constitution</a></li>
                 </ul>
 
             </li>
-            <!-- <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="{% url 'publications:index' %}">Publications</a>
-                <div class="btn-group">
-                    <button type="button" class="btn nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                        style="border-radius:0px;color:#212529;font-size: .9rem;">
-                        Publications
-                    </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                        <div class="dropdown-divider"></div>%
-                        <a class="dropdown-item" href="#">Separated link</a>
-                    </div>
-                </div>
-            </li> -->
-            <!--
-            <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="">Opportunities</a>
-            </li>
-            -->
 
             {% if not user.is_authenticated %}
             <li class="nav-item">
