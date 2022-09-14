@@ -5,7 +5,6 @@ Hi {{ l.name }},
 </h3>
 <br>
 <a href = "http://{{ domain }}{% url 'activate' uidb64=uid token=token %}" target="_blank">Activate Account</a>
-<p>Link Expired?<a href = "http://{{ domain }}{% url 'resendactivate' uidb64=uid token=token %}" target="_blank">Resend</a></p>
 <br>
 <br>
 Regards,<br>

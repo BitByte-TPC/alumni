@@ -41,7 +41,7 @@ urlpatterns += [
     path('register/', views.register, name='register'),
     path('newregister/', views.new_register, name='new_register'),
     re_path(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', views.activate, name='activate'),
-    re_path(r'^activate/resend/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', views.resend_activation, name='resendactivate'),
+    path('activate/resend', views.resend_activation, name='resendactivate'),
     path('confirm/', TemplateView.as_view(template_name='AlumniConnect/confirm_email.html'), name = 'confirm'),
     path('success/', TemplateView.as_view(template_name='AlumniConnect/account_success.html'), name = 'success'),
     re_path('^', include('django.contrib.auth.urls')),
