@@ -162,7 +162,7 @@ def signup(request):
     form = SignupForm()
     return render(request, "AlumniConnect/signup.html", {'form': form})
 
-
+@custom_login_required
 def complete_profile(request):
     
     user = request.user
@@ -173,7 +173,14 @@ def complete_profile(request):
         # admin does not have any profile
         return redirect('home')
     
-    
+    try:
+        # if profile is already completed then redirect to home
+        if profile.verify or profile.reg_no:
+            return redirect('home')
+    except:
+        pass
+
+
     #creating context for form
     batches = list(Batch.objects.all().order_by('batch'))
     context = {'edit': False, 'programmes': Constants.PROG_CHOICES,'branches': Constants.BRANCH, 'batches': batches, 'admission_years': Constants.YEAR_OF_ADDMISSION,'user_roll_no':user.username,'user_email':user.email}
@@ -252,7 +259,9 @@ def reg_no_gen(degree_, spec_, year):
 def convert_int(number, decimals):
     return str(number).zfill(decimals)
 
-
+"""
+    This function needs to be depricated in new signup workflow.
+"""
 def new_register(request):
     if request.method == 'POST':
         form = NewRegister(request.POST, request.FILES)
@@ -316,9 +325,17 @@ def activate(request, uidb64, token):
         print(uid)
         u = User.objects.get(pk=uid)
         print(u)
+        profile = Profile.objects.get(user=u)
     except(TypeError, ValueError, OverflowError):
         u = None
-    if u is not None and account_activation_token.check_token(u, token):
+        profile = None
+    
+    # do not log in users with complete profiles
+    if profile and (profile.verify or profile.reg_no):
+        messages.warning(request, 'Please log in through password.')
+        return redirect('/')
+
+    if u and account_activation_token.check_token(u, token):
         u.is_active = True
         u.save()
         login(request, u)
@@ -329,6 +346,67 @@ def activate(request, uidb64, token):
         return HttpResponse('Activation link is invalid!')
     return redirect('/')
 
+'''
+    Incase the user does not complete their profile while the link
+    is active they can generate a new link by providing the old link.
+'''
+def resend_activation(request): 
+    # checking if user is already logged in
+    if request.user and request.user.is_authenticated:
+        return redirect('home')
+    
+    if request.method == 'POST':
+        form = AuthenticationForm(request,data = request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            user = User.objects.get(username = username)
+            profile = Profile.objects.get(user = user)
+
+            # if user is admin no need to check other thing
+            if user.is_staff:
+                messages.success(request, "Invalid user, admin can login directly")
+                return redirect('/login')
+            
+            # if user already verified, login the user
+            if profile.verify:
+                login(request,user)
+                messages.success(request, "Your account is already verified!")
+                return redirect('home')
+            
+            # make new activation link 
+            if user and profile:
+                # re-sending mail for activation
+                current_site = get_current_site(request)
+                from_email = settings.DEFAULT_FROM_EMAIL
+                to = [user.email]
+                subject = "[noreply] SAC Account Activation"
+                html_message = render_to_string('AlumniConnect/account_activation_email.html', {
+                    'user':user,
+                    'domain':current_site,
+                    'uid':urlsafe_base64_encode(force_bytes(user.pk)),
+                    'token':account_activation_token.make_token(user)
+                })
+                plain_message = strip_tags(html_message)
+                send_mail(
+                    subject = subject,
+                    message = plain_message,
+                    from_email = from_email,
+                    recipient_list=to,
+                    html_message = html_message,
+                    fail_silently=False,
+                )
+                messages.success(request, "Mail sent successfully.")
+                return render(request,"AlumniConnect/confirm_email.html")
+
+            else:
+                messages.error(request, 'Something went wrong.')
+                return redirect('/')
+
+        else:
+            return render(request,'AlumniConnect/resend_activation_link.html',{'form':form})
+        
+    form = AuthenticationForm()
+    return render(request,'AlumniConnect/resend_activation_link.html',{'form':form})
 
 @custom_login_required
 def change_password(request):
@@ -344,3 +422,6 @@ def change_password(request):
     else:
         form = PasswordChangeForm(request.user)
     return render(request, 'AlumniConnect/change_password.html', {'form': form})
+
+def constitution(request):
+    return render(request, 'AlumniConnect/constitution.html')
