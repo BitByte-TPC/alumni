@@ -5,7 +5,7 @@ from . import views
 app_name = 'profile'
 
 urlpatterns = [
-    re_path(r'^(?P<username>[0-9]{6,8})/$', views.profile, name='profile'),
+    re_path(r'^(?P<username>[a-zA-z0-9]{6,8})/$', views.profile, name='profile'),
     path('add_experience', views.add_experience, name='add_experience'),
     path('add_education', views.add_education, name='add_education'),
 ]
