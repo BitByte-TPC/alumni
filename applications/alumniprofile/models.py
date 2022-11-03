@@ -96,7 +96,7 @@ class Profile(models.Model):
     sex = models.CharField(max_length=2, choices=Constants.SEX_CHOICES, default='M')
     date_of_birth = models.DateField(default=datetime.date(1970, 1, 1))
     email = models.EmailField()
-    alternate_email = models.EmailField(blank=True)
+    alternate_email = models.EmailField()
     fathers_name = models.CharField(max_length=1000, default="")
     spouse_name = models.CharField(null=True, blank=True, max_length=1000, default="")
     mobile1 = models.BigIntegerField(null=True)
