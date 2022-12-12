@@ -46,6 +46,7 @@ def batch(request, year):
 def branch(request, programme, year, branch):
     # todo: change mail_sent to verify
     alumni = Profile.objects.filter(programme=programme, batch=year, branch=branch, verify=True)
+    alumni = alumni.order_by('roll_no')
     return render(request, "members/branch.html", {'data': alumni, 'batch': year, 'branch': branch})
 
 # def sacbody(request):
@@ -61,8 +62,8 @@ def search(request):
     if len(request.POST) > 1:
         if request.POST['search'] != '':
            key = request.POST['search']
-           profiles = profiles.filter(name__icontains=key) | Profile.objects.filter(
-           roll_no__icontains=key) | Profile.objects.filter(reg_no__icontains=key)
+           profiles = profiles.filter(name__icontains=key) | profiles.objects.filter(
+           roll_no__icontains=key) | profiles.objects.filter(reg_no__icontains=key)
 
         if request.POST['batch'] != '':
             batch = request.POST['batch']
@@ -86,7 +87,7 @@ def search(request):
             profiles2 = profiles.filter(current_university__icontains=org)
             profiles = profiles1 | profiles2
 
-    profiles = profiles.order_by('name')
+    profiles = profiles.order_by('roll_no')
 
     context = {'profiles': profiles,
                'keyy': 1,
