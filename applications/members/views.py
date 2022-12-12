@@ -62,8 +62,8 @@ def search(request):
     if len(request.POST) > 1:
         if request.POST['search'] != '':
            key = request.POST['search']
-           profiles = profiles.filter(name__icontains=key) | profiles.objects.filter(
-           roll_no__icontains=key) | profiles.objects.filter(reg_no__icontains=key)
+           profiles = profiles.filter(name__icontains=key) | profiles.filter(
+           roll_no__icontains=key) | profiles.filter(reg_no__icontains=key)
 
         if request.POST['batch'] != '':
             batch = request.POST['batch']
