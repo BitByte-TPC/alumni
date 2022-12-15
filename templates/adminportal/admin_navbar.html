@@ -1,0 +1,36 @@
+<section id="admin_navbar" class="bg-primary p-2">
+    <div class="container my-auto">
+        <div class="row">
+            <div class="col-12 mx-auto align-middle text-center">
+                <a href="{% url 'adminportal:index' %}" class="btn btn-light" tabindex="-1" role="button" aria-disabled="true" id="dashboardLnk">Dashboard</a>
+                <a href="{% url 'adminportal:mailservice' %}" class="btn btn-light" tabindex="-1" role="button" aria-disabled="true" id="mailingServiceLnk">Mailing Service</a>
+                <a href="{% url 'adminportal:registrations' %}" class="btn btn-light" tabindex="-1" role="button" aria-disabled="true" id="registrationsLnk">Registrations</a>
+                <a href="/admin/" class="btn btn-light" tabindex="-1" role="button" aria-disabled="true">Database</a>
+                <a href="{% url 'adminportal:events' %}" class="btn btn-light" tabindex="-1" role="button" aria-disabled="true" id="eventsLnk">Create an Event</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    var pathname = window.location.pathname;
+
+    var dashboard = document.getElementById('dashboardLnk');
+    var mailingService = document.getElementById('mailingServiceLnk');
+    var registrations = document.getElementById('registrationsLnk');
+    var events = document.getElementById('eventsLnk');
+
+    if(pathname == '/adminportal/') {
+        dashboard.classList.replace('btn-light', 'btn-outline-light');
+        dashboard.classList.add('disabled');
+    } else if(pathname == '/adminportal/mailservice') {
+        mailingService.classList.replace('btn-light', 'btn-outline-light');
+        mailingService.classList.add('disabled');
+    } else if(pathname == '/adminportal/registrations') {
+        registrations.classList.replace('btn-light', 'btn-outline-light');
+        registrations.classList.add('disabled');
+    } else if(pathname == '/adminportal/events') {
+        events.classList.replace('btn-light', 'btn-outline-light');
+        events.classList.add('disabled');
+    }
+</script>

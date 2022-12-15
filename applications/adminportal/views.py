@@ -12,11 +12,13 @@ from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.utils.html import strip_tags
 
-from datetime import date
+from datetime import date, datetime
 
 from applications.alumniprofile.models import Profile
+from applications.events_news.models import Event
 from .models import EmailTemplate, EmailHistory
 
+import pytz
 
 ALLOWED_RECIPIENTS_PER_DAY = 500
 
@@ -60,6 +62,67 @@ def get_rendered_emails(from_email, email_template, recipients):
 )
 def index(request):
     return render(request, 'adminportal/index.html')
+
+
+#Function to convert datetime from naive to offset
+def convert_datetime_to_offset(naive_time):
+    timezone = pytz.timezone("UTC")
+    offset_time = timezone.localize(datetime.strptime(naive_time, '%Y-%m-%dT%H:%M'))
+    return offset_time
+
+
+#Function to convert datetime from offset to naive (left here for reference for future developers from Tushhr's Repo (Interview Scheduler))
+def convert_datetime_to_naive(offset_time):
+    offset_time = str(offset_time)
+    naive_time = offset_time[:10] + "T" +  offset_time[11:-6]
+    return naive_time
+
+
+@login_required
+@user_passes_test(
+    is_superuser, redirect_field_name=None,
+    login_url=reverse_lazy('home')
+)
+def events(request):
+    if request.method == 'POST':
+        try:
+            title = request.POST['title']
+            description = request.POST['description']
+            start_date_time = request.POST['start_date_time']
+            end_date_time = request.POST['end_date_time']
+            address = request.POST['address']
+            location = request.POST['location']
+            by = request.POST['organiser']
+            picture = request.FILES.get('cover_image')
+            
+            start_date_time = convert_datetime_to_offset(start_date_time)
+            end_date_time = convert_datetime_to_offset(end_date_time)
+
+            if(end_date_time <= start_date_time):
+                messages.error(request, f"Start date & time should be less than end date & time.")
+                return redirect('adminportal:events')
+
+            event = Event(
+                title = title,
+                description = description,
+                location = location,
+                address = address,
+                by = by,
+                start_date = start_date_time,
+                end_date = end_date_time
+            )
+            
+            event.save()
+            if(picture != None):
+                event.picture = picture
+                event.save()
+
+        except Exception as err:
+            print(err)
+            messages.add_message(request, messages.ERROR, err)
+            return redirect('adminportal:events')
+
+    return render(request, 'adminportal/events.html')
 
 
 @login_required
