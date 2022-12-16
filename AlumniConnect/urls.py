@@ -44,7 +44,7 @@ urlpatterns += [
     path('success/', TemplateView.as_view(template_name='AlumniConnect/account_success.html'), name = 'success'),
     re_path('^', include('django.contrib.auth.urls')),
     path('password/', views.change_password, name='change_password'),
-    re_path(r'^profileedit/(?P<id>[0-9]+)/$', views.profileedit, name='profileedit'),
+    re_path(r'^profileedit/(?P<id>[a-zA-Z0-9]+)/$', views.profileedit, name='profileedit'),
     path('profile/', include('applications.alumniprofile.urls')),
     path('members/', include('applications.members.urls')),
     path('events/', include('applications.events_news.urls')),
