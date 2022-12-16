@@ -1,0 +1,117 @@
+{% extends 'globals/base.html' %}
+{% load static %}
+
+{% block title %}
+    Events | Alumni Connect
+{% endblock %}
+
+{% block body %}
+    {% include 'globals/navbar.html' %}
+    {% include 'adminportal/masthead.html' %}
+    {% include 'adminportal/admin_navbar.html' %}
+    
+    <!-- <section id="services" class="bg-primary p-1">
+        <div class="container my-auto">
+            <div class="row">
+                <div class="col-12 mx-auto align-middle text-center">
+                    <a href="{% url 'adminportal:index' %}" class="btn btn-light" tabindex="-1" role="button" aria-disabled="true">Dashboard</a>
+                    <a href="{% url 'adminportal:mailservice' %}" class="btn btn-light" tabindex="-1" role="button" aria-disabled="true">Mailing Service</a>
+                    <a href="{% url 'adminportal:registrations' %}" class="btn btn-light" tabindex="-1" role="button" aria-disabled="true">Registrations</a>
+                    <a href="/admin/" class="btn btn-light" tabindex="-1" role="button" aria-disabled="true">Database</a>
+                    <a href="{% url 'adminportal:events' %}" class="btn btn-outline-light disabled" tabindex="-1" role="button" aria-disabled="true">Create an Event</a>
+                </div>
+            </div>
+        </div>
+    </section> -->
+    
+    <div class="container px-5 px-sm-2 my-5">
+        <div class="row">
+            <div class="col-12">
+
+                {% if messages %}
+                    {% for message in messages %}
+                        {% if message.tags == 'error' %}
+                            <div class="alert alert-danger" role="alert">{{ message }}</div>
+                        {% else %}
+                            <div class="alert alert-success" role="alert">{{ message }}</div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+
+                <form method="post" class="mt-4" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="justify-content-center">
+                        <div class="form-outline mb-3">
+                            <label for="title" class="mx-1">Title:</label>
+                            <input type="text" name="title" id="title" class="form-control" required>
+                        </div>
+
+                        <div class="form-outline mb-3">
+                            <label for="description" class="mx-1">Description:</label>
+                            <textarea name="description" id="description" rows="10" class="form-control" required></textarea>
+                        </div>
+
+                        <div class="row justify-content-center mb-3">
+                            <div class="col-md-6">
+                                <div>
+                                    <label for="start_date_time" class="mx-1">Start Date:</label>
+                                    <input type="datetime-local" name="start_date_time" id="start_date_time" onchange="datetimeValidator()" required>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div>
+                                    <label for="end_date_time" class="mx-1">End Date:</label>
+                                    <input type="datetime-local" name="end_date_time" id="end_date_time" onchange="datetimeValidator()" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-outline mb-3">
+                            <label for="address" class="mx-1">Address:</label>
+                            <input type="text" name="address" id="address" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-outline mb-3">
+                            <label for="location" class="mx-1">Location (Optional):</label>
+                            <input type="text" name="location" id="location" class="form-control">
+                        </div>
+
+                        <div class="form-outline mb-3">
+                            <label for="organiser" class="mx-1">Organiser (Optional):</label>
+                            <input type="text" name="organiser" id="organiser" class="form-control">
+                        </div>
+
+                        <div class="form-outline mb-3">
+                            <label for="cover_image" class="mx-1">Cover Image (Optional):</label>
+                            <input name="cover_image" type="file" id="cover_image" class="form-control-file" accept=".jpg, .jpeg, .png">
+                        </div>
+
+                        <div class="row justify-content-center mt-3">
+                            <button type="submit" class="col-6 col-sm-4 col-lg-3 btn btn-primary">Submit</button>
+                        </div>
+                    </div>                
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+    {% include 'globals/footer.html' %}
+{% endblock %}
+
+
+{% block javascript %}
+<script type="text/javascript">
+    function datetimeValidator() {
+        var start_date_time = document.getElementById('start_date_time').value;
+        var end_date_time = document.getElementById('end_date_time').value;
+        if(start_date_time && end_date_time) {
+            if(start_date_time >= end_date_time) {
+                alert("Start date & time should be less than end date & time");
+            }
+        }
+    }
+</script>
+{% endblock %}
