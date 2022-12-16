@@ -71,7 +71,7 @@ def convert_datetime_to_offset(naive_time):
     return offset_time
 
 
-#Function to convert datetime from offset to naive (left here for reference for future developers from Tushhr's Repo (Interview Scheduler))
+#Function to convert datetime from offset to naive
 def convert_datetime_to_naive(offset_time):
     offset_time = str(offset_time)
     naive_time = offset_time[:10] + "T" +  offset_time[11:-6]
@@ -118,7 +118,6 @@ def events(request):
                 event.save()
 
         except Exception as err:
-            print(err)
             messages.add_message(request, messages.ERROR, err)
             return redirect('adminportal:events')
 
