@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-from importlib.metadata import requires
-=======
->>>>>>> d06cab20fd25a37fdb8779a73e33797d4e0e60f6
 import json     
 
 from django.shortcuts import render, redirect
