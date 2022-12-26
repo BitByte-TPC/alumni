@@ -275,7 +275,8 @@ class NewRegister(forms.ModelForm):
         self.fields['roll_no'].label = 'Roll No.'
         self.fields['date_of_birth'].label = 'Date of Birth'
         self.fields['year_of_admission'].label = 'Year of Admission'
-        self.fields['alternate_email'].label = 'Alternate Email'
+        self.fields['email'].label = 'Personal Email (gmail, yahoo, etc.)'
+        self.fields['alternate_email'].label = 'Official Email'
         self.fields['custom_city'].label = 'City'
         # self.fields['checkbox_terms'].label = 'I abide by the Terms and Conditions of the Alumni Cell'
         self.fields[
