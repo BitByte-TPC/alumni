@@ -27,6 +27,7 @@ def is_superuser(user):
     return user.is_superuser
 
 
+ 
 def get_rendered_emails(from_email, email_template, recipients):
     subject = email_template.subject
 
@@ -34,27 +35,29 @@ def get_rendered_emails(from_email, email_template, recipients):
     body_template = Template(body)
 
     messages = []
-
-    for profile in recipients:
-        context = Context({
+    bcc=[]
+    for profile in recipients:  
+        bcc.append(profile.email)
+    # print(bcc)
+    context = Context({
             "profile": profile,
         })
-        html_message = body_template.render(context)
-        plain_message = strip_tags(html_message)
-
-        email = EmailMultiAlternatives(
+    html_message = body_template.render(context)
+    plain_message = strip_tags(html_message)
+    
+    email = EmailMultiAlternatives(
             subject,
             plain_message,
             from_email,
-            [profile.email],
-            settings.BCC_EMAILS,
+            ['alumni@iiitdmj.ac.in'],
+            bcc ,
+            # settings.BCC_EMAILS,
         )
-        email.attach_alternative(html_message, "text/html")
-        messages.append(email)
+    email.attach_alternative(html_message, "text/html")
+    messages.append(email)
 
     return messages
-
-
+    
 @login_required
 @user_passes_test(
     is_superuser, redirect_field_name=None,
