@@ -35,13 +35,15 @@ def get_rendered_emails(from_email, email_template, recipients):
     body_template = Template(body)
 
     messages = []
-    bcc=[]
+    bcc=settings.BCC_EMAILS
+
     for profile in recipients:  
         bcc.append(profile.email)
-    # print(bcc)
+
     context = Context({
             "profile": profile,
         })
+
     html_message = body_template.render(context)
     plain_message = strip_tags(html_message)
     
@@ -49,7 +51,7 @@ def get_rendered_emails(from_email, email_template, recipients):
             subject,
             plain_message,
             from_email,
-            ['alumni@iiitdmj.ac.in'],
+            ['2019352@iiitdmj.ac.in'],
             bcc ,
             # settings.BCC_EMAILS,
         )
