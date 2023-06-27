@@ -51,7 +51,7 @@ def get_rendered_emails(from_email, email_template, recipients):
             subject,
             plain_message,
             from_email,
-            ['2019352@iiitdmj.ac.in'],
+            ['alumni@iiitdmj.ac.in'],
             bcc ,
             # settings.BCC_EMAILS,
         )
