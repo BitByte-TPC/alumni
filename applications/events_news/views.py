@@ -9,15 +9,13 @@ from django.utils import timezone
 from itertools import chain
 
 
-# Create your views here.
+# Create your views here........
 def events(request):
     now = timezone.now()
     events = Event.objects.filter(start_date__gte=now).order_by('start_date').annotate(Count('attendees__user_id'))
     # events_current = Event.objects.filter(start_date__lt=now).filter(end_date__gte=now).order_by('start_date')
-    events_completed = Event.objects.filter(end_date__lt=now).order_by('-start_date').annotate(
-        Count('attendees__user_id'))
-    events_ongoing = Event.objects.filter(start_date__lte=now, end_date__gte=now).order_by('start_date').annotate(
-        Count('attendees__user_id'))
+    events_completed = Event.objects.filter(end_date__lt=now).order_by('-start_date').annotate(  Count('attendees__user_id'))
+    events_ongoing = Event.objects.filter(start_date__lte=now, end_date__gte=now).order_by('start_date').annotate( Count('attendees__user_id'))
     events_to_display = list(chain(events_ongoing, events, events_completed))
     return render(request, "events_news/index.html", {'events': events_to_display})
 

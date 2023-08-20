@@ -51,6 +51,8 @@ def branch(request, programme, year, branch):
 # def sacbody(request):
 #     return redirect('members:alumnibody')
 
+
+# this is the function which returns all the alumni body member details statically .....
 def alumnibody(request):
     return render(request, "members/alumnibody.html")
 
