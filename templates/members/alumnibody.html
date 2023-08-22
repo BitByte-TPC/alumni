@@ -1,574 +1,238 @@
 {% extends 'globals/base.html' %}
 {% load static %}
 
-{% block title %} 
-    Alumni Connect
+{% block title %}
+Alumni Connect
 {% endblock %}
 
 {% block css %}
+
 <style>
-/* FontAwesome for working BootSnippet :> */
-#team {
-    background: #eee !important;
-}
-/*
-.btn-primary:hover,
-.btn-primary:focus {
-    background-color: #108d6f;
-    border-color: #108d6f;
-    box-shadow: none;
-    outline: none;
-}
+    /* FontAwesome for working BootSnippet :> */
+    #team {
+        background: #eee !important;
+    }
 
-.btn-primary {
-    color: #fff;
-    background-color: #007b5e;
-    border-color: #007b5e;
-}
+    #team .card {
+        border: none;
+        background: #ffffff;
+    }
 
-section {
-    padding: 60px 0;
-}
+    .image-flip:hover .backside,
+    .image-flip.hover .backside {
+        -webkit-transform: rotateY(0deg);
+        -moz-transform: rotateY(0deg);
+        -o-transform: rotateY(0deg);
+        -ms-transform: rotateY(0deg);
+        transform: rotateY(0deg);
+        border-radius: .25rem;
+    }
 
-section .section-title {
-    text-align: center;
-    color: #007b5e;
-    margin-bottom: 50px;
-    text-transform: uppercase;
-}
-*/
-#team .card {
-    border: none;
-    background: #ffffff;
-}
+    .image-flip:hover .frontside,
+    .image-flip.hover .frontside {
+        -webkit-transform: rotateY(180deg);
+        -moz-transform: rotateY(180deg);
+        -o-transform: rotateY(180deg);
+        transform: rotateY(180deg);
+    }
 
-.image-flip:hover .backside,
-.image-flip.hover .backside {
-    -webkit-transform: rotateY(0deg);
-    -moz-transform: rotateY(0deg);
-    -o-transform: rotateY(0deg);
-    -ms-transform: rotateY(0deg);
-    transform: rotateY(0deg);
-    border-radius: .25rem;
-}
+    .mainflip {
+        -webkit-transition: 1s;
+        -webkit-transform-style: preserve-3d;
+        -ms-transition: 1s;
+        -moz-transition: 1s;
+        -moz-transform: perspective(1000px);
+        -moz-transform-style: preserve-3d;
+        -ms-transform-style: preserve-3d;
+        transition: 1s;
+        transform-style: preserve-3d;
+        position: relative;
+    }
 
-.image-flip:hover .frontside,
-.image-flip.hover .frontside {
-    -webkit-transform: rotateY(180deg);
-    -moz-transform: rotateY(180deg);
-    -o-transform: rotateY(180deg);
-    transform: rotateY(180deg);
-}
+    .frontside {
+        position: relative;
+        -webkit-transform: rotateY(0deg);
+        -ms-transform: rotateY(0deg);
+        z-index: 2;
+        margin-bottom: 30px;
+    }
 
-.mainflip {
-    -webkit-transition: 1s;
-    -webkit-transform-style: preserve-3d;
-    -ms-transition: 1s;
-    -moz-transition: 1s;
-    -moz-transform: perspective(1000px);
-    -moz-transform-style: preserve-3d;
-    -ms-transform-style: preserve-3d;
-    transition: 1s;
-    transform-style: preserve-3d;
-    position: relative;
-}
+    .backside {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: white;
+        -webkit-transform: rotateY(-180deg);
+        -moz-transform: rotateY(-180deg);
+        -o-transform: rotateY(-180deg);
+        -ms-transform: rotateY(-180deg);
+        transform: rotateY(-180deg);
+        -webkit-box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
+        -moz-box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
+        box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
+    }
 
-.frontside {
-    position: relative;
-    -webkit-transform: rotateY(0deg);
-    -ms-transform: rotateY(0deg);
-    z-index: 2;
-    margin-bottom: 30px;
-}
+    .frontside,
+    .backside {
+        -webkit-backface-visibility: hidden;
+        -moz-backface-visibility: hidden;
+        -ms-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-transition: 1s;
+        -webkit-transform-style: preserve-3d;
+        -moz-transition: 1s;
+        -moz-transform-style: preserve-3d;
+        -o-transition: 1s;
+        -o-transform-style: preserve-3d;
+        -ms-transition: 1s;
+        -ms-transform-style: preserve-3d;
+        transition: 1s;
+        transform-style: preserve-3d;
+    }
 
-.backside {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: white;
-    -webkit-transform: rotateY(-180deg);
-    -moz-transform: rotateY(-180deg);
-    -o-transform: rotateY(-180deg);
-    -ms-transform: rotateY(-180deg);
-    transform: rotateY(-180deg);
-    -webkit-box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
-    -moz-box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
-    box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
-}
+    .frontside .card,
+    .backside .card {
+        min-height: 312px;
+    }
 
-.frontside,
-.backside {
-    -webkit-backface-visibility: hidden;
-    -moz-backface-visibility: hidden;
-    -ms-backface-visibility: hidden;
-    backface-visibility: hidden;
-    -webkit-transition: 1s;
-    -webkit-transform-style: preserve-3d;
-    -moz-transition: 1s;
-    -moz-transform-style: preserve-3d;
-    -o-transition: 1s;
-    -o-transform-style: preserve-3d;
-    -ms-transition: 1s;
-    -ms-transform-style: preserve-3d;
-    transition: 1s;
-    transform-style: preserve-3d;
-}
+    .backside .card a {
+        font-size: 18px;
+        color: #007b5e !important;
+    }
 
-.frontside .card,
-.backside .card {
-    min-height: 312px;
-}
+    .frontside .card .card-title,
+    .backside .card .card-title {
+        color: #007b5e !important;
+    }
 
-.backside .card a {
-    font-size: 18px;
-    color: #007b5e !important;
-}
+    .frontside .card .card-body {
+        padding: 1rem;
+    }
 
-.frontside .card .card-title,
-.backside .card .card-title {
-    color: #007b5e !important;
-}
-
-.frontside .card .card-body{
-    padding: 1rem;
-}
-
-.frontside .card .card-body img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-}
-
+    .frontside .card .card-body img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+    }
 </style>
+
 {% endblock %}
 {% block body %}
-  <!-- <body id="page-top" class="font-open-sans" style="background-color: #eaedf5"> -->
-    {% include 'globals/navbar.html' %}
-    <div class="p-0 m-0 masthead-bg w-100 h-100 parallax" style="min-height:300px !important; height:300px !important; background-position-y: 300px;"></div>
+<!-- <body id="page-top" class="font-open-sans" style="background-color: #eaedf5"> -->
+{% include 'globals/navbar.html' %}
+<div class="p-0 m-0 masthead-bg w-100 h-100 parallax"
+    style="min-height:300px !important; height:300px !important; background-position-y: 300px;"></div>
 
-    <header class="masthead text-center text-white d-flex" style="height:0px; min-height:300px;">
-      <div class="container my-auto" style="margin-bottom:50px !important;">
+<header class="masthead text-center text-white d-flex" style="height:0px; min-height:300px;">
+    <div class="container my-auto" style="margin-bottom:50px !important;">
         <div class="row">
-          <div class="col-lg-8 mx-auto align-middle">
-            <h1 class="text-uppercase mt-4 font-open-sans">
-              <strong>ALUMNI CONNECT</strong>
-            </h1>
-          </div>
+            <div class="col-lg-8 mx-auto align-middle">
+                <h1 class="text-uppercase mt-4 font-open-sans">
+                    <strong>ALUMNI CONNECT</strong>
+                </h1>
+            </div>
         </div>
-      </div>
-    </header>
+    </div>
+</header>
 
-    <section id="services" class="bg-primary p-1">
-    </section>
-    <section id="team" class="pb-5">
-        <div class="container">
-                <!--
-                <div class="row">
-                        <div class="col-xs-12 col-sm-6 col-md-4">
-                            <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-                                <div class="mainflip">
-                                    <div class="frontside">
-                                        <div class="card">
-                                            <div class="card-body text-center">
-                                                <p><img class=" img-fluid" src="https://sunlimetech.com/portfolio/boot4menu/assets/imgs/team/img_01.png" alt="card image"></p>
-                                                <h4 class="card-title">Sunlimetech</h4>
-                                                <p class="card-text">This is basic card with image on top, title, description and button.</p>
-                                                <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="backside">
-                                        <div class="card">
-                                            <div class="card-body text-center mt-4">
-                                                <h4 class="card-title">Sunlimetech</h4>
-                                                <p class="card-text">This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.</p>
-                                                <ul class="list-inline">
-                                                    <li class="list-inline-item">
-                                                        <a class="social-icon text-xs-center" target="_blank" href="#">
-                                                            <i class="fa fa-facebook"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-inline-item">
-                                                        <a class="social-icon text-xs-center" target="_blank" href="#">
-                                                            <i class="fa fa-twitter"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-inline-item">
-                                                        <a class="social-icon text-xs-center" target="_blank" href="#">
-                                                            <i class="fa fa-skype"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-inline-item">
-                                                        <a class="social-icon text-xs-center" target="_blank" href="#">
-                                                            <i class="fa fa-google"></i>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+<section id="services" class="bg-primary p-1">
+</section>
+<section id="team" class="pb-5">
+    <div class="container">
+
+        <h1 class="section-title h1 text-center">Patrons</h1><br>
+        <div class="row">
+            <!-- Team member -->
+            <div class="col-xs-12 col-md-6">
+                <div class="frontside">
+                    <div class="card shadow-lg">
+                        <div class="card-body text-center">
+                            <p><img class=" img-fluid" src="{% static 'AlumniConnect/img/people/new_director.jpg' %}"
+                                    alt="card image" style="object-fit:cover; object-position:50% 0%;"></p>
+                            <h4 class="card-title">Prof. Bhartendu K Singh </h4>
+                            <p class="card-text">Director</p>
                         </div>
                     </div>
-                    -->
-            <h1 class="section-title h1 text-center">Patrons</h1><br>
-            <div class="row">
-                <!-- Team member -->
-                <div class="col-xs-12 col-md-6">
-                        <div class="frontside">
-                            <div class="card shadow-lg">
-                                <div class="card-body text-center">
-                                    <p><img class=" img-fluid" src="{% static 'AlumniConnect/img/people/new_director.jpg' %}" alt="card image"
-                                        style="object-fit:cover; object-position:50% 0%;"></p>
-                                    <h4 class="card-title">Prof. Bhartendu K Singh </h4>
-                                    <p class="card-text">Director</p>
-                                </div>
-                            </div>
-                        </div>   
-                    </div>
-                    
-                    <!-- ./Team member -->
-                <!-- Team member -->
-                <div class="col-xs-12 col-md-6">
-                    <div class="frontside">
-                        <div class="card shadow-lg">
-                            <div class="card-body text-center">
-                                <p><img class=" img-fluid" src="{% static 'AlumniConnect/img/people/PTandon2.jpg' %}" alt="card image"
-                                    style="object-fit:cover; object-position:50% 0%;"></p>
-                                <h4 class="card-title">Prof. Puneet Tandon</h4>
-                                <p class="card-text">Prof. In-Charge, Alumni Cell</p>
-                            </div>
-                        </div>
-                    </div>   
-                </div>
-                
-                <!-- ./Team member -->
-                <!-- Team member -->
-                <div class="col-xs-12 col-md-6">
-                    <div class="frontside">
-                        <div class="card shadow-lg">
-                            <div class="card-body text-center">
-                                <p><img class=" img-fluid" src="{% static 'AlumniConnect/img/people/Omvir.jpg' %}" alt="card image"
-                                    style="object-fit:cover; object-position:50% 0%;"></p>
-                                <h4 class="card-title">Mr. Omvir Singh Bhadauria</h4>
-                                <p class="card-text">Assistant Registrar</p>
-                            </div>
-                        </div>
-                    </div>   
-                </div>
-                
-                <!-- ./Team member -->
-                <!-- Team member -->
-                <div class="col-xs-12 col-md-6">
-                    <div class="frontside">
-                        <div class="card shadow-lg">
-                            <div class="card-body text-center">
-                                <p><img class=" img-fluid" src="{% static 'AlumniConnect/img/people/Anil.jpg' %}" alt="card image"
-                                    style="object-fit:cover; object-position:50% 0%;"></p>
-                                <h4 class="card-title">Mr. Anil Kumar</h4>
-                                <p class="card-text">Junior Superintendent<br>Office of Alumni Affairs</p>
-                            </div>
-                        </div>
-                    </div>   
                 </div>
             </div>
+
             <!-- ./Team member -->
-            <h1 class="section-title h1 text-center">Team</h1><br>
-            <div class="row font-open-sans">
-<!--                 ./Team member-->
-
-
-              
-                <!-- Team member -->
-                <div class="col-xs-12 col-md-6 col-lg-4 col-xl-4">
-                    <div class="frontside">
-                        <div class="card shadow-lg">
-                            <div class="card-body text-center">
-                                <p><img class=" img-fluid" src="{% static 'AlumniConnect/img/people/Mihir.jpeg' %}" alt="card image"
-                                        style="object-fit:cover; object-position:50% 0%;"></p>
-                                <h4 class="card-title">Mihir Solanki</h4>
-                                <p class="card-text"><b>Web Team</b></p>
-                                <p class="card-text text-center"><i class="fas fa-user-graduate"></i> B.Tech (CSE)<br><i class="far fa-calendar-plus"></i> Batch of 2024</p>
-                                <p class="card-text text-center">
-                                    <h4>
-                                        <a href="https://www.linkedin.com/in/mihir-solanki-468563152" target="_blank"><i class="fab fa-linkedin"></i></a>
-                                    <a href="mailto:20bcs131@iiitdmj.ac.in" target="_top"><i class="fas fa-envelope"></i></a>
-                                    <!-- <a href="#" target="_blank"><i class="fas fa-link"></i></a> -->
-                                </h4>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- ./Team member -->
-
-
-                <!-- Team member -->
-                <div class="col-xs-12 col-md-6 col-lg-4 col-xl-4">
-                    <div class="frontside">
-                        <div class="card shadow-lg">
-                            <div class="card-body text-center">
-                                <p><img class=" img-fluid" src="{% static 'AlumniConnect/img/people/Mayuk.jpg' %}" alt="card image"
-                                        style="object-fit:cover; object-position:50% 0%;"></p>
-                                <h4 class="card-title">Mayuk Sarkar</h4>
-                                <p class="card-text"><b>Web Team</b></p>
-                                <p class="card-text text-center"><i class="fas fa-user-graduate"></i> B.Tech (CSE)<br><i class="far fa-calendar-plus"></i> Batch of 2025</p>
-                                <p class="card-text text-center">
-                                    <h4>
-                                        <a href="https://www.linkedin.com/in/mayuk-sarkar-088726210/" target="_blank"><i class="fab fa-linkedin"></i></a>
-                                    <a href="mailto:21bcs132@iiitdmj.ac.in" target="_top"><i class="fas fa-envelope"></i></a>
-                                    <!-- <a href="#" target="_blank"><i class="fas fa-link"></i></a> -->
-                                </h4>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- ./Team member -->
-                
-                <!-- Team member -->
-                <div class="col-xs-12 col-md-6 col-lg-4 col-xl-4">
-                    <div class="frontside">
-                        <div class="card shadow-lg">
-                            <div class="card-body text-center">
-                                <p><img class=" img-fluid" src="{% static 'AlumniConnect/img/people/Akash.jpg' %}" alt="card image"
-                                    style="object-fit:cover; object-position:50% 0%;"></p>
-                                    <h4 class="card-title">Akash Kumar Sah</h4>
-                                    <p class="card-text"><b>Web Team</b></p>
-                                    <p class="card-text text-center"><i class="fas fa-user-graduate"></i> B.Tech (CSE)<br><i class="far fa-calendar-plus"></i> Batch of 2026</p>
-                                    <p class="card-text text-center">
-                                        <h4>
-                                            <a href="https://www.linkedin.com/in/akashsah2003" target="_blank"><i class="fab fa-linkedin"></i></a>
-                                            <a href="mailto:22bcs019@iiitdmj.ac.in" target="_top"><i class="fas fa-envelope"></i></a>
-                                    <!-- <a href="#" target="_blank"><i class="fas fa-link"></i></a> -->
-                                </h4>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- ./Team member -->
-                <!-- Team member -->
-                <div class="col-xs-12 col-md-6 col-lg-4 col-xl-4">
-                    <div class="frontside">
-                        <div class="card shadow-lg">
-                            <div class="card-body text-center">
-                                <p><img class=" img-fluid" src="{% static 'AlumniConnect/img/people/spandan.jpg' %}" alt="card image"
-                                    style="object-fit:cover; object-position:50% 0%;"></p>
-                                    <h4 class="card-title">Spandan Ghosh</h4>
-                                    <p class="card-text"><b>Web Team</b></p>
-                                    <p class="card-text text-center"><i class="fas fa-user-graduate"></i> B.Tech (CSE)<br><i class="far fa-calendar-plus"></i> Batch of 2026</p>
-                                    <p class="card-text text-center">
-                                        <h4>
-                                            <a href="https://www.linkedin.com/in/spandan-ghosh-17b401240" target="_blank"><i class="fab fa-linkedin"></i></a>
-                                            <a href="mailto:22bcs237@iiitdmj.ac.in" target="_top"><i class="fas fa-envelope"></i></a>
-                                    <!-- <a href="#" target="_blank"><i class="fas fa-link"></i></a> -->
-                                </h4>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- ./Team member -->
-                <!-- Team member -->
-                <div class="col-xs-12 col-md-6 col-lg-4 col-xl-4">
-                    <div class="frontside">
-                        <div class="card shadow-lg">
-                            <div class="card-body text-center">
-                                <p><img class=" img-fluid" src="{% static 'AlumniConnect/img/people/BroteenDas.jpg' %}" alt="card image"
-                                    style="object-fit:cover; object-position:50% 0%;"></p>
-                                    <h4 class="card-title">Broteen Das</h4>
-                                    <p class="card-text"><b>Web Team</b></p>
-                                    <p class="card-text text-center"><i class="fas fa-user-graduate"></i> B.Tech (SM)<br><i class="far fa-calendar-plus"></i> Batch of 2026</p>
-                                    <p class="card-text text-center">
-                                        <h4>
-                                            <a href="https://www.linkedin.com/in/broteen-das-22923024a" target="_blank"><i class="fab fa-linkedin"></i></a>
-                                            <a href="mailto:22bsm014@iiitdmj.ac.in" target="_top"><i class="fas fa-envelope"></i></a>
-                                    <!-- <a href="#" target="_blank"><i class="fas fa-link"></i></a> -->
-                                </h4>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- ./Team member -->
-                
-                
-                
-                
-            </div>
-            <h1 class="section-title h1 text-center">Previous Team</h1><br>
-            <div class="row font-open-sans">
-                
-                <!-- Team member -->
-                <div class="col-xs-12 col-md-6 col-lg-4 col-xl-4">
-                    <div class="frontside">
-                        <div class="card shadow-lg">
-                            <div class="card-body text-center">
-                                <p><img class=" img-fluid" src="{% static 'AlumniConnect/img/people/shivanshdhiman.jpg' %}" alt="card image"
-                                        style="object-fit:cover; object-position:50% 0%;"></p>
-                                <h4 class="card-title">Shivansh Dhiman</h4>
-                                <p class="card-text"><b>Web Team</b></p>
-                                <p class="card-text text-center"><i class="fas fa-user-graduate"></i> B.Tech (CSE)<br><i class="far fa-calendar-plus"></i> Batch of 2021</p>
-                                <p class="card-text text-center">
-                                    <h4>
-                                        <a href="https://www.linkedin.com/in/shivansh-dhiman" target="_blank"><i class="fab fa-linkedin"></i></a>
-                                    <a href="mailto:2017247@iiitdmj.ac.in" target="_top"><i class="fas fa-envelope"></i></a>
-                                    <!-- <a href="#" target="_blank"><i class="fas fa-link"></i></a> -->
-                                </h4>
-                            </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- ./Team member -->
-                
-                <!-- Team member -->
-                <div class="col-xs-12 col-md-6 col-lg-4 col-xl-4">
-                    <div class="frontside">
-                        <div class="card shadow-lg">
-                            <div class="card-body text-center">
-                                <p><img class=" img-fluid" src="{% static 'AlumniConnect/img/people/meru.jpeg' %}" alt="card image"
-                                    style="object-fit:cover; object-position:50% 0%;"></p>
-                                    <h4 class="card-title">Meru Patel</h4>
-                                <p class="card-text"><b>Web Team</b></p>
-                                <p class="card-text text-center"><i class="fas fa-user-graduate"></i> B.Tech (CSE)<br><i class="far fa-calendar-plus"></i> Batch of 2021</p>
-                                <p class="card-text text-center">
-                                <h4>
-                                    <a href="https://www.linkedin.com/in/patel-meru" target="_blank"><i class="fab fa-linkedin"></i></a>
-                                    <a href="mailto:2017180@iiitdmj.ac.in" target="_top"><i class="fas fa-envelope"></i></a>
-                                    <!-- <a href="#" target="_blank"><i class="fas fa-link"></i></a> -->
-                                </h4>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- ./Team member -->
-                <!-- Team member -->
-                <div class="col-xs-12 col-md-6 col-lg-4 col-xl-4">
-                    <div class="frontside">
-                        <div class="card shadow-lg">
-                            <div class="card-body text-center">
-                                <p><img class=" img-fluid" src="{% static 'AlumniConnect/img/people/priyansh.jpeg' %}" alt="card image"
-                                        style="object-fit:cover; object-position:50% 0%;"></p>
-                                <h4 class="card-title">Priyansh Garg</h4>
-                                <p class="card-text"><b>Web Team</b></p>
-                                <p class="card-text text-center"><i class="fas fa-user-graduate"></i> B.Tech (CSE)<br><i class="far fa-calendar-plus"></i> Batch of 2022</p>
-                                <p class="card-text text-center">
-                                <h4>
-                                    <!-- <a href="https://www.facebook.com/priyansh.garg.3/" target="_blank"><i class="fab fa-facebook-square"></i></a>  -->
-                                    <a href="https://www.linkedin.com/in/priyansh3133/" target="_blank"><i class="fab fa-linkedin"></i></a>
-                                    <a href="mailto:2018196@iiitdmj.ac.in" target="_top"><i class="fas fa-envelope"></i></a>
-                                    <!-- <a href="#" target="_blank"><i class="fas fa-link"></i></a> -->
-                                </h4>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ./Team member -->
-
-                <!-- Team member -->
-                <div class="col-xs-12 col-md-6 col-lg-4 col-xl-4">
-                    <div class="frontside">
-                        <div class="card shadow-lg">
-                            <div class="card-body text-center">
-                                <p><img class=" img-fluid" src="{% static 'AlumniConnect/img/people/Animesh.jpeg' %}" alt="card image"
-                                    style="object-fit:cover; object-position:50% 0%;"></p>
-                                    <h4 class="card-title">Animesh Kumar</h4>
-                                    <p class="card-text"><b>Web Team</b></p>
-                                    <p class="card-text text-center"><i class="fas fa-user-graduate"></i> B.Tech (CSE)<br><i class="far fa-calendar-plus"></i> Batch of 2023</p>
-                                    <p class="card-text text-center">
-                                        <h4>
-                                            <a href="https://www.linkedin.com/in/animesh-kumar1/" target="_blank"><i class="fab fa-linkedin"></i></a>
-                                    <a href="mailto:2019023@iiitdmj.ac.in" target="_top"><i class="fas fa-envelope"></i></a>
-                                    <!-- <a href="#" target="_blank"><i class="fas fa-link"></i></a> -->
-                                </h4>
-                            </p>
+            <!-- Team member -->
+            <div class="col-xs-12 col-md-6">
+                <div class="frontside">
+                    <div class="card shadow-lg">
+                        <div class="card-body text-center">
+                            <p><img class=" img-fluid" src="{% static 'AlumniConnect/img/people/PTandon2.jpg' %}"
+                                    alt="card image" style="object-fit:cover; object-position:50% 0%;"></p>
+                            <h4 class="card-title">Prof. Puneet Tandon</h4>
+                            <p class="card-text">Prof. In-Charge, Alumni Cell</p>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             <!-- ./Team member -->
+            <!-- Team member -->
+            <div class="col-xs-12 col-md-6">
+                <div class="frontside">
+                    <div class="card shadow-lg">
+                        <div class="card-body text-center">
+                            <p><img class=" img-fluid" src="{% static 'AlumniConnect/img/people/Omvir.jpg' %}"
+                                    alt="card image" style="object-fit:cover; object-position:50% 0%;"></p>
+                            <h4 class="card-title">Mr. Omvir Singh Bhadauria</h4>
+                            <p class="card-text">Assistant Registrar</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ./Team member -->
+            <!-- Team member -->
+            <div class="col-xs-12 col-md-6">
+                <div class="frontside">
+                    <div class="card shadow-lg">
+                        <div class="card-body text-center">
+                            <p><img class=" img-fluid" src="{% static 'AlumniConnect/img/people/Anil.jpg' %}"
+                                    alt="card image" style="object-fit:cover; object-position:50% 0%;"></p>
+                            <h4 class="card-title">Mr. Anil Kumar</h4>
+                            <p class="card-text">Junior Superintendent<br>Office of Alumni Affairs</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ./Team member -->
+        <h1 class="section-title h1 text-center">Team</h1><br>
+        <div class="row font-open-sans">
+            <!--      ./Team member-->
+
+
+
             <!-- Team member -->
             <div class="col-xs-12 col-md-6 col-lg-4 col-xl-4">
                 <div class="frontside">
                     <div class="card shadow-lg">
                         <div class="card-body text-center">
-                            <p><img class=" img-fluid" src="{% static 'AlumniConnect/img/people/Tushar.jpg' %}" alt="card image"
-                                    style="object-fit:cover; object-position:50% 0%;"></p>
-                            <h4 class="card-title">Tushar Maheshwari</h4>
-                            <p class="card-text"><b>Head - Web Team</b></p>
-                            <p class="card-text text-center"><i class="fas fa-user-graduate"></i> B.Tech (CSE)<br><i class="far fa-calendar-plus"></i> Batch of 2023</p>
-                            <p class="card-text text-center">
-                                <h4>
-                                    <a href="https://www.linkedin.com/in/tushhr/" target="_blank"><i class="fab fa-linkedin"></i></a>
-                                    <a href="mailto:2019352@iiitdmj.ac.in" target="_top"><i class="fas fa-envelope"></i></a>
-                                    <!-- <a href="#" target="_blank"><i class="fas fa-link"></i></a> -->
-                                </h4>
-                            </p>
-                        </div>
-                    </div>
-                </div>   
-            </div>
-            
-            <!-- ./Team member -->
-            <!-- Team member -->
-            <div class="col-xs-12 col-md-6 col-lg-4 col-xl-4">
-                <div class="frontside">
-                    <div class="card shadow-lg">
-                        <div class="card-body text-center">
-                            <p><img class=" img-fluid" src="{% static 'AlumniConnect/img/people/Chirag.jpeg' %}" alt="card image"
-                                    style="object-fit:cover; object-position:50% 0%;"></p>
-                            <h4 class="card-title">Chirag Sharma</h4>
-                            <p class="card-text"><b>Web Team</b></p>
-                            <p class="card-text text-center"><i class="fas fa-user-graduate"></i> B.Tech (CSE)<br><i class="far fa-calendar-plus"></i> Batch of 2023</p>
+                            <p><img class=" img-fluid" src="{% static 'AlumniConnect/img/people/Mihir.jpeg' %}"
+                                    alt="card image" style="object-fit:cover; object-position:50% 0%;"></p>
+                            <h4 class="card-title">Mihir Solanki</h4>
+                            <p class="card-text"><b> Head - Web Team</b></p>
+                            <p class="card-text text-center"><i class="fas fa-user-graduate"></i> B.Tech (CSE)<br><i
+                                    class="far fa-calendar-plus"></i> Batch of 2024</p>
                             <p class="card-text text-center">
                             <h4>
-                                <a href="https://www.linkedin.com/in/chirag-sharma-405452193" target="_blank"><i class="fab fa-linkedin"></i></a>
-                                <a href="mailto:2019050@iiitdmj.ac.in" target="_top"><i class="fas fa-envelope"></i></a>
-                                <!-- <a href="#" target="_blank"><i class="fas fa-link"></i></a> -->
+                                <a href="https://www.linkedin.com/in/mihir-solanki-468563152" target="_blank"><i
+                                        class="fab fa-linkedin"></i></a>
+                                <a href="mailto:20bcs131@iiitdmj.ac.in" target="_top"><i
+                                        class="fas fa-envelope"></i></a>
+
                             </h4>
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <!-- ./Team member -->
-              <!-- Team member -->
-              <div class="col-xs-12 col-md-6 col-lg-4 col-xl-4">
-                <div class="frontside">
-                    <div class="card shadow-lg">
-                        <div class="card-body text-center">
-                            <p><img class=" img-fluid" src="{% static 'AlumniConnect/img/people/samay.jpeg' %}" alt="card image"
-                                    style="object-fit:cover; object-position:50% 0%;"></p>
-                                    <h4 class="card-title">Samay Sagar</h4>
-                            <p class="card-text"><b>Web Team</b></p>
-                            <p class="card-text text-center"><i class="fas fa-user-graduate"></i> B.Tech (CSE)<br><i class="far fa-calendar-plus"></i> Batch of 2024</p>
-                            <p class="card-text text-center">
-                                <h4>
-                                    <a href="https://www.linkedin.com/in/samay-sagar-a28847200/" target="_blank"><i class="fab fa-linkedin"></i></a>
-                                    <a href="mailto:20bcs193@iiitdmj.ac.in" target="_top"><i class="fas fa-envelope"></i></a>
-                                    <!-- <a href="#" target="_blank"><i class="fas fa-link"></i></a> -->
-                                </h4>
-                            </p>
-                        </div>
-                    </div>
-                </div>   
-            </div>
-            
+
             <!-- ./Team member -->
 
             <!-- Team member -->
@@ -576,63 +240,366 @@ section .section-title {
                 <div class="frontside">
                     <div class="card shadow-lg">
                         <div class="card-body text-center">
-                            <p><img class=" img-fluid" src="{% static 'AlumniConnect/img/people/saksham.jpeg' %}" alt="card image"
-                                    style="object-fit:cover; object-position:50% 0%;"></p>
-                                    <h4 class="card-title">Saksham Yadav</h4>
-                            <p class="card-text"><b>Web Team</b></p>
-                            <p class="card-text text-center"><i class="fas fa-user-graduate"></i> B.Tech (CSE)<br><i class="far fa-calendar-plus"></i> Batch of 2024</p>
+                            <p><img class=" img-fluid" src="{% static 'AlumniConnect/img/people/Srijan.jpg' %}"
+                                    alt="card image" style="object-fit:cover; object-position:50% 0%;"></p>
+                            <h4 class="card-title">Srijan Singh</h4>
+                            <p class="card-text"><b>Web Team(Design)</b></p>
+                            <p class="card-text text-center"><i class="fas fa-user-graduate"></i> B.Tech (ME)<br><i
+                                    class="far fa-calendar-plus"></i> Batch of 2024</p>
                             <p class="card-text text-center">
-                                <h4>
-                                    <a href="https://www.linkedin.com/in/saksham-yadav-5604b0200/" target="_blank"><i class="fab fa-linkedin"></i></a>
-                                    <a href="mailto:20bcs191@iiitdmj.ac.in" target="_top"><i class="fas fa-envelope"></i></a>
-                                    <!-- <a href="#" target="_blank"><i class="fas fa-link"></i></a> -->
-                                </h4>
+                            <h4>
+                                <a href="https://www.linkedin.com/in/srijan-singh-8a0128201" target="_blank"><i
+                                        class="fab fa-linkedin"></i></a>
+                                <a href="mailto:20bme059@iiitdmj.ac.in" target="_top"><i
+                                        class="fas fa-envelope"></i></a>
+
+                            </h4>
                             </p>
                         </div>
                     </div>
-                </div>   
+                </div>
             </div>
-            
+
             <!-- ./Team member -->
-            
+
             <!-- Team member -->
             <div class="col-xs-12 col-md-6 col-lg-4 col-xl-4">
                 <div class="frontside">
                     <div class="card shadow-lg">
                         <div class="card-body text-center">
-                            <p><img class=" img-fluid" src="{% static 'AlumniConnect/img/people/mohit.jpeg' %}" alt="card image"
-                                style="object-fit:cover; object-position:50% 0%;"></p>
+                            <p><img class=" img-fluid" src="{% static 'AlumniConnect/img/people/Mayuk.jpg' %}"
+                                    alt="card image" style="object-fit:cover; object-position:50% 0%;"></p>
+                            <h4 class="card-title">Mayuk Sarkar</h4>
+                            <p class="card-text"><b>Web Team</b></p>
+                            <p class="card-text text-center"><i class="fas fa-user-graduate"></i> B.Tech (CSE)<br><i
+                                    class="far fa-calendar-plus"></i> Batch of 2025</p>
+                            <p class="card-text text-center">
+                            <h4>
+                                <a href="https://www.linkedin.com/in/mayuk-sarkar-088726210/" target="_blank"><i
+                                        class="fab fa-linkedin"></i></a>
+                                <a href="mailto:21bcs132@iiitdmj.ac.in" target="_top"><i
+                                        class="fas fa-envelope"></i></a>
+
+                            </h4>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ./Team member -->
+
+            <!-- Team member -->
+            <div class="col-xs-12 col-md-6 col-lg-4 col-xl-4">
+                <div class="frontside">
+                    <div class="card shadow-lg">
+                        <div class="card-body text-center">
+                            <p><img class=" img-fluid" src="{% static 'AlumniConnect/img/people/Akash.jpg' %}"
+                                    alt="card image" style="object-fit:cover; object-position:50% 0%;"></p>
+                            <h4 class="card-title">Akash Kumar Sah</h4>
+                            <p class="card-text"><b>Web Team</b></p>
+                            <p class="card-text text-center"><i class="fas fa-user-graduate"></i> B.Tech (CSE)<br><i
+                                    class="far fa-calendar-plus"></i> Batch of 2026</p>
+                            <p class="card-text text-center">
+                            <h4>
+                                <a href="https://www.linkedin.com/in/akashsah2003" target="_blank"><i
+                                        class="fab fa-linkedin"></i></a>
+                                <a href="mailto:22bcs019@iiitdmj.ac.in" target="_top"><i
+                                        class="fas fa-envelope"></i></a>
+
+                            </h4>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ./Team member -->
+            <!-- Team member -->
+            <div class="col-xs-12 col-md-6 col-lg-4 col-xl-4">
+                <div class="frontside">
+                    <div class="card shadow-lg">
+                        <div class="card-body text-center">
+                            <p><img class=" img-fluid" src="{% static 'AlumniConnect/img/people/spandan.jpg' %}"
+                                    alt="card image" style="object-fit:cover; object-position:50% 0%;"></p>
+                            <h4 class="card-title">Spandan Ghosh</h4>
+                            <p class="card-text"><b>Web Team</b></p>
+                            <p class="card-text text-center"><i class="fas fa-user-graduate"></i> B.Tech (CSE)<br><i
+                                    class="far fa-calendar-plus"></i> Batch of 2026</p>
+                            <p class="card-text text-center">
+                            <h4>
+                                <a href="https://www.linkedin.com/in/spandan-ghosh-17b401240" target="_blank"><i
+                                        class="fab fa-linkedin"></i></a>
+                                <a href="mailto:22bcs237@iiitdmj.ac.in" target="_top"><i
+                                        class="fas fa-envelope"></i></a>
+
+                            </h4>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ./Team member -->
+            <!-- Team member -->
+            <div class="col-xs-12 col-md-6 col-lg-4 col-xl-4">
+                <div class="frontside">
+                    <div class="card shadow-lg">
+                        <div class="card-body text-center">
+                            <p><img class=" img-fluid" src="{% static 'AlumniConnect/img/people/BroteenDas.jpg' %}"
+                                    alt="card image" style="object-fit:cover; object-position:50% 0%;"></p>
+                            <h4 class="card-title">Broteen Das</h4>
+                            <p class="card-text"><b>Web Team</b></p>
+                            <p class="card-text text-center"><i class="fas fa-user-graduate"></i> B.Tech (SM)<br><i
+                                    class="far fa-calendar-plus"></i> Batch of 2026</p>
+                            <p class="card-text text-center">
+                            <h4>
+                                <a href="https://www.linkedin.com/in/broteen-das-22923024a" target="_blank"><i
+                                        class="fab fa-linkedin"></i></a>
+                                <a href="mailto:22bsm014@iiitdmj.ac.in" target="_top"><i
+                                        class="fas fa-envelope"></i></a>
+
+                            </h4>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ./Team member -->
+
+
+
+
+        </div>
+        <h1 class="section-title h1 text-center">Previous Team</h1><br>
+        <div class="row font-open-sans">
+
+            <!-- Team member -->
+            <div class="col-xs-12 col-md-6 col-lg-4 col-xl-4">
+                <div class="frontside">
+                    <div class="card shadow-lg">
+                        <div class="card-body text-center">
+                            <p><img class=" img-fluid" src="{% static 'AlumniConnect/img/people/shivanshdhiman.jpg' %}"
+                                    alt="card image" style="object-fit:cover; object-position:50% 0%;"></p>
+                            <h4 class="card-title">Shivansh Dhiman</h4>
+                            <p class="card-text"><b>Web Team</b></p>
+                            <p class="card-text text-center"><i class="fas fa-user-graduate"></i> B.Tech (CSE)<br><i
+                                    class="far fa-calendar-plus"></i> Batch of 2021</p>
+                            <p class="card-text text-center">
+                            <h4>
+                                <a href="https://www.linkedin.com/in/shivansh-dhiman" target="_blank"><i
+                                        class="fab fa-linkedin"></i></a>
+                                <a href="mailto:2017247@iiitdmj.ac.in" target="_top"><i class="fas fa-envelope"></i></a>
+
+                            </h4>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ./Team member -->
+
+            <!-- Team member -->
+            <div class="col-xs-12 col-md-6 col-lg-4 col-xl-4">
+                <div class="frontside">
+                    <div class="card shadow-lg">
+                        <div class="card-body text-center">
+                            <p><img class=" img-fluid" src="{% static 'AlumniConnect/img/people/meru.jpeg' %}"
+                                    alt="card image" style="object-fit:cover; object-position:50% 0%;"></p>
+                            <h4 class="card-title">Meru Patel</h4>
+                            <p class="card-text"><b>Web Team</b></p>
+                            <p class="card-text text-center"><i class="fas fa-user-graduate"></i> B.Tech (CSE)<br><i
+                                    class="far fa-calendar-plus"></i> Batch of 2021</p>
+                            <p class="card-text text-center">
+                            <h4>
+                                <a href="https://www.linkedin.com/in/patel-meru" target="_blank"><i
+                                        class="fab fa-linkedin"></i></a>
+                                <a href="mailto:2017180@iiitdmj.ac.in" target="_top"><i class="fas fa-envelope"></i></a>
+
+                            </h4>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ./Team member -->
+            <!-- Team member -->
+            <div class="col-xs-12 col-md-6 col-lg-4 col-xl-4">
+                <div class="frontside">
+                    <div class="card shadow-lg">
+                        <div class="card-body text-center">
+                            <p><img class=" img-fluid" src="{% static 'AlumniConnect/img/people/priyansh.jpeg' %}"
+                                    alt="card image" style="object-fit:cover; object-position:50% 0%;"></p>
+                            <h4 class="card-title">Priyansh Garg</h4>
+                            <p class="card-text"><b>Web Team</b></p>
+                            <p class="card-text text-center"><i class="fas fa-user-graduate"></i> B.Tech (CSE)<br><i
+                                    class="far fa-calendar-plus"></i> Batch of 2022</p>
+                            <p class="card-text text-center">
+                            <h4>
+
+                                <a href="https://www.linkedin.com/in/priyansh3133/" target="_blank"><i
+                                        class="fab fa-linkedin"></i></a>
+                                <a href="mailto:2018196@iiitdmj.ac.in" target="_top"><i class="fas fa-envelope"></i></a>
+
+                            </h4>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ./Team member -->
+
+            <!-- Team member -->
+            <div class="col-xs-12 col-md-6 col-lg-4 col-xl-4">
+                <div class="frontside">
+                    <div class="card shadow-lg">
+                        <div class="card-body text-center">
+                            <p><img class=" img-fluid" src="{% static 'AlumniConnect/img/people/Animesh.jpeg' %}"
+                                    alt="card image" style="object-fit:cover; object-position:50% 0%;"></p>
+                            <h4 class="card-title">Animesh Kumar</h4>
+                            <p class="card-text"><b>Web Team</b></p>
+                            <p class="card-text text-center"><i class="fas fa-user-graduate"></i> B.Tech (CSE)<br><i
+                                    class="far fa-calendar-plus"></i> Batch of 2023</p>
+                            <p class="card-text text-center">
+                            <h4>
+                                <a href="https://www.linkedin.com/in/animesh-kumar1/" target="_blank"><i
+                                        class="fab fa-linkedin"></i></a>
+                                <a href="mailto:2019023@iiitdmj.ac.in" target="_top"><i class="fas fa-envelope"></i></a>
+
+                            </h4>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ./Team member -->
+            <!-- Team member -->
+            <div class="col-xs-12 col-md-6 col-lg-4 col-xl-4">
+                <div class="frontside">
+                    <div class="card shadow-lg">
+                        <div class="card-body text-center">
+                            <p><img class=" img-fluid" src="{% static 'AlumniConnect/img/people/Tushar.jpg' %}"
+                                    alt="card image" style="object-fit:cover; object-position:50% 0%;"></p>
+                            <h4 class="card-title">Tushar Maheshwari</h4>
+                            <p class="card-text"><b> Web Team</b></p>
+                            <p class="card-text text-center"><i class="fas fa-user-graduate"></i> B.Tech (CSE)<br><i
+                                    class="far fa-calendar-plus"></i> Batch of 2023</p>
+                            <p class="card-text text-center">
+                            <h4>
+                                <a href="https://www.linkedin.com/in/tushhr/" target="_blank"><i
+                                        class="fab fa-linkedin"></i></a>
+                                <a href="mailto:2019352@iiitdmj.ac.in" target="_top"><i class="fas fa-envelope"></i></a>
+
+                            </h4>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ./Team member -->
+            <!-- Team member -->
+            <div class="col-xs-12 col-md-6 col-lg-4 col-xl-4">
+                <div class="frontside">
+                    <div class="card shadow-lg">
+                        <div class="card-body text-center">
+                            <p><img class=" img-fluid" src="{% static 'AlumniConnect/img/people/Chirag.jpeg' %}"
+                                    alt="card image" style="object-fit:cover; object-position:50% 0%;"></p>
+                            <h4 class="card-title">Chirag Sharma</h4>
+                            <p class="card-text"><b>Web Team</b></p>
+                            <p class="card-text text-center"><i class="fas fa-user-graduate"></i> B.Tech (CSE)<br><i
+                                    class="far fa-calendar-plus"></i> Batch of 2023</p>
+                            <p class="card-text text-center">
+                            <h4>
+                                <a href="https://www.linkedin.com/in/chirag-sharma-405452193" target="_blank"><i
+                                        class="fab fa-linkedin"></i></a>
+                                <a href="mailto:2019050@iiitdmj.ac.in" target="_top"><i class="fas fa-envelope"></i></a>
+
+                            </h4>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ./Team member -->
+            <!-- Team member -->
+            <div class="col-xs-12 col-md-6 col-lg-4 col-xl-4">
+                <div class="frontside">
+                    <div class="card shadow-lg">
+                        <div class="card-body text-center">
+                            <p><img class=" img-fluid" src="{% static 'AlumniConnect/img/people/samay.jpeg' %}"
+                                    alt="card image" style="object-fit:cover; object-position:50% 0%;"></p>
+                            <h4 class="card-title">Samay Sagar</h4>
+                            <p class="card-text"><b>Web Team</b></p>
+                            <p class="card-text text-center"><i class="fas fa-user-graduate"></i> B.Tech (CSE)<br><i
+                                    class="far fa-calendar-plus"></i> Batch of 2024</p>
+                            <p class="card-text text-center">
+                            <h4>
+                                <a href="https://www.linkedin.com/in/samay-sagar-a28847200/" target="_blank"><i
+                                        class="fab fa-linkedin"></i></a>
+                                <a href="mailto:20bcs193@iiitdmj.ac.in" target="_top"><i
+                                        class="fas fa-envelope"></i></a>
+
+                            </h4>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ./Team member -->
+
+            <!-- Team member -->
+            <div class="col-xs-12 col-md-6 col-lg-4 col-xl-4">
+                <div class="frontside">
+                    <div class="card shadow-lg">
+                        <div class="card-body text-center">
+                            <p><img class=" img-fluid" src="{% static 'AlumniConnect/img/people/saksham.jpeg' %}"
+                                    alt="card image" style="object-fit:cover; object-position:50% 0%;"></p>
+                            <h4 class="card-title">Saksham Yadav</h4>
+                            <p class="card-text"><b>Web Team</b></p>
+                            <p class="card-text text-center"><i class="fas fa-user-graduate"></i> B.Tech (CSE)<br><i
+                                    class="far fa-calendar-plus"></i> Batch of 2024</p>
+                            <p class="card-text text-center">
+                            <h4>
+                                <a href="https://www.linkedin.com/in/saksham-yadav-5604b0200/" target="_blank"><i
+                                        class="fab fa-linkedin"></i></a>
+                                <a href="mailto:20bcs191@iiitdmj.ac.in" target="_top"><i
+                                        class="fas fa-envelope"></i></a>
+
+                            </h4>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ./Team member -->
+
+            <!-- Team member -->
+            <div class="col-xs-12 col-md-6 col-lg-4 col-xl-4">
+                <div class="frontside">
+                    <div class="card shadow-lg">
+                        <div class="card-body text-center">
+                            <p><img class=" img-fluid" src="{% static 'AlumniConnect/img/people/mohit.jpeg' %}"
+                                    alt="card image" style="object-fit:cover; object-position:50% 0%;"></p>
                             <h4 class="card-title">Mohit Chouhan</h4>
                             <p class="card-text"><b>Web Team</b></p>
-                            <p class="card-text text-center"><i class="fas fa-user-graduate"></i> B.Tech (CSE)<br><i class="far fa-calendar-plus"></i> Batch of 2024</p>
+                            <p class="card-text text-center"><i class="fas fa-user-graduate"></i> B.Tech (CSE)<br><i
+                                    class="far fa-calendar-plus"></i> Batch of 2024</p>
                             <p class="card-text text-center">
-                                <h4>
-                                    <a href="https://www.linkedin.com/in/mohit-chouhan-645b42207/" target="_blank"><i class="fab fa-linkedin"></i></a>
-                                    <a href="mailto:20bcs135@iiitdmj.ac.in" target="_top"><i class="fas fa-envelope"></i></a>
-                                    <!-- <a href="#" target="_blank"><i class="fas fa-link"></i></a> -->
-                                </h4>
-                            </p>
-                        </div>
-                    </div>
-                </div>   
-            </div>
-            
-            <!-- ./Team member -->
-            <!-- Team member -->
-            <div class="col-xs-12 col-md-6 col-lg-4 col-xl-4">
-                <div class="frontside">
-                    <div class="card shadow-lg">
-                        <div class="card-body text-center">
-                            <p><img class=" img-fluid" src="{% static 'AlumniConnect/img/people/Srijan.jpg' %}" alt="card image"
-                                style="object-fit:cover; object-position:50% 0%;"></p>
-                                <h4 class="card-title">Srijan Singh</h4>
-                            <p class="card-text"><b>Web Team(Design)</b></p>
-                            <p class="card-text text-center"><i class="fas fa-user-graduate"></i> B.Tech (ME)<br><i class="far fa-calendar-plus"></i> Batch of 2024</p>
-                            <p class="card-text text-center">
-                                <h4>
-                                    <a href="https://www.linkedin.com/in/srijan-singh-8a0128201" target="_blank"><i class="fab fa-linkedin"></i></a>
-                                <a href="mailto:20bme059@iiitdmj.ac.in" target="_top"><i class="fas fa-envelope"></i></a>
-                                <!-- <a href="#" target="_blank"><i class="fas fa-link"></i></a> -->
+                            <h4>
+                                <a href="https://www.linkedin.com/in/mohit-chouhan-645b42207/" target="_blank"><i
+                                        class="fab fa-linkedin"></i></a>
+                                <a href="mailto:20bcs135@iiitdmj.ac.in" target="_top"><i
+                                        class="fas fa-envelope"></i></a>
+
                             </h4>
                             </p>
                         </div>
@@ -641,31 +608,35 @@ section .section-title {
             </div>
 
             <!-- ./Team member -->
+
             <!-- Team member -->
             <div class="col-xs-12 col-md-6 col-lg-4 col-xl-4">
                 <div class="frontside">
                     <div class="card shadow-lg">
                         <div class="card-body text-center">
-                            <p><img class=" img-fluid" src="{% static 'AlumniConnect/img/people/divyansh.jpg' %}" alt="card image"
-                                style="object-fit:cover; object-position:50% 0%;"></p>
-                                <h4 class="card-title">Divyansh Khetan</h4>
-                                <p class="card-text"><b>Web Team</b></p>
-                                <p class="card-text text-center"><i class="fas fa-user-graduate"></i> B.Tech (CSE)<br><i class="far fa-calendar-plus"></i> Batch of 2024</p>
-                                <p class="card-text text-center">
-                                    <h4>
-                                        <a href="https://www.linkedin.com/in/divyanshkhetan" target="_blank"><i class="fab fa-linkedin"></i></a>
-                                        <a href="mailto:20bcs080@iiitdmj.ac.in" target="_top"><i class="fas fa-envelope"></i></a>
-                                <!-- <a href="#" target="_blank"><i class="fas fa-link"></i></a> -->
+                            <p><img class=" img-fluid" src="{% static 'AlumniConnect/img/people/divyansh.jpg' %}"
+                                    alt="card image" style="object-fit:cover; object-position:50% 0%;"></p>
+                            <h4 class="card-title">Divyansh Khetan</h4>
+                            <p class="card-text"><b>Web Team</b></p>
+                            <p class="card-text text-center"><i class="fas fa-user-graduate"></i> B.Tech (CSE)<br><i
+                                    class="far fa-calendar-plus"></i> Batch of 2024</p>
+                            <p class="card-text text-center">
+                            <h4>
+                                <a href="https://www.linkedin.com/in/divyanshkhetan" target="_blank"><i
+                                        class="fab fa-linkedin"></i></a>
+                                <a href="mailto:20bcs080@iiitdmj.ac.in" target="_top"><i
+                                        class="fas fa-envelope"></i></a>
+
                             </h4>
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             <!-- ./Team member -->
 
         </div>
-    </section>
-    {% include 'globals/footer.html' %} 
+</section>
+{% include 'globals/footer.html' %}
 {% endblock %}
