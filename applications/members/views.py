@@ -119,13 +119,21 @@ def autoSearch(request):
 
 @login_required
 def mapSearch(request):
-    key = request.GET['search']
+    key = request.GET.get('search', '')
     city = key.split(',', 1)[0]
-    profiles = Profile.objects.filter(city__icontains=city)
-    profiles = profiles.order_by('name')
-    context = {'profiles': profiles,
-               'keyy': key,
-               'zero': len(profiles),
-               'map': True
-                }
+
+    profiles = Profile.objects.all()
+    if city:
+        profiles = Profile.objects.filter(city__icontains=city)
+        profiles = profiles.order_by('name')
+    else:
+        profiles = Profile.objects.filter(city=city)
+
+    context = {
+        'profiles': profiles,
+        'city': city,
+        'keyy': 1,
+        'zero': len(profiles),
+        'map': True
+    }
     return render(request, "members/index.html", context)

@@ -165,14 +165,22 @@ YearBook
             <div class="col text-center">
                 {% if not keyy %}
                 <h2 class="font-open-sans"><span class="badge btn-block badge-primary text-wrap mt-2"> Alumni by
-                        Graduation Year</span></h2>
+                    Graduation Year</span></h2>
+                {% elif map %}
+                <h2 class="font-open-sans"><span class="badge btn-block badge-primary text-wrap mt-2"> Alumni from city matching '{{city}}'</span></h2>
+                    {% if not zero %}
+                    <div class="alert alert-danger" role="alert">
+                        No Results Found!
+                    </div>
+                    {% endif %}
                 {% endif %}
+
                 <!-- {% if zero %}
                 <h2 class="font-open-sans"><span class="badge btn-block badge-primary text-wrap mt-2"> Total {{zero}} Alumni Found</span></h2>
                  {% endif %} -->
+
                 {% for message in messages %}
                 <br>
-                
                 <div class="alert alert-{% if message.tags == 'success' %}primary {% else %}danger{% endif %} alert-dismissible fade show mb-4" role="alert">
                     <strong>Message : </strong> {{ message }}
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -180,9 +188,6 @@ YearBook
                     </button>
                 </div>
                 {% endfor %}
-
-                 
-                
             </div>
         </div>
 
