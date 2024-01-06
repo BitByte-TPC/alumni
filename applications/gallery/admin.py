@@ -34,6 +34,14 @@ class AlbumModelAdmin(admin.ModelAdmin):
                     if not file_name:
                         continue
 
+                    if file_name.startswith('.'):
+                        # don't load hidden files. Use everywhere `PIL.Image` is used.
+                        # OSX create a hidden file corresponding to each file while creating a zip.
+                        # ex: '__MACOSX/._IMG_20230913_161134165.jpg'
+                        # TODO: might need a better approach to check if the file is an image file which
+                        # PIL will be able to `.open()`. see: https://stackoverflow.com/q/889333/9890886
+                        continue
+
                     data = zip.read(filename)
                     contentfile = ContentFile(data)
 

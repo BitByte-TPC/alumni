@@ -130,7 +130,7 @@ def album_add(request, id):
                 for filename in sorted(zip.namelist()):
 
                     file_name = os.path.basename(filename)
-                    if not file_name:
+                    if not file_name or file_name.startswith('.'):
                         continue
 
                     data = zip.read(filename)
