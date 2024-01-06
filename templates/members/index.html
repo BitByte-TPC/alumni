@@ -80,23 +80,14 @@ YearBook
                     <form method="POST" action="{% url 'members:search' %}">
                         {% csrf_token %}
                         <div class='row justify-content-center m-3'>
-                            {% if request.search %}
                             <input type="text" id="search" class="form-control col-5 mx-2"
-                                placeholder="Name, Roll No or Reg No" name="search" value={{request.search}} required>
-                            {% else %}
-                            <input type="text" id="search" class="form-control col-5 mx-2"
-                                placeholder="Name, Roll No or Reg No" name="search" >
-                            {% endif %}
+                                placeholder="Name, Roll No or Reg No" name="search" value={{request.search}}>
                             <button type="submit" class="btn btn-dark col-1 rounded mx-2"><i
-                                    class="fa fa-search mx-auto"></i></button>
+                                class="fa fa-search mx-auto"></i></button>
                         </div>
                         <div class='row justify-content-center m-3' id='filters'>
-                            {% if request.batch %}
                             <input type='text' class='form-control col-2 mx-1' placeholder='Batch' name='batch'
                                 value={{request.batch}}>
-                            {% else %}
-                            <input type='text' class='form-control col-2 mx-1' placeholder='Batch' name='batch'>
-                            {% endif %}
                             <select name="programme" class="custom-select col-2 mx-1">
                                 <option selected value="">Programme</option>
                                 <option value="B.Tech">B.Tech</option>
@@ -114,18 +105,10 @@ YearBook
                                 <option value="MT">Mechatronics</option>
                                 <option value="DS">Design</option>
                             </select>
-                            {% if request.city %}
                             <input type="text" class="form-control col-2 mx-1" placeholder="City" name="city"
                                 value={{request.city}}>
-                            {% else %}
-                            <input type="text" class="form-control col-2 mx-1" placeholder="City" name="city">
-                            {% endif %}
-                            {% if request.org %}
                             <input type="text" class="form-control col-2 mx-1" placeholder="Company/Institution" name="org"
                                 value={{request.org}}>
-                            {% else %}
-                            <input type="text" class="form-control col-2 mx-1" placeholder="Company/Institution" name="org">
-                            {% endif %}
                         </div>
                     </form>
                 </div>
