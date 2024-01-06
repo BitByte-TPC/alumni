@@ -119,8 +119,8 @@ def autoSearch(request):
 
 @login_required
 def mapSearch(request):
-    key = request.GET.get('search', '')
-    city = key.split(',', 1)[0]
+    location = request.GET.get('search', '')
+    city = location.split(',', 1)[0]
 
     profiles = Profile.objects.all()
     if city:
@@ -131,7 +131,7 @@ def mapSearch(request):
 
     context = {
         'profiles': profiles,
-        'city': city,
+        'location': location,
         'keyy': 1,
         'zero': len(profiles),
         'map': True
