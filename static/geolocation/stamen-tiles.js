@@ -7,7 +7,7 @@
   var SUBDOMAINS = "a. b. c. d.".split(" "),
       MAKE_PROVIDER = function(layer, type, minZoom, maxZoom) {
           return {
-              "url":          ["//tiles.stadiamaps.com/tiles/stamen_", layer, "/{Z}/{X}/{Y}.", type].join(""),
+              "url":          "//b.tile.openstreetmap.org/{z}/{x}/{y}.png",
               "type":         type,
               "subdomains":   SUBDOMAINS.slice(),
               "minZoom":      minZoom,
