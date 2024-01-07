@@ -41,7 +41,7 @@ def batch(request, year):
 
     return render(request, "members/year.html", {'data': data, 'year': year})
 
-
+@login_required
 def branch(request, programme, year, branch):
     # todo: change mail_sent to verify
     alumni = Profile.objects.filter(programme=programme, batch=year, branch=branch, verify=True)
