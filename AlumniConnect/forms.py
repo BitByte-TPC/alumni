@@ -56,19 +56,19 @@ class ProfileEdit(forms.ModelForm):
         required=False,
     )
     country = forms.CharField(widget=forms.Select(
-        attrs={'id': 'countryId', 'class': 'countries order-alpha custom-select', 'name': 'country', 'onchange': 'addState()'}))
+        attrs={'id': 'countryId', 'class': 'countries order-alpha custom-select'}))
     state = forms.CharField(
-        widget=forms.Select(attrs={'id': 'stateId', 'class': 'states order-alpha custom-select', 'name': 'state', 'onchange': 'addCity()'}))
+        widget=forms.Select(attrs={'id': 'stateId', 'class': 'states order-alpha custom-select'}))
     city = forms.CharField(
-        widget=forms.Select(attrs={'id': 'cityId', 'class': 'cities order-alpha custom-selects', 'name': 'city'}))
+        widget=forms.Select(attrs={'id': 'cityId', 'class': 'cities order-alpha custom-selects'}))
     linkedin = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Linkedin URL'}))
     website = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Website'}), required=False)
     facebook = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Facebook URL'}), required=False)
     instagram = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Instagram Username'}), required=False)
     custom_city = forms.CharField(widget=forms.TextInput(
-        attrs={'id': 'city_input', 'class': 'cityInput', 'name': 'city', 'placeholder': 'Enter city name'}), required=False)
+        attrs={'id': 'city_input', 'class': 'cityInput', 'placeholder': 'Enter city name'}), required=False)
     checkbox_city = forms.BooleanField(widget=forms.CheckboxInput(
-        attrs={'onchange': 'enterCity()'}), required=False)
+        attrs={'onchange': 'customCityCheckboxToggled()'}), required=False)
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['fathers_name'].label = "Father/Mother's Name"
@@ -247,11 +247,11 @@ class NewRegister(forms.ModelForm):
         required=False,
     )
     country = forms.ChoiceField(widget=forms.Select(
-        attrs={'id': 'countryId', 'class': 'countries order-alpha presel-IN custom-select', 'name': 'country'}))
+        attrs={'id': 'countryId', 'class': 'countries order-alpha presel-IN custom-select'}))
     state = forms.ChoiceField(
-        widget=forms.Select(attrs={'id': 'stateId', 'class': 'states order-alpha custom-select', 'name': 'state'}))
+        widget=forms.Select(attrs={'id': 'stateId', 'class': 'states order-alpha custom-select'}))
     city = forms.ChoiceField(
-        widget=forms.Select(attrs={'id': 'cityId', 'class': 'cities order-alpha custom-select', 'name': 'city'}))
+        widget=forms.Select(attrs={'id': 'cityId', 'class': 'cities order-alpha custom-select'}))
     linkedin = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Linkedin URL'}))
     website = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Website'}), required=False)
     facebook = forms.URLField(widget=forms.TextInput(attrs={'placeholder': 'Facebook URL'}), required=False)
@@ -259,9 +259,9 @@ class NewRegister(forms.ModelForm):
     instagram = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Instagram Username'}), required=False)
     checkbox_update = forms.BooleanField(required=True)
     custom_city = forms.CharField(widget=forms.TextInput(
-        attrs={'id': 'city_input', 'class': 'cityInput', 'name': 'city', 'placeholder': 'Enter city name'}), required=False)
+        attrs={'id': 'city_input', 'class': 'cityInput', 'placeholder': 'Enter city name'}), required=False)
     checkbox_city = forms.BooleanField(widget=forms.CheckboxInput(
-        attrs={'onchange': 'enterCity()'}), required=False)
+        attrs={'onchange': 'customCityCheckboxToggled()'}), required=False)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
