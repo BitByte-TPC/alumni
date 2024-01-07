@@ -59,8 +59,8 @@
     </h3>
 </div>
 
-<div class="mb-3 row">
-    <div class="mb-3 col-sm-12 col-lg-6 m-auto">
+<div class="row">
+    <div class="col-sm-12 col-lg-6 mb-3">
         <label for="programme" class="form-label ">Programme <span class="asteriskField">*</span></label>
         <select name="programme" class="form-select custom-select" aria-label="Default select example" id="programme"
             required>
@@ -70,7 +70,7 @@
             {% endfor %}
         </select>
     </div>
-    <div class="mb-3 col-sm-12 col-lg-6 m-auto">
+    <div class="col-sm-12 col-lg-6 mb-3">
         <label for="branch" class="form-label">Discipline <span class="asteriskField">*</span></label>
         <select name="branch" class="form-select custom-select" aria-label="Default select example" id="branch" required>
             <option value="">Select discipline</option>
@@ -81,8 +81,8 @@
     </div>
 </div>
 
-<div class="mb-3 row">
-    <div class="mb-3 col-sm-12 col-lg-6 m-auto">
+<div class="row">
+    <div class="col-sm-12 col-lg-6 mb-3">
         <label for="admission-year" class="form-label">Year of Admission <span class="asteriskField">*</span></label>
         <select name="year_of_admission" class="form-select custom-select" aria-label="Default select example"
             id="admission-year" required>
@@ -92,7 +92,7 @@
             {% endfor %}
         </select>
     </div>
-    <div class="mb-3 col-sm-12 col-lg-6 m-auto">
+    <div class="col-sm-12 col-lg-6 mb-3">
         <label for="batch-year" class="form-label">Year of Passing <span class="asteriskField">*</span></label>
         <select name="batch" class="form-select custom-select" aria-label="Default select example" id="batch-year"
             required>
@@ -111,28 +111,28 @@
       <strong>Contact Details</strong>
     </h3>
 </div>
-<div class="mb-3 row">
-    <div class="mb-3 col-sm-12 col-lg-6 m-auto" >
+<div class="row">
+    <div class="mb-3 col-sm-12 col-lg-6" >
         <label for="mobile-1" class="form-label">Mobile Number <span class="asteriskField">*</span></label>
         <input type="number" minlength="10" class="form-control" name="mobile1" id="mobile-1"
         aria-describedby="emailHelp" value="{{mobile1}}" required/>
     </div>
     
-    <div class="mb-3 col-sm-12 col-lg-6 m-auto" >
+    <div class="mb-3 col-sm-12 col-lg-6" >
         <label for="mobile-2" class="form-label">Alternate Mobile Number</label>
         <input type="number" name="mobile2" minlength="10" class="form-control" id="mobile-2"
         aria-describedby="emailHelp" pvalue="{{mobile2}}"/>
     </div>
 </div>
 
-<div class="mb-3 row">
-    <div class="mb-3 col-sm-12 col-lg-6 m-auto">
+<div class="row">
+    <div class="mb-3 col-sm-12 col-lg-6">
         <label for="email" class="form-label">Email address <span class="asteriskField">*</span></label>
         <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp"
         value="{{email}}" required/>
     </div>
     
-    <div class="mb-3 col-sm-12 col-lg-6 m-auto">
+    <div class="mb-3 col-sm-12 col-lg-6">
         <label for="alternate-email" class="form-label">Alternate Email address</label>
         <input type="email" class="form-control" name="alternate_email" id="alternate-email" aria-describedby="emailHelp"
         value="{{alternate_email}}"/>
@@ -147,28 +147,28 @@
     </div>
 </div>
 
-<div class="location mb-3 d-flex justify-content-evenly">
-    <div class="mb-3 mx-1" style="flex: 1">
+<div class="row mb-3 mx-0">
+    <div class="col-md-4 px-1">
         <label for="countryId" class="form-label">Country <span class="asteriskField">*</span></label>
         <select name="country" class="form-select countries order-alpha presel-IN custom-select"
         aria-label="Default select example" id="countryId" required></select>
     </div>
-    <div class="mb-3 mx-1 " style="flex: 1">
+    <div class="col-md-4 px-1">
         <label for="stateId" class="form-label">State <span class="asteriskField">*</span></label>
         <select name="state" class="form-select states order-alpha custom-select" aria-label="Default select example"
         id="stateId" required></select>
     </div>
-    <div id="cityWrapper" class="mb-3 mx-1" style="flex: 1">
-        <div id="citySelectWrapper" class="mb-2 mx-1">
+    <div id="cityWrapper" class="col-md-4 px-1">
+        <div id="citySelectWrapper" class="mb-2">
             <label for="cityId" class="form-label">City <span class="asteriskField">*</span></label>
             <select name="city" class="form-select cities order-alpha custom-select" aria-label="Default select example"
             id="cityId" required></select>
         </div>
-        <div id="cityInputWrapper" class="mb-2 mx-1" style="flex: 1; display: none;">
+        <div id="cityInputWrapper" class="mb-2" style="display: none;">
             <label for="cityInput" class="form-label">City <span class="asteriskField">*</span></label>
             <input id="cityInput" name="city_input" type="text" class="form-control" placeholder="Enter city name" />
         </div>
-        <div class="mb-3 mx-1 form-check">
+        <div class="form-check">
             <label for="cityCheckbox" class="form-check-label">
                 <input type="checkbox" name="city_checkbox" id="cityCheckbox" class="form-check-input"
                     onchange="toggleCityInput()" />
