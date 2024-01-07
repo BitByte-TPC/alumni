@@ -9,105 +9,148 @@ Alumni Connect
 
 {% block javascript %}
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-{% comment %} <script src="//geodata.solutions/includes/countrystatecity.js"></script> {% endcomment %}
 <script type="text/javascript">
-
   function load() {
-    $.get('https://countriesnow.space/api/v0.1/countries/',function (data, textStatus, jqXHR) {
-      $.each(data.data,function(i,country){
-        $('#countryId').append($(`<option></option>`)
-        .attr("value", country.country)
-        .text(country.country));
+    $.get('https://countriesnow.space/api/v0.1/countries/', function (data, textStatus, jqXHR) {
+      $('#countryId')
+        .append($("<option></option>")
+          .attr("value", '')
+          .text('Select country')
+        )
+        .append($("<option></option>").attr("value", 'India').text('India'));
 
+      $.each(data.data, function(i,country){
+        $('#countryId')
+          .append($(`<option></option>`)
+            .attr("value", country.country)
+            .text(country.country)
+          )
       });
-  });
-    $('#countryId')
-      .append($("<option></option>")
-        .attr("value", '{{C}}')
-        .text('{{C}}'));
 
-    $('#stateId')
-      .append($("<option></option>")
-        .attr("value", '{{s}}')
-        .text('{{s}}'));
+      if ('{{C}}' && $('#countryId option[value="{{C}}"]').length > 0) {
+        $('#countryId').val('{{C}}').change();
+      } else {
+        $('#countryId').val('');
+      }
+    });
 
-    $('#cityId')
-      .append($("<option></option>")
-        .attr("value", '{{c}}')
-        .text('{{c}}'));
     $('#div_id_custom_city').hide();
-
   }
+
   window.onload = load;
-  function enterCity() {
+
+  function customCityCheckboxToggled() {
     var city_checkbox = document.getElementById("id_checkbox_city");
     var city_input = document.getElementById("city_input");
-    var city_selection = document.getElementById("cityId");
+    var city_select = document.getElementById("cityId");
 
     if (city_checkbox.checked) {
-      city_selection.removeAttribute("required");
-      $('#city_input').attr('name','city');
-      $('#cityId').attr('name','custom_city')
+      city_select.removeAttribute("required");
+      $('#city_input').attr('name', 'city');
+      $('#cityId').attr('name', 'custom_city')
       $('#div_id_city').hide();
       $('#div_id_custom_city').show();
       city_input.setAttribute("required", "required");
-      city_selection.selectedIndex = -1;
-    }
-    else {
+    } else {
       city_input.removeAttribute("required");
-      $('#city_input').attr('name','custom_city');
-      $('#cityId').attr('name','city')
+      $('#city_input').attr('name', 'custom_city');
+      $('#cityId').attr('name', 'city')
       $('#div_id_custom_city').hide();
       $('#div_id_city').show();
-      city_selection.setAttribute("required", "required");
+      city_select.setAttribute("required", "required");
     }
   }
   $('#countryId').on('change', function() {
-    const cur=this.value;
+    const country = this.value;
+
     $('#stateId').empty();
+    $('#cityId').empty();
+
     $('#stateId')
-    .append($("<option></option>")
-      .attr("value", '')
-      .text('Loading state list...'));
+      .append($("<option></option>")
+        .attr("value", '')
+        .text('Loading state list...')
+      );
+
     $.ajax({
       type: 'POST',
       url:'https://countriesnow.space/api/v0.1/countries/states',
-      data: {country:cur},
+      data: {country},
       success: function(data) {
-        $('#stateId').empty();
-        $.each(data.data.states,function(i,state){
-          $('#stateId').append($(`<option></option>`)
-          .attr("value", state.name)
-          .text(state.name));
-  
+        $('#stateId')
+          .empty()
+          .append($("<option></option>")
+            .attr("value", '')
+            .text('Select state')
+          );
+
+        $.each(data.data.states, function(i, state) {
+          $('#stateId')
+            .append($(`<option></option>`)
+              .attr("value", state.name)
+              .text(state.name)
+            );
         });
+
+        if ('{{s}}' && $('#stateId option[value="{{s}}"]').length > 0) {
+          $('#stateId').val('{{s}}').change();
+        } else {
+          $('#stateId').val('');
+        }
       }
+    });
   });
-  });
+
   $('#stateId').on('change', function() {
-    const curState=this.value;
-    const curCountry=$('#countryId').val();
-    console.log(curCountry,curState);
+    const curState = this.value;
+    const curCountry = $('#countryId').val();
+
+    console.log(curCountry, curState);
+
     $('#cityId').empty();
     $('#cityId')
-    .append($("<option></option>")
-      .attr("value", '')
-      .text('Loading city list...'));
+      .append($("<option></option>")
+        .attr("value", '')
+        .text('Loading city list...')
+      );
+
     $.ajax({
       type: 'POST',
       url:'https://countriesnow.space/api/v0.1/countries/state/cities',
-      data: {country:curCountry,state:curState},
+      data: {country: curCountry, state: curState},
       success: function(data) {
-        $('#cityId').empty(); 
-        $.each(data.data,function(i,city){
-          console.log(city)
-          $('#cityId').append($(`<option></option>`)
-          .attr("value", city)
-          .text(city));
-  
+        $('#cityId')
+          .empty()
+          .append($("<option></option>")
+            .attr("value", '')
+            .text('Select city')
+          );
+
+        $.each(data.data, function(i, city){
+          // console.log(city);
+          $('#cityId')
+            .append($(`<option></option>`)
+              .attr("value", city)
+              .text(city)
+            );
         });
+
+        if ('{{c}}' && $('#cityId option[value="{{c}}"]').length > 0) {
+          $('#cityId').val('{{c}}');
+        } else if ('{{c}}' && curState === '{{s}}') {
+          // if state is same but city does not exist (must have been added using custom city option),
+          // then append that city to list.
+          $('#cityId')
+            .append($(`<option></option>`)
+              .attr("value", '{{c}}')
+              .text('{{c}}')
+            )
+            .val('{{c}}');
+        } else {
+          $('#cityId').val('');
+        }
       }
-  });
+    });
   });
  
 </script>
