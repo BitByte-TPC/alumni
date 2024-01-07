@@ -86,7 +86,7 @@
         <select name="year_of_admission" class="form-select custom-select"
             id="admission-year" required>
             <option value="">Select admission year</option>
-            {% for year in admission_year %}
+            {% for year in admission_years %}
             <option value="{{year.0}}">{{year.1}}</option>
             {% endfor %}
         </select>
@@ -195,29 +195,22 @@
 </div>
 
 <div class="mb-3">
-    <label class="mb-3" for="working_status">Working Status <span class="asteriskField">*</span></label>
-    <div class="mt-3 row">
-        <div class="col-sm-12 col-lg-4 m-auto">
-            <input type="radio" class="btn-check" name="working_status" value="Is Working" id="status1"
-            autocomplete="off" required />
-            <label class="btn btn-sm btn-outline-secondary" for="status1">Is Working
-            </label>
+    <label class="" for="working_status">Working Status <span class="asteriskField">*</span></label>
+    <div class="row">
+        {% for status in working_status_list %}
+        <div class="col-sm-12 col-lg-4">
+            <input type="radio" class="btn-check" name="working_status" value="{{status.0}}" id="status{{forloop.counter}}"
+                autocomplete="off" required />
+            <label class="btn btn-sm btn-outline-secondary" for="status{{forloop.counter}}">{{status.1}}</label>
         </div>
-        <div class="col-sm-12 col-lg-4 m-auto">   
-            <input type="radio" class="btn-check" name="working_status" value="Is Pursuing Higher Studies" id="status2"
-            autocomplete="off" required />
-            <label class="btn btn-sm btn-outline-secondary" for="status2">Is Pursuing Higher Studies
-            </label>
-        </div>
-        <div class="col-sm-12 col-lg-4 m-auto">
-            <input type="radio" class="btn-check" name="working_status" value="Is Self Employed" id="status3"
-            autocomplete="off" required />
-            <label class="btn btn-sm btn-outline-secondary" for="status3">Is Self Employed
-            </label>
-        </div>
+        {% endfor %}
     </div>
 
-    <div class="my-1"> 
+    <div id="higher_education" class="card-body border mt-3" style="display: none;">
+        {% include 'alumniprofile/previous_edu_form.html' %}
+    </div>
+
+    <div class="my-1">
         <div class="mb-3 row">
             <div id="cur_org" class="col-sm-12 col-lg-6 m-auto">
                 <div class="mb-3">
@@ -235,7 +228,7 @@
             </div>
         </div>
 
-        <div class="mb-3 row">
+        <!-- <div class="mb-3 row">
             <div id="cur_uni" class="col-sm-12 col-lg-6 m-auto">
                 <div class="mb-3">
                     <label for="current-uni" class="form-label">Current University</label>
@@ -250,7 +243,7 @@
                         placeholder="Enter Course " value="{{current_course}}"/>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <div class="mb-3 row">
             <div id="date_of_joining" class="col-sm-12 col-lg-6 m-auto">

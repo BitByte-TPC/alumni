@@ -288,8 +288,8 @@ class NewRegister(forms.ModelForm):
             'current_position',
             'date_of_joining',
             'past_experience',
-            'current_university',
-            'current_course',
+            # 'current_university',
+            # 'current_course',
 
             'linkedin',
             'facebook',

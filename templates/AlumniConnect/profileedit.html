@@ -221,6 +221,7 @@ Alumni Connect
     var city_checkbox = document.getElementById("cityCheckbox");
     var city_input = document.getElementById("cityInput");
     var city_select = document.getElementById("cityId");
+
     if (city_checkbox.checked) {
       city_select.removeAttribute("required");
       // $('#city_input').attr('name','city');
@@ -228,7 +229,6 @@ Alumni Connect
       $('#cityInputWrapper').show();
       $('#citySelectWrapper').hide();
       city_input.setAttribute("required", "required");
-      city_select.selectedIndex = -1;
     }
     else {
       city_input.removeAttribute("required");
@@ -252,6 +252,7 @@ Alumni Connect
   $('#cur_course').hide();
   $('#cur_uni').hide();
   $('#status1').click(function () {
+    $('#higher_education').hide();
     $('#cur_pos').show();
     $('#cur_org').show();
     $('#date_of_joining').show();
@@ -266,6 +267,7 @@ Alumni Connect
     $('#cur_university').prop('required', false);
   })
   $('#status2').click(function () {
+    $('#higher_education').show();
     $('#cur_pos').hide();
     $('#cur_org').hide();
     $('#past_experience').hide();
@@ -280,6 +282,7 @@ Alumni Connect
     $('#cur_university').prop('required', true);
   })
   $('#status3').click(function () {
+    $('#higher_education').hide();
     $('#cur_pos').show();
     $('#cur_org').show();
     $('#date_of_joining').hide();

@@ -18,9 +18,10 @@ from django.contrib.messages.views import SuccessMessageMixin
 from .forms import RegisterForm, ProfileEdit, NewRegister, SignupForm
 from .token import account_activation_token
 from applications.events_news.models import Event, Attendees
-from applications.alumniprofile.models import Batch, Profile, Constants
+from applications.alumniprofile.models import Batch, Degree, Profile, Constants
 from applications.news.models import News
 from applications.gallery.models import Album
+from applications.alumniprofile.views import add_education
 from applications.geolocation.views import addPoints
 import datetime
 from django.utils import timezone
@@ -164,6 +165,10 @@ def new_register(request):
             )
             profile.user = user
             profile.save()
+
+            # for higher education
+            add_education(request, noredirect=True)
+
             mappt = addPoints({'city': str(request.POST['city']), 'state': str(request.POST['state']),
                                'country': str(request.POST['country'])})
             print('Adding Map Point Status: ' + str(mappt))
@@ -180,7 +185,11 @@ def new_register(request):
         'programmes': Constants.PROG_CHOICES,
         'branches': Constants.BRANCH,
         'batches': batches,
-        'admission_year': Constants.YEAR_OF_ADDMISSION,
+        'admission_years': Constants.YEAR_OF_ADDMISSION,
+        'working_status_list': Constants.WORKING_STATUS,
+        'ADMISSION_YEAR': Constants.ADMISSION_YEAR, # for higher education
+        'PASSING_YEAR': Constants.PASSING_YEAR, # for higher education
+        'DEGREE': list(Degree.objects.all().order_by('degree')), # for higher education
     }
     if form_not_valid:
         context.update(form.cleaned_data)
