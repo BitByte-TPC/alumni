@@ -240,7 +240,7 @@ class NewRegister(forms.ModelForm):
             raise forms.ValidationError(
                 'Profile with this roll number or email-id already exists.'
             )
-        match = re.search('20[0-1BMPID][1-9A-Za-z]{5,6}', roll_no)
+        match = re.search('[a-zA-z0-9]{5,9}', roll_no)
         if(match == None):
             raise forms.ValidationError(
                 'Please enter your institute roll number.'
