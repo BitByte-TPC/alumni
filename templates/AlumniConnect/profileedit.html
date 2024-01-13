@@ -245,71 +245,72 @@ Alumni Connect
     var file = $('#profile-picture')[0].files[0].name;
     $(this).prev('label').text(file);
   });
-  $('#cur_pos').hide();
-  $('#cur_org').hide();
-  $('#date_of_joining').hide();
-  $('#past_experience').hide();
-  $('#cur_course').hide();
-  $('#cur_uni').hide();
+
+
+  // Manage fields related to experience/higher studies
+
+  function toggleCurrentOrgRequired(isRequired) {
+    const org_input = document.getElementById("current-org");
+    const pos_input = document.getElementById("current-pos");
+
+    if (isRequired) {
+      org_input.setAttribute("required", "required");
+      pos_input.setAttribute("required", "required");
+    } else {
+      org_input.removeAttribute("required");
+      pos_input.removeAttribute("required");
+    }
+  }
+
+  function toggleMoreWorkDetailsRequired(isRequired) {
+    const doj_input = document.getElementById("date-of-joining");
+    const exp_input = document.getElementById("past-exp");
+
+    if (isRequired) {
+      doj_input.setAttribute("required", "required");
+      exp_input.setAttribute("required", "required");
+    } else {
+      doj_input.removeAttribute("required");
+      exp_input.removeAttribute("required");
+    }
+  }
+
+  $('#higher_education').hide();
+  $('#current_org').hide();
+  $('#more_work_details').hide();
+
+  toggleEduRequired(false);
+  toggleCurrentOrgRequired(false);
+  toggleMoreWorkDetailsRequired(false);
+
+
   $('#status1').click(function () {
     $('#higher_education').hide();
-    $('#cur_pos').show();
-    $('#cur_org').show();
-    $('#date_of_joining').show();
-    $('#past_experience').show();
-    $('#cur_uni').hide();
-    $('#cur_course').hide();
-    $('#cur_position').prop('required', true);
-    $('#cur_organisation').prop('required', true);
-    $('#date_of_join').prop('required', true);
-    $('#past_exp').prop('required', true);
-    $('#cur_course').prop('required', false);
-    $('#cur_university').prop('required', false);
-  })
+    $('#current_org').show();
+    $('#more_work_details').show();
+
+    toggleEduRequired(false);
+    toggleCurrentOrgRequired(true);
+    toggleMoreWorkDetailsRequired(true);
+  });
   $('#status2').click(function () {
     $('#higher_education').show();
-    $('#cur_pos').hide();
-    $('#cur_org').hide();
-    $('#past_experience').hide();
-    $('#date_of_joining').hide();
-    $('#cur_course').show();
-    $('#cur_uni').show();
-    $('#cur_position').prop('required', false);
-    $('#cur_organisation').prop('required', false);
-    $('#date_of_join').prop('required', false);
-    $('#past_exp').prop('required', false);
-    $('#cur_course').prop('required', true);
-    $('#cur_university').prop('required', true);
-  })
+    $('#current_org').hide();
+    $('#more_work_details').hide();
+
+    toggleEduRequired(true);
+    toggleCurrentOrgRequired(false);
+    toggleMoreWorkDetailsRequired(false);
+  });
   $('#status3').click(function () {
     $('#higher_education').hide();
-    $('#cur_pos').show();
-    $('#cur_org').show();
-    $('#date_of_joining').hide();
-    $('#past_experience').hide();
-    $('#cur_course').hide();
-    $('#cur_uni').hide();
-    $('#cur_position').prop('required', true);
-    $('#cur_organisation').prop('required', true);
-    $('#date_of_join').prop('required', false);
-    $('#past_exp').prop('required', false);
-    $('#cur_course').prop('required', false);
-    $('#cur_university').prop('required', false);
-  }) 
-  $('#status4').click(function () {
-    $('#cur_pos').hide();
-    $('#cur_org').hide();
-    $('#date_of_joining').hide();
-    $('#past_experience').hide();
-    $('#cur_course').hide();
-    $('#cur_uni').hide();
-    $('#cur_position').prop('required', false);
-    $('#cur_organisation').prop('required', false);
-    $('#date_of_join').prop('required', false);
-    $('#past_exp').prop('required', false);
-    $('#cur_course').prop('required', false);
-    $('#cur_university').prop('required', false);
-  }) 
+    $('#current_org').show();
+    $('#more_work_details').hide();
+
+    toggleEduRequired(false);
+    toggleCurrentOrgRequired(true);
+    toggleMoreWorkDetailsRequired(false);
+  });
 </script>
 
 {% endif %}

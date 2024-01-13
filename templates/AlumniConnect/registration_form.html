@@ -206,61 +206,40 @@
         {% endfor %}
     </div>
 
-    <div id="higher_education" class="card-body border mt-3" style="display: none;">
+    <div id="higher_education" class="card-body border mt-3">
         {% include 'alumniprofile/previous_edu_form.html' %}
     </div>
 
-    <div class="my-1">
-        <div class="mb-3 row">
-            <div id="cur_org" class="col-sm-12 col-lg-6 m-auto">
-                <div class="mb-3">
-                    <label for="current-org" class="form-label">Current Organisation</label>
-                    <input type="text" class="form-control" name="current_organisation" id="current-org"
-                        placeholder="Enter Organisation Name" value="{{current_organisation}}"/>
-                </div>
-            </div>
-            <div id="cur_pos" class="col-sm-12 col-lg-6 m-auto">
-                <div class="mb-3">
-                    <label for="curr-pos" class="form-label">Current Position</label>
-                    <input type="text" class="form-control" name="current_position" id="curr-pos"
-                        placeholder="Enter Position " value="{{current_position}}"/>
-                </div>
-            </div>
+    <div id="current_org" class="row mt-2">
+        <div class="col-sm-12 col-lg-6 mb-3">
+            <label for="current-org" class="form-label">
+                Current Organisation <span class="asteriskField">*</span>
+            </label>
+            <input type="text" class="form-control" name="current_organisation" id="current-org"
+                placeholder="Enter Organisation Name" value="{{current_organisation}}"/>
         </div>
-
-        <!-- <div class="mb-3 row">
-            <div id="cur_uni" class="col-sm-12 col-lg-6 m-auto">
-                <div class="mb-3">
-                    <label for="current-uni" class="form-label">Current University</label>
-                    <input type="text" class="form-control" name="current_university" id="current-uni"
-                        placeholder="Enter University Name" value="{{current_university}}"/>
-                </div>
-            </div>
-            <div id="cur_course" class="col-sm-12 col-lg-6 m-auto">
-                <div class="mb-3">
-                    <label for="curr-course" class="form-label">Course</label>
-                    <input type="text" class="form-control" name="current_course" id="curr-course"
-                        placeholder="Enter Course " value="{{current_course}}"/>
-                </div>
-            </div>
-        </div> -->
-
-        <div class="mb-3 row">
-            <div id="date_of_joining" class="col-sm-12 col-lg-6 m-auto">
-                <div class="mb-3">
-                    <label for="date-of-joining" class="form-label">Date of Joining</label>
-                    <div class="mb-3 w-auto">
-                        <input type="date" class="form-control" name="date_of_joining" id="date-of-joining" value="{{date_of_joining}}">
-                    </div>
-                </div>
-            </div>
-            <div id="past_experience" class="col-sm-12 col-lg-6 m-auto">
-                <div class="mb-3">
-                    <label for="past-exp" class="form-label">Past Experience</label>
-                    <input type="number" placeholder="Experience (in years)" class="form-control" name="past_experience"
-                        id="past-exp" value="{{past_experience}}">
-                </div>
-            </div>
+        <div class="col-sm-12 col-lg-6 mb-3">
+            <label for="current-pos" class="form-label">
+                Current Position <span class="asteriskField">*</span>
+            </label>
+            <input type="text" class="form-control" name="current_position" id="current-pos"
+                placeholder="Enter Position" value="{{current_position}}"/>
+        </div>
+    </div>
+    <div id="more_work_details" class="row">
+        <div class="col-sm-12 col-lg-6 mb-3">
+            <label for="date-of-joining" class="form-label">
+                Date of Joining <span class="asteriskField">*</span>
+            </label>
+            <input type="date" class="form-control" name="date_of_joining"
+                id="date-of-joining" value="{{date_of_joining}}">
+        </div>
+        <div class="col-sm-12 col-lg-6 mb-3">
+            <label for="past-exp" class="form-label">
+                Past Experience <span class="asteriskField">*</span>
+            </label>
+            <input type="number" placeholder="Experience (in years)" class="form-control"
+                name="past_experience" id="past-exp" value="{{past_experience}}">
         </div>
     </div>
 </div>

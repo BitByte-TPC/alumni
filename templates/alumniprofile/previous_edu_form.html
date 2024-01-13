@@ -96,6 +96,7 @@
       degree_select.setAttribute("required", "required");
     }
   }
+
   function togglePassingDate() {
     var current_edu = document.getElementById("current_edu");
     var passing_year_div = document.getElementById("passing_year_div");
@@ -109,7 +110,34 @@
       passing_year_div.style.display = "block";
       passing_year.setAttribute("required", "required");
     }
-    
+  }
+
+  function toggleEduRequired(isRequired) {
+    var degree_input = document.getElementById("degree_input");
+    var degree_select = document.getElementById("degree_select");
+    var discipline_input = document.getElementById("discipline");
+    var institute_input = document.getElementById("institute");
+    var admission_year = document.getElementById("admission_year");
+    var passing_year = document.getElementById("passing_year");
+
+    if (isRequired) {
+      degree_input.setAttribute("required", "required");
+      degree_select.setAttribute("required", "required");
+      discipline_input.setAttribute("required", "required");
+      institute_input.setAttribute("required", "required");
+      admission_year.setAttribute("required", "required");
+      passing_year.setAttribute("required", "required");
+
+      toggleDegreeField();
+      togglePassingDate();
+    } else {
+      degree_input.removeAttribute("required");
+      degree_select.removeAttribute("required");
+      discipline_input.removeAttribute("required");
+      institute_input.removeAttribute("required");
+      admission_year.removeAttribute("required");
+      passing_year.removeAttribute("required");
+    }
   }
 </script>
 {% endblock %}
