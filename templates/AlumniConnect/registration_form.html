@@ -268,47 +268,46 @@
 
 <!-- SOCIAL MEDIA HANDLES -->
 <div class="col-lg-12 text-primary mx-0 px-0">
-    <h3 class="mt-4 mb-5 mx-0">
+    <h3 class="my-4 mx-0">
       <strong>Socials</strong>
     </h3>
 </div>
 
-<div class="social mb-3 row">
-    
-        <div class="mb-3 col-sm-12 col-lg-6 m-auto">
-            <label for="linkedin" class="form-label">LinkedIn<span class="asteriskField">*</span></label>
-            <input type="url" class="form-control" name="linkedin" id="linkedin"
-                placeholder="Enter your LinkedIn url" value="{{linkedin}}" required/>
-        </div>
-        <div class="mb-3 col-sm-12 col-lg-6 m-auto">
-            <label for="facebook" class="form-label">Facebook</label>
-            <input type="url" class="form-control" name="facebook" id="facebook"
-                placeholder="Enter your Facebook profile link" value="{{facebook}}"/>
-        </div>
-    
-    
-        <div class="mb-3 col-sm-12 col-lg-6 m-auto">
-            <label for="instagram" class="form-label">Instagram</label>
-            <input type="url" class="form-control" name="instagram" id="instagram"
-                placeholder="Enter your Instagram profile link" value="{{instagram}}"/>
-        </div>
-        <div class="mb-3 col-sm-12 col-lg-6 m-auto">
-            <label for="website" class="form-label">Website</label>
-            <input type="url" class="form-control" name="website" id="website"
-                placeholder="Enter your personal portfolio website" value="{{website}}"/>
-        </div>
-    
+<div class="social row mb-3">
+    <div class="col-sm-12 col-lg-6 mb-3">
+        <label for="linkedin" class="form-label">LinkedIn <span class="asteriskField">*</span></label>
+        <input type="url" class="form-control" name="linkedin" id="linkedin"
+            placeholder="Enter your LinkedIn profile link" value="{{linkedin}}" required/>
+    </div>
+    <div class="col-sm-12 col-lg-6 mb-3">
+        <label for="facebook" class="form-label">Facebook</label>
+        <input type="url" class="form-control" name="facebook" id="facebook"
+            placeholder="Enter your Facebook profile link" value="{{facebook}}"/>
+    </div>
+    <div class="col-sm-12 col-lg-6 mb-3">
+        <label for="instagram" class="form-label">Instagram</label>
+        <input type="url" class="form-control" name="instagram" id="instagram"
+            placeholder="Enter your Instagram profile link" value="{{instagram}}"/>
+    </div>
+    <div class="col-sm-12 col-lg-6 mb-3">
+        <label for="website" class="form-label">Website</label>
+        <input type="url" class="form-control" name="website" id="website"
+            placeholder="Enter your personal portfolio website" value="{{website}}"/>
+    </div>
 </div>
-<!-- ----------------------- -->
-<div class="input-group mb-3">
 
+<div class="input-group mb-3">
     <div class="custom-file">
-        <label class="custom-file-label" for="profile-picture">Choose Profile Picture<span class="asteriskField">*</span></label>
+        <label class="custom-file-label" for="profile-picture">
+            Choose Profile Picture <span class="asteriskField">*</span>
+        </label>
         <input type="file" class="custom-file-input" name="profile_picture" accept="image/*" 
             id="profile-picture" value="{{profile_picture}}" required/>
     </div>
 </div>
-<div class="form-group">
+<!-- ----------------------- -->
+
+<div class="form-group my-4 ml-1">
     <div id="id_checkbox_update" class="form-check"> 
         <label for="checkbox_update" class="form-check-label requiredField">
             <input type="checkbox" name="checkbox_update" class="checkboxinput form-check-input" 
@@ -318,4 +317,5 @@
         </label> 
     </div>
 </div>
+
 <button type="submit" class="btn btn-primary">Submit</button>
