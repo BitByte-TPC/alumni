@@ -3,7 +3,7 @@ astroid==2.1.0
 beautifulsoup4==4.6.0
 billiard==3.6.1.0
 cachetools==3.1.0
-celery==4.3.0
+celery==5.2.2
 certifi==2022.12.7
 chardet==3.0.4
 colorama==0.4.4
