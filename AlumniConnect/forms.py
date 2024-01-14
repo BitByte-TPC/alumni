@@ -223,16 +223,6 @@ class ProfileEdit(forms.ModelForm):
 
 
 class NewRegister(forms.ModelForm):
-    # custom_city = forms.CharField(required=False)
-    # city_checkbox = forms.BooleanField(required=False)
-
-    # def clean(self):
-    #     super(NewRegister, self).clean()  # if necessary
-    #     del self._errors['country']
-    #     del self._errors['city']
-    #     del self._errors['state']
-    #     return self.cleaned_data
-        
     def clean_roll_no(self):
         roll_no = self.cleaned_data.get('roll_no').lower()
 

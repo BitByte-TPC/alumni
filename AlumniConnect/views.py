@@ -136,8 +136,6 @@ def convert_int(number, decimals):
 
 
 def new_register(request):
-    form_invalid = False
-
     if request.method == 'POST':
         form = NewRegister(request.POST, request.FILES)
 
@@ -171,13 +169,12 @@ def new_register(request):
                 create_new_education(request, profile)
 
             map_points_status = addPoints({
-                'city': str(request.POST['city']), 'state': str(request.POST['state']),
-                'country': str(request.POST['country'])
+                'city': profile.city, 'state': profile.state,
+                'country': profile.country
             })
             print('Adding Map Point Status: ' + str(map_points_status))
+
             return render(request, 'AlumniConnect/confirm_email.html')
-        else:
-            form_invalid = True
     else:
         form = NewRegister()
 
@@ -206,7 +203,7 @@ def new_register(request):
         'DEGREE': list(Degree.objects.all().order_by('degree')), # for higher education
     }
 
-    if form_invalid:
+    if form.is_bound:
         context.update({
             'country': request.POST.get('country'),
             'state': request.POST.get('state'),
