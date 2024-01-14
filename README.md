@@ -1,11 +1,11 @@
 # IIITDM Alumni Connect   
-  This web-application aims to facilitate the Alumni Affairs of IIITDM Jabalpur. Please read contributing guidelines before starting.
+  This web application aims to facilitate the Alumni Affairs of IIITDM Jabalpur. Please read the contributing guidelines before starting.
 
 ## Requirements
 
- * Python: 3.7/3.8  
- * Django: 2.2.20 
- * And additional requirements are in [**requirements.txt**](./requirements.txt). These will automatically be installed with below steps.
+ * Python: 3.9 and above
+ * Django: 2.2.28 
+ * And additional requirements are in [**requirements.txt**](./requirements.txt). These will automatically be installed with the below steps.
 
 
 ## How to run it?
@@ -13,7 +13,7 @@
   * Fork the repository.
   * Clone the repository to your local machine `$ git clone https://github.com/<your-github-username>/alumni.git`
   * Change directory to alumni `$ cd alumni`
-  * Add a reference to the original repository `$ git remote add upstream https://github.com/Student-Alumni-Connect/alumni.git`
+  * Add a reference to the original repository `$ git remote add upstream https://github.com/BitByte-TPC/alumni.git`
   * Install virtualenv `$ pip3 install virtualenv`  
   * Create a virtual environment `$ virtualenv env -p python3`
   * Activate the env: `$ source env/bin/activate` (for linux) `> ./env/Scripts/activate` (for Windows PowerShell)
