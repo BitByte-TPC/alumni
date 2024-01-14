@@ -84,34 +84,55 @@ def add_experience(request):
         start_date = request.POST.get('start_date')
         end_date = request.POST.get('end_date') or None
 
-        PastExperience.objects.create(profile=profile, position=position, emp_type=emp_type, organisation=organisation, start_date=start_date, end_date=end_date)
+        PastExperience.objects.create(
+            profile=profile, position=position, emp_type=emp_type,
+            organisation=organisation, start_date=start_date,
+            end_date=end_date
+        )
 
     return redirect('profile:profile', request.user.username)
 
-def add_education(request, noredirect=False):
+
+def get_education_form_field_names():
+    return [
+        'edu_degree_select',
+        'edu_degree_input',
+        'edu_degree_not_listed',
+        'edu_discipline',
+        'edu_institute',
+        'edu_admission_year',
+        'edu_passing_year',
+        'edu_pursuing'
+    ]
+
+def create_new_education(request, profile):
+    degree_val = request.POST.get('edu_degree_select')
+    if request.POST.get('edu_degree_not_listed'):
+        degree_val = request.POST.get('edu_degree_input')
+
+    degree = Degree.objects.filter(degree=degree_val).first()
+    if not degree:
+        degree = Degree(degree=degree_val)
+        degree.save()
+
+    discipline =request.POST.get('edu_discipline')
+    institute =request.POST.get('edu_institute')
+    admission_year =request.POST.get('edu_admission_year')
+    passing_year =request.POST.get('edu_passing_year')
+    if request.POST.get('edu_pursuing'):
+        passing_year = None
+
+    Education.objects.create(
+        profile=profile, degree=degree, discipline=discipline,
+        institute=institute, admission_year=admission_year,
+        passing_year=passing_year
+    )
+
+
+def add_education(request):
     profile = Profile.objects.get(user=request.user)
 
     if request.method == "POST":
-        degree_val = request.POST.get('edu_degree_select')
-        if request.POST.get('edu_degree_not_listed'):
-            degree_val = request.POST.get('edu_degree_input')
-
-        degree = Degree.objects.filter(degree=degree_val).first()
-        if not degree:
-            degree = Degree(degree=degree_val)
-            degree.save()
-        discipline =request.POST.get('edu_discipline')
-        institute =request.POST.get('edu_institute')
-        admission_year =request.POST.get('edu_admission_year')
-        passing_year =request.POST.get('edu_passing_year') or None
-
-        Education.objects.create(
-            profile=profile, degree=degree, discipline=discipline,
-            institute=institute, admission_year=admission_year,
-            passing_year=passing_year
-        )
+        create_new_education(request, profile)
     
-    if noredirect:
-        return
-
     return redirect('profile:profile', request.user.username)

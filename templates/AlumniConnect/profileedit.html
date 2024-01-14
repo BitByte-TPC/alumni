@@ -19,7 +19,7 @@ Alumni Connect
         )
         .append($("<option></option>").attr("value", 'India').text('India'));
 
-      $.each(data.data, function(i,country){
+      $.each(data.data, function(i, country){
         $('#countryId')
           .append($(`<option></option>`)
             .attr("value", country.country)
@@ -27,8 +27,8 @@ Alumni Connect
           )
       });
 
-      if ('{{C}}' && $('#countryId option[value="{{C}}"]').length > 0) {
-        $('#countryId').val('{{C}}').change();
+      if ('{{country}}' && $('#countryId option[value="{{country}}"]').length > 0) {
+        $('#countryId').val('{{country}}').change();
       } else {
         $('#countryId').val('');
       }
@@ -92,8 +92,8 @@ Alumni Connect
             );
         });
 
-        if ('{{s}}' && $('#stateId option[value="{{s}}"]').length > 0) {
-          $('#stateId').val('{{s}}').change();
+        if ('{{state}}' && $('#stateId option[value="{{state}}"]').length > 0) {
+          $('#stateId').val('{{state}}').change();
         } else {
           $('#stateId').val('');
         }
@@ -135,17 +135,17 @@ Alumni Connect
             );
         });
 
-        if ('{{c}}' && $('#cityId option[value="{{c}}"]').length > 0) {
-          $('#cityId').val('{{c}}');
-        } else if ('{{c}}' && curState === '{{s}}') {
+        if ('{{city}}' && $('#cityId option[value="{{city}}"]').length > 0) {
+          $('#cityId').val('{{city}}');
+        } else if ('{{city}}' && curState === '{{state}}') {
           // if state is same but city does not exist (must have been added using custom city option),
           // then append that city to list.
           $('#cityId')
             .append($(`<option></option>`)
-              .attr("value", '{{c}}')
-              .text('{{c}}')
+              .attr("value", '{{city}}')
+              .text('{{city}}')
             )
-            .val('{{c}}');
+            .val('{{city}}');
         } else {
           $('#cityId').val('');
         }
@@ -246,6 +246,35 @@ Alumni Connect
     $(this).prev('label').text(file);
   });
 
+  $(window).on('load', function() {
+    $('#higher_education').hide();
+    $('#current_org').hide();
+    $('#more_work_details').hide();
+
+    toggleEduRequired(false);
+    toggleCurrentOrgRequired(false);
+    toggleMoreWorkDetailsRequired(false);
+
+    if ('{{form_data.programme}}') {
+      $('#programme').val('{{form_data.programme}}');
+    }
+    if ('{{form_data.branch}}') {
+      $('#branch').val('{{form_data.branch}}');
+    }
+    if ('{{form_data.year_of_admission}}') {
+      $('#admission-year').val('{{form_data.year_of_admission}}');
+    }
+    if ('{{form_data.batch}}') {
+      $('#batch-year').val('{{form_data.batch}}');
+    }
+    if ('{{form_data.sex}}') {
+      $('#gender-{{form_data.sex}}').click();
+    }
+    if ('{{form_data.working_status}}') {
+      $('input:radio[value="{{form_data.working_status}}"]').click();
+    }
+  });
+
 
   // Manage fields related to experience/higher studies
 
@@ -274,15 +303,6 @@ Alumni Connect
       exp_input.removeAttribute("required");
     }
   }
-
-  $('#higher_education').hide();
-  $('#current_org').hide();
-  $('#more_work_details').hide();
-
-  toggleEduRequired(false);
-  toggleCurrentOrgRequired(false);
-  toggleMoreWorkDetailsRequired(false);
-
 
   $('#status1').click(function () {
     $('#higher_education').hide();
@@ -340,16 +360,14 @@ Alumni Connect
 
 <section id="services" class="bg-primary p-1">
 </section>
-{% if form.errors %}
-    {% for field in form %}
-          {% for error in field.errors %}
-            <div class="alert alert-danger alert-dismissible fade show my-0" role="alert">
-                    {{error|escape}}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-          {% endfor %}
+{% if form.non_field_errors %}
+    {% for error in form.non_field_errors %}
+    <div class="alert alert-danger alert-dismissible fade show my-0" role="alert">
+      {{error|escape}}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
     {% endfor %}
 {% endif %}
 <div class="bg-white">
@@ -380,6 +398,10 @@ Alumni Connect
           </div>
         </div>
       </div>
+    </div>
+    <div class="text-center my-3">
+      * If you find any issues on this site, please consider reporting it on
+      <a href="https://github.com/BitByte-TPC/alumni/issues" target="_blank">GitHub issues</a>.
     </div>
   </div>
 </div>

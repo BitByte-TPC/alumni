@@ -21,7 +21,7 @@ from applications.events_news.models import Event, Attendees
 from applications.alumniprofile.models import Batch, Degree, Profile, Constants
 from applications.news.models import News
 from applications.gallery.models import Album
-from applications.alumniprofile.views import add_education
+from applications.alumniprofile.views import create_new_education, get_education_form_field_names
 from applications.geolocation.views import addPoints
 import datetime
 from django.utils import timezone
@@ -136,51 +136,65 @@ def convert_int(number, decimals):
 
 
 def new_register(request):
-    form_not_valid = False
+    form_invalid = False
 
     if request.method == 'POST':
         form = NewRegister(request.POST, request.FILES)
-        # print (request.POST)
+
         if form.is_valid():
             try:
-                first_name, last_name = request.POST['name'].split(' ', 1)
+                first_name, last_name = request.POST.get('name', '').split(' ', 1)
             except:
-                first_name = request.POST['name']
+                first_name = request.POST.get('name', '')
                 last_name = ""
-            # print (form.cleaned_data.get('date_of_joining'))
+
             profile = form.save(commit=False)
-            profile.reg_no = reg_no_gen(profile.programme, profile.branch, profile.year_of_admission)
-            profile.country = request.POST['country']
-            profile.state = request.POST['state']
-            profile.city = request.POST['city']
+
             password = User.objects.make_random_password(length=10)
-            # password = '12345678'
             user = User.objects.create_user(
-                username=str(form.cleaned_data.get('roll_no')),
+                username=form.cleaned_data.get('roll_no'),
                 first_name=first_name,
                 last_name=last_name,
-                email=str(form.cleaned_data.get('email')),
+                email=form.cleaned_data.get('email'),
                 password=password,
                 is_active=True
             )
             profile.user = user
+            profile.reg_no = reg_no_gen(
+                profile.programme, profile.branch, profile.year_of_admission
+            )
             profile.save()
 
-            # for higher education
-            add_education(request, noredirect=True)
+            # add higher education
+            HIGHER_EDU_STATUS = Constants.WORKING_STATUS[1][0]
+            if ('Higher' in HIGHER_EDU_STATUS and profile.working_status == HIGHER_EDU_STATUS):
+                create_new_education(request, profile)
 
-            mappt = addPoints({'city': str(request.POST['city']), 'state': str(request.POST['state']),
-                               'country': str(request.POST['country'])})
-            print('Adding Map Point Status: ' + str(mappt))
+            map_points_status = addPoints({
+                'city': str(request.POST['city']), 'state': str(request.POST['state']),
+                'country': str(request.POST['country'])
+            })
+            print('Adding Map Point Status: ' + str(map_points_status))
             return render(request, 'AlumniConnect/confirm_email.html')
         else:
-            form_not_valid = True
+            form_invalid = True
     else:
         form = NewRegister()
+
+    form_data = {}
+    if form.is_bound:
+        for field in form:
+            form_data[field.name] = field.value() or ''
+
+        form_data['edu'] = {}
+        edu_field_names = get_education_form_field_names()
+        for field_name in edu_field_names:
+            form_data['edu'][field_name] = request.POST.get(field_name, '')
 
     batches = Batch.objects.all().order_by('batch').values_list('batch', flat=True)
     context = {
         'form': form,
+        'form_data': form_data,
         'edit': False,
         'programmes': Constants.PROG_CHOICES,
         'branches': Constants.BRANCH,
@@ -191,11 +205,13 @@ def new_register(request):
         'PASSING_YEAR': Constants.PASSING_YEAR, # for higher education
         'DEGREE': list(Degree.objects.all().order_by('degree')), # for higher education
     }
-    if form_not_valid:
-        context.update(form.cleaned_data)
-        for i in list(context.keys()):
-            if context[i] is None:
-                context[i] = ""
+
+    if form_invalid:
+        context.update({
+            'country': request.POST.get('country'),
+            'state': request.POST.get('state'),
+            'city': request.POST.get('city')
+        })
 
     return render(request, 'AlumniConnect/profileedit.html', context)
 
@@ -213,7 +229,13 @@ def profileedit(request, id):
         else:
             print("here")
             form = ProfileEdit(instance=profile)
-            context = {'form': form, 'C': profile.country, 's': profile.state, 'c': profile.city, 'edit': True}
+            context = {
+                'form': form,
+                'country': profile.country,
+                'state': profile.state,
+                'city': profile.city,
+                'edit': True
+            }
             return render(request, 'AlumniConnect/profileedit.html', context)
     else:
         return HttpResponseRedirect('/')

@@ -7,7 +7,9 @@
         <label for="degree_select" class="col-form-label">
           Degree  <span class="asteriskField">*</span>
         </label>
-        <input type="text" placeholder="Enter Your Degree" name="edu_degree_input" maxlength="200" class="form-control textinput" id="degree_input" style="display: none;">
+        <input type="text" placeholder="Enter Your Degree" name="edu_degree_input"
+          maxlength="200" class="form-control textinput" id="degree_input"
+          value="{{form_data.edu_degree_input}}" style="display: none;">
         <select name="edu_degree_select" id="degree_select" class="custom-select" required>
           <option value="" selected>Select Degree</option>
           {% for deg in DEGREE %}
@@ -18,8 +20,11 @@
       <div class="form-row mx-0">
         <div class="form-group col-md-12 px-0 pt-2 m-0">
           <div class="form-check ml-1">
-            <input class="form-check-input" type="checkbox" id="other_degree" name="edu_degree_not_listed" value="true" onchange="toggleDegreeField()">
-            <label class="form-check-label" for="other_degree" style="font-weight: lighter;">Select if degree not listed</label>
+            <input class="form-check-input" type="checkbox" id="other_degree"
+              name="edu_degree_not_listed" onchange="toggleDegreeField()">
+            <label class="form-check-label" for="other_degree" style="font-weight: lighter;">
+              Select if degree not listed
+            </label>
           </div>
         </div>
       </div>
@@ -29,16 +34,16 @@
       <label for="discipline" class="col-form-label">
         Discipline/Field <span class="asteriskField">*</span>
       </label>
-      <input type="text" placeholder="CSE" name="edu_discipline" maxlength="200" class="form-control textinput" id="discipline"
-      required>
+      <input type="text" placeholder="CSE" name="edu_discipline" maxlength="200" id="discipline"
+        class="form-control textinput" value="{{form_data.edu_discipline}}" required>
     </div>
 
     <div class="form-group col-md-6">
       <label for="institute" class="col-form-label ">
         Institute Name <span class="asteriskField">*</span>
       </label>
-      <input type="text" name="edu_institute" maxlength="1000" class="form-control textinput" id="institute"
-        required>
+      <input type="text" name="edu_institute" maxlength="1000" class="form-control textinput"
+        id="institute" value="{{form_data.edu_institute}}" required>
     </div>
   </div>
 
@@ -78,6 +83,25 @@
 
 {% block script %}
 <script type="text/javascript">
+  $(window).on('load', function() {
+    if ('{{form_data.edu_degree_select}}') {
+      $('#degree_select').val('{{form_data.edu_degree_select}}');
+    }
+    if ('{{form_data.edu_degree_not_listed}}') {
+      $('#other_degree').click();
+    }
+
+    if ('{{form_data.edu_admission_year}}') {
+      $('#admission_year').val('{{form_data.edu_admission_year}}');
+    }
+    if ('{{form_data.edu_passing_year}}') {
+      $('#passing_year').val('{{form_data.edu_passing_year}}');
+    }
+    if ('{{form_data.edu_pursuing}}') {
+      $('#current_edu').click();
+    }
+  });
+
   function toggleDegreeField() {
     var other_degree = document.getElementById("other_degree");
     var degree_input = document.getElementById("degree_input");
@@ -104,7 +128,6 @@
 
     if (current_edu.checked) {
       passing_year_div.style.display = "none";
-      passing_year.setAttribute("value", "");
       passing_year.removeAttribute("required");
     } else {
       passing_year_div.style.display = "block";

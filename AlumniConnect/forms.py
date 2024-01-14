@@ -223,36 +223,39 @@ class ProfileEdit(forms.ModelForm):
 
 
 class NewRegister(forms.ModelForm):
-    custom_city = forms.CharField(required=False)
-    city_checkbox = forms.BooleanField(required=True)
+    # custom_city = forms.CharField(required=False)
+    # city_checkbox = forms.BooleanField(required=False)
 
-    def clean(self):
-        super(NewRegister, self).clean()  # if necessary
-        del self._errors['country']
-        del self._errors['city']
-        del self._errors['state']
-        return self.cleaned_data
+    # def clean(self):
+    #     super(NewRegister, self).clean()  # if necessary
+    #     del self._errors['country']
+    #     del self._errors['city']
+    #     del self._errors['state']
+    #     return self.cleaned_data
         
     def clean_roll_no(self):
         roll_no = self.cleaned_data.get('roll_no').lower()
+
         user = User.objects.filter(username=roll_no)
         if user:
             raise forms.ValidationError(
-                'Profile with this roll number or email-id already exists.'
+                'Profile with this roll number already exists.'
             )
-        match = re.search('[a-zA-z0-9]{5,9}', roll_no)
-        if(match == None):
-            raise forms.ValidationError(
-                'Please enter your institute roll number.'
-            )
-        return roll_no
 
+        match = re.search('^[a-zA-Z0-9]{5,9}$', roll_no)
+        if not match:
+            raise forms.ValidationError(
+                'Please enter your valid institute roll number.'
+            )
+
+        return roll_no
+    
     def clean_city(self):
         city = self.cleaned_data.get('city')
-        city_checkbox = self.cleaned_data.get('city_checkbox')
-        city_input = self.cleaned_data.get('city_input')
+        city_checkbox = self.data.get('city_checkbox')
+        city_input = self.data.get('city_input')
 
-        if city_checkbox:
+        if city_checkbox == 'on':
             return city_input
         
         return city
