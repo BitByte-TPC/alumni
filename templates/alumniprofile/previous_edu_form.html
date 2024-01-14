@@ -1,18 +1,17 @@
 {% load static %}
 
-<form action="{% url 'profile:add_education' %}" method="POST">
-  {% csrf_token %}
-  <h4>Add Education</h4>
   <!-- Form for Academic Qualifications -->
   <div class="form-row">
     <div class="form-group col-md-6">
       <div class="form-row mx-0">
         <label for="degree_select" class="col-form-label">
-          Degree
+          Degree  <span class="asteriskField">*</span>
         </label>
-        <input type="text" placeholder="Enter Your Degree" name="degree_input" maxlength="200" class="form-control textinput" id="degree_input" style="display: none;">
-        <select name="degree_select" id="degree_select" class="custom-select">
-          <option value="" selected disabled hidden>Select Degree</option>
+        <input type="text" placeholder="Enter Your Degree" name="edu_degree_input"
+          maxlength="200" class="form-control textinput" id="degree_input"
+          value="{{form_data.edu_degree_input}}" style="display: none;">
+        <select name="edu_degree_select" id="degree_select" class="custom-select" required>
+          <option value="" selected>Select Degree</option>
           {% for deg in DEGREE %}
             <option value="{{ deg }}">{{ deg }}</option>
           {% endfor %}
@@ -21,8 +20,11 @@
       <div class="form-row mx-0">
         <div class="form-group col-md-12 px-0 pt-2 m-0">
           <div class="form-check ml-1">
-            <input class="form-check-input" type="checkbox" id="other_degree" name="degree_not_listed" value="true" onchange="toggleDegreeField()">
-            <label class="form-check-label" for="other_degree" style="font-weight: lighter;">Select if degree not listed</label>
+            <input class="form-check-input" type="checkbox" id="other_degree"
+              name="edu_degree_not_listed" onchange="toggleDegreeField()">
+            <label class="form-check-label" for="other_degree" style="font-weight: lighter;">
+              Select if degree not listed
+            </label>
           </div>
         </div>
       </div>
@@ -30,24 +32,24 @@
 
     <div class="form-group col-md-6">
       <label for="discipline" class="col-form-label">
-        Discipline/Field
+        Discipline/Field <span class="asteriskField">*</span>
       </label>
-      <input type="text" placeholder="CSE" name="discipline" maxlength="200" class="form-control textinput" id="discipline"
-      required>
+      <input type="text" placeholder="CSE" name="edu_discipline" maxlength="200" id="discipline"
+        class="form-control textinput" value="{{form_data.edu_discipline}}" required>
     </div>
 
     <div class="form-group col-md-6">
       <label for="institute" class="col-form-label ">
-        Institute Name
+        Institute Name <span class="asteriskField">*</span>
       </label>
-      <input type="text" name="institute" maxlength="1000" class="form-control textinput" id="institute"
-        required="">
+      <input type="text" name="edu_institute" maxlength="1000" class="form-control textinput"
+        id="institute" value="{{form_data.edu_institute}}" required>
     </div>
   </div>
 
   <div class="form-row">
     <div class="form-check ml-2 mb-2">
-      <input class="form-check-input" type="checkbox" id="current_edu" name="current_edu" value="yes" onchange="togglePassingDate()">
+      <input class="form-check-input" type="checkbox" id="current_edu" name="edu_pursuing" value="yes" onchange="togglePassingDate()">
       <label class="form-check-label" for="current_edu" style="font-weight: lighter;">I am currently pursuing this course.</label>
     </div>
   </div>
@@ -55,10 +57,10 @@
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="admission_year" class="col-form-label ">
-        Admission Year
+        Admission Year <span class="asteriskField">*</span>
       </label>
-      <select name="admission_year" id="admission_year" class="custom-select" required>
-        <option value="none" selected disabled hidden>Select Admission Year</option>
+      <select name="edu_admission_year" id="admission_year" class="custom-select" required>
+        <option value="" selected>Select Admission Year</option>
         {% for year, display in ADMISSION_YEAR %}
         <option value="{{ year }}">{{ display }}</option>
         {% endfor %}
@@ -67,22 +69,39 @@
 
     <div id="passing_year_div" class="form-group col-md-6">
       <label for="passing_year" class="col-form-label">
-        Passing Year
+        Passing Year <span class="asteriskField">*</span>
       </label>
-      <select name="passing_year" id="passing_year" class="custom-select" required>
-        <option value="none" selected disabled hidden>Select Passing Year</option>
+      <select name="edu_passing_year" id="passing_year" class="custom-select" required>
+        <option value="" selected>Select Passing Year</option>
         {% for year, display in PASSING_YEAR %}
         <option value="{{ year }}">{{ display }}</option>
         {% endfor %}
       </select>
     </div>
   </div>
-  <button type="submit" name="submit" value="submit" class="btn btn-primary">Add</button>
-</form>
 
 
 {% block script %}
 <script type="text/javascript">
+  $(window).on('load', function() {
+    if ('{{form_data.edu_degree_select}}') {
+      $('#degree_select').val('{{form_data.edu_degree_select}}');
+    }
+    if ('{{form_data.edu_degree_not_listed}}') {
+      $('#other_degree').click();
+    }
+
+    if ('{{form_data.edu_admission_year}}') {
+      $('#admission_year').val('{{form_data.edu_admission_year}}');
+    }
+    if ('{{form_data.edu_passing_year}}') {
+      $('#passing_year').val('{{form_data.edu_passing_year}}');
+    }
+    if ('{{form_data.edu_pursuing}}') {
+      $('#current_edu').click();
+    }
+  });
+
   function toggleDegreeField() {
     var other_degree = document.getElementById("other_degree");
     var degree_input = document.getElementById("degree_input");
@@ -101,6 +120,7 @@
       degree_select.setAttribute("required", "required");
     }
   }
+
   function togglePassingDate() {
     var current_edu = document.getElementById("current_edu");
     var passing_year_div = document.getElementById("passing_year_div");
@@ -108,13 +128,39 @@
 
     if (current_edu.checked) {
       passing_year_div.style.display = "none";
-      passing_year.selectedIndex = -1;
       passing_year.removeAttribute("required");
     } else {
       passing_year_div.style.display = "block";
       passing_year.setAttribute("required", "required");
     }
-    
+  }
+
+  function toggleEduRequired(isRequired) {
+    var degree_input = document.getElementById("degree_input");
+    var degree_select = document.getElementById("degree_select");
+    var discipline_input = document.getElementById("discipline");
+    var institute_input = document.getElementById("institute");
+    var admission_year = document.getElementById("admission_year");
+    var passing_year = document.getElementById("passing_year");
+
+    if (isRequired) {
+      degree_input.setAttribute("required", "required");
+      degree_select.setAttribute("required", "required");
+      discipline_input.setAttribute("required", "required");
+      institute_input.setAttribute("required", "required");
+      admission_year.setAttribute("required", "required");
+      passing_year.setAttribute("required", "required");
+
+      toggleDegreeField();
+      togglePassingDate();
+    } else {
+      degree_input.removeAttribute("required");
+      degree_select.removeAttribute("required");
+      discipline_input.removeAttribute("required");
+      institute_input.removeAttribute("required");
+      admission_year.removeAttribute("required");
+      passing_year.removeAttribute("required");
+    }
   }
 </script>
 {% endblock %}

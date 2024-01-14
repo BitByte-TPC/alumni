@@ -245,7 +245,12 @@
                     {% if user.is_authenticated and user.username == roll_no %}
                     <div class="card-body">
                         <div id="EduForm" style="display: none">
-                            {% include 'alumniprofile/previous_edu_form.html' %}
+                            <form action="{% url 'profile:add_education' %}" method="POST">
+                                {% csrf_token %}
+                                <h4>Add Education</h4>
+                                {% include 'alumniprofile/previous_edu_form.html' %}
+                                <button type="submit" name="submit" value="submit" class="btn btn-primary">Add</button>
+                            </form>
                         </div>
                         <button id="addEduButton" class="btn btn-primary top-0 end-0 mt-2" onclick="showEduForm()">Add Education</button>
                     </div>

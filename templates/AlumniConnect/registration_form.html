@@ -1,0 +1,393 @@
+<!-- PERSONAL DETAILS SECTION -->
+<div class="col-lg-12 text-primary mx-0 px-0">
+    <h3 class="mb-4 mx-0">
+      <strong>Personal Details</strong>
+    </h3>
+</div>
+
+<div class="mb-3 row">
+    <div class="mb-3 col-sm-12 col-lg-6" >
+        <label for="roll_no" class="form-label">Roll Number <span class="asteriskField">*</span></label>
+        <input type="text" class="form-control" name="roll_no" id="roll_no" pattern="[a-zA-Z0-9]{5,9}"
+        title="Enter institute roll number" value="{{form_data.roll_no}}" required/>
+        {% for error in form.roll_no.errors %}
+        <div class="text-danger pl-1 pt-1">{{error|escape}}</div>
+        {% endfor %}
+    </div>
+    <div class="mb-3 col-sm-12 col-lg-6" >
+        <label for="name" class="form-label">Name <span class="asteriskField">*</span></label>
+        <input type="text" class="form-control" name="name" id="name" aria-describedby="name"
+            value="{{form_data.name}}" required/>
+        {% for error in form.name.errors %}
+        <div class="text-danger pl-1 pt-1">{{error|escape}}</div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="mb-3 row">
+    <div class="mb-3 col-sm-12 col-lg-6" >
+        <label for="fathers-name" class="form-label">Father/Mother's Name <span class="asteriskField">*</span></label>
+        <input type="text" class="form-control" name="fathers_name" id="fathers-name"
+            aria-describedby="fathers-name" value="{{form_data.fathers_name}}" required/>
+        {% for error in form.fathers_name.errors %}
+        <div class="text-danger pl-1 pt-1">{{error|escape}}</div>
+        {% endfor %}
+    </div>
+    <div class="mb-3 col-sm-12 col-lg-6" >
+        <label for="spouse-name" class="form-label">Spouse's Name</label>
+        <input type="text" class="form-control" name="spouse_name" id="spouse-name"
+            value="{{form_data.spouse_name}}"/>
+        {% for error in form.spouse_name.errors %}
+        <div class="text-danger pl-1 pt-1">{{error|escape}}</div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="mb-3 row">
+    <div class="mb-3 col-sm-12 col-lg-6" >
+        <label class="mb-1" for="sex">Gender <span class="asteriskField">*</span></label>
+        <div>
+            <input type="radio" class="btn-check" name="sex" value="M" id="gender-M" autocomplete="off" required />
+            <label class="btn btn-sm btn-outline-secondary" for="gender-M">Male</label>
+            
+            <input type="radio" class="btn-check" name="sex" value="F" id="gender-F" autocomplete="off" required />
+            <label class="btn btn-sm btn-outline-secondary" for="gender-F">Female</label>
+            
+            <input type="radio" class="btn-check" name="sex" value="O" id="gender-O" autocomplete="off" required />
+            <label class="btn btn-sm btn-outline-secondary" for="gender-O">Others</label>
+        </div>
+        {% for error in form.sex.errors %}
+        <div class="text-danger pl-1 pt-1">{{error|escape}}</div>
+        {% endfor %}
+    </div>
+    <div class="mb-3 col-sm-12 col-lg-6" >
+        <label for="dob" class="form-label">Date of Birth<span class="asteriskField">*</span></label>
+        <input type="date" class="form-control" name="date_of_birth"
+            id="dob" value="{{form_data.date_of_birth}}" required/> 
+        {% for error in form.date_of_birth.errors %}
+        <div class="text-danger pl-1 pt-1">{{error|escape}}</div>
+        {% endfor %}
+    </div>
+</div>
+<!-- ----------------------- -->
+
+<!-- ACADEMIC DETAILS SECTION -->
+<div class="col-lg-12 text-primary mx-0 px-0">
+    <h3 class="my-4 mx-0">
+      <strong>Academic Details</strong>
+    </h3>
+</div>
+
+<div class="row">
+    <div class="col-sm-12 col-lg-6 mb-3">
+        <label for="programme" class="form-label ">Programme <span class="asteriskField">*</span></label>
+        <select name="programme" class="form-select custom-select" id="programme" required>
+            <option value="">Select programme</option>
+            {% for programme in programmes %}
+            <option value="{{programme.0}}">{{programme.1}}</option>
+            {% endfor %}
+        </select>
+        {% for error in form.programme.errors %}
+        <div class="text-danger pl-1 pt-1">{{error|escape}}</div>
+        {% endfor %}
+    </div>
+    <div class="col-sm-12 col-lg-6 mb-3">
+        <label for="branch" class="form-label">Discipline <span class="asteriskField">*</span></label>
+        <select name="branch" class="form-select custom-select" id="branch" required>
+            <option value="">Select discipline</option>
+            {% for branch in branches %}
+            <option value="{{branch.0}}">{{branch.1}}</option>
+            {% endfor %}
+        </select>
+        {% for error in form.branch.errors %}
+        <div class="text-danger pl-1 pt-1">{{error|escape}}</div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12 col-lg-6 mb-3">
+        <label for="admission-year" class="form-label">Year of Admission <span class="asteriskField">*</span></label>
+        <select name="year_of_admission" class="form-select custom-select"
+            id="admission-year" required>
+            <option value="">Select admission year</option>
+            {% for year in admission_years %}
+            <option value="{{year.0}}">{{year.1}}</option>
+            {% endfor %}
+        </select>
+        {% for error in form.year_of_admission.errors %}
+        <div class="text-danger pl-1 pt-1">{{error|escape}}</div>
+        {% endfor %}
+    </div>
+    <div class="col-sm-12 col-lg-6 mb-3">
+        <label for="batch-year" class="form-label">Year of Passing <span class="asteriskField">*</span></label>
+        <select name="batch" class="form-select custom-select" id="batch-year"
+            required>
+            <option value="">Select year of passing</option>
+            {% for batch in batches %}
+            <option value="{{batch}}">{{batch}}</option>
+            {% endfor %}
+        </select>
+        {% for error in form.batch.errors %}
+        <div class="text-danger pl-1 pt-1">{{error|escape}}</div>
+        {% endfor %}
+    </div>
+</div>
+
+
+<!-- CONTACT DETAILS SECTION -->
+<div class="col-lg-12 text-primary mx-0 px-0">
+    <h3 class="my-4 mx-0">
+      <strong>Contact Details</strong>
+    </h3>
+</div>
+
+<div class="row">
+    <div class="mb-3 col-sm-12 col-lg-6" >
+        <label for="mobile-1" class="form-label">Mobile Number <span class="asteriskField">*</span></label>
+        <input type="number" name="mobile1" minlength="10" class="form-control" id="mobile-1"
+            value="{{form_data.mobile1}}" required/>
+        {% for error in form.mobile1.errors %}
+        <div class="text-danger pl-1 pt-1">{{error|escape}}</div>
+        {% endfor %}
+    </div>
+    
+    <div class="mb-3 col-sm-12 col-lg-6" >
+        <label for="mobile-2" class="form-label">Alternate Mobile Number</label>
+        <input type="number" name="mobile2" minlength="10" class="form-control" id="mobile-2"
+            value="{{form_data.mobile2}}"/>
+        {% for error in form.mobile2.errors %}
+        <div class="text-danger pl-1 pt-1">{{error|escape}}</div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="mb-3 col-sm-12 col-lg-6">
+        <label for="email" class="form-label">Personal Email (gmail, yahoo, etc.) <span class="asteriskField">*</span></label>
+        <input type="email" class="form-control" name="email" id="email"
+            value="{{form_data.email}}" required/>
+        {% for error in form.email.errors %}
+        <div class="text-danger pl-1 pt-1">{{error|escape}}</div>
+        {% endfor %}
+    </div>
+    
+    <div class="mb-3 col-sm-12 col-lg-6">
+        <label for="alternate-email" class="form-label">Official Email address <span class="asteriskField">*</span></label>
+        <input type="email" class="form-control" name="alternate_email" id="alternate-email"
+            value="{{form_data.alternate_email}}"/>
+        {% for error in form.alternate_email.errors %}
+        <div class="text-danger pl-1 pt-1">{{error|escape}}</div>
+        {% endfor %}
+    </div>
+</div>
+    
+<div class="mb-3">
+    <label for="current-address" class="form-label">Current Address<span class="asteriskField">*</span></label>
+    <div class="">
+        <textarea class="form-control col-lg-12" rows="3" name="current_address" id="current-address"
+        placeholder="Enter current address" required>{{form_data.current_address}}</textarea>
+        {% for error in form.current_address.errors %}
+        <div class="text-danger pl-1 pt-1">{{error|escape}}</div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="row mb-3 mx-0">
+    <div class="col-md-4 px-1">
+        <label for="countryId" class="form-label">Country <span class="asteriskField">*</span></label>
+        <select name="country" class="form-select countries order-alpha presel-IN custom-select"
+        id="countryId" required></select>
+        {% for error in form.country.errors %}
+        <div class="text-danger pl-1 pt-1">{{error|escape}}</div>
+        {% endfor %}
+    </div>
+    <div class="col-md-4 px-1">
+        <label for="stateId" class="form-label">State <span class="asteriskField">*</span></label>
+        <select name="state" class="form-select states order-alpha custom-select"
+            id="stateId" required></select>
+        {% for error in form.state.errors %}
+        <div class="text-danger pl-1 pt-1">{{error|escape}}</div>
+        {% endfor %}
+    </div>
+    <div id="cityWrapper" class="col-md-4 px-1">
+        <div id="citySelectWrapper" class="mb-2">
+            <label for="cityId" class="form-label">City <span class="asteriskField">*</span></label>
+            <select name="city" class="form-select cities order-alpha custom-select"
+                id="cityId" required></select>
+            {% for error in form.city.errors %}
+            <div class="text-danger pl-1 pt-1">{{error|escape}}</div>
+            {% endfor %}
+        </div>
+        <div id="cityInputWrapper" class="mb-2" style="display: none;">
+            <label for="cityInput" class="form-label">City <span class="asteriskField">*</span></label>
+            <input id="cityInput" name="city_input" type="text" class="form-control" placeholder="Enter city name" />
+            {% for error in form.city.errors %}
+            <div class="text-danger pl-1 pt-1">{{error|escape}}</div>
+            {% endfor %}
+        </div>
+        <div class="form-check ml-1">
+            <label for="cityCheckbox" class="form-check-label">
+                <input type="checkbox" name="city_checkbox" id="cityCheckbox" class="form-check-input"
+                    onchange="toggleCityInput()" />
+                Can't find my city
+            </label>
+        </div>
+    </div>
+</div>
+
+<div class="mb-3">
+    <label for="permanent-address" class="form-label">Permanent Address</label>
+    <div class="">
+        <textarea class="form-control col-lg-12" rows="3" name="permanent_address" id="permanent-address"
+            placeholder="Enter complete permanent address">{{form_data.permanent_address}}</textarea>
+        {% for error in form.permanent_address.errors %}
+        <div class="text-danger pl-1 pt-1">{{error|escape}}</div>
+        {% endfor %}
+    </div>
+</div>
+<!-- ----------------------- -->
+
+<!-- ACADEMICS & WORK EXPERIENCE SECTION -->
+<div class="col-lg-12 text-primary mx-0 px-0">
+    <h3 class="my-4 mx-0">
+      <strong>Experience & Higher Studies</strong>
+    </h3>
+</div>
+
+<div class="mb-3">
+    <label class="" for="working_status">Working Status <span class="asteriskField">*</span></label>
+    <div class="row">
+        {% for status in working_status_list %}
+        <div class="col-sm-12 col-lg-4">
+            <input type="radio" class="btn-check" name="working_status" value="{{status.0}}"
+                id="status{{forloop.counter}}" autocomplete="off" required />
+            <label class="btn btn-sm btn-outline-secondary" for="status{{forloop.counter}}">{{status.1}}</label>
+        </div>
+        {% endfor %}
+    </div>
+    {% for error in form.working_status.errors %}
+    <div class="text-danger pl-1 pt-1">{{error|escape}}</div>
+    {% endfor %}
+
+    <div id="higher_education" class="card-body border mt-3">
+        {% include 'alumniprofile/previous_edu_form.html' with form_data=form_data.edu %}
+    </div>
+
+    <div id="current_org" class="row mt-2">
+        <div class="col-sm-12 col-lg-6 mb-3">
+            <label for="current-org" class="form-label">
+                Current Organisation <span class="asteriskField">*</span>
+            </label>
+            <input type="text" class="form-control" name="current_organisation" id="current-org"
+                placeholder="Enter Organisation Name" value="{{form_data.current_organisation}}"/>
+            {% for error in form.current_organisation.errors %}
+            <div class="text-danger pl-1 pt-1">{{error|escape}}</div>
+            {% endfor %}
+        </div>
+        <div class="col-sm-12 col-lg-6 mb-3">
+            <label for="current-pos" class="form-label">
+                Current Position <span class="asteriskField">*</span>
+            </label>
+            <input type="text" class="form-control" name="current_position" id="current-pos"
+                placeholder="Enter Position" value="{{form_data.current_position}}"/>
+            {% for error in form.current_position.errors %}
+            <div class="text-danger pl-1 pt-1">{{error|escape}}</div>
+            {% endfor %}
+        </div>
+    </div>
+    <div id="more_work_details" class="row">
+        <div class="col-sm-12 col-lg-6 mb-3">
+            <label for="date-of-joining" class="form-label">
+                Date of Joining <span class="asteriskField">*</span>
+            </label>
+            <input type="date" class="form-control" name="date_of_joining"
+                id="date-of-joining" value="{{form_data.date_of_joining}}">
+            {% for error in form.date_of_joining.errors %}
+            <div class="text-danger pl-1 pt-1">{{error|escape}}</div>
+            {% endfor %}
+        </div>
+        <div class="col-sm-12 col-lg-6 mb-3">
+            <label for="past-exp" class="form-label">
+                Past Experience <span class="asteriskField">*</span>
+            </label>
+            <input type="number" placeholder="Experience (in years)" class="form-control"
+                name="past_experience" id="past-exp" value="{{form_data.past_experience}}">
+            {% for error in form.past_experience.errors %}
+            <div class="text-danger pl-1 pt-1">{{error|escape}}</div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<!-- ----------------------- -->
+
+<!-- SOCIAL MEDIA HANDLES -->
+<div class="col-lg-12 text-primary mx-0 px-0">
+    <h3 class="my-4 mx-0">
+      <strong>Socials</strong>
+    </h3>
+</div>
+
+<div class="social row mb-3">
+    <div class="col-sm-12 col-lg-6 mb-3">
+        <label for="linkedin" class="form-label">LinkedIn <span class="asteriskField">*</span></label>
+        <input type="url" class="form-control" name="linkedin" id="linkedin"
+            placeholder="Enter your LinkedIn profile link" value="{{form_data.linkedin}}" required/>
+        {% for error in form.linkedin.errors %}
+        <div class="text-danger pl-1 pt-1">{{error|escape}}</div>
+        {% endfor %}
+    </div>
+    <div class="col-sm-12 col-lg-6 mb-3">
+        <label for="facebook" class="form-label">Facebook</label>
+        <input type="url" class="form-control" name="facebook" id="facebook"
+            placeholder="Enter your Facebook profile link" value="{{form_data.facebook}}"/>
+        {% for error in form.facebook.errors %}
+        <div class="text-danger pl-1 pt-1">{{error|escape}}</div>
+        {% endfor %}
+    </div>
+    <div class="col-sm-12 col-lg-6 mb-3">
+        <label for="instagram" class="form-label">Instagram</label>
+        <input type="url" class="form-control" name="instagram" id="instagram"
+            placeholder="Enter your Instagram profile link" value="{{form_data.instagram}}"/>
+        {% for error in form.instagram.errors %}
+        <div class="text-danger pl-1 pt-1">{{error|escape}}</div>
+        {% endfor %}
+    </div>
+    <div class="col-sm-12 col-lg-6 mb-3">
+        <label for="website" class="form-label">Website</label>
+        <input type="url" class="form-control" name="website" id="website"
+            placeholder="Enter your personal portfolio website" value="{{form_data.website}}"/>
+        {% for error in form.website.errors %}
+        <div class="text-danger pl-1 pt-1">{{error|escape}}</div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="mb-3">
+    <div class="input-group">
+        <div class="custom-file">
+            <label class="custom-file-label" for="profile-picture">
+                Choose Profile Picture <span class="asteriskField">*</span>
+            </label>
+            <input type="file" class="custom-file-input" name="profile_picture" accept="image/*" 
+                id="profile-picture" required/>
+        </div>
+    </div>
+    {% for error in form.profile_picture.errors %}
+    <div class="text-danger pl-1 pt-1">{{error|escape}}</div>
+    {% endfor %}
+</div>
+<!-- ----------------------- -->
+
+<div class="form-group my-4 ml-1">
+    <div id="id_checkbox_update" class="form-check"> 
+        <label for="checkbox_update" class="form-check-label requiredField">
+            <input type="checkbox" name="checkbox_update" class="checkboxinput form-check-input" 
+                id="checkbox_update" required/>
+            I will update my information at regular intervals and will engage in the Alumni network
+            actively.<span class="asteriskField">*</span> 
+        </label> 
+    </div>
+</div>
+
+<button type="submit" class="btn btn-primary">Submit</button>

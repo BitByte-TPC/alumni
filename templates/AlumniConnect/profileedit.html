@@ -19,7 +19,7 @@ Alumni Connect
         )
         .append($("<option></option>").attr("value", 'India').text('India'));
 
-      $.each(data.data, function(i,country){
+      $.each(data.data, function(i, country){
         $('#countryId')
           .append($(`<option></option>`)
             .attr("value", country.country)
@@ -27,8 +27,8 @@ Alumni Connect
           )
       });
 
-      if ('{{C}}' && $('#countryId option[value="{{C}}"]').length > 0) {
-        $('#countryId').val('{{C}}').change();
+      if ('{{country}}' && $('#countryId option[value="{{country}}"]').length > 0) {
+        $('#countryId').val('{{country}}').change();
       } else {
         $('#countryId').val('');
       }
@@ -92,8 +92,8 @@ Alumni Connect
             );
         });
 
-        if ('{{s}}' && $('#stateId option[value="{{s}}"]').length > 0) {
-          $('#stateId').val('{{s}}').change();
+        if ('{{state}}' && $('#stateId option[value="{{state}}"]').length > 0) {
+          $('#stateId').val('{{state}}').change();
         } else {
           $('#stateId').val('');
         }
@@ -135,17 +135,17 @@ Alumni Connect
             );
         });
 
-        if ('{{c}}' && $('#cityId option[value="{{c}}"]').length > 0) {
-          $('#cityId').val('{{c}}');
-        } else if ('{{c}}' && curState === '{{s}}') {
+        if ('{{city}}' && $('#cityId option[value="{{city}}"]').length > 0) {
+          $('#cityId').val('{{city}}');
+        } else if ('{{city}}' && curState === '{{state}}') {
           // if state is same but city does not exist (must have been added using custom city option),
           // then append that city to list.
           $('#cityId')
             .append($(`<option></option>`)
-              .attr("value", '{{c}}')
-              .text('{{c}}')
+              .attr("value", '{{city}}')
+              .text('{{city}}')
             )
-            .val('{{c}}');
+            .val('{{city}}');
         } else {
           $('#cityId').val('');
         }
@@ -154,7 +154,9 @@ Alumni Connect
   });
  
 </script>
+{% if edit %}
 <script type="text/javascript">
+// --------------------------------- FOR MODEL FORM -----------------------------
   document.getElementById('div_id_current_position').style.display = 'none';
   document.getElementById('div_id_current_organisation').style.display = 'none';
   document.getElementById('div_id_date_of_joining').style.display = 'none';
@@ -211,6 +213,127 @@ Alumni Connect
   })
 </script>
 
+{% else %}
+
+<script type="text/javascript">
+// --------------------------------- FOR TEMPLATE FORM -----------------------------
+  function toggleCityInput() {
+    var city_checkbox = document.getElementById("cityCheckbox");
+    var city_input = document.getElementById("cityInput");
+    var city_select = document.getElementById("cityId");
+
+    if (city_checkbox.checked) {
+      city_select.removeAttribute("required");
+      // $('#city_input').attr('name','city');
+      // $('#cityId').attr('name','custom_city')
+      $('#cityInputWrapper').show();
+      $('#citySelectWrapper').hide();
+      city_input.setAttribute("required", "required");
+    }
+    else {
+      city_input.removeAttribute("required");
+      // $('#city_input').attr('name','custom_city');
+      // $('#cityId').attr('name','city')
+      $('#citySelectWrapper').show();
+      $('#cityInputWrapper').hide();
+      city_select.setAttribute("required", "required");
+    }
+  }
+
+  $('#profile-picture').change(function() {
+    var i = $(this).prev('label').clone();
+    var file = $('#profile-picture')[0].files[0].name;
+    $(this).prev('label').text(file);
+  });
+
+  $(window).on('load', function() {
+    $('#higher_education').hide();
+    $('#current_org').hide();
+    $('#more_work_details').hide();
+
+    toggleEduRequired(false);
+    toggleCurrentOrgRequired(false);
+    toggleMoreWorkDetailsRequired(false);
+
+    if ('{{form_data.programme}}') {
+      $('#programme').val('{{form_data.programme}}');
+    }
+    if ('{{form_data.branch}}') {
+      $('#branch').val('{{form_data.branch}}');
+    }
+    if ('{{form_data.year_of_admission}}') {
+      $('#admission-year').val('{{form_data.year_of_admission}}');
+    }
+    if ('{{form_data.batch}}') {
+      $('#batch-year').val('{{form_data.batch}}');
+    }
+    if ('{{form_data.sex}}') {
+      $('#gender-{{form_data.sex}}').click();
+    }
+    if ('{{form_data.working_status}}') {
+      $('input:radio[value="{{form_data.working_status}}"]').click();
+    }
+  });
+
+
+  // Manage fields related to experience/higher studies
+
+  function toggleCurrentOrgRequired(isRequired) {
+    const org_input = document.getElementById("current-org");
+    const pos_input = document.getElementById("current-pos");
+
+    if (isRequired) {
+      org_input.setAttribute("required", "required");
+      pos_input.setAttribute("required", "required");
+    } else {
+      org_input.removeAttribute("required");
+      pos_input.removeAttribute("required");
+    }
+  }
+
+  function toggleMoreWorkDetailsRequired(isRequired) {
+    const doj_input = document.getElementById("date-of-joining");
+    const exp_input = document.getElementById("past-exp");
+
+    if (isRequired) {
+      doj_input.setAttribute("required", "required");
+      exp_input.setAttribute("required", "required");
+    } else {
+      doj_input.removeAttribute("required");
+      exp_input.removeAttribute("required");
+    }
+  }
+
+  $('#status1').click(function () {
+    $('#higher_education').hide();
+    $('#current_org').show();
+    $('#more_work_details').show();
+
+    toggleEduRequired(false);
+    toggleCurrentOrgRequired(true);
+    toggleMoreWorkDetailsRequired(true);
+  });
+  $('#status2').click(function () {
+    $('#higher_education').show();
+    $('#current_org').hide();
+    $('#more_work_details').hide();
+
+    toggleEduRequired(true);
+    toggleCurrentOrgRequired(false);
+    toggleMoreWorkDetailsRequired(false);
+  });
+  $('#status3').click(function () {
+    $('#higher_education').hide();
+    $('#current_org').show();
+    $('#more_work_details').hide();
+
+    toggleEduRequired(false);
+    toggleCurrentOrgRequired(true);
+    toggleMoreWorkDetailsRequired(false);
+  });
+</script>
+
+{% endif %}
 {% endblock %}
 
 {% block body %}
@@ -237,7 +360,16 @@ Alumni Connect
 
 <section id="services" class="bg-primary p-1">
 </section>
-
+{% if form.non_field_errors %}
+    {% for error in form.non_field_errors %}
+    <div class="alert alert-danger alert-dismissible fade show my-0" role="alert">
+      {{error|escape}}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endfor %}
+{% endif %}
 <div class="bg-white">
   <div class="container text-left p-2 mx-auto">
     <div class="card shadow m-4 bg-light">
@@ -253,15 +385,23 @@ Alumni Connect
           </div>
         </div>
         <div class="container text-center p-2 mx-auto">
-          <div class="row text-left mx-auto p-2 p-sm-4 col-lg-12">
+          <div class="row text-left mx-auto p-2 p-sm-4 col-sm-12 col-md-12 col-lg-12">
             <form method="POST" role="form" enctype="multipart/form-data" style="width:100%">
               {% csrf_token %}
+              {% if edit %}
               {% crispy form %}
+              {% else %}
+              {% include 'AlumniConnect/registration_form.html' %}
+              {% endif %}
               <input type="hidden" name="next" value="{{ request.path }}">
             </form>
           </div>
         </div>
       </div>
+    </div>
+    <div class="text-center my-3">
+      * If you find any issues on this site, please consider reporting it on
+      <a href="https://github.com/BitByte-TPC/alumni/issues" target="_blank">GitHub issues</a>.
     </div>
   </div>
 </div>
