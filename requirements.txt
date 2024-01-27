@@ -48,7 +48,7 @@ pytz==2018.9
 redis==3.3.11
 requests==2.21.0
 requests-oauthlib==1.2.0
-rsa==4.0
+rsa==4.9
 six==1.12.0
 sqlparse==0.2.4
 uritemplate==3.0.0
