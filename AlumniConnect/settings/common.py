@@ -135,12 +135,13 @@ CKEDITOR_CONFIGS = {
 TEMPUS_DOMINUS_LOCALIZE = True
 
 # CELERY STUFF
-BROKER_URL = 'redis://localhost:6379'
+CELERY_BROKER_URL = 'redis://localhost:6379'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'Asia/Kolkata'
+CELERY_TIMEZONE = TIME_ZONE
+
 PASSWORD_RESET_TIMEOUT_DAYS = 1
 ANYMAIL = {
     # (exact settings here depend on your ESP...)
