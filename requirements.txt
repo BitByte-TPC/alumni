@@ -20,7 +20,7 @@ django-appconf==1.0.2
 django-ckeditor==5.6.1
 django-cleanup==3.0.1
 django-crispy-forms==1.7.2
-django-debug-toolbar==1.11
+django-debug-toolbar==1.11.1
 django-imagekit==4.1.0
 django-js-asset==1.1.0
 django-material==1.5.3
