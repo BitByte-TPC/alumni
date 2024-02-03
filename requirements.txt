@@ -66,5 +66,6 @@ vine==5.1.0
 wcwidth==0.2.13
 webencodings==0.5.1
 wrapt==1.16.0
-xlrd==1.2.0
 zipp==0.6.0
+openpyxl==3.0.9
+
