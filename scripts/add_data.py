@@ -1,4 +1,3 @@
-import datetime, xlrd
 from openpyxl import load_workbook
 from django.contrib.auth.models import User
 from applications.alumniprofile.models import Profile, Batch
