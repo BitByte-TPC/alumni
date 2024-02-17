@@ -18,9 +18,15 @@ def add_data() :
 
                 roll_no = str(int(roll_no))
                 email = str(email)
+                first_name, last_name = name.split(' ', 1)
+
 
                 # User creation logic
-                user, user_created = User.objects.get_or_create(username=roll_no, defaults={'email': email})
+                user, user_created = User.objects.get_or_create(
+                    username=roll_no, 
+                    first_name=first_name,
+                    last_name=last_name,
+                    defaults={'email': email})
                 if user_created:
                     user.set_password(roll_no)
                     user.save()
