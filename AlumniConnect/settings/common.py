@@ -36,7 +36,8 @@ INSTALLED_APPS = [
     'applications.chapter',
     'ckeditor',
     'ckeditor_uploader',
-    'tempus_dominus'
+    'tempus_dominus',
+    'AlumniConnect',
 ]
 
 MIDDLEWARE = [
