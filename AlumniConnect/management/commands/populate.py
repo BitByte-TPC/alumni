@@ -10,31 +10,25 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         self.stdout.write("Starting the population process")
-        
 
-        try :
-            add_batch()
-            self.stdout.write(self.style.SUCCESS("Batches added successfully"))
-        except :
-            self.stdout.write(self.style.ERROR("An error occured while adding batches"))
-        
-        try :
-            add_degree()
-            self.stdout.write(self.style.SUCCESS("Degrees added successfully"))
-        except :
-            self.stdout.write(self.style.ERROR("An error occured while adding degrees"))
+        operations = [
+            (add_batch, "Batches added successfully", "An error occured while adding batches"),
+            (add_degree, "Degrees added successfully", "An error occured while adding degrees"),
+            (add_data, "Data added successfully", "An error occured while adding data"),
+            (add_pass, "Passwords added successfully", "An error occured while adding passwords")
+        ]
 
-        try :
-            add_data()
-            self.stdout.write(self.style.SUCCESS("Data added successfully"))
-        except :
-            self.stdout.write(self.style.ERROR("An error occured while adding data"))
+        error_occured = False
 
-        try :
-            add_pass()
-            self.stdout.write(self.style.SUCCESS("Passwords added successfully"))
-        except :
-            self.stdout.write(self.style.ERROR("An error occured while adding passwords"))
-            # ... call other functions ...
+        for operation, success_message, error_message in operations:
+            try:
+                operation()
+                self.stdout.write(self.style.SUCCESS(success_message))
+            except:
+                error_occured = True
+                self.stdout.write(self.style.ERROR(error_message))
 
-            self.stdout.write(self.style.SUCCESS("Population process completed successfully"))
+        if error_occured:
+            self.stdout.write(self.style.ERROR("Some data could not be added. Please check the error messages above."))
+        else:
+            self.stdout.write(self.style.SUCCESS("Population process completed successfully."))
