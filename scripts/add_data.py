@@ -2,16 +2,7 @@ from openpyxl import load_workbook
 from django.contrib.auth.models import User
 from applications.alumniprofile.models import Profile, Batch
 from django.db import transaction
-
-def reg_no_gen(degree_, spec_, year):
-    degree = {"B.Tech": "1", "B.Des": '2', "M.Tech": '3', "M.Des": '4', "PhD": '5'}
-    spec = {"NA": '00', "CSE": "01", "ECE": "02", "ME": "03", "MT": "04", "NS": "05", "DS": "06"}
-    last_reg_no = Profile.objects.filter(year_of_admission=year).order_by('user__date_joined').last()
-    new_reg_no = (int(str(last_reg_no.reg_no)[-4:]) + 1) if last_reg_no else 1
-    return degree[degree_] + spec[spec_] + str(year)[2:] + str(convert_int(new_reg_no, 4))
-
-def convert_int(number, decimals):
-    return str(number).zfill(decimals)
+from AlumniConnect.views  import reg_no_gen
 
 def add_data() :
 
