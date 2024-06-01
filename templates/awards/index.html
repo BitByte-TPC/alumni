@@ -1,1 +1,43 @@
-Lets get started !
+{% extends 'globals/base.html' %}
+{% load static %}
+
+{% block title %}
+    Awards
+{% endblock %}
+
+{% block body %}
+    {% include 'globals/navbar.html' %}
+    <div class="p-0 m-0 masthead-bg w-100 parallax shadow-sm" style="min-height:250px !important; height:270px !important; background-position-y: 270px;"></div>
+    <div style="height:150px; min-height:150px;"></div>
+
+    <div class="container text-left p-2 mx-auto">
+        <div class="card shadow m-4 bg-light">
+            <div class="card-body">
+                <h1 class="card-title">Awards Display:-  </h1>
+                <p class="m-2 font-weight-normal mb-3">
+                    <span class="d-inline-block pb-1 pb-md-0">
+                        <i class="fas fa-trophy"></i>
+                        {{ award_count }} awards to display!
+                    </span>
+                </p>
+                <div class="awards-list">
+                    {% for award in awards %}
+                        <div class="award-item mb-4">
+                            <h2>{{ award.title|safe }}</h2>
+                            <p>
+                                <i class="fas fa-table"></i>
+                                {{ award.published_date|date:"d F, o" }}
+                                &nbsp;
+                                <i class="fas fa-user"></i>&nbsp;
+                                {{ award.by }}
+                            </p>
+                            <p>{{ award.description|safe }}</p>
+                        </div>
+                        <hr>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'globals/footer.html' %}
+{% endblock %}
