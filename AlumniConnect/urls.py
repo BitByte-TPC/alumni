@@ -62,6 +62,7 @@ urlpatterns += [
     re_path(r'favicon.ico', favicon_view),
     path('constitution/', views.constitution, name='constitution'),
     #path('', views.index, name='home'),
+    path('check-email-exists/', views.check_email_exists, name='check_email_exists'),
 ]
 
 if settings.DEBUG:
