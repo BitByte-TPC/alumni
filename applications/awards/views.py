@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render ,redirect
 from .models import Award
 
 
@@ -12,4 +12,4 @@ def award(request, id):
         award = Award.objects.get(award_id=id)
         return render(request, "awards/award.html", {"award": award})
     except:
-        return render(request, "awards/award.html")
+        return redirect('awards:index')
