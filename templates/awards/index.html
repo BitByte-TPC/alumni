@@ -7,7 +7,6 @@
 
 {% block extra_head %}
 <style>
-    
     .card-title {
         font-size: 2.5rem !important; 
     }
@@ -15,27 +14,18 @@
         font-size: 2rem !important; 
     }
 
+
     @media (max-width: 576px) {
         .card-title {
-            font-size: 1.5rem !important; 
+            font-size: 1.5rem !important ; 
         }
         .award-title {
             font-size: 1.25rem !important; 
         }
-        .award-meta {
-            display: inline-flex !important;
-            flex-wrap: nowrap !important;
-            align-items: center !important;
-        }
-        .award-meta i {
-            margin-right: 0.5rem !important;
-        }
-        .award-meta span {
-            white-space: nowrap !important;
-        }
+       
     }
     @media (max-width: 400px) {
-        .card .card-title {
+        .card-title {
             font-size: 1.25rem !important;
         }
         .award-item .award-title {
@@ -53,7 +43,7 @@
     <div class="container text-left p-2 mx-auto">
         <div class="card shadow m-4 bg-light">
             <div class="card-body">
-                <h1 class="card-title">Awards Display:-</h1>
+                <h1 class="card-title">Awards:-</h1>
                 <p class="m-2 font-weight-normal mb-3">
                     <span class="d-inline-block pb-1 pb-md-0">
                         <i class="fas fa-trophy"></i>
@@ -64,10 +54,17 @@
                     {% for award in awards %}
                         <div class="award-item mb-4">
                             <h2 class="award-title">{{ award.title|safe }}</h2>
-                            <p class="award-meta">
-                                <i class="fas fa-table"></i> {{ award.published_date|date:"d F, o" }} &nbsp;
-                                <i class="fas fa-user"></i>&nbsp; {{ award.by }}
-                            </p>
+                            <p class="m-2 font-weight-normal mb-3">
+                                <span class="d-inline-block pb-1 pb-md-0">
+                                    <i class="fas fa-table"></i>
+                                    {{ award.published_date|date:"d F, o" }}
+                                    &nbsp;
+                                </span>
+                                <span class="d-inline-block">
+                                    <i class="fas fa-user"></i>&nbsp;
+                                    {{ award.by }}
+                                </span>
+                            </p> 
                             <p>{{ award.description|safe }}</p>
                         </div>
                         <hr>
