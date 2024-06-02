@@ -8,5 +8,8 @@ def index(request):
 
 
 def award(request, id):
-    award = Award.objects.get(award_id=id)
-    return render(request, "awards/award.html", {"award": award})
+    try:
+        award = Award.objects.get(award_id=id)
+        return render(request, "awards/award.html", {"award": award})
+    except:
+        return render(request, "awards/award.html")
