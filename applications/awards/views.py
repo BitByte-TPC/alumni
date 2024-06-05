@@ -1,6 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render ,redirect
 from .models import Award
-
 
 # Create your views here.
 def index(request):
@@ -8,5 +7,8 @@ def index(request):
 
 
 def award(request, id):
-    award = Award.objects.get(award_id=id)
-    return render(request, "awards/award.html", {"award": award})
+    try:
+        award = Award.objects.get(award_id=id)
+        return render(request, "awards/award.html", {"award": award})
+    except:
+        return redirect('awards:index')
