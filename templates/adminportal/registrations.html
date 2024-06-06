@@ -61,7 +61,11 @@
                 <div class="card mb-3">
                     <div class="row no-gutters">
                         <div class="col-md-3">
-                            <img class="img-thumbnail" src="{{ profile.profile_picture.url }}" alt="Profile Picture" style="max-height:220px">
+                            {% if profile.profile_picture %}
+                                <img class="img-thumbnail" src="{{ profile.profile_picture.url }}" alt="Profile Picture" style="max-height:220px">
+                            {% else %}
+                                <img class="img-thumbnail" src="{% static 'AlumniConnect/img/user.png' %}" alt="Profile Picture" style="max-height:220px">
+                            {% endif %}
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
