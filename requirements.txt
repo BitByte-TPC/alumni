@@ -1,7 +1,7 @@
 amqp==5.2.0
 astroid==2.1.0
 async-timeout==4.0.3
-backports.zoneinfo==0.2.1
+backports.zoneinfo;python_version<"3.9"
 beautifulsoup4==4.6.0
 billiard==4.2.0
 cachetools==3.1.0
