@@ -55,15 +55,30 @@
 								{{ event.start_date|date:"d M, o" }}
 								&nbsp;
 							</span>
+							{% if event.location %}
 							<span class="d-inline-block mb-2">
 								<i class="fas fa-map-marker-alt"></i>
 								{{ event.location}}
 								&nbsp;
 							</span>
+							{% else %}
+							<span class="d-inline-block mb-2">
+								<i class="fas fa-map-marker-alt"></i>
+								N/A
+								&nbsp;
+							</span>
+							{% endif %}
+							{% if event.by %}
 							<span class="d-inline-block mb-2">
 								<i class="fas fa-user"></i>
 								{{ event.by }}
 							</span>
+							{% else %}
+							<span class="d-inline-block mb-2">
+								<i class="fas fa-user"></i>
+								N/A
+							</span>
+							{% endif %}
 						</p>
 						<div class="row">
 							{% if event.is_completed %}
@@ -247,15 +262,30 @@
 									{{ event.start_date|date:"d M, o" }}
 									&nbsp;
 								</span>
+								{% if event.location %}
 								<span class="d-inline-block mb-2">
 									<i class="fas fa-map-marker-alt"></i>
 									{{ event.location}}
 									&nbsp;
 								</span>
+								{% else %}
+								<span class="d-inline-block mb-2">
+									<i class="fas fa-map-marker-alt"></i>
+									N/A
+									&nbsp;
+								</span>
+								{% endif %}
+								{% if event.by %}
 								<span class="d-inline-block mb-2">
 									<i class="fas fa-user"></i>
 									{{ event.by }}
 								</span>
+								 {% else %}
+								 <span class="d-inline-block mb-2">
+									<i class="fas fa-user"></i>
+									N/A
+								</span>
+								{% endif %}
 							</p>
 							
 							<div class="row">
