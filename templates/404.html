@@ -111,39 +111,79 @@ body{
 .content .btns a:hover{
   background:black;
   color: white;
-}
-/* Responsive styles */
-        @media (max-width: 768px) {
-            .content h2.header {
-                font-size: 24vw;
-            }
-            .content h4 {
-                font-size: 1.2em;
-            }
-            .content p {
-                font-size: 1em;
-            }
-            .content .btns a {
-                padding: 8px 20px;
-                font-size: 0.9em;
-            }
-        }
+}@media (max-width: 768px) {
+    #error-page {
+      left: 5%;
+      right: 5%;
+    }
 
-        @media (max-width: 480px) {
-            .content h2.header {
-                font-size: 28vw;
-            }
-            .content h4 {
-                font-size: 1em;
-            }
-            .content p {
-                font-size: 0.9em;
-            }
-            .content .btns a {
-                padding: 6px 15px;
-                font-size: 0.8em;
-            }
-        }
+    .content h2.header {
+      font-size: 24vw;
+    }
+
+    .content h4 {
+      font-size: 1.2em;
+    }
+
+    .content p {
+      font-size: 1em;
+    }
+
+    .content .btns a {
+      padding: 8px 20px;
+      font-size: 0.9em;
+    }
+  }
+
+  @media (max-width: 480px) {
+    #error-page {
+      left: 2%;
+      right: 2%;
+    }
+
+    .content h2.header {
+      font-size: 28vw;
+    }
+
+    .content h4 {
+      font-size: 1em;
+    }
+
+    .content p {
+      font-size: 0.9em;
+    }
+
+    .content .btns a {
+      padding: 6px 15px;
+      font-size: 0.8em;
+    }
+  }
+
+  @media (max-width: 320px) {
+    #error-page {
+      top: 5%;
+      left: 1%;
+      right: 1%;
+      bottom: 5%;
+    }
+
+    .content h2.header {
+      font-size: 32vw;
+    }
+
+    .content h4 {
+      font-size: 0.9em;
+    }
+
+    .content p {
+      font-size: 0.8em;
+    }
+
+    .content .btns a {
+      padding: 5px 10px;
+      font-size: 0.7em;
+    }
+  }
 </style>
 {% endblock %}
 {% block body %}

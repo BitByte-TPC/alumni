@@ -2,7 +2,7 @@ from AlumniConnect.settings.common import *
 
 SECRET_KEY = "dikj)qxgkhe7v$y7l))d!!nkut&^6q7+x^@ys7c1z!#!&*94r5"
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
