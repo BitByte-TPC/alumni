@@ -1,0 +1,210 @@
+{% extends 'globals/base.html' %}
+{% load static %}
+
+{% block title %}
+404 Error Page
+{% endblock %}
+
+{% block css %}
+<style>
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  outline: none;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+body{
+  height: 100vh;
+  
+  background-size: 400%;
+}
+#error-page{
+  position: absolute;
+  top: 10%;
+  left: 15%;
+  right: 15%;
+  bottom: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  box-shadow: 0px 5px 10px rgba(0.3,0.3,0.3,0.3);
+}
+#error-page .content{
+  max-width: 600px;
+  text-align: center;
+}
+.content h2.header{
+  font-size: 15em;
+  line-height: 1em;
+  position: relative;
+}
+.content h2.header:after{
+  position: absolute;
+  content: attr(data-text);
+  top: 0;
+  left: 0;
+  right: 0;
+  background-size: 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 1px 1px 2px rgba(255,255,255,0.25);
+  animation: animate 10s ease-in-out infinite;
+}
+@keyframes animate {
+  0%{
+    background-position: 0 0;
+  }
+  25%{
+    background-position: 100% 0;
+  }
+  50%{
+    background-position: 100% 100%;
+  }
+  75%{
+    background-position: 0% 100%;
+  }
+  100%{
+    background-position: 0% 0%;
+  }
+}
+.content h4{
+  font-size: 1.5em;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  color: #000;
+  font-size: 2em;
+  max-width: 600px;
+  position: relative;
+}
+.content h4:after{
+  position: absolute;
+  content: attr(data-text);
+  top: 0;
+  left: 0;
+  right: 0;
+  text-shadow: 1px 1px 2px rgba(255,255,255,0.4);
+  
+}
+.content p{
+  font-size: 1.2em;
+  color: #0d0d0d;
+}
+.content .btns{
+  margin: 25px 0;
+  display: inline-flex;
+}
+.content .btns a{
+  display: inline-block;
+  margin: 0 10px;
+  text-decoration: none;
+  border: 2px solid black;
+  color: black;
+  font-weight: 500;
+  padding: 10px 25px;
+  border-radius: 25px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+.content .btns a:hover{
+  background:black;
+  color: white;
+}@media (max-width: 768px) {
+    #error-page {
+      left: 5%;
+      right: 5%;
+    }
+
+    .content h2.header {
+      font-size: 24vw;
+    }
+
+    .content h4 {
+      font-size: 1.2em;
+    }
+
+    .content p {
+      font-size: 1em;
+    }
+
+    .content .btns a {
+      padding: 8px 20px;
+      font-size: 0.9em;
+    }
+  }
+
+  @media (max-width: 480px) {
+    #error-page {
+      left: 2%;
+      right: 2%;
+    }
+
+    .content h2.header {
+      font-size: 28vw;
+    }
+
+    .content h4 {
+      font-size: 1em;
+    }
+
+    .content p {
+      font-size: 0.9em;
+    }
+
+    .content .btns a {
+      padding: 6px 15px;
+      font-size: 0.8em;
+    }
+  }
+
+  @media (max-width: 320px) {
+    #error-page {
+      top: 5%;
+      left: 1%;
+      right: 1%;
+      bottom: 5%;
+    }
+
+    .content h2.header {
+      font-size: 32vw;
+    }
+
+    .content h4 {
+      font-size: 0.9em;
+    }
+
+    .content p {
+      font-size: 0.8em;
+    }
+
+    .content .btns a {
+      padding: 5px 10px;
+      font-size: 0.7em;
+    }
+  }
+</style>
+{% endblock %}
+{% block body %}
+{% include 'globals/navbar.html' %}
+ 
+    <div id="error-page">
+      <div class="content">
+        <h2 class="header" data-text="404">
+          404
+        </h2>
+        <h4 data-text="Opps! Page not found">
+          Opps! Page not found
+        </h4>
+        <p>
+          Sorry, the page you're looking for doesn't exist.
+        </p>
+        <div class="btns">
+          <a href="/">return home</a>
+        </div>
+      </div>
+    </div>
+ 
+
+{% endblock %}
