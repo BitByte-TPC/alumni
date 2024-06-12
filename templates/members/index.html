@@ -76,41 +76,105 @@ YearBook
                 <span class="mx-auto h6">{{total}} registered alumni</span>
                 {% endif %}
 
-                <div class="search-container m-3 p-3" style="margin:6px;">
+                <div class="search-container m-3 p-3" style="margin: 6px;">
                     <form method="POST" action="{% url 'members:search' %}">
                         {% csrf_token %}
-                        <div class='row justify-content-center m-3'>
-                            <input type="text" id="search" class="form-control col-5 mx-2"
-                                placeholder="Name, Roll No or Reg No" name="search" value={{request.search}}>
-                            <button type="submit" class="btn btn-dark col-1 rounded mx-2"><i
-                                class="fa fa-search mx-auto"></i></button>
+                        <div class="row justify-content-center m-3 mb-2">
+                            <div class="col-12 col-md-6 col-lg-4">
+                                <input type="text" id="search" class="form-control"
+                                    placeholder="Name, Roll No or Reg No" name="search" value={{request.search}}>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-2 col-xs-12">
+                                <button type="submit" class="btn btn-dark btn-block rounded"><i
+                                        class="fa fa-search mx-auto"></i></button>
+                            </div>
                         </div>
-                        <div class='row justify-content-center m-3' id='filters'>
-                            <input type='text' class='form-control col-2 mx-1' placeholder='Batch' name='batch'
-                                value={{request.batch}}>
-                            <select name="programme" class="custom-select col-2 mx-1">
-                                <option selected value="">Programme</option>
-                                <option value="B.Tech">B.Tech</option>
-                                <option value="B.Des">B.Des</option>
-                                <option value="M.Tech">M.Tech</option>
-                                <option value="M.Des">M.Des</option>
-                                <option value="PhD">PhD</option>
-                            </select>
-                            <select name="branch" class="custom-select col-2 mx-1">
-                                <option selected value="">Branch</option>
-                                <option value="CSE">Computer Science and Engineering</option>
-                                <option value="ECE">Electronics and Communication Engineering</option>
-                                <option value="ME">Mechanical Engineering</option>
-                                <option value="NS">Natural Sciences</option>
-                                <option value="MT">Mechatronics</option>
-                                <option value="DS">Design</option>
-                            </select>
-                            <input type="text" class="form-control col-2 mx-1" placeholder="City" name="city"
-                                value={{request.city}}>
-                            <input type="text" class="form-control col-2 mx-1" placeholder="Company/Institution" name="org"
-                                value={{request.org}}>
+                        <div class="row justify-content-center m-3" id="filters">
+                            <div class="col-12 col-md-6 col-lg-2 mb-2 collapse d-md-block">
+                                <input type='text' class='form-control' placeholder='Batch' name='batch'
+                                    value={{request.batch}}>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-2 mb-2 collapse d-md-block">
+                                <select name="programme" class="custom-select">
+                                    <option selected value="">Programme</option>
+                                    <option value="B.Tech">B.Tech</option>
+                                    <option value="B.Des">B.Des</option>
+                                    <option value="M.Tech">M.Tech</option>
+                                    <option value="M.Des">M.Des</option>
+                                    <option value="PhD">PhD</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-2 mb-2 collapse d-md-block">
+                                <select name="branch" class="custom-select ">
+                                    <option selected value="">Branch</option>
+                                    <option value="CSE">Computer Science and Engineering</option>
+                                    <option value="ECE">Electronics and Communication Engineering</option>
+                                    <option value="ME">Mechanical Engineering</option>
+                                    <option value="NS">Natural Sciences</option>
+                                    <option value="MT">Mechatronics</option>
+                                    <option value="DS">Design</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-2 mb-2 collapse d-md-block">
+                                <input type="text" class="form-control" placeholder="City" name="city"
+                                    value={{request.city}}>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3 mb-2 collapse d-md-block">
+                                <input type="text" class="form-control" placeholder="Company/Institution" name="org"
+                                    value={{request.org}}>
+                            </div>
+                            <!-- Expandable div -->
+                            <div class="col-12" id="moreOptionsButton">
+                                <button class="btn btn-secondary mb-2 d-md-none" type="button" data-toggle="collapse"
+                                    data-target="#moreOptions" aria-expanded="false" aria-controls="moreOptions">
+                                    More search options
+                                </button>
+                            </div>
+                            <div class="col-12 collapse" id="moreOptions">
+                                <div class="col-12 col-md-6 col-lg-2 mb-2">
+                                    <input type='text' class='form-control' placeholder='Batch' name='batch'
+                                        value={{request.batch}}>
+                                </div>
+                                <div class="col-12 col-md-6 col-lg-2 mb-2">
+                                    <select name="programme" class="custom-select">
+                                        <option selected value="">Programme</option>
+                                        <option value="B.Tech">B.Tech</option>
+                                        <option value="B.Des">B.Des</option>
+                                        <option value="M.Tech">M.Tech</option>
+                                        <option value="M.Des">M.Des</option>
+                                        <option value="PhD">PhD</option>
+                                    </select>
+                                </div>
+                                <div class="col-12 col-md-6 col-lg-2 mb-2">
+                                    <select name="branch" class="custom-select ">
+                                        <option selected value="">Branch</option>
+                                        <option value="CSE">Computer Science and Engineering</option>
+                                        <option value="ECE">Electronics and Communication Engineering</option>
+                                        <option value="ME">Mechanical Engineering</option>
+                                        <option value="NS">Natural Sciences</option>
+                                        <option value="MT">Mechatronics</option>
+                                        <option value="DS">Design</option>
+                                    </select>
+                                </div>
+                                <div class="col-12 col-md-6 col-lg-2 mb-2">
+                                    <input type="text" class="form-control" placeholder="City" name="city"
+                                        value={{request.city}}>
+                                </div>
+                                <div class="col-12 col-md-6 col-lg-3 mb-2">
+                                    <input type="text" class="form-control" placeholder="Company/Institution" name="org"
+                                        value={{request.org}}>
+                                </div>
+                            </div>
                         </div>
                     </form>
+                    <script>
+                        function toggleMoreOptionsButton() {
+                            const moreOptionsButton = document.getElementById('moreOptionsButton');
+                            moreOptionsButton.style.display = window.matchMedia('(max-width: 767px)').matches ? 'block' : 'none';
+                        }
+                        window.addEventListener('resize', toggleMoreOptionsButton);
+                        window.addEventListener('load', toggleMoreOptionsButton);
+                    </script>
                 </div>
             </div>
         </div>
