@@ -3,9 +3,14 @@ Django settings for AlumniConnect project.
 """
 
 import os
+from pathlib import Path
+import environ
+import logging.config
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 
 # Application definition
 
@@ -166,3 +171,55 @@ CACHES = {
         'LOCATION': 'unique-snowflake',
     }
 }
+
+logs_dir = os.path.join(BASE_DIR, 'logs')
+if not os.path.exists(logs_dir):
+    os.makedirs(logs_dir)
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+            
+            'datefmt': '%Y-%m-%d %H:%M:%S',
+        },
+        'detailed': {
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'style': '{',
+            'datefmt': '%Y-%m-%d %H:%M:%S',
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'formatter': 'detailed',
+            'filename': os.path.join(BASE_DIR, 'logs', 'alumni_connect.log'),
+        },
+    },
+    'loggers': {
+        '': {
+            'handlers': ['console'] if os.getenv('DJANGO_ENV') == 'development' else ['file'],
+            'level': 'DEBUG' if os.getenv('DJANGO_ENV') == 'development' else 'INFO',
+        },
+        'django': {
+            'handlers': ['console'] if os.getenv('DJANGO_ENV') == 'development' else ['file'],
+            'level': 'DEBUG' if os.getenv('DJANGO_ENV') == 'development' else 'INFO',
+            'propagate': True,
+        },
+    },
+}
+
