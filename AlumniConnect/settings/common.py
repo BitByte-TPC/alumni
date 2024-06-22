@@ -174,6 +174,14 @@ LOG_DIR = os.path.join(BASE_DIR, 'logs')
 if not os.path.exists(LOG_DIR):
     os.makedirs(LOG_DIR)
 
+class Filter(logging.Filter):
+    def __init__(self, level):
+        self.level = level
+        super().__init__()
+
+    def filter(self, record):
+        return record.levelno == self.level
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -201,6 +209,20 @@ LOGGING = {
             'datefmt': '%Y-%m-%d %H:%M:%S',
         },
     },
+    'filters': {
+        'warning_filter': {
+            '()': Filter,
+            'level': logging.WARNING,
+        },
+        'error_filter': {
+            '()': Filter,
+            'level': logging.ERROR,
+        },
+        'critical_filter': {
+            '()': Filter,
+            'level': logging.CRITICAL,
+        },
+    },
     'handlers': {
         'console': {
             'level': 'DEBUG',
@@ -212,32 +234,29 @@ LOGGING = {
             'class': 'logging.FileHandler',
             'formatter': 'detailed',
             'filename': os.path.join(LOG_DIR, 'warning.log'),
+            'filters': ['warning_filter'],
         },
         'error_file': {
             'level': 'ERROR',
             'class': 'logging.FileHandler',
             'formatter': 'detailed',
             'filename': os.path.join(LOG_DIR, 'error.log'),
+            'filters': ['error_filter'],
         },
         'critical_file': {
             'level': 'CRITICAL',
             'class': 'logging.FileHandler',
             'formatter': 'detailed',
             'filename': os.path.join(LOG_DIR, 'critical.log'),
+            'filters': ['critical_filter'],
         },
     },
     'loggers': {
         'django': {
-            'handlers': ['console'] if os.getenv('DJANGO_ENV') == 'development' else [ 'warning_file', 'error_file', 'critical_file'],
+            'handlers': ['console'] if os.getenv('DJANGO_ENV') == 'development' else ['warning_file', 'error_file', 'critical_file'],
             'level': 'INFO' if os.getenv('DJANGO_ENV') == 'development' else 'WARNING',
             'propagate': True,
         },
     },
 }
 
-logging.config.dictConfig(LOGGING)
-logger = logging.getLogger('django')
-logger.info('Logging setup complete - INFO level')
-logger.warning('Logging setup complete - WARNING level')
-logger.error('Logging setup complete - ERROR level')
-logger.critical('Logging setup complete - CRITICAL level')
