@@ -4,9 +4,7 @@ Django settings for AlumniConnect project.
 
 import os
 from pathlib import Path
-import environ
 import logging.config
-
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -172,10 +170,9 @@ CACHES = {
     }
 }
 
-logs_dir = os.path.join(BASE_DIR, 'logs')
-if not os.path.exists(logs_dir):
-    os.makedirs(logs_dir)
-
+LOG_DIR = os.path.join(BASE_DIR, 'logs')
+if not os.path.exists(LOG_DIR):
+    os.makedirs(LOG_DIR)
 
 LOGGING = {
     'version': 1,
@@ -188,11 +185,18 @@ LOGGING = {
         'verbose': {
             'format': '{levelname} {asctime} {module} {message}',
             'style': '{',
-            
             'datefmt': '%Y-%m-%d %H:%M:%S',
         },
         'detailed': {
-            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'format': (
+                'Level - {levelname}\n'
+                'Time - {asctime}\n'
+                'Module - {module}\n'
+                'PID - {process:d}\n'
+                'TID - {thread:d}\n'
+                'Message - {message}\n'
+                '\n'
+            ),
             'style': '{',
             'datefmt': '%Y-%m-%d %H:%M:%S',
         },
@@ -203,23 +207,37 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'simple',
         },
-        'file': {
-            'level': 'INFO',
+        'warning_file': {
+            'level': 'WARNING',
             'class': 'logging.FileHandler',
             'formatter': 'detailed',
-            'filename': os.path.join(BASE_DIR, 'logs', 'alumni_connect.log'),
+            'filename': os.path.join(LOG_DIR, 'warning.log'),
+        },
+        'error_file': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'formatter': 'detailed',
+            'filename': os.path.join(LOG_DIR, 'error.log'),
+        },
+        'critical_file': {
+            'level': 'CRITICAL',
+            'class': 'logging.FileHandler',
+            'formatter': 'detailed',
+            'filename': os.path.join(LOG_DIR, 'critical.log'),
         },
     },
     'loggers': {
-        '': {
-            'handlers': ['console'] if os.getenv('DJANGO_ENV') == 'development' else ['file'],
-            'level': 'DEBUG' if os.getenv('DJANGO_ENV') == 'development' else 'INFO',
-        },
         'django': {
-            'handlers': ['console'] if os.getenv('DJANGO_ENV') == 'development' else ['file'],
-            'level': 'DEBUG' if os.getenv('DJANGO_ENV') == 'development' else 'INFO',
+            'handlers': ['console'] if os.getenv('DJANGO_ENV') == 'development' else [ 'warning_file', 'error_file', 'critical_file'],
+            'level': 'INFO' if os.getenv('DJANGO_ENV') == 'development' else 'WARNING',
             'propagate': True,
         },
     },
 }
 
+logging.config.dictConfig(LOGGING)
+logger = logging.getLogger('django')
+logger.info('Logging setup complete - INFO level')
+logger.warning('Logging setup complete - WARNING level')
+logger.error('Logging setup complete - ERROR level')
+logger.critical('Logging setup complete - CRITICAL level')
