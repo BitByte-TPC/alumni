@@ -253,8 +253,8 @@ LOGGING = {
     },
     'loggers': {
         'django': {
-            'handlers': ['warning_file', 'error_file', 'critical_file'] if os.getenv('DJANGO_ENV') == 'production' else ['console'],
-            'level': 'WARNING' if os.getenv('DJANGO_ENV') == 'production' else 'INFO',
+            'handlers': ['warning_file', 'error_file', 'critical_file'] if os.environ.get('DJANGO_ENV') == 'production' else ['console'],
+            'level': 'WARNING' if os.environ.get('DJANGO_ENV') == 'production' else 'INFO',
             'propagate': True,
         },
     },
