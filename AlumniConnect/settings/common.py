@@ -3,9 +3,12 @@ Django settings for AlumniConnect project.
 """
 
 import os
+from pathlib import Path
+import logging.config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 
 # Application definition
 
@@ -166,3 +169,94 @@ CACHES = {
         'LOCATION': 'unique-snowflake',
     }
 }
+
+LOG_DIR = os.path.join(BASE_DIR, 'logs')
+if not os.path.exists(LOG_DIR):
+    os.makedirs(LOG_DIR)
+
+class Filter(logging.Filter):
+    def __init__(self, level):
+        self.level = level
+        super().__init__()
+
+    def filter(self, record):
+        return record.levelno == self.level
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+            'datefmt': '%Y-%m-%d %H:%M:%S',
+        },
+        'detailed': {
+            'format': (
+                'Level - {levelname}\n'
+                'Time - {asctime}\n'
+                'Module - {module}\n'
+                'PID - {process:d}\n'
+                'TID - {thread:d}\n'
+                'Message - {message}\n'
+                '\n'
+            ),
+            'style': '{',
+            'datefmt': '%Y-%m-%d %H:%M:%S',
+        },
+    },
+    'filters': {
+        'warning_filter': {
+            '()': Filter,
+            'level': logging.WARNING,
+        },
+        'error_filter': {
+            '()': Filter,
+            'level': logging.ERROR,
+        },
+        'critical_filter': {
+            '()': Filter,
+            'level': logging.CRITICAL,
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+        'warning_file': {
+            'level': 'WARNING',
+            'class': 'logging.FileHandler',
+            'formatter': 'detailed',
+            'filename': os.path.join(LOG_DIR, 'warning.log'),
+            'filters': ['warning_filter'],
+        },
+        'error_file': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'formatter': 'detailed',
+            'filename': os.path.join(LOG_DIR, 'error.log'),
+            'filters': ['error_filter'],
+        },
+        'critical_file': {
+            'level': 'CRITICAL',
+            'class': 'logging.FileHandler',
+            'formatter': 'detailed',
+            'filename': os.path.join(LOG_DIR, 'critical.log'),
+            'filters': ['critical_filter'],
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['warning_file', 'error_file', 'critical_file'] if os.environ.get('DJANGO_ENV') == 'production' else ['console'],
+            'level': 'WARNING' if os.environ.get('DJANGO_ENV') == 'production' else 'INFO',
+            'propagate': True,
+        },
+    },
+}
+
