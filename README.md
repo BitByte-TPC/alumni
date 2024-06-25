@@ -16,11 +16,17 @@
   `$ setx PATH "%PYENV%\bin;%PYENV%\shims;%PATH%"`
 
 * For Linux 
- - Open Terminal `$ curl https://pyenv.run | bash`
-
-* Close and reopen your Command Prompt or terminal.
-* Install latest Python version `$ pyenv install 3.12.3`  
-* Set the Global Version `$ pyenv global 3.12.3`
+ - Open Terminal `$ sudo apt update
+sudo apt install -y make build-essential libssl-dev zlib1g-dev libbz2-dev \
+libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
+xz-utils tk-dev libffi-dev liblzma-dev python3-openssl git`
+- Run `$ curl https://pyenv.run | bash`
+- Clone the repository `$ git clone https://github.com/pyenv-win/pyenv-win.git %USERPROFILE%\.pyenv`
+- Add pyenv to your shell configuraion
+  `$ echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc`
+  `$ echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc`
+  `$ echo 'eval "$(pyenv init --path)"' >> ~/.bashrc`
+  `$ echo 'eval "$(pyenv init -)"' >> ~/.bashrc`
 
 ## How to run it?
 
