@@ -2,6 +2,7 @@ import os
 from django.db import models
 from multiselectfield import MultiSelectField
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 # Create your models here.
 class Constants:
     TAGS = (
@@ -44,7 +45,7 @@ class Blog(models.Model):
         upvotes = models.IntegerField(default=0)
         
         blog_type = models.CharField(choices=Constants.TYPE, max_length=15,default='S')
-        campaign_id = models.ForeignKey(Campaign, on_delete=models.CASCADE)
+        campaign_id = models.ForeignKey(Campaign, on_delete=models.CASCADE, null=True, blank=True)
 
         def __str__(self):
             return self.title
@@ -56,4 +57,4 @@ class Replies(models.Model):
 
     time_stamp = models.DateTimeField(auto_now=True)
     sender = models.ForeignKey(User, on_delete=models.CASCADE)
-    reciever = models.IntegerField(default = -1)
+    receiver  = models.IntegerField(default='', blank=True)

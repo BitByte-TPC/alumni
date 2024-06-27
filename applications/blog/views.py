@@ -16,29 +16,31 @@ def index(request):
                               Q(blog_type__icontains=q)|
                               Q(campaign_id__name__icontains=q)
                               )
-    campaigns = Campaign.objects.all()
+    campaigns = Campaign.objects.filter(date_ended__gte=now())
     context={"blogs":blogs,"campaigns":campaigns}
     return render(request, "blog/home.html",context)
 
 def blog_detail(request,blog_id):
-    blog=Blog.objects.get(blog_id=blog_id)
-    replies=Replies.objects.filter(blog_id=blog_id)
-    
-    if request.user.is_authenticated:
-        if request.method == "POST":
-            content = request.POST['content']
-            
-            Replies.objects.create(
-                blog_id=blog,
-                content=content,
-                sender=request.user,
-                time_stamp=now(),
-            )
-            return redirect('blog:blog_detail', blog_id=blog.blog_id)
+    try:
+        blog=Blog.objects.get(blog_id=blog_id)
+        replies=Replies.objects.filter(blog_id=blog_id)
         
-    context={"blog":blog,"replies":replies}
-    return render(request,'blog/blog_detail.html',context)
-
+        if request.user.is_authenticated:
+            if request.method == "POST":
+                content = request.POST['content']
+                
+                Replies.objects.create(
+                    blog_id=blog,
+                    content=content,
+                    sender=request.user,
+                    time_stamp=now(),
+                )
+                return redirect('blog:blog_detail', blog_id=blog.blog_id)
+            
+        context={"blog":blog,"replies":replies}
+        return render(request,'blog/blog_detail.html',context)
+    except:
+        return redirect('blog:index')
 @login_required
 def blog_create(request):
     if request.method == 'POST':
@@ -55,29 +57,42 @@ def blog_create(request):
 
 @login_required
 def blog_update(request,blog_id):
-    blog=Blog.objects.get(blog_id=blog_id)
-    form=BlogForm(instance=blog)
-    if(request.method)=='POST':
-        form=BlogForm(request.POST,request.FILES,instance=blog)
-        if form.is_valid:
-            form.save()
-            return redirect('blog:index')   
-    context={'form':form}
-    return render(request,'blog/blog_form.html',context)
+    try:
+        blog=Blog.objects.get(blog_id=blog_id)
+        form=BlogForm(instance=blog)
+        if request.user != blog.author: 
+            return redirect('blog:index')
+        if(request.method)=='POST':
+            form=BlogForm(request.POST,request.FILES,instance=blog)
+            if form.is_valid:
+                form.save()
+                return redirect('blog:index')   
+        context={'form':form}
+        return render(request,'blog/blog_form.html',context)
+    except:
+        return redirect('blog:index') 
    
 @login_required
 def blog_delete(request,blog_id):
-    obj=Blog.objects.get(blog_id=blog_id)
-    if request.method == "POST":
-        obj.delete()
-        return redirect('blog:index')
-    context={'obj':obj}
-    return render(request,'blog/delete.html',context)
+    try:
+        blog=Blog.objects.get(blog_id=blog_id)
+        if request.user != blog.author:
+            return redirect('blog:index') 
+        if request.method == "POST":
+            blog.delete()
+            return redirect('blog:index')
+        context={'blog':blog}
+        return render(request,'blog/delete.html',context)
+    except:
+        return redirect('blog:index') 
 
 
 def campaign_detail(request, campaign_id):
-    campaign = Campaign.objects.get(campaign_id=campaign_id)
-    return render(request, 'blog/campaign_detail.html', {'campaign': campaign})
+    try:
+        campaign = Campaign.objects.get(campaign_id=campaign_id)
+        return render(request, 'blog/campaign_detail.html', {'campaign': campaign})
+    except:
+        return redirect('blog:index') 
 
 @login_required
 def campaign_create(request):
@@ -93,23 +108,29 @@ def campaign_create(request):
 
 @login_required
 def campaign_update(request, campaign_id):
-    campaign = Campaign.objects.get(campaign_id=campaign_id)
-    form=CampaignForm(instance=campaign)
-    if(request.method)=='POST':
-        form=CampaignForm(request.POST,instance=campaign)
-        if form.is_valid:
-            form.save()
-            return redirect('blog:index')  
-        
-    return render(request, 'blog/campaign_create.html', {'form': form})
+    try:
+        campaign = Campaign.objects.get(campaign_id=campaign_id)
+        form=CampaignForm(instance=campaign)
+        if(request.method)=='POST':
+            form=CampaignForm(request.POST,instance=campaign)
+            if form.is_valid:
+                form.save()
+                return redirect('blog:index')  
+            
+        return render(request, 'blog/campaign_create.html', {'form': form})
+    except:
+        return redirect('blog:index') 
 
 @login_required
 def campaign_delete(request, campaign_id):
-    obj = Campaign.objects.get(campaign_id=campaign_id)
-    if request.method == "POST":
-        obj.delete()
+    try:
+        campaign = Campaign.objects.get(campaign_id=campaign_id)
+        if request.method == "POST":
+            campaign.delete()
+            return redirect('blog:index')
+        return render(request, 'blog/delete.html', {'campaign': campaign})
+    except:
         return redirect('blog:index')
-    return render(request, 'blog/delete.html', {'obj': obj})
 
 @login_required
 def reply_delete(request, reply_id):
