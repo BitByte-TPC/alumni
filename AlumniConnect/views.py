@@ -65,6 +65,8 @@ def alumniCard(request):
 def gallery(request):
     return render(request, "AlumniConnect/gallery.html")
 
+def blog(request):
+    return render(request, "AlumniConnect/blog.html")
 
 def job_posting(request):
     return render(request, "AlumniConnect/job_posting.html")

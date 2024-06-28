@@ -1,0 +1,83 @@
+{% extends 'globals/base.html' %}
+{% load static %}
+
+{% block title %}
+Blogs
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href='{% static "blog/blog.css" %}' />
+{% endblock %}
+
+{% block body %}
+{% include 'globals/navbar.html' %}
+<div class="p-0 m-0 masthead-bg w-100 parallax shadow-sm" style="min-height:300px !important; height:300px !important; background-position-y: 300px;"></div>
+
+<header class="masthead text-center text-white d-flex" style="height:0px; min-height:300px;">
+    <div class="container my-auto" style="margin-bottom:50px !important;">
+        <div class="row">
+            <div class="col-lg-8 mx-auto align-middle">
+                <h1 class="text-uppercase mt-4">
+                    <strong>BLOGS</strong>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section id="services" class="bg-primary p-1">
+</section>
+
+<div class="container">
+    <div class="row my-5">
+        <form method="GET" class="w-100 mb-4">
+            <div class="form-row">
+                <div class="col-md-3 mb-3">
+                    {{ form.username }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    {{ form.title }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    {{ form.tags }} 
+                </div>
+                <div class="col-md-3 mb-3">
+                    {{ form.campaign }} 
+                </div>
+                <div class="col-md-3 mb-3">
+                    {{ form.is_self }} 
+                </div>
+                <div class="col-md-2 mb-3">
+                    <button type="submit" class="btn btn-primary w-100">Search</button>
+                </div>
+            </div>
+        </form>
+        {% for blog in blogs %}
+        <div class="col-xl-4 col-md-6 mb-4 mx-auto" style="cursor: pointer" onclick="location.href='{% url 'blog:blog_detail' blog.id %}'">
+            <div class="card border-0 shadow shadow-on-hover">
+                <div class="card-body text-center">
+                    <h5 class="card-title mb-0">{{ blog.title }}</h5>
+                    <p>Author: {{ blog.author.username }}</p>
+                    <p>Tags: {{ blog.tags }}</p>
+                    <p>Date Added: {{ blog.date_added }}</p>
+                    <p>
+                        {% if blog.is_self %}
+                            Self
+                        {% else %}
+                            Campaign: {{ blog.campaign }}
+                        {% endif %}
+                    </p>
+                    <a href="{% url 'blog:blog_detail' blog.id %}" class="btn btn-primary">View</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<div class="container">
+    <h6>
+        <small class="form-text text-muted">Want to start a new <b>Blog</b>? Contact us at <a href="mailto:contact@myblogsite.com">contact@myblogsite.com</a> </small>
+    </h6>
+</div>
+{% include 'globals/footer.html' %}
+{% endblock %}
