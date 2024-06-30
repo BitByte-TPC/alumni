@@ -7,6 +7,26 @@
  * Django: 2.2.28 
  * And additional requirements are in [**requirements.txt**](./requirements.txt). These will automatically be installed with the below steps.
 
+## Setting Up Python Environment with `pyenv`
+
+* For Windows
+  - Open Command Prompt (cmd) as an administrator.
+  `$ git clone https://github.com/pyenv-win/pyenv-win.git %USERPROFILE%\.pyenv`
+  `$ setx PYENV "%USERPROFILE%\.pyenv"`
+  `$ setx PATH "%PYENV%\bin;%PYENV%\shims;%PATH%"`
+
+* For Linux 
+ - Open Terminal `$ sudo apt update
+sudo apt install -y make build-essential libssl-dev zlib1g-dev libbz2-dev \
+libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
+xz-utils tk-dev libffi-dev liblzma-dev python3-openssl git`
+- Run `$ curl https://pyenv.run | bash`
+- Clone the repository `$ git clone https://github.com/pyenv-win/pyenv-win.git %USERPROFILE%\.pyenv`
+- Add pyenv to your shell configuraion
+  `$ echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc`
+  `$ echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc`
+  `$ echo 'eval "$(pyenv init --path)"' >> ~/.bashrc`
+  `$ echo 'eval "$(pyenv init -)"' >> ~/.bashrc`
 
 ## How to run it?
 
@@ -14,6 +34,8 @@
   * Clone the repository to your local machine `$ git clone https://github.com/<your-github-username>/alumni.git`
   * Change directory to alumni `$ cd alumni`
   * Add a reference to the original repository `$ git remote add upstream https://github.com/BitByte-TPC/alumni.git`
+  * Install the required version of Python for the project `$ pyenv install 3.9`
+  * Set the local Python version for the project `$ pyenv local 3.9`
   * Install virtualenv `$ pip3 install virtualenv`  
   * Create a virtual environment `$ virtualenv env -p python3`
   * Activate the env: `$ source env/bin/activate` (for linux) `> ./env/Scripts/activate` (for Windows PowerShell)
