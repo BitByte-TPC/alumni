@@ -54,6 +54,7 @@ urlpatterns += [
     path('alumnibody/', views.alumniBody),
     path('alumnicard/', views.alumniCard, name='alumnicard'),
     path('gallery/', include('applications.gallery.urls')),
+   
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('awards/', include('applications.awards.urls')),
     path('chapter/', include('applications.chapter.urls')),
