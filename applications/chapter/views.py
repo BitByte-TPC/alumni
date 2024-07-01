@@ -24,7 +24,10 @@ def index(request):
 
 
 def chapter_data(request, id):
-    chapter = Chapters.objects.get(pk=id)
+    try:
+        chapter = Chapters.objects.get(pk=id)
+    except Chapters.DoesNotExist:
+        return None
     post = ChapterTeam.objects.filter(chapter=chapter)
     event = ChapterEvent.objects.filter(chapter=chapter)
     album = ChapterAlbum.objects.filter(chapter=chapter)
@@ -70,6 +73,8 @@ def chapter(request, id):
 
 def chapter_redirect(request, id):
     context = chapter_data(request, id)
+    if context is None:
+        return redirect('chapter:index')
     return render(request, 'chapter/chapter.html', context)
 
 
