@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect 
 from .models import News
 
 
@@ -10,6 +10,9 @@ def index(request):
 
 
 def news(request, id):
-    n = News.objects.get(news_id=id)
-    print("sassa", n)
-    return render(request, "news/news.html", vars(n))
+    try:
+        n = News.objects.get(news_id=id)
+        print("sassa", n)
+        return render(request, "news/news.html", vars(n))
+    except News.DoesNotExist:
+        return redirect('news:index')
