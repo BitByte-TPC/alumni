@@ -11,23 +11,27 @@
 
 * For Windows
   - Open Command Prompt (cmd) as an administrator.
-  `$ git clone https://github.com/pyenv-win/pyenv-win.git %USERPROFILE%\.pyenv`
-  `$ setx PYENV "%USERPROFILE%\.pyenv"`
-  `$ setx PATH "%PYENV%\bin;%PYENV%\shims;%PATH%"`
-
+  ```
+  $ git clone https://github.com/pyenv-win/pyenv-win.git %USERPROFILE%\.pyenv
+  $ setx PYENV "%USERPROFILE%\.pyenv"
+  $ setx PATH "%PYENV%\bin;%PYENV%\shims;%PATH%"
+  ```
+  
 * For Linux 
- - Open Terminal `$ sudo apt update
-sudo apt install -y make build-essential libssl-dev zlib1g-dev libbz2-dev \
-libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
-xz-utils tk-dev libffi-dev liblzma-dev python3-openssl git`
+ - Open Terminal
+   ```
+   $ sudo apt update
+   $ sudo apt install -y make build-essential libssl-dev zlib1g-dev libbz2-dev \libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \xz-utils tk-dev libffi-dev liblzma-dev python3-openssl git
+   ```
 - Run `$ curl https://pyenv.run | bash`
 - Clone the repository `$ git clone https://github.com/pyenv-win/pyenv-win.git %USERPROFILE%\.pyenv`
 - Add pyenv to your shell configuraion
-  `$ echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc`
-  `$ echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc`
-  `$ echo 'eval "$(pyenv init --path)"' >> ~/.bashrc`
-  `$ echo 'eval "$(pyenv init -)"' >> ~/.bashrc`
-
+  ```
+  $ echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
+  $ echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
+  $ echo 'eval "$(pyenv init --path)"' >> ~/.bashrc
+  $ echo 'eval "$(pyenv init -)"' >> ~/.bashrc
+  ```
 ## How to run it?
 
   * Fork the repository.

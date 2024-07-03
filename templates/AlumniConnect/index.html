@@ -152,8 +152,13 @@
                     <i class="fas fa-calendar-alt font-weight-lighter " title="Start Date"></i>
                     {{item.start_date|date:"l, d M, o"}}
                     <br>
+                    {% if item.location %}
                     <i class="fas fa-map-marker-alt" title="Location"></i>
                     {{item.location}}
+                    {% else %}
+                    <i class="fas fa-map-marker-alt" title="Location"></i>
+                    N/A
+                    {% endif %}
                     <br>
                     <i class="fas fa-users" title="Number of Attendees"></i>
                     {{item.count}}
