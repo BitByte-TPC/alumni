@@ -49,6 +49,7 @@ urlpatterns += [
     path('members/', include('applications.members.urls')),
     path('events/', include('applications.events_news.urls')),
     path('news/', include('applications.news.urls')),
+    path('blog/', include('applications.blog.urls')),
     path('newsletter/', include('applications.publications.urls')),
     path('geolocation/', include('applications.geolocation.urls')),
     path('alumnibody/', views.alumniBody),
