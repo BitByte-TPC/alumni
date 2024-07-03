@@ -25,7 +25,7 @@ class Campaign(models.Model):
     campaign_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=250)
     date_started = models.DateTimeField(auto_now=True)
-    date_ended = models.DateTimeField(blank=True)
+    date_ended = models.DateTimeField(blank=True, null=True)
     thumbnail = models.ImageField(null=True, upload_to=upload_photo,blank=True)
     description = models.TextField(blank=False, max_length=2000)
 
@@ -56,5 +56,6 @@ class Replies(models.Model):
     content = models.CharField(blank=False, max_length=500)
 
     time_stamp = models.DateTimeField(auto_now=True)
-    sender = models.ForeignKey(User, on_delete=models.CASCADE)
-    receiver  = models.IntegerField(default='', blank=True)
+    sender = models.ForeignKey(User, on_delete=models.CASCADE,related_name='sender')
+    receiver  = models.ForeignKey(User,on_delete=models.CASCADE,related_name='receiver',default='', blank=True,null=True)
+   

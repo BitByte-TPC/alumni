@@ -29,10 +29,13 @@ def blog_detail(request,blog_id):
             if request.method == "POST":
                 content = request.POST['content']
                 
+                receiver_id = request.POST.get('receiver_id')
+                receiver = Replies.objects.get(reply_id=receiver_id).sender  if receiver_id else None
                 Replies.objects.create(
                     blog_id=blog,
                     content=content,
                     sender=request.user,
+                    receiver=receiver,
                     time_stamp=now(),
                 )
                 return redirect('blog:blog_detail', blog_id=blog.blog_id)
