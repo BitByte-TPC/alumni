@@ -12,7 +12,6 @@ def index(request):
 def news(request, id):
     try:
         n = News.objects.get(news_id=id)
-        print("sassa", n)
         return render(request, "news/news.html", vars(n))
     except News.DoesNotExist:
         return redirect('news:index')
