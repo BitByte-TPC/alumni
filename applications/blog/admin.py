@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+
 from applications.blog.models import Blog, Campaign, Replies
 
 # Register your models here.
