@@ -61,6 +61,7 @@ urlpatterns += [
     path('jobs/', include('applications.job_posting.urls')),
     re_path(r'favicon.ico', favicon_view),
     path('constitution/', views.constitution, name='constitution'),
+    path('blogs/', include('applications.blog.urls')),
     #path('', views.index, name='home'),
 ]
 
