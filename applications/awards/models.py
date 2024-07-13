@@ -21,4 +21,9 @@ class Award(models.Model):
 
     @property
     def description_snippet(self):
-        return ' '.join(strip_tags(self.description).split()[:50])
+        return ' '.join(strip_tags(self.description).split()[:50]) + ('...' if len(strip_tags(self.description).split()) > 50 else '')
+
+    def save(self, *args, **kwargs):
+        if len(strip_tags(self.description).split()) > 2000:
+            self.description = ' '.join(strip_tags(self.description).split()[:2000])
+        super().save(*args, **kwargs)
