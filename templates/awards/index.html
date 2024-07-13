@@ -71,7 +71,6 @@
                                 <div class="col-md-8">
                                     <h2 class="award-title">
                                         <a href="{% url 'awards:award' id=award.award_id %}">{{ award.title|safe }}</a>
-                                        
                                     </h2>
                                     <p class="m-2 font-weight-normal mb-3">
                                         <span class="d-inline-block pb-1 pb-md-0">
@@ -90,17 +89,16 @@
                                             </span>
                                         {% endif %}
                                     </p>
-                                    <p>{{ award.short_description|safe }}</p>
+                                    <p>{{ award.description_snippet|safe }}</p>
                                 </div>
                                 {% if award.image and award.image.url %}
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <img src="{{ award.image.url }}" alt="{{ award.title_stripped }}" class="img-fluid mb-3 award-image">
                                     </div>
                                 {% endif %}
                             </div>
                           <hr>
                         </div>
-                        
                     {% endfor %}
                 </div>
             </div>
