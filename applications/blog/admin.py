@@ -1,5 +1,4 @@
 from django.contrib import admin
-from .models import Blog
 
 
 from applications.blog.models import Blog, Campaign, Replies
