@@ -1,3 +1,4 @@
+
 from django.shortcuts import render , redirect
 from .models import Blog, Campaign, Replies
 from django.utils.timezone import now
@@ -7,7 +8,9 @@ from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
+
 def index(request):
+
     q= request.GET.get('q') if request.GET.get('q')!=None else ''
     blogs=Blog.objects.filter(Q(author__username__icontains=q)|
                               Q(title__icontains=q)|
