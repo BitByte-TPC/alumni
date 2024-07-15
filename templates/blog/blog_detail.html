@@ -15,8 +15,8 @@
             <div class="row no-gutters p-3">
                 <div class="col-auto mx-auto text-center">
                     <div class="p-1 pb-3 pb-lg-1">
-                        {% if blog.picture %}
-                        <img src="{{ blog.picture.url }}" alt="" height= 200px width= 200px>
+                        {% if blog.thumbnail %}
+                        <img src="{{ blog.thumbnail.url }}" alt="" height= 200px width= 200px>
                         {% else %}
                         <img src="{% static 'AlumniConnect/img/blog.jpg' %}" alt="" height= 200px width= 200px>
                         {% endif %}
@@ -46,15 +46,15 @@
                         <p class="m-2 font-weight-normal mb-3">
                             <span class="d-inline-block pb-2 pb-md-0">
                                 <i class="fas fa-table"></i>
-                                {{ blog.date|date:"d F, o" }}
+                                {{ blog.time_stamp|date:"d F, o" }}
                                 &nbsp;
                             </span>
                             <span class="d-inline-block">
                                 <i class="fas fa-user"></i>&nbsp;
-                                {{ blog.by }}
+                                {{ blog.author }}
                             </span>
                         </p>
-                        <p>{{ blog.description|safe }}</p>
+                        <p>{{ blog.content|safe }}</p>
                         <br>
                     </div>
                     <div class="w-100"></div>
