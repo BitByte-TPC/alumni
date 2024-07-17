@@ -15,7 +15,7 @@
             <div class="card-body">
                 <div class="row">
                     {% if award.image and award.image.url %}
-                        <div class="col-md-4">
+                        <div class="col-md-4 d-flex justify-content-center">
                             <img src="{{ award.image.url }}" alt="{{ award.title_stripped }}" class="img-fluid mb-3 award-image">
                         </div>
                         <div class="col-md-8">

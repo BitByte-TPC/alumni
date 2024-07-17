@@ -92,7 +92,7 @@
                                     <p>{{ award.description_snippet|safe }}</p>
                                 </div>
                                 {% if award.image and award.image.url %}
-                                    <div class="col-md-3">
+                                    <div class="col-md-3 d-flex justify-content-center">
                                         <img src="{{ award.image.url }}" alt="{{ award.title_stripped }}" class="img-fluid mb-3 award-image">
                                     </div>
                                 {% endif %}
