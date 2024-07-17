@@ -14,7 +14,7 @@ class Award(models.Model):
     description = RichTextUploadingField(validators=[MaxLengthValidator(2000)])
     image = ProcessedImageField(
         upload_to='awards/images/',
-        processors=[ResizeToFit(50, 50)],
+        processors=[ResizeToFit(300, 300)],
         format='JPEG',
         options={'quality': 90},
         null=True,
