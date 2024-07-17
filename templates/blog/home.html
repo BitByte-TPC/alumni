@@ -1,1 +1,102 @@
-Lets get started !
+{% extends 'globals/base.html' %}
+{% load static %}
+
+{% block title %}
+Blogs
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'chapter/chapter.css' %}" />
+<link rel="stylesheet" href="{% static 'external/photoswipe/photoswipe.css' %}" />
+<link rel="stylesheet" href="{% static 'external/photoswipe/default-skin/default-skin.css' %}" />
+<style type="text/css">
+    /* Add any specific styles here */
+</style>
+{% endblock %}
+
+{% block body %}
+{% include 'globals/navbar.html' %}
+
+<div class="container">
+    <div class="p-0 m-0 masthead-bg w-100 parallax shadow-sm" style="min-height:300px !important; height:300px !important; background-position-y: 300px;"></div>
+
+<header class="masthead text-center text-white d-flex" style="height:0px; min-height:300px;">
+    <div class="container my-auto" style="margin-bottom:50px !important;">
+        <div class="row">
+            <div class="col-lg-8 mx-auto align-middle">
+                <h1 class="text-uppercase mt-4">
+                    <strong>BLOGS</strong>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div class="container my-5">
+        <form method="GET" action="{% url 'blog:index' %}" class="mb-4">
+            <div class="form-row">
+                <div class="col-md-3 mb-3">
+                    <label for="author">Author:</label>
+                    <input type="text" name="author" id="author" class="form-control" value="{{ request.GET.author }}" placeholder="Search by author...">
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="title">Title:</label>
+                    <input type="text" name="title" id="title" class="form-control" value="{{ request.GET.title }}" placeholder="Search by title...">
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="tags">Tags:</label>
+                    <select name="tags" id="tags" class="form-control" multiple>
+                        {% for tag in Constants.TAGS %}
+                        <option value="{{ tag.0 }}" {% if tag.0 in request.GET.tags %}selected{% endif %}>{{ tag.1 }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="blog_type">Type:</label>
+                    <select name="blog_type" id="blog_type" class="form-control">
+                        <option value="">All</option>
+                        <option value="S" {% if request.GET.blog_type == 'S' %}selected{% endif %}>Self-authored</option>
+                        <option value="C" {% if request.GET.blog_type == 'C' %}selected{% endif %}>Campaign</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+        </form>
+
+        <div class="row">
+            {% if blogs %}
+                {% for blog in blogs %}
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100">
+                        <img class="card-img-top" src="{% if blog.thumbnail %}{{ blog.thumbnail.url }}{% else %}{% static 'placeholder.jpg' %}{% endif %}" alt="Blog Thumbnail">
+                        <div class="card-body">
+                            <h2 class="card-title">{{ blog.title }}</h2>
+                            <p class="card-text">Author: {{ blog.author.username }}</p>
+                            <p class="card-text">Tags:
+                                {% for tag in blog.tags %}
+                                    {{ tag }}
+                                    {% if not forloop.last %}, {% endif %}
+                                {% endfor %}
+                            </p>
+                            <p class="card-text">Date Added: {{ blog.date_added }}</p>
+                            <p class="card-text">Type: {% if blog.blog_type == 'S' %} Self-authored {% else %} Campaign: {{ blog.campaign.name }} {% endif %}</p>
+                            <a href="{% url 'blog:blog_detail' blog_id=blog.blog_id %}" class="btn btn-primary">View</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="col">
+                    <p>No blogs found.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% include 'globals/footer.html' %}
+{% endblock %}
