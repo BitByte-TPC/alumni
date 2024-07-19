@@ -26,10 +26,97 @@
             </div>
         </div>
     </section> -->
-    
-    <div class="container px-5 px-sm-2 my-5">
-        Dashboard page to be updated... :)
+<style>
+    .hidden {
+        display: none;
+    }
+    .actions {
+        display: block;
+    }
+    @media only screen and (max-width: 600px) {
+        .actions {
+            display: none;
+        }
+    }
+</style>
+<div class="container px-5 px-sm-2 my-5 bg-green-500">
+    <h3 class="mb-4">Blogs to be approved</h3>
+    <div class="container mx-auto mt-8" style="background-color: blue;">
+        {% if blogs %}
+        <table class="bg-white" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th class="py-2 px-4 border-b text-left">Title</th>
+                    <th class="py-2 px-4 border-b text-left actions">Details</th>
+                    <th class="py-2 px-4 border-b text-left">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                    {% for blog in blogs %}
+                        <tr class="border">
+                            <td
+                                class="py-2 px-4 border-b max-w-xs overflow-hidden overflow-ellipsis whitespace-nowrap"
+                            >
+                                {{blog.title}}
+                            </td>
+                            <td class="py-2 px-4 border-b flex space-x-2 space-y-2 actions">
+                                <button
+                                    class="text-primary px-4 py-2 rounded"
+                                    onclick="toggleDetails(this)"
+                                    data-id="{{blog.id}}"
+                                    data-title="{{blog.title}}"
+                                    data-description="{{blog.description}}"
+                                >Show Details</button>
+                            </td>
+                            <td class="py-2 px-4 border-b flex">
+                                <button
+                                    class="text-primary px-4 py-2 rounded"
+                                    style="width: 120px;"
+                                    onclick="$.post('/blog/{{blog.id}}/approve/')"
+                                >
+                                    Approve
+                                </button>
+                                <button
+                                    class="text-primary px-4 py-2 rounded"
+                                    style="width: 120px;"
+                                    onclick="$.post('/blog/{{blog.id}}/delete/')"
+                                >
+                                    Discard
+                                </button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="text-center p-2 text-white">No remaining blogs for approval</p>
+    {% endif %}
     </div>
+    <div class="details_modal flex flex-col hidden" style="position: fixed; top: 0; left: 0; height: 100vh; width: 100%; backdrop-filter: blur(10px); z-index: 100;">
+        <div class="border p-2" style="position: relative; height: 400px; width: 600px; max-width: 90vw; background-color: white; margin: auto; margin-top: 200px;">
+            <h4 class="mb-4 title"></h4>
+            <h5 class="description"></h5>
+            <div style="position: absolute; bottom: 0; left: 0; width: 100%; display: flex; justify-content: space-between;">
+                <Button onclick="toggleDetails()" class="text-primary bg-secondary p-2" style="width: 100%;">Hide</Button>
+            </div>
+        </div>
+    </div>
+    <script>
+        function toggleDetails(button) {
+            console.log(button)
+            const detailsDiv = document.querySelector(".details_modal")
+            const titleDiv = document.querySelector(".title")
+            const descriptionDiv = document.querySelector(".description")
+            if(!button) return detailsDiv.classList.add('hidden')
+            if (detailsDiv.classList.contains('hidden')) {
+                detailsDiv.classList.remove('hidden');
+                titleDiv.textContent = button.getAttribute("data-title");
+                descriptionDiv.textContent = button.getAttribute("data-description");
+            } else {
+                detailsDiv.classList.add('hidden');
+            }
+        }
+    </script>
+</div>
 
-    {% include 'globals/footer.html' %}
-{% endblock %}
+{% include 'globals/footer.html' %} {% endblock %}
