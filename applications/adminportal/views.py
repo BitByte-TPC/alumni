@@ -1,3 +1,4 @@
+from uu import Error
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
@@ -15,9 +16,10 @@ from django.utils.html import strip_tags
 from datetime import date, datetime
 
 from applications.alumniprofile.models import Profile
+from applications.blog.models import Blog
 from applications.events_news.models import Event
 from .models import EmailTemplate, EmailHistory
-
+from django.db.models import Q
 import pytz
 
 ALLOWED_RECIPIENTS_PER_DAY = 500
@@ -66,7 +68,8 @@ def get_rendered_emails(from_email, email_template, recipients):
     login_url=reverse_lazy('home')
 )
 def index(request):
-    return render(request, 'adminportal/index.html')
+    blogs = Blog.objects.filter(Q(approved=False))
+    return render(request, 'adminportal/index.html', {'blogs': blogs})
 
 
 #Function to convert datetime from naive to offset

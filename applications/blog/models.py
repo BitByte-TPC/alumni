@@ -47,6 +47,7 @@ class Blog(models.Model):
         
         blog_type = models.CharField(choices=Constants.TYPE, max_length=15,default='S')
         campaign_id = models.ForeignKey(Campaign, on_delete=models.CASCADE, null=True, blank=True)
+        approved = models.BooleanField(default=False)
 
         def __str__(self):
             return self.title

@@ -76,6 +76,19 @@ def blog_update(request,blog_id):
         context={'form':form}
         return render(request,'blog/blog_form.html',context)
     except:
+        return redirect('blog:index')
+
+@login_required
+def blog_approve(request,blog_id):
+    try:
+        blog=Blog.objects.get(blog_id=blog_id)
+        form=BlogForm(instance=blog)
+        if(request.method)=='POST':
+            blog.approved = True
+            blog.save() 
+        context={'form':blog}
+        return render(request,'blog/blog_form.html',context)
+    except:
         return redirect('blog:index') 
    
 @login_required
