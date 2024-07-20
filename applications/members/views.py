@@ -132,13 +132,14 @@ def autoSearch(request):
 def mapSearch(request):
     location = request.GET.get('search', '')
     city = location.split(',', 1)[0]
+    state= location.split(',')[1].strip()
 
     profiles = Profile.objects.all()
     if city:
-        profiles = Profile.objects.filter(city__icontains=city)
+        profiles = Profile.objects.filter(city__icontains=city, state__icontains=state)
         profiles = profiles.order_by('name')
     else:
-        profiles = Profile.objects.filter(city=city)
+        profiles = Profile.objects.filter(city="")
 
     context = {
         'profiles': profiles,
