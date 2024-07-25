@@ -1,1 +1,129 @@
-Lets get started !
+{% extends 'globals/base.html' %}
+{% load static %}
+
+{% block title %}
+Create Blog
+{% endblock %}
+
+{% block css %}
+<style type="text/css">
+    .detail {
+        font-size: 12px;
+    }
+
+    .popup {
+        display: none;
+        position: fixed;
+        top: 60px;
+        left: 20px;
+        background-color: #324b7e;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+{% include 'globals/navbar.html' %}
+{% include 'globals/theme.html' with heading='Create Blog' %}
+<br>
+<br>
+
+<section style="padding:0 0 4rem;">
+   
+    <div class="container text-left mt-5 pt-4 shadow-lg rounded">
+        <form id="blogForm" name="new_blog" action="{% url 'jobs:post' %}" method="POST" enctype="multipart/form-data">{% csrf_token%}
+
+            <div class="row m-4">
+                <div class="col text-center">
+                    <span class="mx-auto text-uppercase h3"><strong>Write Your Own Blog !</strong></span><br>
+                </div>
+            </div>
+
+            <div class="row m-4">
+                <div class="mx-auto col-sm-5">
+                    <label for="title">Title of the Blog <span class="text-danger">*</span>:</label>
+                    <input type="text" id="title" class="form-control" name="title" required>
+                </div>
+
+                <div class="mx-auto col-sm-5">
+                    <label for="tags">Tags:</label>
+                    <select id="tags" class="form-control" name="tags">
+                        <option value="">Select Type</option>
+                        <option value="Food">Food</option>
+                        <option value="Technology">Technology</option>
+                        <option value="Industry">Industry</option>
+                        <option value="College">College</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row m-4">
+                <div class="mx-auto col-sm-5">
+                    <label for="type">Type of Blog<span class="text-danger">*</span>:</label>
+                    <select id="type" name="type" class="form-control">
+                        <option value="">Select Type</option>
+                        <option value="self">Self</option>
+                        <option value="campaign">Campaign</option>
+                    </select>
+                </div>
+
+                <div class="mx-auto col-sm-5" id="campaign-group" style="display: none;">
+                    <label for="campaign">Campaign<span class="text-danger">*</span>:</label>
+                    <input type="text" id="campaign" name="campaign" class="form-control">
+                </div>
+            </div>
+            <div class="row m-4">
+                <div class="mx-auto col-sm-5">
+                    <label for="thumbnail">Thumbnail for the Blog <span class="text-danger">*</span>:</label>
+                    <input type="file" id="thumbnail" name="thumbnail" accept="image/*" required>
+                </div>
+
+                <div class="mx-auto col-sm-5">
+                    <label for="content">Content of the Blog<span class="text-danger">*</span>:</label>
+                    <textarea id="content" name="content" class="form-control" rows="5" required></textarea>
+                </div>
+            </div>
+
+            <div class="row p-4">
+                <div class="mx-auto text-center col-4">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</section>
+
+<div class="popup" id="popup">
+    Your blog will be displayed publicly shortly after the admin approves it.
+</div>
+
+{% include 'globals/footer.html' %}
+
+<script>
+    document.getElementById('type').addEventListener('change', function () {
+        const campaignGroup = document.getElementById('campaign-group');
+        if (this.value === 'campaign') {
+            campaignGroup.style.display = 'block';
+            document.getElementById('campaign').required = true;
+        } else {
+            campaignGroup.style.display = 'none';
+            document.getElementById('campaign').required = false;
+        }
+    });
+
+    document.getElementById('blogForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const popup = document.getElementById('popup');
+        popup.style.display = 'block';
+
+        setTimeout(function () {
+            popup.style.display = 'none';
+        }, 3000);
+
+    });
+</script>
+{% endblock %}
